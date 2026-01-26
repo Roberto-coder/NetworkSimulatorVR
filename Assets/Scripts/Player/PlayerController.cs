@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem; // Necesario para el nuevo sistema de inputs
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
@@ -12,100 +13,103 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
-    [Header("ConfiguraciÛn de Movimiento")]
+    [Header("Configuraci√≥n de Movimiento")]
     [SerializeField] private float walkSpeed = 2.0f;
     [SerializeField] private float runSpeed = 4.0f;
-    [SerializeField] private float rotationSpeed = 90f;
-    [SerializeField] public Transform cameraTransform; // Arrastra tu c·mara aquÌ
+    [SerializeField] private float rotationSpeed = 60f; // Ajustado para VR
 
-    [Header("ConfiguraciÛn de Gravedad")]
+    [Header("Configuraci√≥n de Gravedad")]
     [SerializeField] private float gravityValue = -9.81f;
     [SerializeField] private float jumpSpeed = 5.0f;
-    [SerializeField] public LayerMask groundLayer; 
+    [SerializeField] public LayerMask groundLayer;
 
-    [Header("SelecciÛn de Input")]
-    [SerializeField] private InputMode currentInputMode = InputMode.Xbox;
-    public enum InputMode { Xbox, MetaXR }
+    [Header("Selecci√≥n de Input")]
+    [SerializeField] private InputMode currentInputMode = InputMode.Controller;
+    public enum InputMode { Controller, Hands }
+
+    [Header("Referencias de Inputs (Meta/OpenXR)")]
+    // CAMBIO: Usamos 'Reference' en lugar de 'Property' para simplificar el Inspector
+    public InputActionReference moveActionSource; 
+    public InputActionReference turnActionSource;
+    public InputActionReference jumpActionSource;
+    public InputActionReference sprintActionSource;
 
     // Componentes y referencias
     private CharacterController controller;
-    private IPlayerInput inputSource;
     private float verticalVelocity;
-    private float cameraPitch = 0f; // Para rotaciÛn vertical de c·mara
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        
+        // En VR el Singleton es √∫til, pero aseg√∫rate de que no choque con otras escenas
         SetInputMode(currentInputMode);
-
-        if (cameraTransform == null)
-        {
-            Debug.LogError("°No se asignÛ el 'cameraTransform' en el PlayerController!");
-            // Busca la c·mara principal como fallback (puede no ser la correcta)
-            cameraTransform = Camera.main.transform;
-        }
     }
 
     public void SetInputMode(InputMode newMode)
     {
         currentInputMode = newMode;
-        switch (currentInputMode)
-        {
-            case InputMode.Xbox:
-                inputSource = new XboxInput();
-                Debug.Log("Input seteado a: Xbox");
-                break;
-            case InputMode.MetaXR:
-                inputSource = new MetaXRInput();
-                Debug.Log("Input seteado a: MetaXR");
-                break;
-        }
+        Debug.Log($"Modo de Input cambiado a: {currentInputMode}");
     }
 
     void Update()
     {
-        // --- 1. Obtener todos los inputs desde la interfaz ---
-        Vector2 moveInput = inputSource.GetMoveInput();
-        Vector2 rotInput = inputSource.GetRotationInput();
-        bool isSprinting = inputSource.GetSprintInput();
-        bool isJumping = inputSource.GetJumpInputDown();
+        // --- 1. Obtener Inputs seg√∫n el modo ---
+        Vector2 moveInput = Vector2.zero;
+        Vector2 rotInput = Vector2.zero;
+        bool isSprinting = false;
+        bool isJumping = false;
 
-        // --- 2. LÛgica de RotaciÛn (de tu script) ---
+        if (currentInputMode == InputMode.Controller)
+        {
+            // Leemos directamente de las acciones de Unity Input System
+            moveInput = moveActionSource.action != null ? moveActionSource.action.ReadValue<Vector2>() : Vector2.zero;
+            rotInput = turnActionSource.action != null ? turnActionSource.action.ReadValue<Vector2>() : Vector2.zero;
+            
+            // Sprint y Salto (Opcional: verifica que la acci√≥n est√© asignada)
+            isSprinting = sprintActionSource.action != null && sprintActionSource.action.ReadValue<float>() > 0.5f;
+            isJumping = jumpActionSource.action != null && jumpActionSource.action.WasPressedThisFrame();
+        }
+        else if (currentInputMode == InputMode.Hands)
+        {
+            // L√ìGICA PARA MANOS:
+            // Por defecto, las manos no tienen joysticks. 
+            // Aqu√≠ podr√≠as conectar un sistema de reconocimiento de gestos (ej. pellizcar para avanzar).
+            // Por ahora, lo dejamos en cero para que no haya "drift" fantasma.
+            moveInput = Vector2.zero;
+            rotInput = Vector2.zero;
+        }
 
-        // RotaciÛn Horizontal (Yaw) - Rota todo el CharacterController
+        // --- 2. L√≥gica de Rotaci√≥n (Solo Eje Y) ---
+        // En VR SOLO rotamos al personaje horizontalmente. La c√°mara la mueve el usuario con su cabeza.
         transform.Rotate(Vector3.up, rotInput.x * rotationSpeed * Time.deltaTime);
 
-        // RotaciÛn Vertical (Pitch) - Rota solo la c·mara
-        // Usamos una variable 'cameraPitch' para evitar problemas con los ·ngulos Euler
-        cameraPitch -= rotInput.y * rotationSpeed * Time.deltaTime;
-        cameraPitch = Mathf.Clamp(cameraPitch, -80f, 80f);
-        cameraTransform.localEulerAngles = new Vector3(cameraPitch, 0, 0);
 
-        // --- 3. LÛgica de Gravedad (de tu script) ---
-        if (IsGrounded()) 
+        // --- 3. L√≥gica de Gravedad ---
+        if (IsGrounded())
         {
-            // Resetea la velocidad vertical (si no est· saltando)
             if (verticalVelocity < 0)
             {
-                verticalVelocity = -2f;
+                verticalVelocity = -2f; // Peque√±a fuerza hacia abajo para mantenerlo pegado al suelo
             }
 
-            // Comprueba si se presionÛ el botÛn de salto
             if (isJumping)
             {
-                // Aplica la velocidad de salto
                 verticalVelocity = jumpSpeed;
             }
         }
-        // Aplica gravedad CADA frame (estÈ o no en el suelo)
+        
         verticalVelocity += gravityValue * Time.deltaTime;
 
-        // --- 4. LÛgica de Movimiento (de tu script) ---
+        // --- 4. L√≥gica de Movimiento ---
         float currentSpeed = isSprinting ? runSpeed : walkSpeed;
 
-        // Movimiento relativo a la c·mara
-        Vector3 moveDirection = (cameraTransform.forward * moveInput.y + cameraTransform.right * moveInput.x);
-        moveDirection.y = 0; // No queremos volar
+        // Importante: Usamos 'transform' en lugar de 'cameraTransform' para la direcci√≥n base
+        // para asegurar que el movimiento siga la orientaci√≥n del cuerpo (XR Origin).
+        // Si quieres que siga la cabeza, usa Camera.main.transform, pero ten cuidado con el mareo.
+        Vector3 moveDirection = (transform.forward * moveInput.y + transform.right * moveInput.x);
+        
+        moveDirection.y = 0; 
         moveDirection.Normalize();
 
         // Aplicar movimiento
@@ -115,10 +119,9 @@ public class PlayerController : MonoBehaviour
         controller.Move(new Vector3(0, verticalVelocity, 0) * Time.deltaTime);
     }
 
-    // --- FunciÛn IsGrounded (copiada de tu script) ---
     bool IsGrounded()
     {
-        // Ajusta los valores 0.1f (altura) y 0.3f (distancia) seg˙n tu CharacterController
+        // Ajuste para el Character Controller
         Vector3 start = transform.position + Vector3.up * 0.1f;
         return Physics.Raycast(start, Vector3.down, 0.3f, groundLayer);
     }

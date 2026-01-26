@@ -1,19 +1,19 @@
 using UnityEngine;
-// Asegúrate de tener el SDK de Meta (Oculus Integration) importado
+// Asegï¿½rate de tener el SDK de Meta (Oculus Integration) importado
 using OVR;
 
 /// <summary>
-/// Implementación de IPlayerInput usando el SDK de Meta (OVRInput).
+/// Implementaciï¿½n de IPlayerInput usando el SDK de Meta (OVRInput).
 /// 
 //Mapeo por Defecto de Unity (Input Manager)
 
-//Fire1 está asignado por defecto a joystick button 0 -> Botón A
+//Fire1 estï¿½ asignado por defecto a joystick button 0 -> Botï¿½n A
 
-//Fire2 está asignado por defecto a joystick button 1 -> Botón B
+//Fire2 estï¿½ asignado por defecto a joystick button 1 -> Botï¿½n B
 
-//Fire3 está asignado por defecto a joystick button 2 -> Botón X
+//Fire3 estï¿½ asignado por defecto a joystick button 2 -> Botï¿½n X
 
-//Jump está asignado por defecto a joystick button 3 -> Botón Y
+//Jump estï¿½ asignado por defecto a joystick button 3 -> Botï¿½n Y
 /// 
 /// </summary>
 public class MetaXRInput : IPlayerInput
@@ -31,13 +31,13 @@ public class MetaXRInput : IPlayerInput
 
     public bool GetJumpInputDown()
     {
-        // Botón 'A' en el control derecho
+        // Botï¿½n 'A' en el control derecho
         return OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.RTouch);
     }
 
     public bool GetSprintInput()
     {
-        // Botón 'X' en el control izquierdo
+        // Botï¿½n 'X' en el control izquierdo
         return OVRInput.Get(OVRInput.Button.Three, OVRInput.Controller.LTouch);
     }
 }

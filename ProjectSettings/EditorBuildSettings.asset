@@ -6,10 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Scenes/Lobby.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 0
+    path: Assets/Samples/Meta XR Interaction SDK Essentials/83.0.1/UnityXR Integration/Scenes/UnityXRComprehensiveRigExample.unity
+    guid: 1c3839a1070e4a14ab46e590c49bec68
   m_configObjects:
+    UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 27769288461eed1459f8153d6a353458, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: dcfd66707a0a34143907e9b367277837, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: c5e89275e60cfde45be513f602148677, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: a5e508025fb5e01408f500725824f7d9, type: 2}
   m_UseUCBPForAssetBundles: 0
