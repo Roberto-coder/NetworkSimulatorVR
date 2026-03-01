@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "648301969088",
+    "firebase_url": "https://networking-simulation-default-rtdb.firebaseio.com",
+    "project_id": "networking-simulation",
+    "storage_bucket": "networking-simulation.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:648301969088:android:5ab1dc9f16ddd5b5277725",
+        "android_client_info": {
+          "package_name": "tt.UnityTechnologies.com.unity.template.urpblank"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnJ5M4JqmHwvGNG9z9c5usUqmrLJEVgoI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
