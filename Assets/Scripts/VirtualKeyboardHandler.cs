@@ -1,91 +1,57 @@
-using System;
 using UnityEngine;
-using Microsoft.MixedReality.Toolkit.Experimental.UI;
 using TMPro;
-// --- NUEVOS NAMESPACES ---
-using Firebase;
-using Firebase.Database;
-using Firebase.Extensions;
+using Microsoft.MixedReality.Toolkit.Experimental.UI;
+using System;
 
-public class VirtualKeyboardHandler : MonoBehaviour
+public class VirtualKeyboardManager : MonoBehaviour
 {
     public NonNativeKeyboard keyboard;
-    public TMP_InputField separateInputField;
-    bool isTextSubmited = false;
 
-    // Referencia de Firebase
-    DatabaseReference dbReference;
+    TMP_InputField activeInputField;
+    bool isTextSubmitted = false;
 
-    void Start()
+    void OnEnable()
     {
-        // Inicializamos Firebase al arrancar
-        FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task => {
-            FirebaseApp app = FirebaseApp.DefaultInstance;
-            dbReference = FirebaseDatabase.DefaultInstance.RootReference;
-            Debug.Log("Firebase listo para recibir datos.");
-        });
+        keyboard.OnTextSubmitted += HandleTextSubmitted;
+        keyboard.OnTextUpdated += HandleTextUpdated;
     }
 
-    private void OnEnable()
+    void OnDisable()
     {
-        if (keyboard != null)
-        {
-            keyboard.OnTextSubmitted += HandleTextSubmitted;
-            keyboard.OnTextUpdated += HandleTextUpdated;
-        }
+        keyboard.OnTextSubmitted -= HandleTextSubmitted;
+        keyboard.OnTextUpdated -= HandleTextUpdated;
     }
 
-    private void OnDisable()
+    // Se llama cuando se selecciona un campo
+    public void ActivateInputField(TMP_InputField field)
     {
-        if (keyboard != null)
+        activeInputField = field;
+
+        keyboard.InputField.text = field.text;
+
+        keyboard.PresentKeyboard();
+    }
+
+    void HandleTextSubmitted(object sender, EventArgs e)
+    {
+        isTextSubmitted = true;
+
+        if (activeInputField != null)
         {
-            keyboard.OnTextSubmitted -= HandleTextSubmitted;
-            keyboard.OnTextUpdated -= HandleTextUpdated;
+            string capturedText = keyboard.InputField.text;
+            activeInputField.text = capturedText;
+
+            Debug.Log("Captured Text: " + capturedText);
         }
     }
 
     void HandleTextUpdated(string text)
     {
-        if (!isTextSubmited && separateInputField != null)
+        if (!isTextSubmitted && activeInputField != null)
         {
-            separateInputField.text = text;
+            activeInputField.text = text;
         }
-        isTextSubmited = false;
-    }
 
-    void HandleTextSubmitted(object sender, EventArgs e)
-    {
-        isTextSubmited = true;
-        string username = keyboard.InputField.text;
-        separateInputField.text = username;
-
-        if (!string.IsNullOrEmpty(username))
-        {
-            LoginOrRegister(username);
-        }
-    }
-
-    // --- FUNCIÓN DE FIREBASE ---
-    void LoginOrRegister(string userName)
-    {
-        Debug.Log("Intentando registrar/loguear a: " + userName);
-
-        // Guardamos o actualizamos al usuario en la DB
-        // Ruta: users -> NombreUsuario -> lastLogin
-        dbReference.Child("users").Child(userName).Child("lastLogin").SetValueAsync(DateTime.Now.ToString());
-        
-        // También podrías inicializar un puntaje si es nuevo
-        dbReference.Child("users").Child(userName).Child("score").GetValueAsync().ContinueWithOnMainThread(task => {
-            if (task.IsCompleted) {
-                DataSnapshot snapshot = task.Result;
-                if (!snapshot.Exists) {
-                    // Si no existe, es registro: creamos puntaje 0
-                    dbReference.Child("users").Child(userName).Child("score").SetValueAsync(0);
-                    Debug.Log("Nuevo usuario registrado!");
-                } else {
-                    Debug.Log("Bienvenido de nuevo, tu puntaje es: " + snapshot.Value);
-                }
-            }
-        });
+        isTextSubmitted = false;
     }
 }
