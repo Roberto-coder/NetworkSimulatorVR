@@ -26,11 +26,7 @@ public class CanvasController : MonoBehaviour
             case "MainMenu":
                 MainMenu.SetActive(true);
                 break;
-
-            case "Settings":
-                Settings.SetActive(true);
-                break;
-
+            
             case "Login":
                 Login.SetActive(true);
                 break;
@@ -41,6 +37,10 @@ public class CanvasController : MonoBehaviour
 
             case "SelectorPartidas":
                 SelectorPartidas.SetActive(true);
+                break;
+            
+            case "Settings":
+                Settings.SetActive(true);
                 break;
             
             case "Logout":
