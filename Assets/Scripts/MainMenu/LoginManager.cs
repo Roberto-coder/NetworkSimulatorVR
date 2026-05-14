@@ -54,6 +54,32 @@ public class LoginManager : MonoBehaviour
             }
         });
     }
+    
+    public void OnGoogleLoginClick()
+    {
+        ShowMessage("Conectando con Google...", Color.white);
+
+        FirebaseAuthManager.Instance.LoginWithGoogle((success, msg) => {
+            if (success)
+            {
+                ShowMessage(msg, Color.green);
+            
+                // Reutilizamos tu lógica de descarga de datos
+                FirebaseSaveManager.Instance.DownloadSave((json) => {
+                    if (json != null) {
+                        string path = Application.persistentDataPath + "/save.json";
+                        System.IO.File.WriteAllText(path, json);
+                    }
+                    SaveManager.Instance.LoadFromLocal();
+                    canvasController.ShowCanvas("MainMenu");
+                });
+            }
+            else
+            {
+                ShowMessage(msg, Color.red);
+            }
+        });
+    }
 
     IEnumerator RedirectMenu()
     {
