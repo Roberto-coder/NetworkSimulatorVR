@@ -9,10 +9,10 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 9be434514bec07c478f143000e21f104
   - enabled: 1
-    path: Assets/Scenes/Test.unity
+    path: Assets/Scenes/Lobby.unity
     guid: 7003b87b8e15aa54abf1d1a3fd778675
   - enabled: 0
-    path: Assets/Scenes/Lobby.unity
+    path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 0
     path: Assets/Samples/Meta XR Interaction SDK Essentials/83.0.1/UnityXR Integration/Scenes/UnityXRComprehensiveRigExample.unity
