@@ -18,6 +18,7 @@ namespace Modules.Module01_CableMaking.Domain.Cable
 
         [Header("References")]
         [SerializeField] private Transform startPoint;
+        
 
         public WireColor Color => wireColor;
 

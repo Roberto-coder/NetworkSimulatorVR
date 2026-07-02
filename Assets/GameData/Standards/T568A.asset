@@ -12,3 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 563a0ac7eb3f44f8b3cffbeec68b6c7a, type: 3}
   m_Name: T568A
   m_EditorClassIdentifier: Assembly-CSharp::CableStandard
+  slots:
+  - slotNumber: 0
+    expectedColor: 2
+  - slotNumber: 1
+    expectedColor: 5
+  - slotNumber: 2
+    expectedColor: 0
+  - slotNumber: 3
+    expectedColor: 3
+  - slotNumber: 4
+    expectedColor: 4
+  - slotNumber: 5
+    expectedColor: 5
+  - slotNumber: 6
+    expectedColor: 6
+  - slotNumber: 7
+    expectedColor: 7

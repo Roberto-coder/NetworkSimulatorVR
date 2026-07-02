@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a41bad9c26f44f418b18e7381d3ae71, type: 3}
+  m_Name: Module1
+  m_EditorClassIdentifier: Assembly-CSharp::GameData.Modules.ModuleDefinition
+  moduleId: M1_
+  moduleName: Fabricacion de cable de Red
+  description: El alumno debera encargarse de fabricar un cable de Red segun la norma
+    T568B
+  objectives:
+  - {fileID: 11400000, guid: fdf160d03ccec33448c33d5c55814383, type: 2}

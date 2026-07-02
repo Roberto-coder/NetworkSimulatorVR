@@ -1,3 +1,4 @@
+using Modules.Module01_CableMaking.Domain.Cable;
 using UnityEngine;
 
 namespace Modules.Module01_CableMaking.Domain.Standards
@@ -10,13 +11,18 @@ namespace Modules.Module01_CableMaking.Domain.Standards
         [SerializeField]
         private StandardSlot[] slots  = new StandardSlot[8];
 
+        public int SlotCount => slots .Length;
 
 
-        public StandardSlot GetExpectedColor(int slot)
+        public StandardSlot GetSlot(int index)
         {
-            return slots [slot];
+            return slots[index];
+        }
+        
+        public WireColor GetExpectedColor(int index)
+        {
+            return slots[index].ExpectedColor;
         }
 
-        public int SlotCount => slots .Length;
     }
 }

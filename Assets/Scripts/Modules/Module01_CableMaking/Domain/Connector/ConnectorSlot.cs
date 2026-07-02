@@ -21,6 +21,8 @@ namespace Modules.Module01_CableMaking.Domain.Connector
 
         public bool IsOccupied => CurrentWire != null;
 
+        public WireColor CurrentColor => CurrentWire.Color;
+        
         public bool TryInsert(Wire wire)
         {
             if (IsOccupied)
