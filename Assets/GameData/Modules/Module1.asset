@@ -17,4 +17,8 @@ MonoBehaviour:
   description: El alumno debera encargarse de fabricar un cable de Red segun la norma
     T568B
   objectives:
-  - {fileID: 11400000, guid: fdf160d03ccec33448c33d5c55814383, type: 2}
+  - {fileID: 11400000, guid: 9e5b04c0fb409a84b8db60ba1616d26c, type: 2}
+  availableTools:
+  - name: Stripper
+    prefab: {fileID: 3350193919451043904, guid: 0b47f3bccaba51049b7c426632ff45d2, type: 3}
+    icon: {fileID: 21300000, guid: a6adf3f97f04d8b41953d1084141b17a, type: 3}

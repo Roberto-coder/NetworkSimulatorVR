@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Modules.Lobby.UI
 {
-    public class UI_ModulosSelector : MonoBehaviour
+    public class UIModulosSelector : MonoBehaviour
     {
         [System.Serializable]
         public class ModuloEntry

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using GameData.Objectives;
 using UnityEngine;
 using NetworkVR.Core.Objectives;
+using Presentacion.GlobalUI.RadialSelectorTool;
 
 namespace GameData.Modules
 {
@@ -43,5 +44,11 @@ namespace GameData.Modules
         /// Obtiene la secuencia de objetivos configurada para el modulo.
         /// </summary>
         public IReadOnlyList<ObjectiveData> Objectives => objectives;
+        
+        /// <summary>
+        /// Obtiene la secuencia de objetivos configurada para el modulo.
+        /// </summary>
+        [Header("Available Tools")]
+        public List<ToolData> availableTools;
     }
 }

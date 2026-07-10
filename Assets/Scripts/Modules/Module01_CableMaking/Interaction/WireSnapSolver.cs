@@ -9,7 +9,7 @@ namespace Modules.Module01_CableMaking.Interaction
     public class WireSnapSolver : MonoBehaviour
     {
         [SerializeField]
-        private RJ45Connector connector;
+        private Rj45Connector connector;
 
         [SerializeField]
         private float snapDistance = 0.05f;

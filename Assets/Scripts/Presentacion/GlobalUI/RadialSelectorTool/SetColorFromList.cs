@@ -1,12 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SetColorFromList : MonoBehaviour
+namespace Presentacion.GlobalUI.RadialSelectorTool
 {
-     List<Color> colors = new List<Color>();
-
-     public void SetColor(int i)
+     public class SetColorFromList : MonoBehaviour
      {
-          GetComponent<Renderer>().material.color = colors[i];
+          List<Color> colors = new List<Color>();
+
+          public void SetColor(int i)
+          {
+               GetComponent<Renderer>().material.color = colors[i];
+          }
      }
 }

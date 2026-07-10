@@ -1,3 +1,4 @@
+using Modules.Module01_CableMaking.Interaction;
 using UnityEngine;
 
 namespace Modules.Module03_Diagnostics.Cable_physics.Scripts
@@ -17,7 +18,7 @@ namespace Modules.Module03_Diagnostics.Cable_physics.Scripts
         {
             if (target == null) return;
 
-            if (_connector.CanConnect(target))
+            if (_connector.CanConnectConditioned(target))
             {
                 target.Connect(_connector);
             }

@@ -1,105 +1,108 @@
-using UnityEngine;
-using TMPro;
 using System.Collections;
 using Modules.MainMenu;
+using TMPro;
+using UnityEngine;
 
-public class LoginManager : MonoBehaviour
+namespace Systems.Auth
 {
-    public TMP_InputField userField;
-    public TMP_InputField passwordField;
-
-    public TextMeshProUGUI messageText;
-
-    public CanvasController canvasController;
-
-    public void Login()
+    public class LoginManager : MonoBehaviour
     {
-        string user = userField.text;
-        string password = passwordField.text;
+        public TMP_InputField userField;
+        public TMP_InputField passwordField;
 
-        if(user == "" || password == "")
-        {
-            ShowMessage("Completa todos los campos",Color.red);
-            return;
-        }
+        public TextMeshProUGUI messageText;
 
-        FirebaseAuthManager.Instance.Login(user,password,(success,msg)=>
+        public CanvasController canvasController;
+
+        public void Login()
         {
-            if(success)
+            string user = userField.text;
+            string password = passwordField.text;
+
+            if(user == "" || password == "")
             {
-                ShowMessage("Login exitoso",Color.green);
+                ShowMessage("Completa todos los campos",Color.red);
+                return;
+            }
 
-                FirebaseSaveManager.Instance.DownloadSave((json)=>
+            FirebaseAuthManager.Instance.Login(user,password,(success,msg)=>
+            {
+                if(success)
                 {
-                    Debug.Log("Callback DownloadSave ejecutado");
+                    ShowMessage("Login exitoso",Color.green);
 
-                    if(json != null)
+                    FirebaseSaveManager.Instance.DownloadSave((json)=>
                     {
-                        string path = Application.persistentDataPath + "/save.json";
+                        Debug.Log("Callback DownloadSave ejecutado");
 
-                        Debug.Log("Ruta save: " + path);
+                        if(json != null)
+                        {
+                            string path = Application.persistentDataPath + "/save.json";
 
-                        System.IO.File.WriteAllText(path,json);
-                    }
+                            Debug.Log("Ruta save: " + path);
 
-                    SaveManager.Instance.LoadFromLocal();
+                            System.IO.File.WriteAllText(path,json);
+                        }
+
+                        SaveManager.Instance.LoadFromLocal();
 
                     
-                    Debug.Log("Intentando abrir MainMenu");
-                    canvasController.ShowCanvas("MainMenu");
-                });
-            }
-            else
-            {
-                ShowMessage(msg,Color.red);
-            }
-        });
-    }
+                        Debug.Log("Intentando abrir MainMenu");
+                        canvasController.ShowCanvas("MainMenu");
+                    });
+                }
+                else
+                {
+                    ShowMessage(msg,Color.red);
+                }
+            });
+        }
     
-    public void OnGoogleLoginClick()
-    {
-        ShowMessage("Conectando con Google...", Color.white);
+        public void OnGoogleLoginClick()
+        {
+            ShowMessage("Conectando con Google...", Color.white);
 
-        FirebaseAuthManager.Instance.LoginWithGoogle((success, msg) => {
-            if (success)
-            {
-                ShowMessage(msg, Color.green);
+            FirebaseAuthManager.Instance.LoginWithGoogle((success, msg) => {
+                if (success)
+                {
+                    ShowMessage(msg, Color.green);
             
-                // Reutilizamos tu lógica de descarga de datos
-                FirebaseSaveManager.Instance.DownloadSave((json) => {
-                    if (json != null) {
-                        string path = Application.persistentDataPath + "/save.json";
-                        System.IO.File.WriteAllText(path, json);
-                    }
-                    SaveManager.Instance.LoadFromLocal();
-                    canvasController.ShowCanvas("MainMenu");
-                });
-            }
-            else
-            {
-                ShowMessage(msg, Color.red);
-            }
-        });
-    }
+                    // Reutilizamos tu lógica de descarga de datos
+                    FirebaseSaveManager.Instance.DownloadSave((json) => {
+                        if (json != null) {
+                            string path = Application.persistentDataPath + "/save.json";
+                            System.IO.File.WriteAllText(path, json);
+                        }
+                        SaveManager.Instance.LoadFromLocal();
+                        canvasController.ShowCanvas("MainMenu");
+                    });
+                }
+                else
+                {
+                    ShowMessage(msg, Color.red);
+                }
+            });
+        }
 
-    IEnumerator RedirectMenu()
-    {
-        yield return new WaitForSeconds(3);
+        IEnumerator RedirectMenu()
+        {
+            yield return new WaitForSeconds(3);
 
-        canvasController.ShowCanvas("MainMenu");
-    }
+            canvasController.ShowCanvas("MainMenu");
+        }
     
-    public void Logout()
-    {
-        Debug.Log("Cerrando sesión...");
-        FirebaseAuthManager.Instance.Logout();
-        canvasController.ShowCanvas("Logout");
-    }
+        public void Logout()
+        {
+            Debug.Log("Cerrando sesión...");
+            FirebaseAuthManager.Instance.Logout();
+            canvasController.ShowCanvas("Logout");
+        }
     
 
-    void ShowMessage(string msg,Color color)
-    {
-        messageText.text = msg;
-        messageText.color = color;
+        void ShowMessage(string msg,Color color)
+        {
+            messageText.text = msg;
+            messageText.color = color;
+        }
     }
 }

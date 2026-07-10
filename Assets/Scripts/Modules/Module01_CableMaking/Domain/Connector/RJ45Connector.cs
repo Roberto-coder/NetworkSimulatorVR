@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace Modules.Module01_CableMaking.Domain.Connector
 {
-    public class RJ45Connector : MonoBehaviour
+    public class Rj45Connector : MonoBehaviour
     {
         [SerializeField]
         private List<ConnectorSlot> slots = new();

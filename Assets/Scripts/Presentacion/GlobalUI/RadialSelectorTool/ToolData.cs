@@ -1,9 +1,12 @@
 using UnityEngine;
 
-[System.Serializable]
-public class ToolData
+namespace Presentacion.GlobalUI.RadialSelectorTool
 {
-    public string name;
-    public GameObject prefab; // null = mano vacía
-    public Sprite icon;
+    [System.Serializable]
+    public class ToolData
+    {
+        public string name;
+        public GameObject prefab; // null = mano vacía
+        public Sprite icon;
+    }
 }

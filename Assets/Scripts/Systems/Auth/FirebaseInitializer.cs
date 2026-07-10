@@ -1,23 +1,26 @@
-using UnityEngine;
 using Firebase;
 using Firebase.Extensions;
+using UnityEngine;
 
-public class FirebaseInitializer : MonoBehaviour
+namespace Systems.Auth
 {
-    void Start()
+    public class FirebaseInitializer : MonoBehaviour
     {
-        FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
+        void Start()
         {
-            var status = task.Result;
+            FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
+            {
+                var status = task.Result;
 
-            if (status == DependencyStatus.Available)
-            {
-                Debug.Log("Firebase listo");
-            }
-            else
-            {
-                Debug.LogError("Firebase error: " + status);
-            }
-        });
+                if (status == DependencyStatus.Available)
+                {
+                    Debug.Log("Firebase listo");
+                }
+                else
+                {
+                    Debug.LogError("Firebase error: " + status);
+                }
+            });
+        }
     }
 }
