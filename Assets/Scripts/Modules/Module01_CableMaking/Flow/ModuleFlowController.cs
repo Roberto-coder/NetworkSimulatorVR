@@ -4,6 +4,7 @@ using Core.Objectives;
 using GameData.Modules;
 using GameData.Objectives;
 using Modules.Module01_CableMaking.Factories;
+using Presentacion.GlobalUI.RadialSelectorTool;
 
 namespace Modules.Module01_CableMaking.Flow
 {
@@ -119,6 +120,14 @@ namespace Modules.Module01_CableMaking.Flow
         {
             IsCompleted = true;
             ModuleCompleted?.Invoke();
+        }
+        
+        public IReadOnlyList<ToolData> AvailableTools
+        {
+            get
+            {
+                return moduleDefinition.availableTools;
+            }
         }
     }
 }

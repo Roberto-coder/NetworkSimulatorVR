@@ -1,7 +1,7 @@
 using Modules.Module01_CableMaking.Domain.Cable;
 using UnityEngine;
 
-namespace Modules.Module01_CableMaking.Domain.Standards
+namespace GameData.Standards
 {
     [CreateAssetMenu(fileName = "CableStandard", menuName = "Scriptable Objects/CableStandard")]
 

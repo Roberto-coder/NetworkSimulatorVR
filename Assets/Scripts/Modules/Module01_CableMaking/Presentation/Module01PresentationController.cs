@@ -44,6 +44,7 @@ namespace Modules.Module01_CableMaking.Presentation
         private void OnDisable()
         {
             // Desuscribirse
+            CableEvents.CableStripped -= HandleCableStripped;
         }
 
         // Cable pelado
@@ -51,7 +52,11 @@ namespace Modules.Module01_CableMaking.Presentation
         // Mostrar siguiente estación
         private void HandleCableStripped()
         {
+            if (cableWhole && cableWhole.TryGetComponent(out TemporaryDebris debris))
+                debris.Release();
 
+            if (cablePeeled)
+                cablePeeled.SetActive(true);
         }
 
         // Orden correcto

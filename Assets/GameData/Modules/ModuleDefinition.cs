@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Core;
+using Core.Module;
 using GameData.Objectives;
 using UnityEngine;
 using NetworkVR.Core.Objectives;
@@ -50,5 +52,9 @@ namespace GameData.Modules
         /// </summary>
         [Header("Available Tools")]
         public List<ToolData> availableTools;
+        
+        [Header("Input")]
+        public ModuleInputSettings inputSettings;
+        
     }
 }

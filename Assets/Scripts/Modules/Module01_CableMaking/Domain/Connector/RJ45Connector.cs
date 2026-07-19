@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using GameData.Standards;
 using Modules.Module01_CableMaking.Domain.Cable;
-using Modules.Module01_CableMaking.Domain.Standards;
 using Modules.Module01_CableMaking.Domain.Validation;
 using UnityEngine;
 
@@ -16,9 +16,6 @@ namespace Modules.Module01_CableMaking.Domain.Connector
     {
         [SerializeField]
         private List<ConnectorSlot> slots = new();
-        
-        [SerializeField]
-        private CableStandard currentStandard;
 
         public IReadOnlyList<ConnectorSlot> Slots => slots;
         
@@ -46,41 +43,5 @@ namespace Modules.Module01_CableMaking.Domain.Connector
         //
         //     return true;
         // }
-        public ValidationResult Validate(CableStandard standard)
-        {
-            ValidationResult result = new();
-
-            for (int i = 0; i < slots.Count; i++)
-            {
-                ConnectorSlot slot = slots[i];
-
-                WireColor expected = standard.GetExpectedColor(i);
-
-                if (!slot.IsOccupied)
-                {
-                    result.Add(new SlotValidation(
-                        slot.SlotNumber,
-                        false,
-                        false,
-                        expected,
-                        null));
-
-                    continue;
-                }
-
-                WireColor current = slot.CurrentColor;
-
-                bool correct = current == expected;
-
-                result.Add(new SlotValidation(
-                    slot.SlotNumber,
-                    correct,
-                    true,
-                    expected,
-                    current));
-            }
-
-            return result;
-        }
     }
 }

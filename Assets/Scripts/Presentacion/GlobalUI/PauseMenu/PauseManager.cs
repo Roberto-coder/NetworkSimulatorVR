@@ -1,4 +1,5 @@
 using System.Collections;
+using Systems.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,11 +16,9 @@ public class PauseManager : MonoBehaviour
 
     void Update()
     {
-        // if (pauseAction.action.WasPressedThisFrame())
-        if (OVRInput.GetDown(OVRInput.Button.Two))
-        {
+        var input = VRInputManager.Instance;
+        if (input.PausePressed)
             TogglePause();
-        }
     }
 
     void TogglePause()

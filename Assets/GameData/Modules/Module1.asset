@@ -22,3 +22,10 @@ MonoBehaviour:
   - name: Stripper
     prefab: {fileID: 3350193919451043904, guid: 0b47f3bccaba51049b7c426632ff45d2, type: 3}
     icon: {fileID: 21300000, guid: a6adf3f97f04d8b41953d1084141b17a, type: 3}
+  - name: Tester
+    prefab: {fileID: 5734181772442755434, guid: 9c82015e62a6bdb449d3ae94163ef3e2, type: 3}
+    icon: {fileID: 21300000, guid: 197879f454b0bbe4980665460d69782c, type: 3}
+  inputSettings:
+    enablePauseMenu: 1
+    enableToolSelector: 1
+    enableConfirm: 1

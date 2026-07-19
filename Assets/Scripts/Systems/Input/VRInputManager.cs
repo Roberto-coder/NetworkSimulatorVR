@@ -5,36 +5,32 @@ namespace Systems.Input
 {
     public class VRInputManager : MonoBehaviour
     {
-        public static VRInputManager Instance;
+        public static VRInputManager Instance { get; private set; }
+        
+        [Header("Buttons")]
+        public OVRInput.Button pauseButton = OVRInput.Button.Three;
+        public OVRInput.Button toolSelectorButton = OVRInput.Button.Four;
+        public OVRInput.Button confirmButton = OVRInput.Button.Two;
 
-        [SerializeField] InputActionReference menuButton;
-        [SerializeField] InputActionReference trigger;
+        
+        public bool PausePressed =>
+            OVRInput.GetDown(pauseButton);
 
+        public bool ToolPressed =>
+            OVRInput.GetDown(toolSelectorButton);
+
+        public bool ToolHeld =>
+            OVRInput.Get(toolSelectorButton);
+
+        public bool ToolReleased =>
+            OVRInput.GetUp(toolSelectorButton);
+
+        public bool ConfirmPressed =>
+            OVRInput.GetDown(confirmButton);
+        
         private void Awake()
         {
             Instance = this;
-        }
-
-        private void OnEnable()
-        {
-            menuButton.action.performed += OnMenu;
-            trigger.action.performed += OnTrigger;
-        }
-
-        private void OnDisable()
-        {
-            menuButton.action.performed -= OnMenu;
-            trigger.action.performed -= OnTrigger;
-        }
-
-        void OnMenu(InputAction.CallbackContext ctx)
-        {
-            InputEvents.MenuPressed();
-        }
-
-        void OnTrigger(InputAction.CallbackContext ctx)
-        {
-            InputEvents.TriggerPressed();
         }
     }
 }

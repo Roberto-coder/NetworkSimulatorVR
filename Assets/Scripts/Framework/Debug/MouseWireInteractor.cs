@@ -1,6 +1,3 @@
-
-using System.Collections.Generic;
-using Modules.Module01_CableMaking.Domain;
 using Modules.Module01_CableMaking.Domain.Cable;
 using Modules.Module01_CableMaking.Domain.Connector;
 using Modules.Module01_CableMaking.Interaction;
@@ -12,70 +9,83 @@ namespace Framework.Debug
     public class MouseWireInteractor : MonoBehaviour
     {
         [SerializeField] private Camera cam;
-        [SerializeField] private List<ConnectorSlot> pins = new();
-        [SerializeField] private float snapDistance = 0.5f;
+
+        [SerializeField] private Transform dragPlane;
+
         [SerializeField] private WireSnapSolver snapSolver;
 
+        [SerializeField]
+        private LayerMask wireLayer;
+
+        [SerializeField]
+        private LayerMask dragPlaneLayer;
+        
         private Wire selectedWire;
 
-        void Update()
+        private WireView selectedView;
+
+        private void Update()
         {
             if (Mouse.current.leftButton.wasPressedThisFrame)
                 Select();
 
-            if (selectedWire != null)
+            if (selectedView != null)
                 Drag();
 
             if (Mouse.current.leftButton.wasReleasedThisFrame)
                 Release();
         }
 
-        void Select()
+        private void Select()
         {
             Ray ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
 
-            if (!Physics.Raycast(ray, out RaycastHit hit))
+            if (!Physics.Raycast(
+                    ray, 
+                    out RaycastHit hit,
+                    100f,
+                    wireLayer
+                    ))
                 return;
 
-            Wire wire = hit.collider.GetComponent<Wire>();
+            selectedView = hit.collider.GetComponentInParent<WireView>();
 
-            if (wire == null)
+            if (selectedView == null)
                 return;
 
-            selectedWire = wire;
+            selectedWire = selectedView.GetComponent<Wire>();
         }
 
-        void Drag()
+        private void Drag()
+        {
+            Ray ray = cam.ScreenPointToRay(
+                Mouse.current.position.ReadValue());
+
+            if (!Physics.Raycast(
+                    ray,
+                    out RaycastHit hit,
+                    100f,
+                    dragPlaneLayer))
+                return;
+
+            selectedView.Drag(hit.point);
+        }
+
+        private void Release()
         {
             if (selectedWire == null)
                 return;
-
             
-            Plane plane = new Plane(Vector3.up, Vector3.zero);
-
-            Ray ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
-
-            if (plane.Raycast(ray, out float distance))
-            {
-                Vector3 point = ray.GetPoint(distance);
-
-                selectedWire.Move(point);
-            }
-        }
-
-        void Release()
-        {
-            if (selectedWire == null)
-                return;
-
-            bool snapped = snapSolver.TrySnap(selectedWire);
+            bool snapped = snapSolver.TrySnap(selectedWire, selectedView);
 
             if (!snapped)
             {
                 selectedWire.Disconnect();
+                selectedView.ResetView();
             }
 
             selectedWire = null;
+            selectedView = null;
         }
     }
 }
