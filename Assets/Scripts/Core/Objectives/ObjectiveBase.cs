@@ -1,6 +1,5 @@
 using System;
 using GameData.Objectives;
-using NetworkVR.Core.Objectives;
 
 namespace Core.Objectives
 {

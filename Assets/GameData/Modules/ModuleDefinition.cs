@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using Core;
 using Core.Module;
+using Framework.Interaction.Tools;
 using GameData.Objectives;
 using UnityEngine;
-using NetworkVR.Core.Objectives;
 using Presentacion.GlobalUI.RadialSelectorTool;
 
 namespace GameData.Modules

@@ -3,8 +3,9 @@ using UnityEngine;
 namespace Framework.Interaction.Tools
 {
     /// <summary>
-    /// Componente que identifica el tipo de una herramienta dentro del simulador.
-    /// Se coloca en el prefab de la herramienta instanciada en la mano del jugador.
+    /// Identifica el tipo de herramienta que representa este prefab.
+    /// Es utilizada por las InteractionZone para validar si la herramienta
+    /// puede ejecutar una determinada interacción.
     /// </summary>
     public class Tool : MonoBehaviour
     {
@@ -12,7 +13,7 @@ namespace Framework.Interaction.Tools
         private ToolType type;
 
         /// <summary>
-        /// Tipo de herramienta que representa este componente.
+        /// Tipo de herramienta.
         /// </summary>
         public ToolType Type => type;
     }

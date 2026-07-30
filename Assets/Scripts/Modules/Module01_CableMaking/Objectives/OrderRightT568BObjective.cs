@@ -1,6 +1,5 @@
 using Core.Objectives;
 using GameData.Objectives;
-using NetworkVR.Core.Objectives;
 
 namespace Modules.Module01_CableMaking.Objectives
 {

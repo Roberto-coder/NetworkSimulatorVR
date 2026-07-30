@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace SFX
@@ -9,24 +10,33 @@ namespace SFX
         [SerializeField] private float randomTorque = 2f;
         [SerializeField] private float randomForce = 0.3f;
 
-        private Rigidbody _rb;
+        private Rigidbody rb;
 
-        private void Awake() => _rb = GetComponent<Rigidbody>();
+        private void Awake()
+        {
+            rb = GetComponent<Rigidbody>();
+        }
 
         public void Release()
         {
-            transform.SetParent(null); // deja de seguir al cable
-            _rb.isKinematic = false;
-            _rb.AddTorque(Random.insideUnitSphere * randomTorque, ForceMode.Impulse);
-            _rb.AddForce(Random.insideUnitSphere * randomForce, ForceMode.Impulse);
-            //Destroy(gameObject, lifeTime);
+            rb.isKinematic = false;
+
+            rb.AddTorque(
+                Random.insideUnitSphere * randomTorque,
+                ForceMode.Impulse);
+
+            rb.AddForce(
+                Random.insideUnitSphere * randomForce,
+                ForceMode.Impulse);
+
             StartCoroutine(DisableAfterDelay());
         }
-        
-        private System.Collections.IEnumerator DisableAfterDelay()
+
+        private IEnumerator DisableAfterDelay()
         {
             yield return new WaitForSeconds(lifeTime);
-            gameObject.SetActive(false); // en vez de Destroy
+
+            Destroy(gameObject);
         }
     }
 }

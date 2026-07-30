@@ -1,4 +1,4 @@
-using Core.Domain;
+using Modules.Module01_CableMaking.Domain.Cable;
 using SFX;
 using UnityEngine;
 
@@ -20,45 +20,79 @@ namespace Modules.Module01_CableMaking.Presentation
     /// - Conocer ModuleFlowController.
     /// - Contener lógica de interacción.
     /// </summary>
+    
     public class Module01PresentationController : MonoBehaviour
     {
         // Referencias a objetos visuales
-        
+        [SerializeField] private CableStateController cableState;
         // Cable completo
         [SerializeField] GameObject cableWhole;
         // Cable pelado
         [SerializeField] GameObject cablePeeled;
+        // Cable con entrada RJ45
+        [SerializeField] private GameObject cableRJ45;
+        // Cable con entrada RJ45 ponchada
+        [SerializeField] private GameObject cableRJ45Crimped;
         // Wire Puzzle
         [SerializeField] GameObject wirePuzzle;
-        // Tester
+        //Referencia al spawner de escombros para el cable pelado
+        [SerializeField] private DebrisSpawner debrisSpawner;
         
-        // Restos
-        [SerializeField] TemporaryDebris debris;
+        private void Start()
+        {
+            ShowCable(CableState.Whole);
+        }
         
         private void OnEnable()
         {
-            // Suscribirse a eventos
-            CableEvents.CableStripped += HandleCableStripped;
+            cableState.StateChanged += HandleCableStateChanged;
         }
 
         private void OnDisable()
         {
-            // Desuscribirse
-            CableEvents.CableStripped -= HandleCableStripped;
+            cableState.StateChanged -= HandleCableStateChanged;
         }
 
-        // Cable pelado
-        // Cambiar representación visual
-        // Mostrar siguiente estación
-        private void HandleCableStripped()
+        private void ShowCable(CableState state)
         {
-            if (cableWhole && cableWhole.TryGetComponent(out TemporaryDebris debris))
-                debris.Release();
-
-            if (cablePeeled)
-                cablePeeled.SetActive(true);
+            cableWhole.SetActive(state == CableState.Whole);
+            cablePeeled.SetActive(state == CableState.Peeled);
+            cableRJ45.SetActive(state == CableState.RJ45);
+            cableRJ45Crimped.SetActive(state == CableState.RJ45Crimped);
         }
+        
+        private void HandleCableStateChanged(CableState state)
+        {
+            switch (state)
+            {
+                case CableState.Whole:
+                    ShowCable(CableState.Whole);
+                    break;
 
+                case CableState.Peeled:
+
+                    debrisSpawner.Spawn();
+
+                    ShowCable(CableState.Peeled);
+
+                    break;
+
+                case CableState.RJ45:
+
+                    ShowCable(CableState.RJ45);
+
+                    wirePuzzle.SetActive(false);
+
+                    break;
+
+                case CableState.RJ45Crimped:
+
+                    ShowCable(CableState.RJ45Crimped);
+
+                    break;
+            }
+        }
+        
         // Orden correcto
         // Ocultar puzzle
         // Mostrar cable con RJ45
@@ -78,5 +112,8 @@ namespace Modules.Module01_CableMaking.Presentation
         {
 
         }
+        
     }
+    
+    
 }

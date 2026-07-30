@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Modules.Module03_Diagnostics.Cable_physics.Scripts
@@ -7,7 +8,7 @@ namespace Modules.Module03_Diagnostics.Cable_physics.Scripts
     public class CableEndState : MonoBehaviour
     {
         public CableCondition Condition { get; private set; } = CableCondition.Whole;
-        public event System.Action<CableCondition> OnConditionChanged;
+        public event Action<CableCondition> OnConditionChanged;
 
         public bool IsPeeled => Condition >= CableCondition.Peeled;
         public bool IsCrimped => Condition >= CableCondition.Crimped;

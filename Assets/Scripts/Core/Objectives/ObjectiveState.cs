@@ -1,4 +1,4 @@
-namespace NetworkVR.Core.Objectives
+namespace Core.Objectives
 {
     /// <summary>
     /// Representa el estado actual del ciclo de vida de un objetivo del simulador.

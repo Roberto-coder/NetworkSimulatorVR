@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using NetworkVR.Core.Objectives;
 
 namespace Core.Objectives
 {

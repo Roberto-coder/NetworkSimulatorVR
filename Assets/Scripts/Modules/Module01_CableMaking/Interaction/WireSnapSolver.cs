@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Modules.Module01_CableMaking.Interaction
 {
+    /// Este SnapSolver es exclusivo para el puzzle, no para interacciones con el SDK de Meta
     public class WireSnapSolver : MonoBehaviour
     {
         [SerializeField]

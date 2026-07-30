@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Objectives;
+using Framework.Interaction.Tools;
 using GameData.Modules;
 using GameData.Objectives;
 using Modules.Module01_CableMaking.Factories;
@@ -66,6 +67,8 @@ namespace Modules.Module01_CableMaking.Flow
         /// Obtiene el objetivo activo actual.
         /// </summary>
         public ObjectiveBase CurrentObjective => objectiveController.CurrentObjective;
+        
+        public int CurrentObjectiveIndex => objectiveController.CurrentObjectiveIndex;
 
         /// <summary>
         /// Obtiene los datos del objetivo activo actual.

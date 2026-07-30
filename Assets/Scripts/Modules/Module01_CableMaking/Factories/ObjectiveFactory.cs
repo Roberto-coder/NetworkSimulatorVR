@@ -2,7 +2,6 @@ using System;
 using Core.Objectives;
 using GameData.Objectives;
 using Modules.Module01_CableMaking.Objectives;
-using NetworkVR.Core.Objectives;
 
 namespace Modules.Module01_CableMaking.Factories
 {

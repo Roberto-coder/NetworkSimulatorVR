@@ -1,7 +1,6 @@
-using Core.Domain;
 using Core.Objectives;
 using GameData.Objectives;
-using NetworkVR.Core.Objectives;
+using Modules.Module01_CableMaking.Domain.Cable;
 using UnityEngine;
 
 namespace Modules.Module01_CableMaking.Objectives

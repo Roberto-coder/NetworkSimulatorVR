@@ -2,7 +2,6 @@ using Core.Objectives;
 using GameData.Modules;
 using GameData.Objectives;
 using Modules.Module01_CableMaking.Factories;
-using NetworkVR.Core.Objectives;
 using UnityEngine;
 
 namespace Framework.Debug

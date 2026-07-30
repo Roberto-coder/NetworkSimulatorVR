@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: OBJ_02_StripLeftEnd
   m_EditorClassIdentifier: Assembly-CSharp::GameData.Objectives.ObjectiveData
   id: strip_left_end
-  title: 
-  description: 
+  title: Pelar punta Izq.
+  description: Se debe cortar el extremo izquierdo del cable
   introductionDialogue: 
   reminderDialogue: 
   reminderInterval: 20
