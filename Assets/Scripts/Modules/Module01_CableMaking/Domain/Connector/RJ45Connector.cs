@@ -20,7 +20,9 @@ namespace Modules.Module01_CableMaking.Domain.Connector
         public IReadOnlyList<ConnectorSlot> Slots => slots;
         
         public bool IsComplete =>
-            slots.All(slot => slot.IsOccupied);
+            slots != null &&
+            slots.Count == 8 &&
+            slots.All(slot => slot != null && slot.IsOccupied);
         
         // public bool Validate(CableStandard standard)
         // {

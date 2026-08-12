@@ -1,4 +1,5 @@
 using Modules.Module01_CableMaking.Domain.Cable;
+using Modules.Module01_CableMaking.Domain.Wire;
 using UnityEngine;
 
 
@@ -32,16 +33,48 @@ namespace Modules.Module01_CableMaking.Interaction
             if (wire.IsConnected)
                 return;
 
-            
-            Bounds bounds = dragPlane.bounds;
-            Vector3 point = worldPoint;
+            if (dragPlane == null)
+                return;
 
-            point.x = Mathf.Clamp(point.x, bounds.min.x, bounds.max.x);
-            point.y = Mathf.Clamp(point.y, bounds.min.y, bounds.max.y);
+            // El DragPlane es un plano vertical (su superficie local es X/Z).
+            // Convertir a local evita que la punta se salga por profundidad al
+            // mover la mano y funciona aunque el puzzle se rote o se escale.
+            Vector3 localPoint = dragPlane.transform.InverseTransformPoint(worldPoint);
+            Vector3 halfSize = dragPlane.size * 0.5f;
+            Vector3 center = dragPlane.center;
 
-            tip.position = point;
+            localPoint.x = Mathf.Clamp(localPoint.x,
+                center.x - halfSize.x,
+                center.x + halfSize.x);
+            localPoint.z = Mathf.Clamp(localPoint.z,
+                center.z - halfSize.z,
+                center.z + halfSize.z);
+            localPoint.y = center.y;
+
+            tip.position = dragPlane.transform.TransformPoint(localPoint);
 
             Refresh();
+        }
+
+        public bool TryProjectRay(Ray ray, out Vector3 worldPoint)
+        {
+            worldPoint = default;
+
+            if (dragPlane == null)
+                return false;
+
+            // El Plane visual del puzzle usa la normal local Y. La proyeccion
+            // permite recorrer toda su superficie con la orientacion del
+            // control, sin depender del alcance fisico del brazo.
+            Plane plane = new(
+                dragPlane.transform.up,
+                dragPlane.transform.TransformPoint(dragPlane.center));
+
+            if (!plane.Raycast(ray, out float distance))
+                return false;
+
+            worldPoint = ray.GetPoint(distance);
+            return true;
         }
 
         public void Snap(Transform target)

@@ -1,5 +1,6 @@
 using Modules.Module01_CableMaking.Domain.Cable;
 using Modules.Module01_CableMaking.Domain.Connector;
+using Modules.Module01_CableMaking.Domain.Wire;
 using Modules.Module01_CableMaking.Interaction;
 using UnityEngine;
 using UnityEngine.InputSystem;

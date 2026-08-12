@@ -37,7 +37,7 @@ namespace Modules.Module01_CableMaking.Factories
                 "strip_right_end" => new StripRightEndObjective(objectiveData),
                 "order_right_t568b" => new OrderRightT568BObjective(objectiveData),
                 "crimp_right_end" => new CrimpRightEndObjective(objectiveData),
-                "connect_tester" => new ConnectToTesterObjective(objectiveData),
+                "connect_tester" => new ConnectTesterObjective(objectiveData),
                 "validate_cable" => new ValidateCableObjective(objectiveData),
                 _ => throw new ArgumentException(
                     $"No existe un objetivo asociado al identificador '{objectiveData.Id}'.",

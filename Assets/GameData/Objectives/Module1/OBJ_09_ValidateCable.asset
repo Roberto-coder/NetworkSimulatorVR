@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: OBJ_09_ValidateCable
   m_EditorClassIdentifier: Assembly-CSharp::GameData.Objectives.ObjectiveData
   id: validate_cable
-  title: 
-  description: 
+  title: Probar cable
+  description: Ejecuta la prueba del cable con ambos extremos conectados al tester.
   introductionDialogue: 
   reminderDialogue: 
   reminderInterval: 20

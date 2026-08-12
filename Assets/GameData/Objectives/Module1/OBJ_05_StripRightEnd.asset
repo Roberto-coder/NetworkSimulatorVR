@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: OBJ_05_StripRightEnd
   m_EditorClassIdentifier: Assembly-CSharp::GameData.Objectives.ObjectiveData
   id: strip_right_end
-  title: 
-  description: 
+  title: Pelar extremo derecho
+  description: Pela el recubrimiento del extremo derecho del cable.
   introductionDialogue: 
   reminderDialogue: 
   reminderInterval: 20

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Systems.Input
@@ -28,6 +29,25 @@ namespace Systems.Input
         public float RightTrigger { get; private set; }
 
         private bool previousPressed;
+
+        /// <summary>
+        /// Reproduce un pulso haptico corto en el mando indicado.
+        /// </summary>
+        public void PlayHaptic(
+            OVRInput.Controller controller,
+            float amplitude = 0.7f,
+            float duration = 0.12f,
+            float frequency = 1f)
+        {
+            if (controller == OVRInput.Controller.None || duration <= 0f)
+                return;
+
+            StartCoroutine(HapticRoutine(
+                controller,
+                Mathf.Clamp01(amplitude),
+                duration,
+                Mathf.Clamp01(frequency)));
+        }
 
         public bool PausePressed =>
             OVRInput.GetDown(pauseButton);
@@ -67,6 +87,17 @@ namespace Systems.Input
                 RightTriggerReleased?.Invoke();
 
             previousPressed = pressed;
+        }
+
+        private static IEnumerator HapticRoutine(
+            OVRInput.Controller controller,
+            float amplitude,
+            float duration,
+            float frequency)
+        {
+            OVRInput.SetControllerVibration(frequency, amplitude, controller);
+            yield return new WaitForSecondsRealtime(duration);
+            OVRInput.SetControllerVibration(0f, 0f, controller);
         }
     }
 }

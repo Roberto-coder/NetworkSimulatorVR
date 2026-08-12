@@ -28,7 +28,12 @@ namespace Modules.Module01_CableMaking.Interaction
         private void TryPeel()
         {
             if (!TryGetTarget(out IPeelable peelable))
+            {
+                Debug.Log("[StripperTool] No se encontró un objetivo IPeelable bajo el puntero.", this);
                 return;
+            }
+
+            Debug.Log($"[StripperTool] Intentando pelar: {((Component)peelable).name}", this);
 
             peelable.Peel();
         }

@@ -3622,6 +3622,8 @@ GameObject:
   - component: {fileID: 567395296469264317}
   - component: {fileID: 384115110538505373}
   - component: {fileID: 7643501277423817501}
+  - component: {fileID: 2114213856462807078}
+  - component: {fileID: 2691114513709450024}
   m_Layer: 8
   m_Name: StripInteractionZone
   m_TagString: Untagged
@@ -3677,6 +3679,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3d471213afe42a48d41bb6555f1cd47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Modules.Module01_CableMaking.Interaction.StripInteractionZone
+  toolTip: {fileID: 0}
+  radius: 0.015
+  interactionMask:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!114 &2114213856462807078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6796080818323732134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b081323398d2437ab6e2f66fa19d8c00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Framework.Interaction.Tools.Tool
+  type: 0
+--- !u!114 &2691114513709450024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6796080818323732134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3f9c27486ef4af5a5d2af4a22013624, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Framework.Interaction.Tools.ToolInteractor
 --- !u!1 &6814806147371249954
 GameObject:
   m_ObjectHideFlags: 0
@@ -4209,6 +4241,8 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 8314135639619116574, guid: 3334495f70aea7e4ca71c703e82aa515, type: 3}
     - {fileID: 2191070601138125721, guid: 3334495f70aea7e4ca71c703e82aa515, type: 3}
+    - {fileID: 4116304393173726991, guid: 3334495f70aea7e4ca71c703e82aa515, type: 3}
+    - {fileID: 903239275055943504, guid: 3334495f70aea7e4ca71c703e82aa515, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

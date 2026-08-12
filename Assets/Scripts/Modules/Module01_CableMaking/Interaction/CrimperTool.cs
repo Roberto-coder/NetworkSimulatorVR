@@ -1,18 +1,23 @@
 using Framework.Interaction.Tools.Interfaces;
 using Framework.Interaction.Tools;
+using Systems.Input;
 using UnityEngine;
 namespace Modules.Module01_CableMaking.Interaction
 {
     
     [RequireComponent(typeof(ToolInteractor))]
-    public class CrimperTool : MonoBehaviour
+    public class CrimperTool : InteractionTool<ICrimpable>
     {
-        [Header("Detection")]
-        [SerializeField] private Transform toolTip;
-        [SerializeField] private float radius = 0.015f;
-        [SerializeField] private LayerMask cableLayer;
-
         private ToolInteractor interactor;
+
+        [SerializeField] private AudioSource audioSource;
+
+        [Header("Haptic Feedback")]
+        [SerializeField] private OVRInput.Controller hapticController =
+            OVRInput.Controller.RTouch;
+        [SerializeField, Range(0f, 1f)] private float hapticAmplitude = 0.7f;
+        [SerializeField, Min(0f)] private float hapticDuration = 0.12f;
+        [SerializeField, Range(0f, 1f)] private float hapticFrequency = 1f;
 
         private void Awake()
         {
@@ -32,24 +37,19 @@ namespace Modules.Module01_CableMaking.Interaction
         
         private void TryCrimp()
         {
-            Collider[] hits = Physics.OverlapSphere(
-                toolTip.position,
-                radius,
-                cableLayer);
-
-            foreach (Collider hit in hits)
-            {
-                ICrimpable crimpable = hit.GetComponentInParent<ICrimpable>();
-
-                if (crimpable == null)
-                    continue;
-
-                if (!crimpable.CanCrimp)
-                    continue;
-
-                crimpable.Crimp();
+            if (!TryGetTarget(out ICrimpable crimpable) || !crimpable.CanCrimp)
                 return;
-            }
+
+            crimpable.Crimp();
+
+            if (audioSource != null)
+                audioSource.Play();
+
+            VRInputManager.Instance?.PlayHaptic(
+                hapticController,
+                hapticAmplitude,
+                hapticDuration,
+                hapticFrequency);
         }
     }
 }

@@ -9,12 +9,12 @@ namespace Framework.Debug
         [SerializeField]
         private RJ45PuzzleController controller;
 
+#if UNITY_EDITOR
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.V))
-            {
+            if (Input.GetKeyDown(KeyCode.V) && controller != null)
                 controller.ValidatePuzzle();
-            }
         }
+#endif
     }
 }

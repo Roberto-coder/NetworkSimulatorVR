@@ -1,7 +1,5 @@
 using Core.Objectives;
 using GameData.Objectives;
-using Modules.Module01_CableMaking.Domain.Cable;
-using UnityEngine;
 
 namespace Modules.Module01_CableMaking.Objectives
 {
@@ -16,21 +14,6 @@ namespace Modules.Module01_CableMaking.Objectives
             
             
             
-        }
-        
-        public override void Begin()
-        {
-            base.Begin();
-
-            CableEvents.CableStripped += OnCableStripped;
-        }
-
-        private void OnCableStripped()
-        {
-            CableEvents.CableStripped -= OnCableStripped;
-            Debug.Log("Objetivo completado :)");
-            base.Complete();
-            // Complete();
         }
         
     }

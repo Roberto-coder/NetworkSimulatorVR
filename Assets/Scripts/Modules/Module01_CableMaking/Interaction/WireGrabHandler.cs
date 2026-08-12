@@ -1,9 +1,13 @@
-using Modules.Module01_CableMaking.Domain.Cable;
+using Modules.Module01_CableMaking.Domain.Wire;
 using Oculus.Interaction;
 using UnityEngine;
 
 namespace Modules.Module01_CableMaking.Interaction
 {
+    /// <summary>
+    /// Usa el SDK de Meta para seleccionar una punta, pero restringe su
+    /// movimiento al plano del puzzle. No depende de CenterEyeAnchor.
+    /// </summary>
     public class WireGrabHandler : MonoBehaviour
     {
         [Header("References")]
@@ -12,69 +16,121 @@ namespace Modules.Module01_CableMaking.Interaction
         [SerializeField] private WireSnapSolver snapSolver;
         [SerializeField] private Grabbable grabbable;
 
-        [Header("Drag")]
-        [SerializeField] private Transform controller;
-        [SerializeField] private LayerMask dragPlaneLayer;
-
-        private bool previousState;
-
-        private bool IsGrabbed => grabbable != null && grabbable.SelectingPointsCount > 0;
+        private RayInteractor activeRayInteractor;
 
         private void Awake()
         {
             if (grabbable == null)
                 grabbable = GetComponent<Grabbable>();
 
-            previousState = false;
+            if (grabbable == null)
+            {
+                Debug.LogError("[WireGrabHandler] Falta Grabbable.", this);
+                return;
+            }
+
+            WireGrabTransformer transformer =
+                grabbable.GetComponent<WireGrabTransformer>();
+            if (transformer == null)
+                transformer = grabbable.gameObject.AddComponent<WireGrabTransformer>();
+
+            // El SDK mantiene la seleccion y los eventos de la mano, pero no
+            // puede mover libremente la punta fuera del plano del puzzle.
+            grabbable.InjectOptionalOneGrabTransformer(transformer);
+            grabbable.MaxGrabPoints = 1;
+            grabbable.InjectOptionalThrowWhenUnselected(false);
+
+            Rigidbody rigidbody = grabbable.GetComponent<Rigidbody>();
+            if (rigidbody != null)
+            {
+                rigidbody.isKinematic = true;
+                rigidbody.useGravity = false;
+                grabbable.InjectOptionalRigidbody(rigidbody);
+                grabbable.InjectOptionalKinematicWhileSelected(true);
+            }
         }
 
-        private void Update()
+        private void OnEnable()
         {
-            if (!previousState && IsGrabbed)
-                BeginGrab();
-
-            if (previousState && !IsGrabbed)
-                EndGrab();
-
-            previousState = IsGrabbed;
-
-            if (IsGrabbed)
-                Drag();
+            if (grabbable != null)
+                grabbable.WhenPointerEventRaised += HandlePointerEvent;
         }
 
-        private void BeginGrab()
+        private void OnDisable()
         {
-            // Reservado para futuras acciones:
-            // sonido
-            // vibración
-            // ocultar ayuda
-            // etc.
+            if (grabbable != null)
+                grabbable.WhenPointerEventRaised -= HandlePointerEvent;
+        }
+
+        private void HandlePointerEvent(PointerEvent pointerEvent)
+        {
+            switch (pointerEvent.Type)
+            {
+                case PointerEventType.Select:
+                    BeginGrab(pointerEvent.Identifier);
+                    break;
+
+                case PointerEventType.Move:
+                    Drag(pointerEvent.Pose.position);
+                    break;
+
+                case PointerEventType.Unselect:
+                case PointerEventType.Cancel:
+                    EndGrab();
+                    activeRayInteractor = null;
+                    break;
+            }
+        }
+
+        private void BeginGrab(int pointerIdentifier)
+        {
+            if (wire == null)
+                return;
+
+            activeRayInteractor = FindRayInteractor(pointerIdentifier);
+
+            // Si el alumno toma un hilo ya colocado, libera su slot para que
+            // pueda corregir la secuencia sin dejar posiciones bloqueadas.
+            wire.Disconnect();
+        }
+
+        private void Drag(Vector3 handPosition)
+        {
+            if (wireView == null)
+                return;
+
+            if (activeRayInteractor != null &&
+                wireView.TryProjectRay(activeRayInteractor.Ray, out Vector3 rayPoint))
+            {
+                wireView.Drag(rayPoint);
+                return;
+            }
+
+            // Compatibilidad con interacciones cercanas de mano/control.
+            wireView.Drag(handPosition);
         }
 
         private void EndGrab()
         {
-            bool snapped = snapSolver.TrySnap(wire, wireView);
+            if (wire == null || wireView == null || snapSolver == null)
+                return;
 
-            if (!snapped)
-            {
-                wire.Disconnect();
+            if (!snapSolver.TrySnap(wire, wireView))
                 wireView.ResetView();
-            }
         }
 
-        private void Drag()
+        private static RayInteractor FindRayInteractor(int pointerIdentifier)
         {
-            Ray ray = new Ray(controller.position, controller.forward);
+            RayInteractor[] interactors =
+                FindObjectsByType<RayInteractor>(FindObjectsSortMode.None);
 
-            if (!Physics.Raycast(ray,
-                    out RaycastHit hit,
-                    5f,
-                    dragPlaneLayer))
+            foreach (RayInteractor interactor in interactors)
             {
-                return;
+                if (interactor.Identifier == pointerIdentifier)
+                    return interactor;
             }
 
-            wireView.Drag(hit.point);
+            return null;
         }
     }
 }

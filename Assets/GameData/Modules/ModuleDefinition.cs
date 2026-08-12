@@ -3,6 +3,7 @@ using Core;
 using Core.Module;
 using Framework.Interaction.Tools;
 using GameData.Objectives;
+using GameData.Quiz;
 using UnityEngine;
 using Presentacion.GlobalUI.RadialSelectorTool;
 
@@ -27,6 +28,10 @@ namespace GameData.Modules
         [SerializeField]
         private List<ObjectiveData> objectives = new();
 
+        [Header("Final Quiz")]
+        [SerializeField]
+        private QuizData finalQuiz;
+
         /// <summary>
         /// Obtiene el identificador unico del modulo.
         /// </summary>
@@ -46,6 +51,11 @@ namespace GameData.Modules
         /// Obtiene la secuencia de objetivos configurada para el modulo.
         /// </summary>
         public IReadOnlyList<ObjectiveData> Objectives => objectives;
+
+        /// <summary>
+        /// Obtiene el quiz presentado al finalizar el modulo.
+        /// </summary>
+        public QuizData FinalQuiz => finalQuiz;
         
         /// <summary>
         /// Obtiene la secuencia de objetivos configurada para el modulo.

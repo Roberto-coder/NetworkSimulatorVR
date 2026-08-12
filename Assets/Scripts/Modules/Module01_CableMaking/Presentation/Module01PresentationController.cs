@@ -1,119 +1,205 @@
+using System;
+using Framework.Spawning;
 using Modules.Module01_CableMaking.Domain.Cable;
+using Modules.Module01_CableMaking.Flow;
+using Presentacion.Quiz;
 using SFX;
 using UnityEngine;
 
 namespace Modules.Module01_CableMaking.Presentation
 {
     /// <summary>
-    /// Controla únicamente la representación visual del módulo.
-    ///
-    /// Responsabilidades:
-    /// - Mostrar u ocultar objetos.
-    /// - Reproducir animaciones.
-    /// - Activar puzzles.
-    /// - Mostrar estaciones de trabajo.
-    /// - Gestionar efectos visuales.
-    ///
-    /// NO debe:
-    /// - Validar objetivos.
-    /// - Conocer ObjectiveController.
-    /// - Conocer ModuleFlowController.
-    /// - Contener lógica de interacción.
+    /// Sincroniza las dos representaciones visuales del cable con su dominio.
+    /// Cada extremo conserva sus propios objetos visuales; el flujo del modulo
+    /// no necesita saber como estan construidos en la escena.
     /// </summary>
-    
-    public class Module01PresentationController : MonoBehaviour
+    public sealed class Module01PresentationController : MonoBehaviour
     {
-        // Referencias a objetos visuales
-        [SerializeField] private CableStateController cableState;
-        // Cable completo
-        [SerializeField] GameObject cableWhole;
-        // Cable pelado
-        [SerializeField] GameObject cablePeeled;
-        // Cable con entrada RJ45
-        [SerializeField] private GameObject cableRJ45;
-        // Cable con entrada RJ45 ponchada
-        [SerializeField] private GameObject cableRJ45Crimped;
-        // Wire Puzzle
-        [SerializeField] GameObject wirePuzzle;
-        //Referencia al spawner de escombros para el cable pelado
-        [SerializeField] private DebrisSpawner debrisSpawner;
-        
-        private void Start()
+        [Serializable]
+        private sealed class EndVisuals
         {
-            ShowCable(CableState.Whole);
+            [SerializeField] private CableEnd end;
+            [SerializeField] private GameObject wholeVisual;
+            [SerializeField] private GameObject peeledVisual;
+            [SerializeField] private GameObject rj45Visual;
+            [SerializeField] private GameObject crimpedVisual;
+            [SerializeField] private DebrisSpawner debrisSpawner;
+
+            public CableEnd End => end;
+
+            public void Show(CableState state)
+            {
+                SetActive(wholeVisual, state == CableState.Whole);
+                SetActive(peeledVisual, state == CableState.Peeled);
+                SetActive(rj45Visual, state is CableState.Rj45Disordered or CableState.Rj45Ordered);
+                SetActive(crimpedVisual, state == CableState.Rj45Crimped);
+            }
+
+            public void SpawnDebris() => debrisSpawner?.Spawn();
+
+            public void HideAll()
+            {
+                SetActive(wholeVisual, false);
+                SetActive(peeledVisual, false);
+                SetActive(rj45Visual, false);
+                SetActive(crimpedVisual, false);
+            }
+
+            private static void SetActive(GameObject target, bool value)
+            {
+                if (target != null)
+                    target.SetActive(value);
+            }
         }
-        
+
+        [Header("Cable")]
+        [SerializeField] private CableStateController cableState;
+        [SerializeField] private EndVisuals[] endVisuals;
+
+        [Header("Shared stations")]
+        [SerializeField] private ObjectSpawner wirePuzzle;
+        [SerializeField] private ObjectSpawner quizSpawner;
+
+        private CableEnd? activePuzzleEnd;
+        private ModuleFlowController flowController;
+
         private void OnEnable()
         {
-            cableState.StateChanged += HandleCableStateChanged;
+            if (cableState != null)
+                cableState.StateChanged += HandleCableStateChanged;
+        }
+
+        private void Start()
+        {
+            RenderInitialState();
+
+            if (SimulationManager.Instance == null)
+                return;
+
+            flowController = SimulationManager.Instance.FlowController;
+            flowController.FinalQuizRequested += ShowQuiz;
         }
 
         private void OnDisable()
         {
-            cableState.StateChanged -= HandleCableStateChanged;
-        }
+            if (cableState != null)
+                cableState.StateChanged -= HandleCableStateChanged;
 
-        private void ShowCable(CableState state)
-        {
-            cableWhole.SetActive(state == CableState.Whole);
-            cablePeeled.SetActive(state == CableState.Peeled);
-            cableRJ45.SetActive(state == CableState.RJ45);
-            cableRJ45Crimped.SetActive(state == CableState.RJ45Crimped);
-        }
-        
-        private void HandleCableStateChanged(CableState state)
-        {
-            switch (state)
+            if (flowController != null)
             {
-                case CableState.Whole:
-                    ShowCable(CableState.Whole);
-                    break;
-
-                case CableState.Peeled:
-
-                    debrisSpawner.Spawn();
-
-                    ShowCable(CableState.Peeled);
-
-                    break;
-
-                case CableState.RJ45:
-
-                    ShowCable(CableState.RJ45);
-
-                    wirePuzzle.SetActive(false);
-
-                    break;
-
-                case CableState.RJ45Crimped:
-
-                    ShowCable(CableState.RJ45Crimped);
-
-                    break;
+                flowController.FinalQuizRequested -= ShowQuiz;
             }
         }
-        
-        // Orden correcto
-        // Ocultar puzzle
-        // Mostrar cable con RJ45
-        private void HandleWireOrderCompleted()
-        {
 
+        private void RenderInitialState()
+        {
+            if (cableState == null || endVisuals == null)
+                return;
+
+            foreach (EndVisuals visuals in endVisuals)
+                visuals?.Show(cableState.GetState(visuals.End));
         }
 
-        // Ponchado
-        private void HandleCableCrimped()
+        private void HandleCableStateChanged(CableEnd end, CableState state)
         {
+            Debug.Log($"[Module01Presentation] {end} cambio a {state}.", this);
 
+            EndVisuals visuals = FindVisuals(end);
+            if (visuals == null)
+            {
+                Debug.LogWarning($"No hay referencias visuales configuradas para el extremo {end}.", this);
+                return;
+            }
+
+            visuals.Show(state);
+
+            if (state == CableState.Peeled)
+                visuals.SpawnDebris();
+
+            if (state == CableState.Rj45Disordered)
+                SpawnPuzzle(end);
+            else if (state == CableState.Rj45Ordered && activePuzzleEnd == end)
+                DespawnPuzzle();
         }
 
-        // Tester
-        private void HandleCableValidated()
+        private void SpawnPuzzle(CableEnd end)
         {
+            if (wirePuzzle == null)
+            {
+                Debug.LogWarning("No hay un ObjectSpawner configurado para el puzzle RJ45.", this);
+                return;
+            }
 
+            if (activePuzzleEnd.HasValue && activePuzzleEnd != end)
+            {
+                Debug.LogWarning("Ya hay un puzzle RJ45 activo para el otro extremo.", this);
+                return;
+            }
+
+            wirePuzzle.Spawn();
+            activePuzzleEnd = end;
+
+            Debug.Log($"[Module01Presentation] Puzzle RJ45 generado para {end}.", this);
+
+            RJ45PuzzleController controller =
+                wirePuzzle.CurrentInstance?.GetComponentInChildren<RJ45PuzzleController>(true);
+            if (controller == null)
+            {
+                Debug.LogError(
+                    "El prefab generado no contiene RJ45PuzzleController.",
+                    this);
+                return;
+            }
+
+            controller.Configure(end, cableState);
         }
-        
+
+        private void DespawnPuzzle()
+        {
+            wirePuzzle?.Despawn();
+            activePuzzleEnd = null;
+        }
+
+        private void ShowQuiz()
+        {
+            if (endVisuals != null)
+            {
+                foreach (EndVisuals visuals in endVisuals)
+                    visuals?.HideAll();
+            }
+
+            if (quizSpawner == null)
+            {
+                Debug.LogWarning("No hay un ObjectSpawner configurado para el quiz.", this);
+                return;
+            }
+
+            quizSpawner.Spawn();
+
+            QuizController quizController =
+                quizSpawner.CurrentInstance?.GetComponentInChildren<QuizController>(true);
+
+            if (quizController == null)
+            {
+                Debug.LogError("El prefab generado no contiene QuizController.", this);
+                return;
+            }
+
+            quizController.Configure(flowController.ModuleDefinition.FinalQuiz);
+        }
+
+        private EndVisuals FindVisuals(CableEnd end)
+        {
+            if (endVisuals == null)
+                return null;
+
+            foreach (EndVisuals visuals in endVisuals)
+            {
+                if (visuals != null && visuals.End == end)
+                    return visuals;
+            }
+
+            return null;
+        }
     }
-    
-    
 }

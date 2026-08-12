@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65de2e180cd131f40a327562907bbaf1, type: 3}
+  m_Name: Module01Quiz
+  m_EditorClassIdentifier: Assembly-CSharp::GameData.Quiz.QuizData
+  quizId: module_01_quiz
+  title: Quiz del 1er Modulo "Fabricacion de cable Ethernet"
+  passingPercentage: 70
+  questions:
+  - statement: "\xBFQu\xE9 herramienta se utiliza para fijar el conector RJ45 al
+      cable Ethernet?"
+    options:
+    - Pelacables
+    - Crimpadora
+    - "Mult\xEDmetro"
+    correctOptionIndex: 1
+  - statement: "En el est\xE1ndar T568B, \xBFqu\xE9 conductor ocupa el primer pin
+      del conector RJ45?"
+    options:
+    - Blanco/Naranja
+    - Blanco/Verde
+    - Naranja
+    correctOptionIndex: 0
+  - statement: "\xBFPor qu\xE9 se deben ordenar correctamente los conductores antes
+      de insertarlos en el RJ45?"
+    options:
+    - Para reducir la longitud del cable
+    - Para facilitar el pelado
+    - Para asegurar la correspondencia correcta de los pines
+    correctOptionIndex: 2
+  - statement: "\xBFQu\xE9 debe comprobarse antes de crimpar definitivamente el conector?"
+    options:
+    - "Que el cable est\xE9 completamente desenrollado"
+    - Que los conductores hayan llegado correctamente hasta sus posiciones en el
+      conector
+    - Que los pares permanezcan totalmente trenzados dentro del conector
+    correctOptionIndex: 1
+  - statement: "\xBFQu\xE9 herramienta permite comprobar si un cable Ethernet fue
+      fabricado correctamente?"
+    options:
+    - "Mult\xEDmetro de gancho"
+    - Destornillador
+    - Probador de cables de red
+    correctOptionIndex: 2

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: OBJ_06_OrderRightT568B
   m_EditorClassIdentifier: Assembly-CSharp::GameData.Objectives.ObjectiveData
   id: order_right_t568b
-  title: 
-  description: 
+  title: Ordenar extremo derecho (T568B)
+  description: Ordena los ocho conductores del extremo derecho segun la norma T568B.
   introductionDialogue: 
   reminderDialogue: 
   reminderInterval: 20

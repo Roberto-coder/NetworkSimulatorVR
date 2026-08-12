@@ -1,4 +1,5 @@
 using Modules.Module01_CableMaking.Domain.Cable;
+using Modules.Module01_CableMaking.Domain.Wire;
 using UnityEngine;
 
 namespace GameData.Standards

@@ -9,6 +9,7 @@ namespace Framework.Interaction.Tools
         [SerializeField] private Transform toolTip;
         [SerializeField] private float radius = 0.015f;
         [SerializeField] private LayerMask interactionMask;
+        
 
         protected bool TryGetTarget(out T target)
         {
@@ -19,7 +20,7 @@ namespace Framework.Interaction.Tools
 
             foreach (Collider hit in hits)
             {
-                target = hit.GetComponentInParent(typeof(T)) as T;
+                target = hit.GetComponentInChildren(typeof(T)) as T;
 
                 if (target != null)
                     return true;

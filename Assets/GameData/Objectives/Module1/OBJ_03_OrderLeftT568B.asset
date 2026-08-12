@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: OBJ_03_OrderLeftT568B
   m_EditorClassIdentifier: Assembly-CSharp::GameData.Objectives.ObjectiveData
   id: order_left_t568b
-  title: 
-  description: 
+  title: Ordenar extremo izquierdo (T568B)
+  description: Ordena los ocho conductores del extremo izquierdo segun la norma T568B.
   introductionDialogue: 
   reminderDialogue: 
   reminderInterval: 20

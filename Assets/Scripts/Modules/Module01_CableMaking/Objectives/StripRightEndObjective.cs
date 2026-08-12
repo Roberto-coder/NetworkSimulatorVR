@@ -12,5 +12,6 @@ namespace Modules.Module01_CableMaking.Objectives
             : base(data)
         {
         }
+
     }
 }

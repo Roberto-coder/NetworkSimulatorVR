@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: OBJ_04_CrimpLeftEnd
   m_EditorClassIdentifier: Assembly-CSharp::GameData.Objectives.ObjectiveData
   id: crimp_left_end
-  title: 
-  description: 
+  title: Ponchar extremo izquierdo
+  description: Poncha el conector RJ45 del extremo izquierdo.
   introductionDialogue: 
   reminderDialogue: 
   reminderInterval: 20

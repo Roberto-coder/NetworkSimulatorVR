@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: OBJ_08_ConnectTester
   m_EditorClassIdentifier: Assembly-CSharp::GameData.Objectives.ObjectiveData
   id: connect_tester
-  title: 
-  description: 
+  title: Conectar cable al tester
+  description: Conecta los dos extremos RJ45 ponchados a los puertos del tester.
   introductionDialogue: 
   reminderDialogue: 
   reminderInterval: 20

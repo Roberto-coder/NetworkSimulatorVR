@@ -19,13 +19,26 @@ MonoBehaviour:
   objectives:
   - {fileID: 11400000, guid: 9e5b04c0fb409a84b8db60ba1616d26c, type: 2}
   - {fileID: 11400000, guid: 6089ad452e22de94eb395ae1141856ec, type: 2}
+  - {fileID: 11400000, guid: 48d7db9c45062de45840b4122f16d8fc, type: 2}
+  - {fileID: 11400000, guid: 0157418c0188e6444b133d3999a1772f, type: 2}
+  - {fileID: 11400000, guid: dc5fb244c4c95ac42a42217b9e03e467, type: 2}
+  - {fileID: 11400000, guid: 86af434038ea36b49ba7d71a3b435d41, type: 2}
+  - {fileID: 11400000, guid: eceebffd9a70a1c4eaeadabca9fc16be, type: 2}
+  - {fileID: 11400000, guid: d995eaee963f3dd44bc2bb69d216e5f7, type: 2}
+  finalQuiz: {fileID: 11400000, guid: 2e6b81918b2e2df43a718f28ddf3cd8a, type: 2}
   availableTools:
   - name: Stripper
     prefab: {fileID: 1194657964218792147, guid: 0bce6137e81eb3240b8303fc28b0ae96, type: 3}
     icon: {fileID: 21300000, guid: a6adf3f97f04d8b41953d1084141b17a, type: 3}
   - name: Tester
     prefab: {fileID: 1194657964218792147, guid: c20a2b31c574d034b811ece3471ad234, type: 3}
-    icon: {fileID: 21300000, guid: 197879f454b0bbe4980665460d69782c, type: 3}
+    icon: {fileID: 21300000, guid: 92526459dd7bd7246af9c613e9f9697f, type: 3}
+  - name: Crimper
+    prefab: {fileID: 1194657964218792147, guid: b1255be109aa2124aab42869f4175395, type: 3}
+    icon: {fileID: 21300000, guid: aa7f7b93d4ee2e94a8c9defed63af3cb, type: 3}
+  - name: Hands
+    prefab: {fileID: 0}
+    icon: {fileID: 21300000, guid: 6770013508cecef43a401ec5f419a66b, type: 3}
   inputSettings:
     enablePauseMenu: 1
     enableToolSelector: 1

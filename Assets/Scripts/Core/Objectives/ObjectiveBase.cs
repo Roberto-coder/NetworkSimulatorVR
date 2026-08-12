@@ -10,8 +10,14 @@ namespace Core.Objectives
     {
         protected ObjectiveBase(ObjectiveData data)
         {
-            UnityEngine.Debug.Log("Objetivo creado");
+            Data = data ?? throw new ArgumentNullException(nameof(data));
+            Log("Creado");
         }
+
+        /// <summary>
+        /// Obtiene la configuracion que identifica este objetivo.
+        /// </summary>
+        public ObjectiveData Data { get; }
 
         /// <summary>
         /// Se produce cuando el objetivo comienza a ejecutarse.
@@ -61,6 +67,7 @@ namespace Core.Objectives
             }
 
             State = ObjectiveState.Running;
+            Log("Iniciado");
             Started?.Invoke(this);
         }
 
@@ -75,6 +82,7 @@ namespace Core.Objectives
             }
 
             State = ObjectiveState.Completed;
+            Log("Completado");
             Completed?.Invoke(this);
         }
 
@@ -89,6 +97,7 @@ namespace Core.Objectives
             }
 
             State = ObjectiveState.Cancelled;
+            Log("Cancelado");
             Cancelled?.Invoke(this);
         }
 
@@ -98,6 +107,13 @@ namespace Core.Objectives
         public virtual void Reset()
         {
             State = ObjectiveState.Waiting;
+            Log("Reiniciado");
+        }
+
+        private void Log(string action)
+        {
+            UnityEngine.Debug.Log(
+                $"[Objective] {action}: {Data.Id} ({Data.Title}). Estado={State}.");
         }
     }
 }
