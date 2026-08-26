@@ -1,6 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using Presentacion.NPC;
+using UnityEngine;
 using Waypoints;
 
 namespace Presentacion.Tutorial
@@ -17,6 +17,11 @@ namespace Presentacion.Tutorial
         public override IEnumerator Execute(TutorialDirector director)
         {
             NPCMovementController movement = director.MovementController;
+            if (movement == null || _targetWaypoint == null)
+            {
+                Debug.LogError("No se puede mover al NPC sin controlador y waypoint.");
+                yield break;
+            }
 
             bool completed = false;
 
@@ -27,12 +32,17 @@ namespace Presentacion.Tutorial
 
             movement.DestinationReached += OnDestinationReached;
 
-            movement.MoveTo(_targetWaypoint);
+            try
+            {
+                movement.MoveTo(_targetWaypoint);
 
-            while (!completed)
-                yield return null;
-
-            movement.DestinationReached -= OnDestinationReached;
+                while (!completed)
+                    yield return null;
+            }
+            finally
+            {
+                movement.DestinationReached -= OnDestinationReached;
+            }
         }
     }
 }

@@ -57,6 +57,7 @@ namespace Systems.Auth
         
             if(username == "userdebug" && password == "userdebug")
             {
+                SessionContext.BeginDebugSession(username);
                 callback(true,"Login debug");
                 return;
             }
@@ -93,6 +94,7 @@ namespace Systems.Auth
                                     return;
                                 }
 
+                                SessionContext.BeginFirebaseSession(username);
                                 callback(true,"Login exitoso");
                             });
 
@@ -137,6 +139,7 @@ namespace Systems.Auth
                         // Lógica del username: correo sin @gmail.com
                         string email = newUser.Email;
                         string generatedUsername = email.Split('@')[0];
+                        SessionContext.BeginFirebaseSession(generatedUsername);
 
                         // Verificar si el perfil ya existe en la DB, si no, crearlo
                         CheckAndCreateProfile(newUser.UserId, generatedUsername, email, callback);
@@ -164,6 +167,35 @@ namespace Systems.Auth
             });
         }
     
+        public void RestoreCurrentSession(Action<bool, string> callback)
+        {
+            FirebaseUser currentUser = auth.CurrentUser;
+            if (currentUser == null)
+            {
+                SessionContext.Clear();
+                callback?.Invoke(false, "No hay una sesión guardada");
+                return;
+            }
+
+            SessionContext.RestorePersistedFirebaseSession();
+            db.Child("simulador_redes_vr")
+                .Child("usuarios")
+                .Child(currentUser.UserId)
+                .Child("perfil")
+                .GetValueAsync()
+                .ContinueWithOnMainThread(task =>
+                {
+                    if (task.IsCompleted && !task.IsFaulted && !task.IsCanceled && task.Result.Exists)
+                    {
+                        string username = task.Result.Child("usuario").Value?.ToString();
+                        if (!string.IsNullOrWhiteSpace(username))
+                            SessionContext.BeginFirebaseSession(username);
+                    }
+
+                    callback?.Invoke(true, "Sesión restaurada");
+                });
+        }
+
         // GUARDAR PERFIL
         void SaveUserProfile(string uid,string username,string email)
         {
@@ -182,7 +214,7 @@ namespace Systems.Auth
         public void Logout()
         {
             auth.SignOut();
-        
+            SessionContext.Clear();
         }
     }
 }

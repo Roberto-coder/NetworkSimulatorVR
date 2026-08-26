@@ -26,10 +26,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: eceebffd9a70a1c4eaeadabca9fc16be, type: 2}
   - {fileID: 11400000, guid: d995eaee963f3dd44bc2bb69d216e5f7, type: 2}
   finalQuiz: {fileID: 11400000, guid: 2e6b81918b2e2df43a718f28ddf3cd8a, type: 2}
+  completionAchievement: {fileID: 11400000, guid: 4d06a86a7a1542aeba80f6439f02e82c, type: 2}
   availableTools:
   - name: Stripper
     prefab: {fileID: 1194657964218792147, guid: 0bce6137e81eb3240b8303fc28b0ae96, type: 3}
-    icon: {fileID: 21300000, guid: a6adf3f97f04d8b41953d1084141b17a, type: 3}
+    icon: {fileID: 21300000, guid: 9f6f970a8c555d54db63c57276c05542, type: 3}
   - name: Tester
     prefab: {fileID: 1194657964218792147, guid: c20a2b31c574d034b811ece3471ad234, type: 3}
     icon: {fileID: 21300000, guid: 92526459dd7bd7246af9c613e9f9697f, type: 3}

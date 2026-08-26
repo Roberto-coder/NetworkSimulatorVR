@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement; // Es necesario incluir esta librería [citation:3]
+using Systems.Scenes;
 
 public class SceneChanger : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class SceneChanger : MonoBehaviour
         if (sceneIndex >= 0 && sceneIndex < SceneManager.sceneCountInBuildSettings)
         {
             // Carga la escena usando su número de índice [citation:2][citation:5]
-            SceneManager.LoadScene(sceneIndex);
+            SceneTransitionManager.LoadScene(sceneIndex);
         }
         else
         {

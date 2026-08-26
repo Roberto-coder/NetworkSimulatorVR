@@ -16,5 +16,5 @@ MonoBehaviour:
   title: Pelar punta Izq.
   description: Se debe cortar el extremo izquierdo del cable
   introductionDialogue: 
-  reminderDialogue: 
+  reminderDialogue: Recuerda usar la peladora sobre el extremo izquierdo del cable.
   reminderInterval: 20

@@ -62,6 +62,7 @@ namespace Modules.Module01_CableMaking.Presentation
 
         private CableEnd? activePuzzleEnd;
         private ModuleFlowController flowController;
+        private QuizController activeQuizController;
 
         private void OnEnable()
         {
@@ -89,6 +90,8 @@ namespace Modules.Module01_CableMaking.Presentation
             {
                 flowController.FinalQuizRequested -= ShowQuiz;
             }
+
+            UnsubscribeFromQuiz();
         }
 
         private void RenderInitialState()
@@ -162,6 +165,8 @@ namespace Modules.Module01_CableMaking.Presentation
 
         private void ShowQuiz()
         {
+            UnsubscribeFromQuiz();
+
             if (endVisuals != null)
             {
                 foreach (EndVisuals visuals in endVisuals)
@@ -185,7 +190,20 @@ namespace Modules.Module01_CableMaking.Presentation
                 return;
             }
 
-            quizController.Configure(flowController.ModuleDefinition.FinalQuiz);
+            activeQuizController = quizController;
+            ModuleCompletionCoordinator completionCoordinator =
+                activeQuizController.GetComponent<ModuleCompletionCoordinator>() ??
+                activeQuizController.gameObject.AddComponent<ModuleCompletionCoordinator>();
+            completionCoordinator.Configure(activeQuizController, flowController.ModuleDefinition, flowController);
+            activeQuizController.Configure(flowController.ModuleDefinition.FinalQuiz);
+        }
+
+        private void UnsubscribeFromQuiz()
+        {
+            if (activeQuizController == null)
+                return;
+
+            activeQuizController = null;
         }
 
         private EndVisuals FindVisuals(CableEnd end)

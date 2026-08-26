@@ -16,5 +16,5 @@ MonoBehaviour:
   title: Ponchar extremo izquierdo
   description: Poncha el conector RJ45 del extremo izquierdo.
   introductionDialogue: 
-  reminderDialogue: 
+  reminderDialogue: Usa la ponchadora para fijar el conector RJ45 del extremo izquierdo.
   reminderInterval: 20

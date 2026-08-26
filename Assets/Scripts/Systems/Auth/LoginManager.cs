@@ -31,24 +31,17 @@ namespace Systems.Auth
                 {
                     ShowMessage("Login exitoso",Color.green);
 
+                    if (SessionContext.IsDebugSession)
+                    {
+                        SaveManager.Instance.LoadFromLocal();
+                        canvasController.ShowCanvas("MainMenu");
+                        return;
+                    }
+
                     FirebaseSaveManager.Instance.DownloadSave((json)=>
                     {
                         Debug.Log("Callback DownloadSave ejecutado");
-
-                        if(json != null)
-                        {
-                            string path = Application.persistentDataPath + "/save.json";
-
-                            Debug.Log("Ruta save: " + path);
-
-                            System.IO.File.WriteAllText(path,json);
-                        }
-
-                        SaveManager.Instance.LoadFromLocal();
-
-                    
-                        Debug.Log("Intentando abrir MainMenu");
-                        canvasController.ShowCanvas("MainMenu");
+                        RestoreSaveAndShowMenu(json);
                     });
                 }
                 else
@@ -69,12 +62,7 @@ namespace Systems.Auth
             
                     // Reutilizamos tu lógica de descarga de datos
                     FirebaseSaveManager.Instance.DownloadSave((json) => {
-                        if (json != null) {
-                            string path = Application.persistentDataPath + "/save.json";
-                            System.IO.File.WriteAllText(path, json);
-                        }
-                        SaveManager.Instance.LoadFromLocal();
-                        canvasController.ShowCanvas("MainMenu");
+                        RestoreSaveAndShowMenu(json);
                     });
                 }
                 else
@@ -94,8 +82,16 @@ namespace Systems.Auth
         public void Logout()
         {
             Debug.Log("Cerrando sesión...");
-            FirebaseAuthManager.Instance.Logout();
             canvasController.ShowCanvas("Logout");
+            passwordField.text = string.Empty;
+        }
+
+        private void RestoreSaveAndShowMenu(string remoteJson)
+        {
+            bool hasPendingChanges = SaveManager.Instance.RestoreSessionData(remoteJson);
+            canvasController.ShowCanvas("MainMenu");
+            if (hasPendingChanges)
+                SaveManager.Instance.SyncLocalToFirebase();
         }
     
 

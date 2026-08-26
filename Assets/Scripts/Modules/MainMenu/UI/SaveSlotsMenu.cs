@@ -6,19 +6,16 @@ namespace Modules.MainMenu.UI
     {
         public Transform slotParent;
         public GameObject slotPrefab;
-        private bool slotsLoaded;
-
-        void Start()
+        void OnEnable()
         {
             LoadSlots();
         }
 
         void LoadSlots()
         {
-            if (slotsLoaded || slotParent == null || slotPrefab == null)
+            if (slotParent == null || slotPrefab == null)
                 return;
 
-            slotsLoaded = true;
             ClearSlots();
 
             for (int i = 0; i < 4; i++)
@@ -29,12 +26,10 @@ namespace Modules.MainMenu.UI
                 if (ui == null)
                     continue;
 
-                if (SaveManager.Instance != null &&
-                    SaveManager.Instance.saveFile != null &&
-                    i < SaveManager.Instance.saveFile.slots.Count)
+                SaveSlot slot = SaveManager.Instance?.saveFile?.slots.Find(item => item.slotID == i);
+                if (slot != null && slot.data != null)
                 {
-                    //ui.Setup(SaveManager.Instance.saveFile.slots[i]);
-                    ui.SetupEmpty(i);
+                    ui.Setup(slot);
                 }
                 else
                 {

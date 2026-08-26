@@ -16,5 +16,5 @@ MonoBehaviour:
   title: Ordenar extremo derecho (T568B)
   description: Ordena los ocho conductores del extremo derecho segun la norma T568B.
   introductionDialogue: 
-  reminderDialogue: 
+  reminderDialogue: Repite la secuencia T568B en los conductores del extremo derecho.
   reminderInterval: 20

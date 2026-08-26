@@ -4,7 +4,6 @@ namespace Presentacion.Tutorial
 {
     /// <summary>
     /// Representa una secuencia ordenada de pasos del tutorial.
-    /// En el futuro podrá convertirse en un ScriptableObject.
     /// </summary>
     public class TutorialSequence
     {
@@ -20,11 +19,6 @@ namespace Presentacion.Tutorial
                 return;
 
             _steps.Add(step);
-        }
-
-        public void Clear()
-        {
-            _steps.Clear();
         }
     }
 }

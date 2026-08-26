@@ -13,14 +13,38 @@ namespace Framework.Interaction.Tools
         [SerializeField]
         private Transform rightHandAnchor;
 
+        [SerializeField]
+        private Vector3 toolPositionOffset;
+
+        [SerializeField]
+        private Vector3 toolRotationOffset;
+        
         private GameObject currentTool;
 
         private ToolData currentToolData;
 
+        [Header("Module-independent tools")]
+        [SerializeField] private List<ToolData> availableToolsOverride = new();
+
         public ToolData CurrentTool => currentToolData;
 
-        public IReadOnlyList<ToolData> AvailableTools =>
-            SimulationManager.Instance.FlowController.AvailableTools;
+        public IReadOnlyList<ToolData> AvailableTools
+        {
+            get
+            {
+                if (availableToolsOverride != null && availableToolsOverride.Count > 0)
+                    return availableToolsOverride;
+
+                return SimulationManager.Instance != null
+                    ? SimulationManager.Instance.FlowController.AvailableTools
+                    : System.Array.Empty<ToolData>();
+            }
+        }
+
+        public void SetAvailableTools(IEnumerable<ToolData> tools)
+        {
+            availableToolsOverride = tools != null ? new List<ToolData>(tools) : new List<ToolData>();
+        }
 
         public void EquipTool(ToolData tool)
         {
@@ -36,6 +60,8 @@ namespace Framework.Interaction.Tools
 
             currentTool.transform.localPosition = Vector3.zero;
             currentTool.transform.localRotation = Quaternion.identity;
+            // currentTool.transform.localPosition = toolPositionOffset;
+            // currentTool.transform.localRotation = Quaternion.Euler(toolRotationOffset);
 
             currentToolData = tool;
         }

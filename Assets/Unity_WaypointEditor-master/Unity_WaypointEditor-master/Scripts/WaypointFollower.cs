@@ -1,8 +1,9 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using Waypoints;
 
-namespace Waypoints
+namespace Unity_WaypointEditor_master.Unity_WaypointEditor_master.Scripts
 {
     /// <summary>
     /// Recorre una secuencia de Waypoints.
@@ -28,6 +29,7 @@ namespace Waypoints
         private Coroutine followRoutine;
 
         private Waypoint currentWaypoint;
+        private bool followLinkedWaypoints;
 
         /// <summary>
         /// Waypoint que actualmente se está siguiendo.
@@ -59,15 +61,32 @@ namespace Waypoints
         /// </summary>
         public void BeginFollow(Waypoint firstWaypoint)
         {
+            BeginMovement(firstWaypoint, true);
+        }
+
+        /// <summary>
+        /// Se mueve solamente hasta el waypoint indicado, ignorando los enlaces
+        /// posteriores de la ruta.
+        /// </summary>
+        public void MoveTo(Waypoint destination)
+        {
+            BeginMovement(destination, false);
+        }
+
+        private void BeginMovement(
+            Waypoint firstWaypoint,
+            bool continueThroughLinkedWaypoints)
+        {
             if (firstWaypoint == null)
             {
-                Debug.LogWarning($"{name}: BeginFollow recibió un waypoint nulo.");
+                Debug.LogWarning($"{name}: se recibió un waypoint nulo.");
                 return;
             }
 
             Stop();
 
             currentWaypoint = firstWaypoint;
+            followLinkedWaypoints = continueThroughLinkedWaypoints;
             IsMoving = true;
 
             followRoutine = StartCoroutine(FollowPathRoutine());
@@ -97,7 +116,9 @@ namespace Waypoints
                 {
                     Waypoint passedWaypoint = currentWaypoint;
 
-                    currentWaypoint = currentWaypoint.GetNextWaypoint();
+                    currentWaypoint = followLinkedWaypoints
+                        ? currentWaypoint.GetNextWaypoint()
+                        : null;
 
                     WaypointPassed?.Invoke(passedWaypoint);
                 }

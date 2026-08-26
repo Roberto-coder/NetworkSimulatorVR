@@ -1,4 +1,5 @@
 using System;
+using Unity_WaypointEditor_master.Unity_WaypointEditor_master.Scripts;
 using UnityEngine;
 using Waypoints;
 
@@ -38,11 +39,11 @@ namespace Presentacion.NPC
         }
 
         /// <summary>
-        /// Mueve el NPC hasta el primer waypoint de una ruta.
+        /// Mueve el NPC únicamente hasta el waypoint indicado.
         /// </summary>
-        public void MoveTo(Waypoint firstWaypoint)
+        public void MoveTo(Waypoint destination)
         {
-            waypointFollower.BeginFollow(firstWaypoint);
+            waypointFollower.MoveTo(destination);
         }
 
         /// <summary>

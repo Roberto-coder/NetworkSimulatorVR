@@ -5,6 +5,7 @@ using GameData.Quiz;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using GameData.Achievements;
 
 namespace Presentacion.Quiz
 {
@@ -35,6 +36,9 @@ namespace Presentacion.Quiz
         [SerializeField] private TMP_Text resultTitleText;
         [SerializeField] private TMP_Text resultScoreText;
         [SerializeField] private Button retryButton;
+        [SerializeField] private Button finishButton;
+        [SerializeField] private Image achievementImage;
+        [SerializeField] private TMP_Text achievementText;
 
         private readonly List<QuizAnswerOptionView> optionViews = new();
 
@@ -42,14 +46,17 @@ namespace Presentacion.Quiz
         public event Action NextRequested;
         public event Action SubmitRequested;
         public event Action RetryRequested;
+        public event Action FinishRequested;
         public event Action<int> AnswerSelected;
 
         private void Awake()
         {
+            EnsureCompletionControls();
             previousButton?.onClick.AddListener(HandlePrevious);
             nextButton?.onClick.AddListener(HandleNext);
             submitButton?.onClick.AddListener(HandleSubmit);
             retryButton?.onClick.AddListener(HandleRetry);
+            finishButton?.onClick.AddListener(HandleFinish);
         }
 
         private void OnDestroy()
@@ -58,6 +65,7 @@ namespace Presentacion.Quiz
             nextButton?.onClick.RemoveListener(HandleNext);
             submitButton?.onClick.RemoveListener(HandleSubmit);
             retryButton?.onClick.RemoveListener(HandleRetry);
+            finishButton?.onClick.RemoveListener(HandleFinish);
         }
 
         public void ShowQuestion(
@@ -117,6 +125,23 @@ namespace Presentacion.Quiz
             }
         }
 
+        public void ShowAchievement(AchievementDefinition achievement)
+        {
+            if (achievementText != null)
+            {
+                achievementText.gameObject.SetActive(achievement != null);
+                achievementText.text = achievement == null
+                    ? string.Empty
+                    : $"Insignia desbloqueada\n{achievement.Title}";
+            }
+
+            if (achievementImage != null)
+            {
+                achievementImage.sprite = achievement == null ? null : achievement.Icon;
+                achievementImage.gameObject.SetActive(achievement != null && achievement.Icon != null);
+            }
+        }
+
         private void BuildOptions(QuizQuestion question, int selectedOption)
         {
             if (optionsContainer == null || optionPrefab == null)
@@ -172,6 +197,47 @@ namespace Presentacion.Quiz
         private void HandleNext() => NextRequested?.Invoke();
         private void HandleSubmit() => SubmitRequested?.Invoke();
         private void HandleRetry() => RetryRequested?.Invoke();
+        private void HandleFinish() => FinishRequested?.Invoke();
+
+        private void EnsureCompletionControls()
+        {
+            if (retryButton == null)
+                return;
+
+            if (finishButton == null)
+            {
+                finishButton = Instantiate(retryButton, retryButton.transform.parent);
+                finishButton.name = "FinishAndReturnButton";
+                TMP_Text label = finishButton.GetComponentInChildren<TMP_Text>(true);
+                if (label != null)
+                    label.text = "Terminar y retornar al Lobby";
+            }
+
+            if (achievementText == null)
+            {
+                Transform resultContent = retryButton.transform.parent.parent;
+                GameObject textObject = new("AchievementText", typeof(RectTransform), typeof(TextMeshProUGUI), typeof(LayoutElement));
+                textObject.transform.SetParent(resultContent, false);
+                textObject.transform.SetSiblingIndex(retryButton.transform.parent.GetSiblingIndex());
+                achievementText = textObject.GetComponent<TextMeshProUGUI>();
+                achievementText.alignment = TextAlignmentOptions.Center;
+                achievementText.fontSize = 28f;
+                textObject.GetComponent<LayoutElement>().preferredHeight = 80f;
+            }
+
+            if (achievementImage == null)
+            {
+                Transform resultContent = retryButton.transform.parent.parent;
+                GameObject imageObject = new("AchievementImage", typeof(RectTransform), typeof(Image), typeof(LayoutElement));
+                imageObject.transform.SetParent(resultContent, false);
+                imageObject.transform.SetSiblingIndex(achievementText.transform.GetSiblingIndex());
+                achievementImage = imageObject.GetComponent<Image>();
+                achievementImage.preserveAspect = true;
+                LayoutElement layout = imageObject.GetComponent<LayoutElement>();
+                layout.preferredWidth = 180f;
+                layout.preferredHeight = 180f;
+            }
+        }
 
         private static void SetActive(GameObject target, bool value)
         {

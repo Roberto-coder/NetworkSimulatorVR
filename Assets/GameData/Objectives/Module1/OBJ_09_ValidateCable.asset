@@ -16,5 +16,5 @@ MonoBehaviour:
   title: Probar cable
   description: Ejecuta la prueba del cable con ambos extremos conectados al tester.
   introductionDialogue: 
-  reminderDialogue: 
+  reminderDialogue: Inicia la prueba del tester para validar la continuidad y el orden del cable.
   reminderInterval: 20

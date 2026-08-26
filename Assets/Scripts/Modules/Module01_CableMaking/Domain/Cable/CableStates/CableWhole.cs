@@ -1,4 +1,5 @@
 using Framework.Interaction.Tools.Interfaces;
+using Modules.Module01_CableMaking.Flow.Validation;
 using UnityEngine;
 
 namespace Modules.Module01_CableMaking.Domain.Cable.CableStates
@@ -23,6 +24,15 @@ namespace Modules.Module01_CableMaking.Domain.Cable.CableStates
 
         public void Peel()
         {
+            ModuleActionValidator validator =
+                SimulationManager.Instance?.FlowController?.ActionValidator;
+
+            if (validator != null &&
+                !validator.TryValidate(ModuleActionType.Peel, end))
+            {
+                return;
+            }
+
             if (stateController == null)
             {
                 Debug.LogError($"[CableWhole] No hay CableStateController para {end}.", this);

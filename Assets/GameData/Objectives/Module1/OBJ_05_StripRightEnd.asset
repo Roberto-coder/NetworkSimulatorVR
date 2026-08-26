@@ -16,5 +16,5 @@ MonoBehaviour:
   title: Pelar extremo derecho
   description: Pela el recubrimiento del extremo derecho del cable.
   introductionDialogue: 
-  reminderDialogue: 
+  reminderDialogue: Retira la cubierta del extremo derecho con la peladora.
   reminderInterval: 20

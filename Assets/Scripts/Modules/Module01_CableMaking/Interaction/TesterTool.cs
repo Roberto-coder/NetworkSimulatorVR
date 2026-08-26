@@ -1,5 +1,6 @@
 using Framework.Interaction.Tools;
 using Framework.Interaction.Tools.Interfaces;
+using Modules.Module01_CableMaking.Flow.Validation;
 using UnityEngine;
 
 namespace Modules.Module01_CableMaking.Interaction
@@ -36,6 +37,15 @@ namespace Modules.Module01_CableMaking.Interaction
 
         private void TryTest()
         {
+            ModuleActionValidator validator =
+                SimulationManager.Instance?.FlowController?.ActionValidator;
+
+            if (validator != null &&
+                !validator.TryValidate(ModuleActionType.ValidateCable))
+            {
+                return;
+            }
+
             if (dockerController == null || !dockerController.AreBothConnected)
             {
                 Debug.Log("Conecta ambos extremos del cable al tester antes de probarlo.");

@@ -1,4 +1,5 @@
 using Framework.Interaction.Tools.Interfaces;
+using Modules.Module01_CableMaking.Flow.Validation;
 using UnityEngine;
 
 namespace Modules.Module01_CableMaking.Domain.Cable.CableStates
@@ -15,6 +16,15 @@ namespace Modules.Module01_CableMaking.Domain.Cable.CableStates
 
         public void Test()
         {
+            ModuleActionValidator validator =
+                SimulationManager.Instance?.FlowController?.ActionValidator;
+
+            if (validator != null &&
+                !validator.TryValidate(ModuleActionType.ValidateCable))
+            {
+                return;
+            }
+
             if (!CanTest)
                 return;
             CableEvents.RaiseCableValidated();

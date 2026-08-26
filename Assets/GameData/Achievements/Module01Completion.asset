@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a831fe736e9340e0abc5607c5925be21, type: 3}
+  m_Name: Module01Completion
+  m_EditorClassIdentifier: Assembly-CSharp::GameData.Achievements.AchievementDefinition
+  achievementId: module_01_completed
+  title: Constructor de cable de red
+  description: Completaste todos los objetivos del modulo de fabricacion de cable.
+  icon: {fileID: 21300000, guid: effc694afb3053047a6aef18e0834784, type: 3}

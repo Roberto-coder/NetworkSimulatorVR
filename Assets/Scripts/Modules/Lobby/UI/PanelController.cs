@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Systems.Scenes;
 
 namespace Modules.Lobby.UI
 {
@@ -9,6 +10,7 @@ namespace Modules.Lobby.UI
         public GameObject contentMain; // Arrastra tu ContentMain aquí en el Inspector
         public GameObject contentSave;
         public GameObject contentModules;
+        public GameObject contentProfile;
 
         void Start()
         {
@@ -18,33 +20,39 @@ namespace Modules.Lobby.UI
 
         public void ShowMainContent()
         {
-            contentMain.SetActive(true);
-            contentSave.SetActive(false);
-            contentModules.SetActive(false);
+            SetActive(contentMain, true);
+            SetActive(contentSave, false);
+            SetActive(contentModules, false);
+            SetActive(contentProfile, false);
         }
 
         public void ShowCanvas(string canvas)
         {
-            contentMain.SetActive(false);
-            contentModules.SetActive(false);
-            contentSave.SetActive(false);
+            SetActive(contentMain, false);
+            SetActive(contentModules, false);
+            SetActive(contentSave, false);
+            SetActive(contentProfile, false);
 
             switch (canvas)
             {
                 case "ContentMain":
-                    contentMain.SetActive(true);
+                    SetActive(contentMain, true);
                     break;
 
                 case "ContentModules":
-                    contentModules.SetActive(true);
+                    SetActive(contentModules, true);
                     break;
 
                 case "ContentSave":
-                    contentSave.SetActive(true);
+                    SetActive(contentSave, true);
+                    break;
+                
+                case "ContentProfile":
+                    SetActive(contentProfile, true);
                     break;
 
                 case "BackToMain":
-                    contentMain.SetActive(true);
+                    SetActive(contentMain, true);
                     break;
             }
         }
@@ -53,7 +61,13 @@ namespace Modules.Lobby.UI
         {
             // Reemplaza "NombreDeTuEscenaMenu" por el nombre exacto 
             // de tu escena de menú en el Build Settings
-            SceneManager.LoadScene("Menu");
+            SceneTransitionManager.LoadScene("Menu");
+        }
+
+        private static void SetActive(GameObject target, bool value)
+        {
+            if (target != null)
+                target.SetActive(value);
         }
     }
 }

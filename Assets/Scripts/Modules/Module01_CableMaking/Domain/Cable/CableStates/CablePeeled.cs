@@ -1,5 +1,6 @@
 using Framework.Interaction.Tools.Interfaces;
 using Oculus.Interaction;
+using Modules.Module01_CableMaking.Flow.Validation;
 using UnityEngine;
 
 namespace Modules.Module01_CableMaking.Domain.Cable.CableStates
@@ -45,6 +46,15 @@ namespace Modules.Module01_CableMaking.Domain.Cable.CableStates
 
         public void Disorder()
         {
+            ModuleActionValidator validator =
+                SimulationManager.Instance?.FlowController?.ActionValidator;
+
+            if (validator != null &&
+                !validator.TryValidate(ModuleActionType.PrepareOrder, end))
+            {
+                return;
+            }
+
             if (!CanDisorder)
                 return;
             // Aqui la condicion de que el cable este en el estado correcto para pelar, si no esta en ese estado no se puede pelar

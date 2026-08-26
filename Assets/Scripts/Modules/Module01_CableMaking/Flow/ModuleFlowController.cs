@@ -7,6 +7,7 @@ using GameData.Modules;
 using GameData.Objectives;
 using Modules.Module01_CableMaking.Domain.Cable;
 using Modules.Module01_CableMaking.Factories;
+using Modules.Module01_CableMaking.Flow.Validation;
 
 namespace Modules.Module01_CableMaking.Flow
 {
@@ -31,11 +32,20 @@ namespace Modules.Module01_CableMaking.Flow
         public event Action<ObjectiveData> CurrentObjectiveChanged;
 
         /// <summary>
+        /// Se produce despues de completar correctamente un objetivo.
+        /// </summary>
+        public event Action<ObjectiveData> ObjectiveCompleted;
+
+        /// <summary>
         /// Se produce cuando todos los objetivos del modulo han finalizado.
         /// </summary>
         public event Action ModuleCompleted;
+
+        public event Action PracticalObjectivesCompleted;
         
         public event Action FinalQuizRequested;
+
+        public ModuleActionValidator ActionValidator { get; }
 
         /// <summary>
         /// Inicializa el flujo y crea los objetivos definidos para el modulo.
@@ -45,6 +55,8 @@ namespace Modules.Module01_CableMaking.Flow
         {
             this.moduleDefinition = moduleDefinition
                 ?? throw new ArgumentNullException(nameof(moduleDefinition));
+
+            ActionValidator = new ModuleActionValidator(() => CurrentObjectiveData);
 
             ObjectiveFactory objectiveFactory = new ObjectiveFactory();
             List<ObjectiveBase> objectives = new List<ObjectiveBase>(
@@ -81,6 +93,12 @@ namespace Modules.Module01_CableMaking.Flow
         /// Obtiene el objetivo activo actual.
         /// </summary>
         public ObjectiveBase CurrentObjective => objectiveController.CurrentObjective;
+
+        /// <summary>
+        /// Runtime objectives in the same order as the module definition. UI can
+        /// read their real state instead of inferring completion from an index.
+        /// </summary>
+        public IReadOnlyList<ObjectiveBase> Objectives => objectiveController.Objectives;
         
         public int CurrentObjectiveIndex => objectiveController.CurrentObjectiveIndex;
 
@@ -106,6 +124,8 @@ namespace Modules.Module01_CableMaking.Flow
         /// Obtiene un valor que indica si el modulo ha finalizado.
         /// </summary>
         public bool IsCompleted { get; private set; }
+
+        public bool ArePracticalObjectivesCompleted { get; private set; }
 
         /// <summary>
         /// Inicia el primer objetivo del modulo.
@@ -166,9 +186,22 @@ namespace Modules.Module01_CableMaking.Flow
 
         private void HandleAllObjectivesCompleted()
         {
+            ArePracticalObjectivesCompleted = true;
+            PracticalObjectivesCompleted?.Invoke();
+            FinalQuizRequested?.Invoke();
+        }
+
+        /// <summary>
+        /// Finaliza el módulo después de entregar el quiz. La puntuación no
+        /// condiciona la finalización.
+        /// </summary>
+        public void CompleteFinalQuiz()
+        {
+            if (!ArePracticalObjectivesCompleted || IsCompleted)
+                return;
+
             IsCompleted = true;
             ModuleCompleted?.Invoke();
-            FinalQuizRequested?.Invoke();
         }
 
         private void HandleCablePeeled(CableEnd end) =>
@@ -206,9 +239,15 @@ namespace Modules.Module01_CableMaking.Flow
             if (!hasStarted || IsCompleted || CurrentObjectiveData?.Id != expectedObjectiveId)
                 return;
 
+            ObjectiveData completedObjective = CurrentObjectiveData;
+            ObjectiveBase objective = CurrentObjective;
+
             UnityEngine.Debug.Log(
                 $"[ModuleFlow] Objetivo completado: {expectedObjectiveId}.");
-            CurrentObjective?.Complete();
+            objective?.Complete();
+
+            if (objective != null && objective.IsCompleted)
+                ObjectiveCompleted?.Invoke(completedObjective);
         }
         
         public IReadOnlyList<ToolData> AvailableTools

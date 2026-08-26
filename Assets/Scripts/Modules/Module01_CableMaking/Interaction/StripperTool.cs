@@ -1,5 +1,6 @@
 using Framework.Interaction.Tools.Interfaces;
 using Framework.Interaction.Tools;
+using Modules.Module01_CableMaking.Flow.Validation;
 using UnityEngine;
 
 namespace Modules.Module01_CableMaking.Interaction
@@ -27,6 +28,15 @@ namespace Modules.Module01_CableMaking.Interaction
 
         private void TryPeel()
         {
+            ModuleActionValidator validator =
+                SimulationManager.Instance?.FlowController?.ActionValidator;
+
+            if (validator != null &&
+                !validator.TryValidate(ModuleActionType.Peel))
+            {
+                return;
+            }
+
             if (!TryGetTarget(out IPeelable peelable))
             {
                 Debug.Log("[StripperTool] No se encontró un objetivo IPeelable bajo el puntero.", this);

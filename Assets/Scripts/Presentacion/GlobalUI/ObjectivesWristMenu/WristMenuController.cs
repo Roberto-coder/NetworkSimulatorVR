@@ -2,104 +2,161 @@ using UnityEngine;
 
 namespace Presentacion.GlobalUI.ObjectivesWristMenu
 {
-/// <summary>
-/// Decide cuando debe mostrarse el menu de objetivos en la muñeca del jugador
-/// </summary>
-    public class WristMenuController : MonoBehaviour
+    /// <summary>Shows the objectives when the wrist display faces the user's head.</summary>
+    public sealed class WristMenuController : MonoBehaviour
     {
-        [Header("Referencias")]
-        [SerializeField] private Transform headTransform;      // CenterEyeAnchor
-        [SerializeField] private Transform wristTransform;      // Hijo de LeftHandAnchor, rotación local (0,0,0)
-        [SerializeField] private GameObject wristMenuCanvas;    // El canvas a mostrar/ocultar
+        [Header("References")]
+        [SerializeField] private Transform headTransform;
+        [SerializeField] private Transform wristTransform;
+        [SerializeField] private GameObject wristMenuCanvas;
 
-        [Header("Offset de orientación")]
-        [Tooltip("Rotación local aplicada para que el eje de referencia apunte al suelo en reposo.")]
-        [SerializeField] private Vector3 restOrientationOffsetEuler = new Vector3(90f, 0f, 0f);
+        [Header("Display orientation")]
+        [Tooltip("Local wrist axis perpendicular to the visible face of the menu. Use the gizmo to verify it points toward the user's eyes.")]
+        [SerializeField] private Vector3 localDisplayNormal = Vector3.down;
 
-        [Header("Umbral de mirada")]
-        [Tooltip("Grados entre la mirada de la cabeza y la dirección hacia la muñeca. Menor = más exigente.")]
-        [SerializeField] private float lookAtWristThresholdDegrees = 30f;
+        [Header("Comfort angles")]
+        [Tooltip("Maximum angle between the display normal and the eyes to open the menu.")]
+        [Range(0f, 90f)] [SerializeField] private float openFacingAngle = 60f;
+        [Tooltip("Larger closing angle provides hysteresis and prevents flickering.")]
+        [Range(0f, 120f)] [SerializeField] private float closeFacingAngle = 75f;
+        [Tooltip("How far from the centre of view the wrist may be when opening.")]
+        [Range(0f, 90f)] [SerializeField] private float openLookAngle = 45f;
+        [Tooltip("Larger angle used once visible so small head movements do not close it.")]
+        [Range(0f, 120f)] [SerializeField] private float closeLookAngle = 60f;
+        [Tooltip("Condition must remain stable briefly before visibility changes.")]
+        [Min(0f)] [SerializeField] private float activationDelay = 0.08f;
 
-        [Header("Umbral de elevación de la muñeca")]
-        [Tooltip("Grados por encima de la horizontal que debe superar el eje ajustado para considerar la muñeca 'girada hacia el usuario'.")]
-        [SerializeField] private float minElevationAboveHorizontalDegrees = 0f;
+        [Header("Diagnostics")]
+        [SerializeField] private bool debugLogs;
 
-        private Quaternion _restOrientationOffset;
         private bool isMenuVisible;
-        
+        private bool pendingVisibility;
+        private float pendingSince;
+
         private void Awake()
         {
-            wristMenuCanvas.SetActive(false);
-            _restOrientationOffset = Quaternion.Euler(restOrientationOffsetEuler);
+            ResolveRuntimeCanvas();
+            SetVisible(false);
+        }
+
+        private void Start()
+        {
+            // Initialize even though its Canvas was disabled in Awake.
+            if (wristMenuCanvas != null)
+            {
+                WristObjectivesPresenter presenter =
+                    wristMenuCanvas.GetComponentInChildren<WristObjectivesPresenter>(true);
+                if (presenter != null)
+                    presenter.Initialize();
+            }
+
+            if (debugLogs)
+            {
+                Debug.Log(
+                    $"[WristMenu] head={(headTransform != null)}, wrist={(wristTransform != null)}, " +
+                    $"canvas={(wristMenuCanvas != null)}.",
+                    this);
+            }
+        }
+
+        private void OnValidate()
+        {
+            closeFacingAngle = Mathf.Max(closeFacingAngle, openFacingAngle);
+            closeLookAngle = Mathf.Max(closeLookAngle, openLookAngle);
+            if (localDisplayNormal.sqrMagnitude < 0.001f)
+                localDisplayNormal = Vector3.down;
         }
 
         private void Update()
         {
-            bool isLookingAtWrist = IsLookingAtWrist();
-            bool isWristForwardAboveHorizontal = IsWristForwardAboveHorizontal();
+            if (headTransform == null || wristTransform == null || wristMenuCanvas == null)
+                return;
 
-            bool shouldShow = isLookingAtWrist && isWristForwardAboveHorizontal;
-
-            if (shouldShow != isMenuVisible)
+            bool desired = ShouldBeVisible();
+            if (desired == isMenuVisible)
             {
-                isMenuVisible = shouldShow;
-                wristMenuCanvas.SetActive(isMenuVisible);
+                pendingVisibility = desired;
+                pendingSince = Time.unscaledTime;
+                return;
             }
+
+            if (desired != pendingVisibility)
+            {
+                pendingVisibility = desired;
+                pendingSince = Time.unscaledTime;
+                return;
+            }
+
+            if (Time.unscaledTime - pendingSince >= activationDelay)
+                SetVisible(desired);
         }
 
-        private bool IsLookingAtWrist()
+        private bool ShouldBeVisible()
         {
-            Vector3 dirToWrist = (wristTransform.position - headTransform.position).normalized;
-            float angle = Vector3.Angle(headTransform.forward, dirToWrist);
-            return angle < lookAtWristThresholdDegrees;
+            Vector3 wristToEyes = headTransform.position - wristTransform.position;
+            if (wristToEyes.sqrMagnitude < 0.0001f)
+                return false;
+
+            wristToEyes.Normalize();
+            Vector3 displayNormal = wristTransform.TransformDirection(localDisplayNormal.normalized);
+            float facingAngle = Vector3.Angle(displayNormal, wristToEyes);
+
+            Vector3 headToWrist = -wristToEyes;
+            float lookAngle = Vector3.Angle(headTransform.forward, headToWrist);
+
+            float facingLimit = isMenuVisible ? closeFacingAngle : openFacingAngle;
+            float lookLimit = isMenuVisible ? closeLookAngle : openLookAngle;
+            return facingAngle <= facingLimit && lookAngle <= lookLimit;
         }
 
-        private bool IsWristForwardAboveHorizontal()
+        private void SetVisible(bool visible)
         {
-            float elevationDegrees = 90f - Vector3.Angle(GetAdjustedForward(), Vector3.up);
-            return elevationDegrees > minElevationAboveHorizontalDegrees;
+            isMenuVisible = visible;
+            pendingVisibility = visible;
+            pendingSince = Time.unscaledTime;
+            if (wristMenuCanvas != null)
+                wristMenuCanvas.SetActive(visible);
         }
 
-        /// <summary>
-        /// Aplica el offset de reposo sobre la rotación actual de wristTransform.
-        /// Como wristTransform tiene rotación local (0,0,0) respecto a
-        /// LeftHandAnchor, este offset se combina con la rotación mundial
-        /// heredada del anchor, y el resultado apunta al suelo cuando la mano
-        /// está en reposo (brazo colgando).
-        /// </summary>
-        private Vector3 GetAdjustedForward()
+        private void ResolveRuntimeCanvas()
         {
-            Quaternion adjustedRotation = wristTransform.rotation * _restOrientationOffset;
-            return adjustedRotation * Vector3.forward;
+            if (wristMenuCanvas != null && wristMenuCanvas.scene.IsValid())
+                return;
+
+            WristObjectivesPresenter[] presenters =
+                transform.root.GetComponentsInChildren<WristObjectivesPresenter>(true);
+            foreach (WristObjectivesPresenter presenter in presenters)
+            {
+                if (presenter != null && presenter.gameObject.scene == gameObject.scene)
+                {
+                    wristMenuCanvas = presenter.gameObject;
+                    return;
+                }
+            }
+
+            Debug.LogError(
+                "WristMenuController no encontró una instancia de ObjectivesCanva dentro de PlayerRoot.",
+                this);
         }
 
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
         private void OnDrawGizmosSelected()
         {
-            if (wristTransform == null) return;
+            if (wristTransform == null)
+                return;
 
-            if (!Application.isPlaying)
+            Vector3 normal = localDisplayNormal.sqrMagnitude > 0.001f
+                ? wristTransform.TransformDirection(localDisplayNormal.normalized)
+                : -wristTransform.up;
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawRay(wristTransform.position, normal * 0.15f);
+
+            if (headTransform != null)
             {
-                _restOrientationOffset = Quaternion.Euler(restOrientationOffsetEuler);
+                Gizmos.color = ShouldBeVisible() ? Color.green : Color.red;
+                Gizmos.DrawLine(wristTransform.position, headTransform.position);
             }
-
-            Vector3 adjustedForward = GetAdjustedForward();
-
-            Gizmos.color = IsWristForwardAboveHorizontalGizmoSafe(adjustedForward) ? Color.green : Color.red;
-            Gizmos.DrawRay(wristTransform.position, adjustedForward * 0.15f);
-
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawRay(wristTransform.position, wristTransform.forward * 0.1f); // eje original, sin offset, de referencia
-
-            Gizmos.color = Color.gray;
-            Gizmos.DrawRay(wristTransform.position, Vector3.up * 0.1f);
         }
-
-        private bool IsWristForwardAboveHorizontalGizmoSafe(Vector3 adjustedForward)
-        {
-            float elevationDegrees = 90f - Vector3.Angle(adjustedForward, Vector3.up);
-            return elevationDegrees > minElevationAboveHorizontalDegrees;
-        }
-    #endif
+#endif
     }
 }

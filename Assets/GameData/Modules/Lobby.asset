@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a41bad9c26f44f418b18e7381d3ae71, type: 3}
+  m_Name: Lobby
+  m_EditorClassIdentifier: Assembly-CSharp::GameData.Modules.ModuleDefinition
+  moduleId: Lobby
+  moduleName: Modulo Central
+  description: El alumno puede tomar este espacio como centro de control y exploracion
+    con acciones como guardado y consulta de perfil ,ademas este lobby funge como
+    esparcimiento y pausa para que la experiencia sea mas amena.
+  objectives:
+  - {fileID: 11400000, guid: 315be25b7f3201745a7bec89161bd3e9, type: 2}
+  finalQuiz: {fileID: 0}
+  completionAchievement: {fileID: 0}
+  availableTools:
+  - name: Cube
+    prefab: {fileID: 8394900017115752709, guid: e3c7371a2b7177f4b9302e7ec0e8a061, type: 3}
+    icon: {fileID: 21300000, guid: 367065669e818429cbdbccfe973c1935, type: 3}
+  - name: Capsule
+    prefab: {fileID: 1733026204621751213, guid: 6f168449ed72a0741adf0cf42db7d6dd, type: 3}
+    icon: {fileID: 21300000, guid: 367065669e818429cbdbccfe973c1935, type: 3}
+  - name: Sphere
+    prefab: {fileID: 4539016709398761532, guid: a8a298fd4fcd49a41b610a9aa5feb611, type: 3}
+    icon: {fileID: 21300000, guid: 367065669e818429cbdbccfe973c1935, type: 3}
+  inputSettings:
+    enablePauseMenu: 1
+    enableToolSelector: 1
+    enableObjectiveMenu: 1
+    enableConfirm: 1

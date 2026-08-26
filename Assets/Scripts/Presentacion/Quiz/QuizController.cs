@@ -20,6 +20,7 @@ namespace Presentacion.Quiz
         private bool isConfigured;
 
         public event Action<QuizResult> QuizCompleted;
+        public event Action FinishRequested;
 
         private void Awake()
         {
@@ -38,6 +39,7 @@ namespace Presentacion.Quiz
             view.NextRequested += NextQuestion;
             view.SubmitRequested += Submit;
             view.RetryRequested += Restart;
+            view.FinishRequested += HandleFinishRequested;
         }
 
         private void Start()
@@ -56,6 +58,7 @@ namespace Presentacion.Quiz
             view.NextRequested -= NextQuestion;
             view.SubmitRequested -= Submit;
             view.RetryRequested -= Restart;
+            view.FinishRequested -= HandleFinishRequested;
         }
 
         public void Configure(QuizData quizData)
@@ -134,6 +137,11 @@ namespace Presentacion.Quiz
             if (quiz != null)
                 Configure(quiz);
         }
+
+        public void ShowAchievement(GameData.Achievements.AchievementDefinition achievement) =>
+            view.ShowAchievement(achievement);
+
+        private void HandleFinishRequested() => FinishRequested?.Invoke();
 
         private bool CanLeaveCurrentQuestion()
         {

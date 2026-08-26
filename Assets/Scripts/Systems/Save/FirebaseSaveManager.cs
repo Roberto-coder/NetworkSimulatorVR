@@ -3,6 +3,7 @@ using Firebase.Database;
 using Firebase.Auth;
 using System;
 using Firebase.Extensions;
+using Systems.Auth;
 
 public class FirebaseSaveManager : MonoBehaviour
 {
@@ -27,30 +28,39 @@ public class FirebaseSaveManager : MonoBehaviour
 
     string GetUserID()
     {
-        return FirebaseAuth.DefaultInstance.CurrentUser.UserId;
+        return SessionContext.CanSyncToFirebase ? SessionContext.UserId : null;
     }
 
     // SUBIR SAVE (guardado manual)
-    public void UploadSave(SaveFile saveFile)
+    public void UploadSave(SaveFile saveFile, Action<bool, string> callback = null)
     {
         string uid = GetUserID();
+
+        if (string.IsNullOrEmpty(uid))
+        {
+            Debug.LogWarning("No se puede sincronizar sin un usuario autenticado.");
+            callback?.Invoke(false, "No hay una sesión de Firebase activa");
+            return;
+        }
 
         string json = JsonUtility.ToJson(saveFile);
 
         db.Child("simulador_redes_vr")
-            .Child("users")
+            .Child("usuarios")
             .Child(uid)
             .Child("saveData")
             .SetRawJsonValueAsync(json)
-            .ContinueWith(task =>
+            .ContinueWithOnMainThread(task =>
           {
-              if(task.IsCompleted)
+              if(task.IsCompleted && !task.IsFaulted && !task.IsCanceled)
               {
                   Debug.Log("Save subido a Firebase");
+                  callback?.Invoke(true, "Guardado en la nube");
               }
               else
               {
                   Debug.LogError("Error subiendo save");
+                  callback?.Invoke(false, "Error al guardar en Firebase");
               }
           });
     }

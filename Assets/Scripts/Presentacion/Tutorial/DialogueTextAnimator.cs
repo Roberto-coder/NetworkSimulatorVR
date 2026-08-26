@@ -20,6 +20,8 @@ namespace Presentation.Tutorial
 
         private bool _skipRequested;
 
+        public bool IsPlaying { get; private set; }
+
         /// <summary>
         /// Escribe el mensaje carácter por carácter.
         /// La corrutina finaliza cuando el texto terminó de mostrarse.
@@ -27,6 +29,7 @@ namespace Presentation.Tutorial
         public IEnumerator Play(string message)
         {
             _skipRequested = false;
+            IsPlaying = true;
 
             dialogueText.text = message;
 
@@ -50,6 +53,7 @@ namespace Presentation.Tutorial
 
             // Garantiza que todo el texto sea visible al finalizar
             dialogueText.maxVisibleCharacters = totalCharacters;
+            IsPlaying = false;
         }
 
         /// <summary>
@@ -66,6 +70,7 @@ namespace Presentation.Tutorial
         public void Clear()
         {
             _skipRequested = false;
+            IsPlaying = false;
 
             dialogueText.text = string.Empty;
             dialogueText.maxVisibleCharacters = 0;

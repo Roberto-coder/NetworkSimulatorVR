@@ -5,6 +5,7 @@ using Modules.Module01_CableMaking.Domain.Cable;
 using Modules.Module01_CableMaking.Domain.Connector;
 using Modules.Module01_CableMaking.Domain.Standards;
 using Modules.Module01_CableMaking.Domain.Validation;
+using Modules.Module01_CableMaking.Flow.Validation;
 using TMPro;
 using UnityEngine;
 
@@ -49,6 +50,15 @@ namespace Modules.Module01_CableMaking.Presentation
         
         public void Order()
         {
+            ModuleActionValidator actionValidator =
+                SimulationManager.Instance?.FlowController?.ActionValidator;
+
+            if (actionValidator != null &&
+                !actionValidator.TryValidate(ModuleActionType.Order, end))
+            {
+                return;
+            }
+
             if (!CanOrder)
                 return;
             // Aqui la condicion de que el cable este en el estado correcto para pelar, si no esta en ese estado no se puede pelar
@@ -78,6 +88,8 @@ namespace Modules.Module01_CableMaking.Presentation
             else
             {
                 SetResult("Incorrecto");
+                SimulationManager.Instance?.FlowController?.ActionValidator
+                    .ReportIncorrectWireOrder();
             }
 
             foreach (string error in result.Errors)

@@ -26,6 +26,8 @@ namespace Systems.Input
 
         public event Action RightTriggerReleased;
 
+        public event Action ConfirmPressedEvent;
+
         public float RightTrigger { get; private set; }
 
         private bool previousPressed;
@@ -71,6 +73,9 @@ namespace Systems.Input
 
         private void Update()
         {
+            if (ConfirmPressed)
+                ConfirmPressedEvent?.Invoke();
+
             RightTrigger =
                 OVRInput.Get(
                     OVRInput.Axis1D.PrimaryIndexTrigger,

@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Systems.Scenes;
 
 namespace Modules.Lobby.UI
 {
@@ -29,7 +30,7 @@ namespace Modules.Lobby.UI
 
         void CargarEscena()
         {
-            SceneManager.LoadScene(escena);
+            SceneTransitionManager.LoadScene(escena);
         }
     }
 }

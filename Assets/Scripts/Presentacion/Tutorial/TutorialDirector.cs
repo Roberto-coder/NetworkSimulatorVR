@@ -1,6 +1,5 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
+using System;
 using Modules.Module01_CableMaking.Flow;
 using Presentacion.NPC;
 using UnityEngine;
@@ -23,7 +22,8 @@ namespace Presentacion.Tutorial
         private NPCMovementController movementController;
 
         public NPCMovementController MovementController => movementController;
-        [SerializeField]
+        public NPCPlayerLookController LookController { get; private set; }
+        public NPCVoiceController VoiceController { get; private set; }
         private ModuleFlowController flowController;
 
         public ModuleFlowController FlowController => flowController;
@@ -31,39 +31,21 @@ namespace Presentacion.Tutorial
         private TutorialSequence _sequence= new();
         
         public bool IsRunning { get; private set; }
+        public event Action TutorialCompleted;
 
-        public int CurrentStepIndex { get; private set; } = -1;
-        
-        public TutorialStep CurrentStep { get; private set; }
-        
-        public event Action<TutorialStep> StepStarted;
-        public event Action<TutorialStep> StepCompleted;
-        public event Action TutorialFinished;
-
-
+        private void Awake()
+        {
+            ResolveNpcControllers();
+        }
 
         public void SetSequence(TutorialSequence sequence)
         {
             _sequence = sequence;
         }
 
-        /// <summary>
-        /// Agrega un paso al final de la secuencia.
-        /// </summary>
-        public void AddStep(TutorialStep step)
+        public void SetFlowController(ModuleFlowController controller)
         {
-            if (step == null)
-                return;
-
-            _sequence.AddStep(step);
-        }
-
-        /// <summary>
-        /// Elimina todos los pasos pendientes.
-        /// </summary>
-        public void ClearSteps()
-        {
-            _sequence.Clear();
+            flowController = controller;
         }
 
         /// <summary>
@@ -74,17 +56,17 @@ namespace Presentacion.Tutorial
             if (IsRunning)
                 return;
 
-                StartCoroutine(RunTutorial());
+            ResolveNpcControllers();
+            StartCoroutine(RunTutorial());
         }
 
-        /// <summary>
-        /// Detiene inmediatamente el tutorial.
-        /// </summary>
-        public void StopTutorial()
+        private void OnDisable()
         {
             StopAllCoroutines();
-
+            VoiceController?.Stop();
+            dialogueController?.HideImmediate();
             IsRunning = false;
+            TutorialCompleted?.Invoke();
         }
 
         /// <summary>
@@ -102,19 +84,21 @@ namespace Presentacion.Tutorial
             
             for (int i = 0; i < _sequence.Count; i++)
             {
-                CurrentStepIndex = i;
-                CurrentStep = _sequence.Steps[i];
-
-                StepStarted?.Invoke(CurrentStep);
-
-                yield return CurrentStep.Execute(this);
-
-                StepCompleted?.Invoke(CurrentStep);
+                yield return _sequence.Steps[i].Execute(this);
             }
 
             IsRunning = false;
+        }
 
-            TutorialFinished?.Invoke();
+        private void ResolveNpcControllers()
+        {
+            if (movementController == null)
+                return;
+
+            LookController ??= movementController.GetComponent<NPCPlayerLookController>();
+            VoiceController ??= movementController.GetComponent<NPCVoiceController>();
+            if (VoiceController == null)
+                VoiceController = movementController.gameObject.AddComponent<NPCVoiceController>();
         }
     }
 }

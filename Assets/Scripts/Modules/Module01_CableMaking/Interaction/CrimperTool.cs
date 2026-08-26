@@ -1,16 +1,19 @@
 using Framework.Interaction.Tools.Interfaces;
 using Framework.Interaction.Tools;
 using Systems.Input;
+using Modules.Module01_CableMaking.Flow.Validation;
 using UnityEngine;
 namespace Modules.Module01_CableMaking.Interaction
 {
-    
     [RequireComponent(typeof(ToolInteractor))]
     public class CrimperTool : InteractionTool<ICrimpable>
     {
         private ToolInteractor interactor;
 
         [SerializeField] private AudioSource audioSource;
+
+        [SerializeField]
+        private CrimperToolAnimator animationController;
 
         [Header("Haptic Feedback")]
         [SerializeField] private OVRInput.Controller hapticController =
@@ -34,13 +37,23 @@ namespace Modules.Module01_CableMaking.Interaction
             if (interactor != null)
                 interactor.InteractPressed -= TryCrimp;
         }
-        
+
         private void TryCrimp()
         {
+            ModuleActionValidator validator =
+                SimulationManager.Instance?.FlowController?.ActionValidator;
+
+            if (validator != null &&
+                !validator.TryValidate(ModuleActionType.Crimp))
+            {
+                return;
+            }
+
             if (!TryGetTarget(out ICrimpable crimpable) || !crimpable.CanCrimp)
                 return;
 
-            crimpable.Crimp();
+            if (animationController != null)
+                animationController.Play();
 
             if (audioSource != null)
                 audioSource.Play();
@@ -50,6 +63,8 @@ namespace Modules.Module01_CableMaking.Interaction
                 hapticAmplitude,
                 hapticDuration,
                 hapticFrequency);
+
+            crimpable.Crimp();
         }
     }
 }

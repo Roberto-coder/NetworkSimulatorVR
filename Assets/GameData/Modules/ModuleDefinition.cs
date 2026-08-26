@@ -6,6 +6,7 @@ using GameData.Objectives;
 using GameData.Quiz;
 using UnityEngine;
 using Presentacion.GlobalUI.RadialSelectorTool;
+using GameData.Achievements;
 
 namespace GameData.Modules
 {
@@ -32,6 +33,9 @@ namespace GameData.Modules
         [SerializeField]
         private QuizData finalQuiz;
 
+        [Header("Completion Achievement")]
+        [SerializeField] private AchievementDefinition completionAchievement;
+
         /// <summary>
         /// Obtiene el identificador unico del modulo.
         /// </summary>
@@ -56,6 +60,7 @@ namespace GameData.Modules
         /// Obtiene el quiz presentado al finalizar el modulo.
         /// </summary>
         public QuizData FinalQuiz => finalQuiz;
+        public AchievementDefinition CompletionAchievement => completionAchievement;
         
         /// <summary>
         /// Obtiene la secuencia de objetivos configurada para el modulo.
