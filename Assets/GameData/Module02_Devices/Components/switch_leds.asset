@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5563bbff71e9e2e418ccdb0a2ede6316, type: 3}
+  m_Name: switch_leds
+  m_EditorClassIdentifier: Assembly-CSharp::Modules.Module02_RackInstallation.Data.RackComponentInfo
+  id: switch_leds
+  displayName: Indicadores LED
+  category: 4
+  educationalApproximation: 1
+  shortDescription: "Indicadores visuales asociados al estado de alimentaci\xF3n
+    y de los puertos."
+  function: "Ayudan a identificar energ\xEDa, actividad de enlace y posibles estados
+    del dispositivo."
+  rackUnits: 0
+  image: {fileID: 0}
+  standardReference: 

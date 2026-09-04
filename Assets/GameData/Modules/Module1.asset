@@ -29,13 +29,13 @@ MonoBehaviour:
   completionAchievement: {fileID: 11400000, guid: 4d06a86a7a1542aeba80f6439f02e82c, type: 2}
   availableTools:
   - name: Stripper
-    prefab: {fileID: 1194657964218792147, guid: 0bce6137e81eb3240b8303fc28b0ae96, type: 3}
+    prefab: {fileID: 4330149159455120253, guid: a70dd2478f7c083439a91b11446153d2, type: 3}
     icon: {fileID: 21300000, guid: 9f6f970a8c555d54db63c57276c05542, type: 3}
   - name: Tester
-    prefab: {fileID: 1194657964218792147, guid: c20a2b31c574d034b811ece3471ad234, type: 3}
+    prefab: {fileID: 4293043079702721561, guid: 47668b2a815408b43b9ecac0bfd39a5d, type: 3}
     icon: {fileID: 21300000, guid: 92526459dd7bd7246af9c613e9f9697f, type: 3}
   - name: Crimper
-    prefab: {fileID: 1194657964218792147, guid: b1255be109aa2124aab42869f4175395, type: 3}
+    prefab: {fileID: 1972730098925842406, guid: 35ca8cd03fc27e34b970252f99ae7d4a, type: 3}
     icon: {fileID: 21300000, guid: aa7f7b93d4ee2e94a8c9defed63af3cb, type: 3}
   - name: Hands
     prefab: {fileID: 0}

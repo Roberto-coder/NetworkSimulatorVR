@@ -5,6 +5,8 @@ using Modules.Module01_CableMaking;
 using Modules.Module01_CableMaking.Flow;
 using Modules.Lobby;
 using Modules.Lobby.Flow;
+using Modules.Module02_RackInstallation;
+using Modules.Module02_RackInstallation.Flow;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,6 +25,7 @@ namespace Presentacion.GlobalUI.ObjectivesWristMenu
         private readonly List<ObjectiveItemUI> items = new List<ObjectiveItemUI>();
         private ModuleFlowController flow;
         private LobbyFlowController lobbyFlow;
+        private Module02FlowController module02Flow;
 
         private void Start()
         {
@@ -43,15 +46,20 @@ namespace Presentacion.GlobalUI.ObjectivesWristMenu
             LobbyFlowController currentLobby = currentFlow == null
                 ? LobbyManager.Instance?.FlowController
                 : null;
+            Module02FlowController currentModule02 = currentFlow == null && currentLobby == null
+                ? Module02Manager.Instance?.FlowController
+                : null;
 
-            if ((currentFlow == null && currentLobby == null) || content == null || prefab == null)
+            if ((currentFlow == null && currentLobby == null && currentModule02 == null) ||
+                content == null || prefab == null)
                 return;
 
-            if (flow != currentFlow || lobbyFlow != currentLobby)
+            if (flow != currentFlow || lobbyFlow != currentLobby || module02Flow != currentModule02)
             {
                 Unsubscribe();
                 flow = currentFlow;
                 lobbyFlow = currentLobby;
+                module02Flow = currentModule02;
                 if (flow != null)
                 {
                     flow.CurrentObjectiveChanged += HandleCurrentObjectiveChanged;
@@ -61,6 +69,11 @@ namespace Presentacion.GlobalUI.ObjectivesWristMenu
                 {
                     lobbyFlow.CurrentObjectiveChanged += HandleCurrentObjectiveChanged;
                     lobbyFlow.ModuleCompleted += HandleModuleCompleted;
+                }
+                if (module02Flow != null)
+                {
+                    module02Flow.CurrentObjectiveChanged += HandleCurrentObjectiveChanged;
+                    module02Flow.ModuleCompleted += HandleModuleCompleted;
                 }
                 CreateItems();
             }
@@ -195,7 +208,9 @@ namespace Presentacion.GlobalUI.ObjectivesWristMenu
 
         private IReadOnlyList<ObjectiveBase> ActiveObjectives => flow != null
             ? flow.Objectives
-            : lobbyFlow != null ? lobbyFlow.Objectives : System.Array.Empty<ObjectiveBase>();
+            : lobbyFlow != null ? lobbyFlow.Objectives
+            : module02Flow != null ? module02Flow.Objectives
+            : System.Array.Empty<ObjectiveBase>();
 
         private void Unsubscribe()
         {
@@ -209,8 +224,14 @@ namespace Presentacion.GlobalUI.ObjectivesWristMenu
                 lobbyFlow.CurrentObjectiveChanged -= HandleCurrentObjectiveChanged;
                 lobbyFlow.ModuleCompleted -= HandleModuleCompleted;
             }
+            if (module02Flow != null)
+            {
+                module02Flow.CurrentObjectiveChanged -= HandleCurrentObjectiveChanged;
+                module02Flow.ModuleCompleted -= HandleModuleCompleted;
+            }
             flow = null;
             lobbyFlow = null;
+            module02Flow = null;
         }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Modules.Module01_CableMaking;
+using Oculus.Interaction.Input.Visuals;
 using UnityEngine;
 
 namespace Framework.Interaction.Tools
@@ -12,6 +13,11 @@ namespace Framework.Interaction.Tools
     {
         [SerializeField]
         private Transform rightHandAnchor;
+
+        [Header("Controller visuals")]
+        [SerializeField]
+        [Tooltip("Visual del control derecho de Meta. Si no se asigna, se busca automaticamente en PlayerRoot.")]
+        private ControllerVisual rightControllerVisual;
 
         [SerializeField]
         private Vector3 toolPositionOffset;
@@ -41,6 +47,16 @@ namespace Framework.Interaction.Tools
             }
         }
 
+        private void Awake()
+        {
+            ResolveRightControllerVisual();
+        }
+
+        private void OnDisable()
+        {
+            SetRightControllerVisible(true);
+        }
+
         public void SetAvailableTools(IEnumerable<ToolData> tools)
         {
             availableToolsOverride = tools != null ? new List<ToolData>(tools) : new List<ToolData>();
@@ -64,6 +80,7 @@ namespace Framework.Interaction.Tools
             // currentTool.transform.localRotation = Quaternion.Euler(toolRotationOffset);
 
             currentToolData = tool;
+            SetRightControllerVisible(false);
         }
 
         public void UnequipTool()
@@ -73,6 +90,40 @@ namespace Framework.Interaction.Tools
 
             currentTool = null;
             currentToolData = null;
+            SetRightControllerVisible(true);
+        }
+
+        private void ResolveRightControllerVisual()
+        {
+            if (rightControllerVisual != null)
+                return;
+
+            Transform searchRoot = transform.root;
+            ControllerVisual[] controllerVisuals =
+                searchRoot.GetComponentsInChildren<ControllerVisual>(true);
+
+            foreach (ControllerVisual candidate in controllerVisuals)
+            {
+                if (candidate.name == "OVRRightControllerVisual")
+                {
+                    rightControllerVisual = candidate;
+                    return;
+                }
+            }
+
+            UnityEngine.Debug.LogWarning(
+                "[ToolManager] No se encontro OVRRightControllerVisual. " +
+                "Las herramientas se equiparan, pero el modelo del control no se ocultara.",
+                this);
+        }
+
+        private void SetRightControllerVisible(bool visible)
+        {
+            if (rightControllerVisual == null)
+                ResolveRightControllerVisual();
+
+            if (rightControllerVisual != null)
+                rightControllerVisual.ForceOffVisibility = !visible;
         }
     }
 }

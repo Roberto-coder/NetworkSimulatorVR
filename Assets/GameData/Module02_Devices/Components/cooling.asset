@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5563bbff71e9e2e418ccdb0a2ede6316, type: 3}
+  m_Name: cooling
+  m_EditorClassIdentifier: Assembly-CSharp::Modules.Module02_RackInstallation.Data.RackComponentInfo
+  id: cooling
+  displayName: Cooling
+  category: 12
+  educationalApproximation: 1
+  shortDescription: "Unidad provisional para representar ventilaci\xF3n y administraci\xF3n
+    t\xE9rmica."
+  function: Ayuda a retirar el calor y mantener el flujo de aire previsto para los
+    equipos.
+  rackUnits: 2
+  image: {fileID: 0}
+  standardReference: "La direcci\xF3n del flujo y la capacidad t\xE9rmica dependen
+    del dise\xF1o del rack y del fabricante."
+  sections: []

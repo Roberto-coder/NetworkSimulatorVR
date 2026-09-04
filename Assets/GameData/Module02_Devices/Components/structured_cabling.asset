@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5563bbff71e9e2e418ccdb0a2ede6316, type: 3}
+  m_Name: structured_cabling
+  m_EditorClassIdentifier: Assembly-CSharp::Modules.Module02_RackInstallation.Data.RackComponentInfo
+  id: structured_cabling
+  displayName: Cableado estructurado
+  category: 5
+  educationalApproximation: 1
+  shortDescription: Grupo simplificado de latiguillos de cobre dentro del rack.
+  function: "Conecta puertos del patch panel con switches y otros dispositivos manteniendo
+    identificaci\xF3n y orden."
+  rackUnits: 1
+  image: {fileID: 0}
+  standardReference: "La instalaci\xF3n real debe respetar categor\xEDa, radio de
+    curvatura, longitud y etiquetado del sistema."
+  sections: []

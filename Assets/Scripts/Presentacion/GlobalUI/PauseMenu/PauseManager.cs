@@ -17,7 +17,7 @@ public class PauseManager : MonoBehaviour
     void Update()
     {
         var input = VRInputManager.Instance;
-        if (input.PausePressed)
+        if (input != null && input.PausePressed)
             TogglePause();
     }
 
@@ -44,6 +44,7 @@ public class PauseManager : MonoBehaviour
     void ShowMenu()
     {
         pauseMenu.SetActive(true);
+        pauseMenu.GetComponentInChildren<PauseMenuViewController>(true)?.ShowMain();
 
         pauseMenu.transform.position =
             cameraTransform.position + cameraTransform.forward * 2f;
@@ -64,5 +65,16 @@ public class PauseManager : MonoBehaviour
     void HideMenu()
     {
         pauseMenu.SetActive(false);
+    }
+
+    public void ResumeFromMenu()
+    {
+        if (!isPaused)
+            return;
+
+        isPaused = false;
+        if (locomotor != null)
+            locomotor.SetActive(true);
+        StartCoroutine(UnpauseRoutine());
     }
 }

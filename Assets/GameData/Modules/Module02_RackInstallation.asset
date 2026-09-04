@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a41bad9c26f44f418b18e7381d3ae71, type: 3}
+  m_Name: Module02_RackInstallation
+  m_EditorClassIdentifier: Assembly-CSharp::GameData.Modules.ModuleDefinition
+  moduleId: module_02_rack_installation
+  moduleName: "Instalaci\xF3n de dispositivos en rack"
+  description: "Exploraci\xF3n e instalaci\xF3n guiada de un switch educativo en
+    un rack de comunicaciones."
+  objectives:
+  - {fileID: 11400000, guid: 5a47963631934dc4282274d93d0a5a00, type: 2}
+  - {fileID: 11400000, guid: 0d93c1ff9e7205b4ca9c549b7b610185, type: 2}
+  - {fileID: 11400000, guid: 13ffb43bf5888c541ab08f08844b6e78, type: 2}
+  - {fileID: 11400000, guid: 41d0915f2a0a625469748c35a5a1d987, type: 2}
+  - {fileID: 11400000, guid: 57f304ce7a74d974b9601a2ee3b00007, type: 2}
+  - {fileID: 11400000, guid: 4ce950465015869499b87a834d9a0152, type: 2}
+  - {fileID: 11400000, guid: 5b93d4b97c9d77a489a73f4f317edc13, type: 2}
+  - {fileID: 11400000, guid: b97116963230d364b925826830eb7c31, type: 2}
+  - {fileID: 11400000, guid: 0112ee764f15c484bab288ffd33aad0d, type: 2}
+  finalQuiz: {fileID: 0}
+  completionAchievement: {fileID: 11400000, guid: 821d4f84cb8641bd876ca43e436f8b21, type: 2}
+  availableTools:
+  - name: Destornillador
+    prefab: {fileID: 0}
+    icon: {fileID: 0}
+  - name: Cable de consola
+    prefab: {fileID: 0}
+    icon: {fileID: 0}
+  - name: Patch cord Ethernet
+    prefab: {fileID: 0}
+    icon: {fileID: 0}
+  inputSettings:
+    enablePauseMenu: 1
+    enableToolSelector: 1
+    enableObjectiveMenu: 1
+    enableConfirm: 1

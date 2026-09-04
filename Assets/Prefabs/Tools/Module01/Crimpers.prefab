@@ -108,7 +108,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   audioSource: {fileID: 2039237847844632641}
-  animationController: {fileID: 0}
+  animationController: {fileID: 5903475831613417257}
   hapticController: 2
   hapticAmplitude: 0.7
   hapticDuration: 0.12
@@ -388,10 +388,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7d41b9169c90f4c47800ea9b9abb5f07, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3907381115058734870}
+      addedObject: {fileID: 7631262215383022807}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7d41b9169c90f4c47800ea9b9abb5f07, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8168304493300224166}
+      addedObject: {fileID: 5903475831613417257}
   m_SourcePrefab: {fileID: 100100000, guid: 7d41b9169c90f4c47800ea9b9abb5f07, type: 3}
 --- !u!4 &4919735783026201427 stripped
 Transform:
@@ -403,7 +403,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7d41b9169c90f4c47800ea9b9abb5f07, type: 3}
   m_PrefabInstance: {fileID: 4885509345656403128}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &3907381115058734870
+--- !u!95 &7631262215383022807
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0
@@ -425,7 +425,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8168304493300224166
+--- !u!114 &5903475831613417257
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -437,4 +437,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c452733cce149c9928371722e65cad1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Framework.Interaction.Tools.CrimperToolAnimator
-  animator: {fileID: 3907381115058734870}
+  animator: {fileID: 7631262215383022807}

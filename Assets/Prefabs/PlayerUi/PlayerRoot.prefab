@@ -339,7 +339,6 @@ Transform:
   m_Children:
   - {fileID: 232541512751744403}
   - {fileID: 8062348923940308786}
-  - {fileID: 5581371674365567477}
   m_Father: {fileID: 557633431559168693}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2725412741297700409
@@ -947,59 +946,6 @@ MonoBehaviour:
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_StartingInteractionStrengthFilters: []
---- !u!1 &5570433623953656795
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5581371674365567477}
-  - component: {fileID: 4510776007906863403}
-  m_Layer: 0
-  m_Name: WristMenu
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5581371674365567477
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5570433623953656795}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.92387956, z: -0, w: 0.38268343}
-  m_LocalPosition: {x: 0.18845996, y: -0.2832901, z: -0.16427}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2834438617915866229}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4510776007906863403
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5570433623953656795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9f2843f56fa4661a29b9426a112ffd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Presentacion.GlobalUI.ObjectivesWristMenu.WristMenuController
-  headTransform: {fileID: 2899728032252474911}
-  wristTransform: {fileID: 2342684961618594294}
-  wristMenuCanvas: {fileID: 3604408455382132291}
-  localDisplayNormal: {x: 0, y: -1, z: 0}
-  openFacingAngle: 60
-  closeFacingAngle: 75
-  openLookAngle: 45
-  closeLookAngle: 60
-  activationDelay: 0.08
 --- !u!1 &5637268784614282806
 GameObject:
   m_ObjectHideFlags: 0
@@ -1201,7 +1147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Meta.XR.BuildingBlocks::Meta.XR.BuildingBlocks.BuildingBlock
   blockId: 8b26b298-7bf4-490e-b245-a039c0184303
-  instanceId: 2fd4fe37-8000-4386-a68a-a2a975e3583b
+  instanceId: 8b918a21-b4e2-485a-807e-9052ade965f6
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -1397,7 +1343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Meta.XR.BuildingBlocks::Meta.XR.BuildingBlocks.BuildingBlock
   blockId: 8b26b298-7bf4-490e-b245-a039c0184303
-  instanceId: 4c4ae1c3-66e0-49a8-8e00-810028819f9a
+  instanceId: e9ce757e-5587-4552-8134-6a00db6c9ff1
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -1592,7 +1538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Meta.XR.BuildingBlocks::Meta.XR.BuildingBlocks.BuildingBlock
   blockId: e47682b9-c270-40b1-b16d-90b627a5ce1b
-  instanceId: 3aee19db-3d5b-48c3-8bf5-bb384d188ecc
+  instanceId: 6bf39819-2db3-48d1-bf0c-bc55972cfdb4
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -2841,7 +2787,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Meta.XR.BuildingBlocks::Meta.XR.BuildingBlocks.BuildingBlock
   blockId: 81f55626-5fad-45e9-a1df-184f330da7ba
-  instanceId: cd09ed80-6e4f-4010-a23b-a4af0f7a6b5d
+  instanceId: 2ca43236-c22c-457f-96f9-3416a6182702
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 2063f481-1b63-4eda-9ee8-a00df98536bc
@@ -2899,6 +2845,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3906230922626269970, guid: 7107531e98b094142b39d2a1640cc6ee, type: 3}
+      propertyPath: toolManager
+      value: 
+      objectReference: {fileID: 8965617157884746510}
+    - target: {fileID: 3906230922626269970, guid: 7107531e98b094142b39d2a1640cc6ee, type: 3}
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 1210508606748020066}
@@ -2906,10 +2856,6 @@ PrefabInstance:
       propertyPath: rightHandTransform
       value: 
       objectReference: {fileID: 8212742787749199291}
-    - target: {fileID: 3906230922626269970, guid: 7107531e98b094142b39d2a1640cc6ee, type: 3}
-      propertyPath: toolManager
-      value: 
-      objectReference: {fileID: 8965617157884746510}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
