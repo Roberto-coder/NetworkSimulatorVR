@@ -1869,6 +1869,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5128321505770509627}
   - component: {fileID: 1113612034846394023}
+  - component: {fileID: 774329851925001001}
+  - component: {fileID: 774329851925001002}
   m_Layer: 8
   m_Name: PhysicCableMM
   m_TagString: Untagged
@@ -1936,6 +1938,41 @@ MonoBehaviour:
   end: {fileID: 5128321506898141139}
   connector0: {fileID: 5128321506958460078}
   point0: {fileID: 5128321507043484037}
+--- !u!114 &774329851925001001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5128321505770509625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df4ef27d00b7a7942b6cbbb06a768f9f, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  physicalCable: {fileID: 1113612034846394023}
+  kind: 0
+--- !u!114 &774329851925001002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5128321505770509625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2103b5b1f400534b9c4d4352251f2a4, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  physicalCable: {fileID: 1113612034846394023}
+  link: {fileID: 774329851925001001}
+  poolSize: 8
+  packetDiameter: 0.018
+  speed: 0.8
+  packetSpacing: 0.12
+  packetColor: {r: 0.1, g: 0.75, b: 1, a: 1}
+  emitDemoTraffic: 1
+  demoInterval: 1.5
 --- !u!1 &5128321506670542452
 GameObject:
   m_ObjectHideFlags: 0

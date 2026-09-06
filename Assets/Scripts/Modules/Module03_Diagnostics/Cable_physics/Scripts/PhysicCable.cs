@@ -291,5 +291,19 @@ namespace HPhysic
         public Connector StartConnector => startConnector;
         public Connector EndConnector => endConnector;
         public IReadOnlyList<Transform> Points => points;
+
+        /// <summary>Editor/runtime configuration for reusable patch-cord variants.</summary>
+        public void ConfigureDimensions(int segments, float segmentLength, float diameter)
+        {
+            numberOfPoints = Mathf.Max(1, segments);
+            space = Mathf.Max(0.01f, segmentLength);
+            size = Mathf.Max(0.001f, diameter);
+        }
+
+        /// <summary>
+        /// Regenera los cuerpos, resortes y tramos visuales después de cambiar las dimensiones.
+        /// Está expuesto para que las herramientas de Editor no dependan de SendMessage.
+        /// </summary>
+        public void RebuildConfiguredPoints() => UpdatePoints();
     }
 }
