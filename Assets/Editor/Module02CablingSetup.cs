@@ -81,8 +81,31 @@ public static class Module02CablingSetup
             if (connector == null)
                 throw new InvalidOperationException("CableContactFemale no contiene Connector.");
 
+            // El socket es quien gobierna el anclaje: al conectar vuelve cinemático el
+            // plug y Connector lo hace seguir al ConnectionPoint incluso si el switch
+            // se mueve mediante agarre directo o a distancia en VR.
+            SerializedObject connectorSettings = new SerializedObject(connector);
+            connectorSettings.FindProperty("makeConnectionKinematic").boolValue = true;
+            connectorSettings.FindProperty("hideInteractableWhenIsConnected").boolValue = true;
+            connectorSettings.ApplyModifiedPropertiesWithoutUndo();
+
+            // The socket has a separate kinematic body. Solid colliders inherited
+            // from its visual would collide with the movable device that owns it.
+            // Keep the root detection trigger; socket geometry is visual only.
+            foreach (Collider visualCollider in root.GetComponentsInChildren<Collider>(true))
+            {
+                if (visualCollider.transform == root.transform || visualCollider.isTrigger)
+                    continue;
+                visualCollider.enabled = false;
+                PrefabUtility.RecordPrefabInstancePropertyModifications(visualCollider);
+            }
+
             NetworkPort port = GetOrAdd<NetworkPort>(root);
             port.Configure("device", "port-01", NetworkPortKind.EthernetRj45, connector);
+            BoxCollider detection = GetOrAdd<BoxCollider>(root);
+            detection.isTrigger = true;
+            detection.center = root.transform.InverseTransformPoint(connector.ConnectionPosition);
+            detection.size = new Vector3(0.025f, 0.022f, 0.03f);
             root.name = "NetworkPortSocket_RJ45";
             PrefabUtility.SaveAsPrefabAsset(root, PortOutput);
         }
@@ -202,6 +225,7 @@ public static class Module02CablingSetup
         trigger.isTrigger = true;
         trigger.center = Vector3.zero;
         trigger.size = new Vector3(0.025f, 0.022f, 0.025f);
+        GetOrAdd<CableEndSocketDetector>(detection.gameObject);
         return trigger;
     }
 

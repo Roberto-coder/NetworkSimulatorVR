@@ -19,7 +19,9 @@ namespace Shared.Cabling
         public NetworkPort StartPort { get; private set; }
         public NetworkPort EndPort { get; private set; }
         public NetworkPortKind Kind => kind;
-        public bool HasCompleteLink => StartPort != null && EndPort != null && StartPort != EndPort;
+        public bool HasCompleteLink => isActiveAndEnabled && StartPort != null && EndPort != null &&
+            StartPort != EndPort && StartPort.isActiveAndEnabled && EndPort.isActiveAndEnabled &&
+            StartPort.Kind == kind && EndPort.Kind == kind;
 
         public event Action<PatchCableLink> LinkChanged;
 
@@ -29,7 +31,9 @@ namespace Shared.Cabling
                 physicalCable = GetComponent<PhysicCable>();
         }
 
-        private void Update()
+        private void Update() => RefreshLink();
+
+        public void RefreshLink()
         {
             // Los conectores del cable apuntan al Connector hembra. Desde ese componente
             // se asciende hasta el NetworkPort que contiene la identidad del socket.
@@ -40,6 +44,13 @@ namespace Shared.Cabling
 
             StartPort = newStart;
             EndPort = newEnd;
+            LinkChanged?.Invoke(this);
+        }
+
+        private void OnDisable()
+        {
+            StartPort = null;
+            EndPort = null;
             LinkChanged?.Invoke(this);
         }
 
@@ -58,7 +69,8 @@ namespace Shared.Cabling
         private static NetworkPort ResolvePort(Connector cableEnd)
         {
             Connector target = cableEnd != null ? cableEnd.ConnectedTo : null;
-            return target != null ? target.GetComponentInParent<NetworkPort>() : null;
+            return target != null && target.isActiveAndEnabled && target.ConnectedTo == cableEnd
+                ? target.GetComponentInParent<NetworkPort>() : null;
         }
     }
 }

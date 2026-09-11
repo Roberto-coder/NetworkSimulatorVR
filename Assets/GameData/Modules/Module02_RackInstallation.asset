@@ -30,13 +30,13 @@ MonoBehaviour:
   completionAchievement: {fileID: 11400000, guid: 821d4f84cb8641bd876ca43e436f8b21, type: 2}
   availableTools:
   - name: Destornillador
-    prefab: {fileID: 0}
+    prefab: {fileID: 611963040025316235, guid: e8f22339968d6354287cac49d32f68dc, type: 3}
+    icon: {fileID: 21300000, guid: c534231fc48a747a48c4563f1be28bc5, type: 3}
+  - name: Etiquetadora
+    prefab: {fileID: 5075639645608296746, guid: 4c947c3d63759504e8ad1dad7b321afe, type: 3}
     icon: {fileID: 0}
-  - name: Cable de consola
-    prefab: {fileID: 0}
-    icon: {fileID: 0}
-  - name: Patch cord Ethernet
-    prefab: {fileID: 0}
+  - name: Consola
+    prefab: {fileID: 2507376156351751010, guid: ef31ff62eb8ce5c468b3be14449d2b4f, type: 3}
     icon: {fileID: 0}
   inputSettings:
     enablePauseMenu: 1

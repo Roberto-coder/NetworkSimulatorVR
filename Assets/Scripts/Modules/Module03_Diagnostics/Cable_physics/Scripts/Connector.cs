@@ -32,6 +32,7 @@ namespace Modules.Module03_Diagnostics.Cable_physics.Scripts
 
         private FixedJoint _fixedJoint;
         public Rigidbody Rigidbody { get; private set; }
+        public Shared.Cabling.PatchCableLink CableOwner { get; private set; }
 
         public Vector3 ConnectionPosition => connectionPoint ? connectionPoint.position : transform.position;
         public Quaternion ConnectionRotation => connectionPoint ? connectionPoint.rotation : transform.rotation;
@@ -46,21 +47,36 @@ namespace Modules.Module03_Diagnostics.Cable_physics.Scripts
         private void Awake()
         {
             Rigidbody = gameObject.GetComponent<Rigidbody>();
+            // XRI detaches the grabbed endpoint from its parent until release.
+            CableOwner = GetComponentInParent<Shared.Cabling.PatchCableLink>();
         }
 
         private void Start()
         {
             UpdateConnectorColor();
 
-            if (ConnectedTo != null)
+            if (ConnectedTo != null && _fixedJoint == null && ConnectedTo._fixedJoint == null)
             {
                 Connector t = ConnectedTo;
                 ConnectedTo = null;
+                if (t.ConnectedTo == this) t.ConnectedTo = null;
                 Connect(t);
             }
         }
 
         private void OnDisable() => Disconnect();
+
+        private void LateUpdate()
+        {
+            // Un FixedJoint no puede arrastrar de forma fiable dos Rigidbody cinemáticos.
+            // Cuando este Connector pertenece a un socket fijo o a un dispositivo móvil,
+            // mantenemos el plug alineado explícitamente con su punto de conexión.
+            if (makeConnectionKinematic && ConnectedTo != null && ConnectedTo.Rigidbody != null &&
+                ConnectedTo.Rigidbody.isKinematic)
+            {
+                AlignConnector(ConnectedTo);
+            }
+        }
 
         public void SetAsConnectedTo(Connector secondConnector)
         {
@@ -76,11 +92,16 @@ namespace Modules.Module03_Diagnostics.Cable_physics.Scripts
                 return;
             }
 
+            if (!Shared.Cabling.CablePortCompatibility.Allows(this, secondConnector)) return;
+            // Typed sockets must not replace another cable or leave an orphaned joint.
+            if ((GetComponentInParent<Shared.Cabling.NetworkPort>() != null ||
+                 secondConnector.GetComponentInParent<Shared.Cabling.NetworkPort>() != null) &&
+                !CanConnect(secondConnector)) return;
+
             if (IsConnected)
                 Disconnect(secondConnector);
 
-            secondConnector.transform.rotation = ConnectionRotation * secondConnector.RotationOffset;
-            secondConnector.transform.position = ConnectionPosition - (secondConnector.ConnectionPosition - secondConnector.transform.position);
+            AlignConnector(secondConnector);
 
             _fixedJoint = gameObject.AddComponent<FixedJoint>();
             _fixedJoint.connectedBody = secondConnector.Rigidbody;
@@ -112,7 +133,16 @@ namespace Modules.Module03_Diagnostics.Cable_physics.Scripts
             Connector toDisconect = ConnectedTo;
             ConnectedTo = null;
             if (makeConnectionKinematic)
+            {
                 toDisconect.Rigidbody.isKinematic = _wasConnectionKinematic;
+                // Evita que una velocidad residual del agarre o de los resortes lance el
+                // plug al recuperar la simulación dinámica.
+                if (!toDisconect.Rigidbody.isKinematic)
+                {
+                    toDisconect.Rigidbody.linearVelocity = Vector3.zero;
+                    toDisconect.Rigidbody.angularVelocity = Vector3.zero;
+                }
+            }
             toDisconect.Disconnect(this);
 
             // sparks on inncretc connection
@@ -160,6 +190,17 @@ namespace Modules.Module03_Diagnostics.Cable_physics.Scripts
             collorRenderer.SetPropertyBlock(probs);
         }
 
+        /// <summary>
+        /// Hace coincidir el ConnectionPosition del plug con el del socket sin asumir que
+        /// el origen de ninguno de los modelos esté situado exactamente en la punta.
+        /// </summary>
+        private void AlignConnector(Connector connector)
+        {
+            connector.transform.rotation = ConnectionRotation * connector.RotationOffset;
+            connector.transform.position =
+                ConnectionPosition - (connector.ConnectionPosition - connector.transform.position);
+        }
+
         private Color MaterialColor(CableColor cableColor) => cableColor switch
         {
             CableColor.White => Color.white,
@@ -174,7 +215,8 @@ namespace Modules.Module03_Diagnostics.Cable_physics.Scripts
 
 
         public bool CanConnect(Connector secondConnector) =>
-            this != secondConnector
+            secondConnector != null && this != secondConnector
+            && Shared.Cabling.CablePortCompatibility.Allows(this, secondConnector)
             && !this.IsConnected && !secondConnector.IsConnected
             && this.ConnectionType != secondConnector.ConnectionType
             && (this.allowConnectDifrentCollor || secondConnector.allowConnectDifrentCollor || this.ConnectionColor == secondConnector.ConnectionColor);

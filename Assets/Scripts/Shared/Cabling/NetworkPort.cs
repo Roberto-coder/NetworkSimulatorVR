@@ -4,14 +4,6 @@ using UnityEngine;
 
 namespace Shared.Cabling
 {
-    /// <summary>Familias de conectores que no deben mezclarse físicamente.</summary>
-    public enum NetworkPortKind
-    {
-        EthernetRj45,
-        ConsoleRj45,
-        Fiber
-    }
-
     /// <summary>
     /// Da identidad lógica a un socket físico: por ejemplo SW1/Gi01 o PP1/01.
     /// Connector sigue resolviendo el encaje; esta clase reporta el enlace a la simulación.
@@ -24,6 +16,7 @@ namespace Shared.Cabling
         [SerializeField] private NetworkPortKind kind = NetworkPortKind.EthernetRj45;
         [SerializeField] private Connector socket;
         [SerializeField] private Renderer linkLed;
+        [SerializeField] private bool indicatePhysicalLink = true;
         [SerializeField] private Color disconnectedColor = new(0.08f, 0.08f, 0.08f);
         [SerializeField] private Color connectedColor = Color.green;
 
@@ -40,6 +33,15 @@ namespace Shared.Cabling
         public event Action<NetworkPort, bool> LinkStateChanged;
 
         private bool previousState;
+        private bool? operationalLink;
+
+        /// <summary>La configuración del switch controla el LED sin alterar el encaje físico.</summary>
+        public void SetOperationalLink(bool active)
+        {
+            if (operationalLink == active) return;
+            operationalLink = active;
+            RefreshLed(IsConnected);
+        }
 
         private void Awake()
         {
@@ -81,7 +83,7 @@ namespace Shared.Cabling
                 return;
             propertyBlock ??= new MaterialPropertyBlock();
             linkLed.GetPropertyBlock(propertyBlock);
-            Color color = linked ? connectedColor : disconnectedColor;
+            Color color = (operationalLink ?? (linked && indicatePhysicalLink)) ? connectedColor : disconnectedColor;
             propertyBlock.SetColor("_BaseColor", color);
             propertyBlock.SetColor("_Color", color);
             linkLed.SetPropertyBlock(propertyBlock);

@@ -10,6 +10,9 @@ namespace Framework.Interaction.Tools
         Cutter,
         Stripper,
         Crimper,
-        Tester
+        Tester,
+        Screwdriver,
+        LabelMaker,
+        ConsoleTerminal
     }
 }

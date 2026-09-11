@@ -26,6 +26,17 @@ namespace Shared.Cabling
         private readonly List<Packet> packets = new();
         private Material packetMaterial;
         private float nextDemoTime;
+        private bool externallyControlled;
+        private bool transmissionEnabled;
+
+        /// <summary>El switch habilita tráfico solo en enlaces correctos y configurados.</summary>
+        public void SetTransmissionEnabled(bool active)
+        {
+            externallyControlled = true;
+            transmissionEnabled = active;
+            if (!active)
+                foreach (var packet in packets) if (packet.Active) Deactivate(packet);
+        }
 
         private sealed class Packet
         {
@@ -44,7 +55,7 @@ namespace Shared.Cabling
 
         private void Update()
         {
-            if (emitDemoTraffic && link != null && link.HasCompleteLink && Time.time >= nextDemoTime)
+            if ((externallyControlled ? transmissionEnabled : emitDemoTraffic) && link != null && link.HasCompleteLink && Time.time >= nextDemoTime)
             {
                 Transmit(3, false);
                 nextDemoTime = Time.time + demoInterval;
@@ -55,7 +66,8 @@ namespace Shared.Cabling
         public void Transmit(int packetCount = 3, bool reverse = false)
         {
             // No mostramos tráfico cuando uno de los extremos está desconectado.
-            if (link == null || !link.HasCompleteLink)
+            if (link == null || !link.HasCompleteLink || (externallyControlled && !transmissionEnabled) ||
+                link.Kind == NetworkPortKind.Power || link.Kind == NetworkPortKind.ConsoleRj45)
                 return;
 
             int emitted = 0;

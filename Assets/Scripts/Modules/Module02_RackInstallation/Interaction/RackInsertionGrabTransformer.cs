@@ -15,6 +15,18 @@ namespace Modules.Module02_RackInstallation.Interaction
         [Tooltip("Tiempo utilizado para pasar del agarre libre al movimiento sobre el riel.")]
         [Min(0.01f)] [SerializeField] private float alignmentDuration = 0.20f;
 
+        [Header("Device orientation")]
+        [Tooltip("Marco de inserción relativo al objeto con XRGrabInteractable. Cero: +Z entra en el rack y +Y queda arriba. Para un modelo que entra por -Z, usa Y=180.")]
+        [SerializeField] private Vector3 localInsertionEuler;
+
+        public Quaternion InstallationRotation(Transform entry, Transform destination)
+        {
+            Vector3 axis = destination.position - entry.position;
+            if (axis.sqrMagnitude < 0.000001f) return entry.rotation;
+            return Quaternion.LookRotation(axis.normalized, entry.up) *
+                   Quaternion.Inverse(Quaternion.Euler(localInsertionEuler));
+        }
+
         private RackInsertionSlot activeSlot;
         private Transform entryPose;
         private Transform installedPose;
@@ -69,7 +81,8 @@ namespace Modules.Module02_RackInstallation.Interaction
             float elapsed = Time.time - alignmentStartedAt;
             float blend = Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(elapsed / alignmentDuration));
             targetPose.position = Vector3.Lerp(targetPose.position, railPosition, blend);
-            targetPose.rotation = Quaternion.Slerp(targetPose.rotation, entryPose.rotation, blend);
+            targetPose.rotation = Quaternion.Slerp(targetPose.rotation,
+                InstallationRotation(entryPose, installedPose), blend);
 
             // La escala se conserva: este módulo nunca debe escalar el dispositivo con dos manos.
             if (!Mathf.Approximately(lastProgress, progress))

@@ -20,6 +20,7 @@ namespace Modules.Module02_RackInstallation.Interaction
         [SerializeField] private List<XRGrabInteractable> additionalAcceptedGrabs = new();
         [SerializeField] private RackInsertionGrabTransformer grabTransformer;
         [SerializeField] private Transform entryPose;
+        [Tooltip("Su posición determina el final del riel. La orientación se obtiene del recorrido y del marco local del dispositivo; EntryPose.up define arriba.")]
         [SerializeField] private Transform installedPose;
         [Tooltip("Guía visible durante el juego. Se oculta al completar la instalación.")]
         [SerializeField] private GameObject visualGuide;
@@ -46,6 +47,7 @@ namespace Modules.Module02_RackInstallation.Interaction
         private float progress;
 
         public XRGrabInteractable AcceptedGrab => acceptedGrab;
+        public XRGrabInteractable ActiveGrab => activeGrab;
         public bool IsCaptured => captured;
         public bool IsInstalled => installed;
         public float Progress => progress;
@@ -53,6 +55,7 @@ namespace Modules.Module02_RackInstallation.Interaction
         public event Action Captured;
         public event Action<float> ProgressChanged;
         public event Action Installed;
+        public event Action InstallationReset;
 
         private void Awake()
         {
@@ -89,13 +92,15 @@ namespace Modules.Module02_RackInstallation.Interaction
 
             Vector3 fromEntry = item.position - entryPose.position;
             Vector3 lateral = fromEntry - Vector3.Project(fromEntry, axis);
-            float angle = Quaternion.Angle(item.rotation, entryPose.rotation);
+            var transformer = candidateGrab.GetComponent<RackInsertionGrabTransformer>();
+            if (transformer == null) return;
+            float angle = Quaternion.Angle(item.rotation, transformer.InstallationRotation(entryPose, installedPose));
             if (lateral.magnitude > maximumLateralDistance || angle > maximumAngle)
                 return;
 
             captured = true;
             activeGrab = candidateGrab;
-            activeTransformer = candidateGrab.GetComponent<RackInsertionGrabTransformer>();
+            activeTransformer = transformer;
             activeBody = candidateGrab.GetComponent<Rigidbody>();
             progress = SegmentProgress(item.position);
             if (activeBody != null) activeBody.useGravity = false;
@@ -144,19 +149,22 @@ namespace Modules.Module02_RackInstallation.Interaction
             // XR Grab Interactable administra el estado cinemático según Movement Type.
             // Aquí sólo retiramos gravedad para que el riel sostenga el dispositivo.
             activeBody.useGravity = false;
-            activeBody.linearVelocity = Vector3.zero;
-            activeBody.angularVelocity = Vector3.zero;
+            if (!activeBody.isKinematic)
+            {
+                activeBody.linearVelocity = Vector3.zero;
+                activeBody.angularVelocity = Vector3.zero;
+            }
         }
 
         private void HandleSelectExited(SelectExitEventArgs args)
         {
+            var released = args.interactableObject as XRGrabInteractable;
+            // XRI completes Detach after selectExited, so restore physics on the next frame.
+            if (released != null) StartCoroutine(StabilizeAfterRelease(released));
             if (!captured || installed || activeBody == null || !ReferenceEquals(args.interactableObject, activeGrab))
                 return;
             // Los rieles sostienen el switch aunque se suelte a mitad del recorrido.
-            activeBody.linearVelocity = Vector3.zero;
-            activeBody.angularVelocity = Vector3.zero;
-            activeBody.useGravity = false;
-            activeBody.isKinematic = true;
+            HoldOnRail();
         }
 
         private void CompleteInstallation()
@@ -164,19 +172,11 @@ namespace Modules.Module02_RackInstallation.Interaction
             installed = true;
             captured = true;
             SetProgress(1f);
-            activeGrab.transform.SetPositionAndRotation(installedPose.position, installedPose.rotation);
-
-            if (activeBody != null)
-            {
-                activeBody.linearVelocity = Vector3.zero;
-                activeBody.angularVelocity = Vector3.zero;
-                activeBody.useGravity = false;
-                activeBody.isKinematic = true;
-            }
-
-            // Se bloquea hasta que la futura mecánica de tornillos decida liberarlo.
+            // Disabling cancels both hands and lets XRI restore its saved Rigidbody state.
+            // Only AFTER that cancellation do we impose the installed state.
             activeTransformer?.EndGuidance();
             activeGrab.enabled = false;
+            HoldOnRail();
             guideController?.SetState(RackInsertionGuideState.Installed);
             StartCoroutine(HideGuideAfterInstalledFeedback());
             Module02Manager.Instance?.FlowController?.TryCompleteCurrent(objectiveId);
@@ -189,14 +189,17 @@ namespace Modules.Module02_RackInstallation.Interaction
         {
             XRGrabInteractable resetGrab = activeGrab != null ? activeGrab : acceptedGrab;
             if (resetGrab == null || entryPose == null) return;
+            StopAllCoroutines();
+            resetGrab.enabled = false;
             installed = false;
             captured = false;
             progress = 0f;
             SetGuideVisible(true);
             guideController?.SetState(RackInsertionGuideState.Available);
-            resetGrab.enabled = true;
             activeTransformer?.EndGuidance();
-            resetGrab.transform.SetPositionAndRotation(entryPose.position, entryPose.rotation);
+            var transformer = resetGrab.GetComponent<RackInsertionGrabTransformer>();
+            resetGrab.transform.SetPositionAndRotation(entryPose.position,
+                transformer != null && installedPose != null ? transformer.InstallationRotation(entryPose, installedPose) : entryPose.rotation);
             Rigidbody resetBody = resetGrab.GetComponent<Rigidbody>();
             if (resetBody != null)
             {
@@ -208,8 +211,45 @@ namespace Modules.Module02_RackInstallation.Interaction
             activeGrab = null;
             activeTransformer = null;
             activeBody = null;
+            resetGrab.enabled = true;
+            InstallationReset?.Invoke();
             onProgressChanged?.Invoke(0f);
             ProgressChanged?.Invoke(0f);
+        }
+
+        private IEnumerator StabilizeAfterRelease(XRGrabInteractable released)
+        {
+            yield return null;
+            if (released == null || released.isSelected) yield break;
+            if (released == activeGrab && captured) { HoldOnRail(); yield break; }
+            // Eliminate residual spin on a freely released switch, preserving its fall.
+            var body = released.GetComponent<Rigidbody>();
+            if (body != null && !body.isKinematic) body.angularVelocity = Vector3.zero;
+        }
+
+        private void FixedUpdate() => HoldOnRail();
+        private void LateUpdate() => HoldOnRail();
+
+        private void HoldOnRail()
+        {
+            if (!captured || activeGrab == null || entryPose == null || installedPose == null ||
+                (!installed && activeGrab.isSelected)) return;
+            Vector3 position = Vector3.Lerp(entryPose.position, installedPose.position, installed ? 1f : progress);
+            Quaternion rotation = activeTransformer != null
+                ? activeTransformer.InstallationRotation(entryPose, installedPose) : entryPose.rotation;
+            if (activeBody != null)
+            {
+                if (!activeBody.isKinematic)
+                {
+                    activeBody.linearVelocity = Vector3.zero;
+                    activeBody.angularVelocity = Vector3.zero;
+                }
+                activeBody.useGravity = false;
+                activeBody.isKinematic = true;
+                activeBody.position = position;
+                activeBody.rotation = rotation;
+            }
+            activeGrab.transform.SetPositionAndRotation(position, rotation);
         }
 
         private void SetGuideVisible(bool visible)
