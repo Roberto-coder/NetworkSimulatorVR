@@ -34,6 +34,8 @@ namespace Presentacion.NPC
 
         private bool isAwaitingConfirmation;
         private bool advanceRequested;
+        // El prefab conserva OVR por defecto; los módulos XRI usan un adaptador propio.
+        [SerializeField] private bool useLegacyInput = true;
         private int dialogueVersion;
         private Coroutine typingCoroutine;
 
@@ -53,7 +55,7 @@ namespace Presentacion.NPC
         {
             SubscribeToInput();
 
-            if (VRInputManager.Instance == null)
+            if (useLegacyInput && VRInputManager.Instance == null)
                 Debug.LogError("NPCDialogueController necesita un VRInputManager activo.", this);
         }
 
@@ -163,6 +165,8 @@ namespace Presentacion.NPC
             dialoguePanel.SetActive(false);
         }
 
+        public void Confirm() => HandleConfirmPressed();
+
         private void HandleConfirmPressed()
         {
             if (!isAwaitingConfirmation)
@@ -179,7 +183,7 @@ namespace Presentacion.NPC
 
         private void SubscribeToInput()
         {
-            if (VRInputManager.Instance == null)
+            if (!useLegacyInput || VRInputManager.Instance == null)
                 return;
 
             VRInputManager.Instance.ConfirmPressedEvent -= HandleConfirmPressed;

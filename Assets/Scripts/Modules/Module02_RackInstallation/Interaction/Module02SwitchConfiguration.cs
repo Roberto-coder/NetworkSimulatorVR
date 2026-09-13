@@ -1,3 +1,5 @@
+using Modules.Module02_RackInstallation.Flow.Validation;
+using Modules.Module02_RackInstallation.Domain;
 using System;
 using System.Collections.Generic;
 using Shared.Cabling;
@@ -14,6 +16,11 @@ namespace Modules.Module02_RackInstallation.Interaction
         public SwitchConfigurationPuzzle Puzzle { get; } = new();
         public bool IsConfigured => isActiveAndEnabled && power != null && power.IsOn && Puzzle.IsConfigured;
         public event Action ConfigurationChanged;
+        public void SetCables(IEnumerable<PatchCableLink> instances)
+        {
+            UpdateLinks(false);
+            cables = new List<PatchCableLink>(new HashSet<PatchCableLink>(instances));
+        }
         private void Awake() => power = GetComponent<Module02SwitchPower>();
         private void OnEnable() { power.StateChanged += PowerChanged; PowerChanged(); }
         private void OnDisable()
@@ -29,6 +36,7 @@ namespace Modules.Module02_RackInstallation.Interaction
         }
         private bool CanEdit(ConsoleTerminalTool terminal)
         {
+            if (!Flow.Module02SequenceCoordinator.Allow(Module02Action.Configure, true)) return false;
             // Volver a leer la unión física evita aplicar con IsReady del frame anterior.
             if (terminal != null) terminal.RefreshConnection();
             power.RefreshSupply();

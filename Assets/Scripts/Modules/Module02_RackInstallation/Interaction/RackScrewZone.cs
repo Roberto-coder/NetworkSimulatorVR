@@ -1,3 +1,4 @@
+using Modules.Module02_RackInstallation.Flow.Validation;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -39,7 +40,8 @@ namespace Modules.Module02_RackInstallation.Interaction
             if (IsFastened) return;
             // Destroying/unequipping a tool need not emit OnTriggerExit.
             tips.RemoveWhere(t => t == null || !t.IsUsable);
-            bool working = assembly != null && assembly.CanFasten && tips.Count > 0;
+            bool working = assembly != null && assembly.CanFasten && tips.Count > 0 &&
+                Flow.Module02SequenceCoordinator.Allow(Module02Action.Fasten);
             elapsed = working ? Mathf.Min(holdSeconds, elapsed + Time.deltaTime) : 0;
             if (elapsed >= holdSeconds)
             {

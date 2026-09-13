@@ -4,6 +4,7 @@ using Modules.Module01_CableMaking.Flow;
 using Modules.Module01_CableMaking.Flow.Validation;
 using Presentacion.Tutorial;
 using UnityEngine;
+using Core.Objectives;
 
 namespace Presentacion.NPC
 {
@@ -31,7 +32,8 @@ namespace Presentacion.NPC
         [SerializeField] private string alertAnimationTrigger;
         [SerializeField] private AudioClip alertClip;
 
-        private ModuleFlowController flow;
+        private IObjectiveFlow flow;
+        private ModuleActionValidator actionValidator;
         private TutorialDirector tutorialDirector;
         private ObjectiveData currentObjective;
         private float inactiveTime;
@@ -40,7 +42,7 @@ namespace Presentacion.NPC
         private string pendingAlert;
 
         public void Configure(
-            ModuleFlowController moduleFlow,
+            IObjectiveFlow moduleFlow,
             TutorialDirector director)
         {
             Unsubscribe();
@@ -55,7 +57,9 @@ namespace Presentacion.NPC
 
             flow.CurrentObjectiveChanged += HandleCurrentObjectiveChanged;
             flow.ObjectiveCompleted += HandleObjectiveCompleted;
-            flow.ActionValidator.ActionRejected += HandleActionRejected;
+            // El módulo 1 conserva su fuente de errores; otros módulos pueden notificar texto.
+            actionValidator = (moduleFlow as ModuleFlowController)?.ActionValidator;
+            if (actionValidator != null) actionValidator.ActionRejected += HandleActionRejected;
         }
 
         private void Update()
@@ -114,7 +118,13 @@ namespace Presentacion.NPC
             if (error == null || string.IsNullOrWhiteSpace(error.Message))
                 return;
 
-            pendingAlert = error.Message;
+            NotifyActionRejected(error.Message);
+        }
+
+        public void NotifyActionRejected(string message)
+        {
+            if (string.IsNullOrWhiteSpace(message)) return;
+            pendingAlert = message;
             inactiveTime = 0f;
         }
 
@@ -170,7 +180,8 @@ namespace Presentacion.NPC
 
             flow.CurrentObjectiveChanged -= HandleCurrentObjectiveChanged;
             flow.ObjectiveCompleted -= HandleObjectiveCompleted;
-            flow.ActionValidator.ActionRejected -= HandleActionRejected;
+            if (actionValidator != null) actionValidator.ActionRejected -= HandleActionRejected;
+            actionValidator = null;
             flow = null;
         }
     }

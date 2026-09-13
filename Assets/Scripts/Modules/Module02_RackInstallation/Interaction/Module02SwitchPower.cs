@@ -1,3 +1,4 @@
+using Modules.Module02_RackInstallation.Domain;
 using System;
 using Shared.Cabling;
 using UnityEngine;
@@ -35,6 +36,7 @@ namespace Modules.Module02_RackInstallation.Interaction
         public void TogglePower()
         {
             if (!isActiveAndEnabled) return;
+            if (!Flow.Module02SequenceCoordinator.AllowPower()) return;
             RefreshSupply(); state.Toggle(); Publish(false);
         }
         private void Publish(bool force)

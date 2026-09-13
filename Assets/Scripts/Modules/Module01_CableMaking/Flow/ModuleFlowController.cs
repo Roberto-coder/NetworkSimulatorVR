@@ -19,7 +19,7 @@ namespace Modules.Module01_CableMaking.Flow
     ///     - Decide cuándo mostrar el quiz
     ///     - Decide cuándo termina el módulo
     /// </summary>
-    public sealed class ModuleFlowController
+    public sealed class ModuleFlowController : IObjectiveFlow
     {
         private readonly ModuleDefinition moduleDefinition;
         private readonly ObjectiveController objectiveController;

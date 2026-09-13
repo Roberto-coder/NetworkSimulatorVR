@@ -1,6 +1,6 @@
 using System.Collections;
 using System;
-using Modules.Module01_CableMaking.Flow;
+using Core.Objectives;
 using Presentacion.NPC;
 using UnityEngine;
 
@@ -24,9 +24,9 @@ namespace Presentacion.Tutorial
         public NPCMovementController MovementController => movementController;
         public NPCPlayerLookController LookController { get; private set; }
         public NPCVoiceController VoiceController { get; private set; }
-        private ModuleFlowController flowController;
+        private IObjectiveFlow flowController;
 
-        public ModuleFlowController FlowController => flowController;
+        public IObjectiveFlow FlowController => flowController;
 
         private TutorialSequence _sequence= new();
         
@@ -43,7 +43,7 @@ namespace Presentacion.Tutorial
             _sequence = sequence;
         }
 
-        public void SetFlowController(ModuleFlowController controller)
+        public void SetFlowController(IObjectiveFlow controller)
         {
             flowController = controller;
         }
@@ -62,11 +62,17 @@ namespace Presentacion.Tutorial
 
         private void OnDisable()
         {
+            StopTutorial();
+        }
+
+        /// <summary>Cancela la narración y el movimiento; cancelar no equivale a completar.</summary>
+        public void StopTutorial()
+        {
             StopAllCoroutines();
+            movementController?.Stop();
             VoiceController?.Stop();
             dialogueController?.HideImmediate();
             IsRunning = false;
-            TutorialCompleted?.Invoke();
         }
 
         /// <summary>
@@ -88,6 +94,7 @@ namespace Presentacion.Tutorial
             }
 
             IsRunning = false;
+            TutorialCompleted?.Invoke();
         }
 
         private void ResolveNpcControllers()

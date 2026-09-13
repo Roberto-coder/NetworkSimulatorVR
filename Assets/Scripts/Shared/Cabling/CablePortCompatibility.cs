@@ -7,6 +7,7 @@ namespace Shared.Cabling
         public static bool Allows(Connector first, Connector second)
         {
             if (first == null || second == null) return false;
+            if (!Modules.Module02_RackInstallation.Flow.Module02SequenceCoordinator.AllowConnection(first, second)) return false;
             var firstPort = first.GetComponentInParent<NetworkPort>();
             var secondPort = second.GetComponentInParent<NetworkPort>();
             var firstCable = first.CableOwner != null ? first.CableOwner : first.GetComponentInParent<PatchCableLink>();

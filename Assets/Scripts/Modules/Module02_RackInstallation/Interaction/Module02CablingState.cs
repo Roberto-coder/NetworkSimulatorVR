@@ -1,3 +1,4 @@
+using Modules.Module02_RackInstallation.Domain;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,6 +20,12 @@ namespace Modules.Module02_RackInstallation.Interaction
         public int IncorrectCount { get; private set; }
         public bool IsComplete => ConnectedCount == Module02ConnectionPlan.Links.Count && IncorrectCount == 0;
         public event Action StateChanged;
+        public void SetCables(IEnumerable<PatchCableLink> instances)
+        {
+            // Reemplazar evita conservar referencias a plantillas o sumar el mismo cable dos veces.
+            cables = new List<PatchCableLink>(new HashSet<PatchCableLink>(instances));
+            previousDisplay = null; RefreshState();
+        }
         public bool IsConnectionPresent(int index) => index >= 0 && index < connected.Length && connected[index];
 
         // Runs after cable/port Update and also catches disabled or destroyed objects.

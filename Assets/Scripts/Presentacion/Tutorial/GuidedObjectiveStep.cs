@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using Core.Objectives;
 using GameData.Objectives;
-using Modules.Module01_CableMaking.Flow;
 using UnityEngine;
 
 namespace Presentacion.Tutorial
@@ -35,11 +34,11 @@ namespace Presentacion.Tutorial
 
         public override IEnumerator Execute(TutorialDirector director)
         {
-            ModuleFlowController flow = director.FlowController;
+            IObjectiveFlow flow = director.FlowController;
             if (flow == null)
             {
                 Debug.LogError(
-                    $"No se puede guiar el objetivo '{objectiveId}' sin ModuleFlowController.");
+                    $"No se puede guiar el objetivo '{objectiveId}' sin IObjectiveFlow.");
                 yield break;
             }
 
@@ -80,7 +79,7 @@ namespace Presentacion.Tutorial
             }
         }
 
-        private ObjectiveBase FindObjective(ModuleFlowController flow)
+        private ObjectiveBase FindObjective(IObjectiveFlow flow)
         {
             foreach (ObjectiveBase objective in flow.Objectives)
             {

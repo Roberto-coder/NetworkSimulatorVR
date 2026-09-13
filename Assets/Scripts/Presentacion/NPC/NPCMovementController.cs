@@ -51,7 +51,7 @@ namespace Presentacion.NPC
         /// </summary>
         public void Stop()
         {
-            waypointFollower.Stop();
+            waypointFollower?.Stop();
         }
 
         private void HandlePathCompleted()

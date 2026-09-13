@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../Assets/Scripts/Core/Objectives/ObjectiveBase.cs" Link="ObjectiveBase.cs" />
+    <Compile Include="../../Assets/Scripts/Core/Objectives/ObjectiveState.cs" Link="ObjectiveState.cs" />
+    <Compile Include="../../Assets/Scripts/Core/Objectives/IObjectiveFlow.cs" Link="IObjectiveFlow.cs" />
+    <Compile Include="../../Assets/GameData/Objectives/ObjectiveData.cs" Link="ObjectiveData.cs" />
+    <Compile Include="../../Assets/GameData/Module02/Definitions/Module02TutorialData.cs" Link="Module02TutorialData.cs" />
+    <Compile Include="../../Assets/Scripts/Presentacion/Tutorial/TurorialStep.cs" Link="TutorialStep.cs" />
+    <Compile Include="../../Assets/Scripts/Presentacion/Tutorial/GuidedObjectiveStep.cs" Link="GuidedObjectiveStep.cs" />
+    <Compile Include="../../Assets/Scripts/Modules/Module02_RackInstallation/Presentation/Tutorial/Module02GuidedTutorialStep.cs" Link="Module02GuidedTutorialStep.cs" />
+    <Compile Include="../../Assets/Scripts/Modules/Module02_RackInstallation/Objectives/Module02ObjectiveCatalog.cs" Link="Module02ObjectiveCatalog.cs" />
+    <Compile Include="../../Assets/Scripts/Modules/Module02_RackInstallation/Flow/Validation/Module02SequenceRules.cs" Link="Module02SequenceRules.cs" />
+    <Compile Include="../../Assets/Scripts/Modules/Module02_RackInstallation/Domain/SwitchConfigurationPuzzle.cs" Link="SwitchConfigurationPuzzle.cs" />
+    <Compile Include="../../Assets/Scripts/Modules/Module02_RackInstallation/Domain/SwitchPowerState.cs" Link="SwitchPowerState.cs" />
+    <Compile Include="../../Assets/Scripts/Shared/Cabling/NetworkPortKind.cs" Link="NetworkPortKind.cs" />
+    <Compile Include="../../Assets/Scripts/Modules/Module02_RackInstallation/Domain/Module02ConnectionPlan.cs" Link="Module02ConnectionPlan.cs" />
+  </ItemGroup>
+</Project>

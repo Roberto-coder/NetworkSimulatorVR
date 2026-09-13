@@ -1,3 +1,4 @@
+using Modules.Module02_RackInstallation.Factories;
 using System;
 using System.Collections.Generic;
 using Core.Objectives;
@@ -12,7 +13,7 @@ namespace Modules.Module02_RackInstallation.Flow
     /// Flujo secuencial inicial del módulo. TryCompleteCurrent es el punto de
     /// conexión para tarjetas, montaje, tornillos, cableado y configuración.
     /// </summary>
-    public sealed class Module02FlowController
+    public sealed class Module02FlowController : IObjectiveFlow
     {
         private readonly ModuleDefinition moduleDefinition;
         private readonly ObjectiveController objectiveController;
@@ -22,11 +23,12 @@ namespace Modules.Module02_RackInstallation.Flow
         {
             moduleDefinition = definition ?? throw new ArgumentNullException(nameof(definition));
             List<ObjectiveBase> objectives = new(definition.Objectives.Count);
+            var factory = new Module02ObjectiveFactory();
             foreach (ObjectiveData data in definition.Objectives)
             {
                 if (data == null)
                     throw new ArgumentException("El módulo 2 contiene un objetivo nulo.", nameof(definition));
-                objectives.Add(new Module02Objective(data));
+                objectives.Add(factory.Create(data));
             }
 
             objectiveController = new ObjectiveController(objectives);
@@ -48,6 +50,8 @@ namespace Modules.Module02_RackInstallation.Flow
                 : null;
         public IReadOnlyList<ToolData> AvailableTools => moduleDefinition.availableTools;
         public bool IsCompleted { get; private set; }
+        // El coordinador puede comprobar la condición real incluso ante una solicitud directa.
+        public Func<string, bool> CompletionGuard { get; set; }
 
         public void Begin()
         {
@@ -66,6 +70,7 @@ namespace Modules.Module02_RackInstallation.Flow
                 CurrentObjectiveData?.Id != objectiveId)
                 return false;
 
+            if (CompletionGuard != null && !CompletionGuard(objectiveId)) return false;
             ObjectiveData completed = CurrentObjectiveData;
             ObjectiveBase objective = CurrentObjective;
             objective?.Complete();

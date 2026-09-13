@@ -15,8 +15,9 @@ namespace Modules.Module01_CableMaking.Presentation
         public struct CableOption
         {
             public string displayName;
-            [TextArea(2, 4)] public string description;
+            [TextArea(8, 16)] public string description;
             public Color accentColor;
+            public Sprite image;
         }
 
         [Header("Scene references")]
@@ -95,9 +96,22 @@ namespace Modules.Module01_CableMaking.Presentation
                 return;
 
             CableOption option = options[selectedIndex];
-            if (cableNameText != null) cableNameText.text = option.displayName;
-            if (descriptionText != null) descriptionText.text = option.description;
-            if (cablePreview != null) cablePreview.color = option.accentColor;
+            if (cableNameText != null)
+            {
+                cableNameText.richText = true;
+                cableNameText.text = $"<b>{option.displayName}</b>";
+            }
+            if (descriptionText != null)
+            {
+                descriptionText.richText = true;
+                descriptionText.text = option.description;
+            }
+            if (cablePreview != null)
+            {
+                cablePreview.sprite = option.image;
+                cablePreview.preserveAspect = true;
+                cablePreview.color = option.image != null ? Color.white : option.accentColor;
+            }
         }
 
 #if UNITY_EDITOR
@@ -121,6 +135,7 @@ namespace Modules.Module01_CableMaking.Presentation
             nextButton = next;
             selectButton = select;
             options = cableOptions;
+            Refresh();
         }
 #endif
     }

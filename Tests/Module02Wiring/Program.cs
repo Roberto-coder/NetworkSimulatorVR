@@ -1,6 +1,8 @@
+using Modules.Module02_RackInstallation.Flow.Validation;
+using Modules.Module02_RackInstallation.Domain;
 using System;
 using Shared.Cabling;
-using Modules.Module02_RackInstallation.Interaction;
+using Modules.Module02_RackInstallation.Flow;
 
 static class Program
 {
@@ -63,6 +65,19 @@ static class Program
         Equal(0, edit.Place(1, 0) ? 1 : 0, "Configured puzzle locked");
         edit.Reset(); Equal(0, edit.IsConfigured ? 1 : 0, "Power-off reset clears configuration");
         for (int i = 0; i < 4; i++) Equal(-1, edit.GetBlock(i), "Reset clears slot");
-        Console.WriteLine($"PASS: {checks} wiring, power and puzzle rule assertions.");
+        // Matriz esperada por objetivo: equipar herramientas no figura como acción restringida.
+        int[] masks = { 0, 0, 1, 2, 4, 4 | 8, 4 | 8 | 16, 4 | 8 | 16 | 32, 16 | 32 | 64, 16 };
+        for (int stage = -1; stage <= 10; stage++)
+            foreach (Module02Action action in Enum.GetValues<Module02Action>())
+                foreach (bool locked in new[] { false, true })
+                {
+                    int mask = stage >= 0 && stage < masks.Length ? masks[stage] : 0;
+                    if (locked) mask &= ~(4 | 8);
+                    Equal((mask & (1 << (int)action)) != 0 ? 1 : 0,
+                        Module02SequenceRules.Allows(stage, action, locked) ? 1 : 0, "Sequential action permission");
+                }
+        Equal(9, Modules.Module02_RackInstallation.Objectives.Module02ObjectiveCatalog.OrderedIds.Count, "Nine practical objectives");
+        checks += TutorialRegressionChecks.Run();
+        Console.WriteLine($"PASS: {checks} wiring, power, puzzle, sequence and tutorial assertions.");
     }
 }

@@ -1,3 +1,4 @@
+using Modules.Module02_RackInstallation.Flow.Validation;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -78,6 +79,7 @@ namespace Modules.Module02_RackInstallation.Interaction
 
         internal void Consider(Collider candidate)
         {
+            if (!Flow.Module02SequenceCoordinator.Allow(Module02Action.Mount)) return;
             if (captured || installed)
                 return;
 

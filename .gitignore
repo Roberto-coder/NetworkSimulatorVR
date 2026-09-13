@@ -33,6 +33,9 @@
 ExportedObj/
 .consulo/
 *.csproj
+!Tests/Module02Wiring/Module02Wiring.csproj
+/Tests/**/bin/
+/Tests/**/obj/
 *.unityproj
 *.sln
 *.suo

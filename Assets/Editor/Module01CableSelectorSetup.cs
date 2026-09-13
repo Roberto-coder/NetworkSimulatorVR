@@ -52,25 +52,35 @@ public static class Module01CableSelectorSetup
         AddOutline(panel.gameObject, Cyan, new Vector2(7, -7));
 
         Text(panel, "Title", "CONFIGURACION DEL CABLE", new Vector2(0, 260), new Vector2(850, 70), 46, FontStyles.Bold, Color.white);
-        TMP_Text description = Text(panel, "Description", "", new Vector2(0, 160), new Vector2(650, 86), 23, FontStyles.Normal, new Color(0.78f, 0.9f, 0.95f));
+        TMP_Text description = Text(panel, "Description", "", new Vector2(150, 0), new Vector2(540, 410), 23, FontStyles.Normal, new Color(0.78f, 0.9f, 0.95f));
 
-        RectTransform card = Panel(panel, "CableCard", new Vector2(0, -20), new Vector2(510, 270), new Color(0.055f, 0.12f, 0.21f, 1f), new Vector2(0.5f, 0.5f));
+        RectTransform card = Panel(panel, "CableCard", new Vector2(-300, 0), new Vector2(280, 410), new Color(0.055f, 0.12f, 0.21f, 1f), new Vector2(0.5f, 0.5f));
         AddOutline(card.gameObject, new Color(0.22f, 0.75f, 0.9f), new Vector2(3, -3));
-        Image preview = Panel(card, "CablePreview", new Vector2(0, 35), new Vector2(310, 76), Cyan, new Vector2(0.5f, 0.5f)).GetComponent<Image>();
-        AddCableLines(preview.rectTransform);
-        TMP_Text name = Text(card, "CableName", "", new Vector2(0, -82), new Vector2(430, 62), 38, FontStyles.Bold, Color.white);
+        Image preview = Panel(card, "CablePreview", new Vector2(0, -30), new Vector2(260, 260), Cyan, new Vector2(0.5f, 0.5f)).GetComponent<Image>();
+        preview.preserveAspect = true;
+        preview.raycastTarget = false;
+        description.alignment = TextAlignmentOptions.TopLeft;
+        description.richText = true;
+        description.raycastTarget = false;
+        TMP_Text name = Text(card, "CableName", "", new Vector2(0, 145), new Vector2(260, 105), 28, FontStyles.Bold, Color.white);
 
-        Button previous = Button(panel, "Previous", "<", new Vector2(-365, -15), new Vector2(105, 105), Yellow, Color.black);
-        Button next = Button(panel, "Next", ">", new Vector2(365, -15), new Vector2(105, 105), Yellow, Color.black);
+        name.enableAutoSizing = true;
+        name.fontSizeMin = 22;
+        name.fontSizeMax = 28;
+        name.raycastTarget = false;
+
+        Button previous = Button(panel, "Previous", "<", new Vector2(-365, -245), new Vector2(105, 105), Yellow, Color.black);
+        Button next = Button(panel, "Next", ">", new Vector2(365, -245), new Vector2(105, 105), Yellow, Color.black);
         Button select = Button(panel, "Select", "SELECCIONAR", new Vector2(0, -245), new Vector2(360, 92), Yellow, Color.black);
 
         CableSelectionPanel controller = experience.AddComponent<CableSelectionPanel>();
         controller.Configure(cable, canvas.gameObject, name, description, preview, previous, next, select,
             new[]
             {
-                Option("Cat 5e", "Hasta 1 Gbps · 100 MHz\nOpcion confiable para redes basicas.", new Color(0.2f, 0.72f, 0.38f)),
-                Option("Cat 6a", "Hasta 10 Gbps · 500 MHz\nMejor proteccion contra interferencias.", new Color(0.08f, 0.82f, 0.96f)),
-                Option("Cat 7", "Hasta 10 Gbps · 600 MHz\nBlindaje reforzado para entornos exigentes.", new Color(0.55f, 0.32f, 0.9f))
+                Option("Cat5e (Categor\u00eda 5e)", "Evolucion\u00f3 para corregir interferencias en la red, siendo el est\u00e1ndar m\u00e1s com\u00fan para redes dom\u00e9sticas y de oficina que requieren velocidad Gigabit.\n\n\u2022 <b>Velocidad:</b> Hasta 1 Gbps\n\u2022 <b>Ancho de banda:</b> 100 MHz\n\u2022 <b>Distancia m\u00e1xima:</b> 100 metros\n\u2022 <b>Estructura:</b> Sin blindaje (UTP)\n\u2022 <b>Conector:</b> RJ45", new Color(0.2f, 0.72f, 0.38f), "Cat5e"),
+                Option("Cat6 (Categor\u00eda 6)", "Ofrece un rendimiento superior al Cat5e con mejor protecci\u00f3n contra interferencias y diafon\u00eda, soportando velocidades de 10 Gbps en distancias cortas.\n\n\u2022 <b>Velocidad:</b> Hasta 10 Gbps\n\u2022 <b>Ancho de banda:</b> 250 MHz\n\u2022 <b>Distancia m\u00e1xima:</b> 55 metros (a 10 Gbps) / 100 metros (a 1 Gbps)\n\u2022 <b>Estructura:</b> Sin blindaje (UTP)\n\u2022 <b>Conector:</b> RJ45", new Color(0.1f, 0.4f, 0.95f), "Cat6"),
+                Option("Cat6A (Categor\u00eda 6A o \"Aumentada\")", "Dise\u00f1ada para garantizar 10 Gbps en toda la distancia est\u00e1ndar de 100 metros, cumple con los estrictos est\u00e1ndares TIA y ofrece mayor margen de futuro.\n\n\u2022 <b>Velocidad:</b> Hasta 10 Gbps\n\u2022 <b>Ancho de banda:</b> 500 MHz\n\u2022 <b>Distancia m\u00e1xima:</b> 100 metros\n\u2022 <b>Estructura:</b> Con blindaje de l\u00e1mina (SFTP)\n\u2022 <b>Conector:</b> RJ45", new Color(0.08f, 0.82f, 0.96f), "Cat6A"),
+                Option("Cat7 (Categor\u00eda 7)", "Posee un ancho de banda y una protecci\u00f3n contra interferencias extremadamente altos, aunque no es un est\u00e1ndar oficial de la industria (TIA) y tiene compatibilidad limitada.\n\n\u2022 <b>Velocidad:</b> Hasta 10 Gbps\n\u2022 <b>Ancho de banda:</b> 600 MHz\n\u2022 <b>Distancia m\u00e1xima:</b> 100 metros\n\u2022 <b>Estructura:</b> Blindaje individual por par y general (SFTP)\n\u2022 <b>Conector:</b> GG45 o TERA (no RJ45)", new Color(0.55f, 0.32f, 0.9f), "Cat7")
             });
 
         EditorSceneManager.MarkSceneDirty(scene);
@@ -81,8 +91,9 @@ public static class Module01CableSelectorSetup
 
     public static void BuildBatch() => Build();
 
-    private static CableSelectionPanel.CableOption Option(string name, string description, Color color) =>
-        new() { displayName = name, description = description, accentColor = color };
+    private static CableSelectionPanel.CableOption Option(string name, string description, Color color, string imageName) =>
+        new() { displayName = name, description = description, accentColor = color,
+            image = AssetDatabase.LoadAssetAtPath<Sprite>($"Assets/Art/CableCards/{imageName}.png") };
 
     private static void BuildPedestal(Transform parent)
     {
@@ -144,13 +155,6 @@ public static class Module01CableSelectorSetup
         ColorBlock colors = button.colors; colors.highlightedColor = Color.Lerp(background, Color.white, 0.3f); colors.pressedColor = Color.Lerp(background, Color.black, 0.2f); button.colors = colors;
         Text(rect, "Label", label, Vector2.zero, size - new Vector2(16, 12), name == "Select" ? 31 : 54, FontStyles.Bold, foreground);
         return button;
-    }
-
-    private static void AddCableLines(RectTransform parent)
-    {
-        Color[] colors = { Color.white, new(1f, .45f, .08f), Color.white, new(.1f, .55f, 1f), Color.white, new(.2f, .8f, .35f) };
-        for (int i = 0; i < colors.Length; i++)
-            Panel(parent, $"Wire_{i + 1}", new Vector2(128, 22 - i * 9), new Vector2(145, 5), colors[i], new Vector2(0.5f, 0.5f)).localRotation = Quaternion.Euler(0, 0, (i - 2.5f) * -4f);
     }
 
     private static void AddOutline(GameObject go, Color color, Vector2 distance)

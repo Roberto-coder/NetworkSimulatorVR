@@ -14,7 +14,12 @@ namespace Modules.Module02_RackInstallation.Interaction
         public int FullyLabeledCableCount => fullyLabeledCableCount;
         public bool IsComplete => cables.Count == 5 && fullyLabeledCableCount == 5;
         public event Action StateChanged;
-        private void LateUpdate()
+        public void SetCables(IEnumerable<CableLabelPair> instances)
+        {
+            cables = new List<CableLabelPair>(new HashSet<CableLabelPair>(instances)); RefreshState();
+        }
+        private void LateUpdate() => RefreshState();
+        public void RefreshState()
         {
             int ends = 0, complete = 0;
             foreach (var cable in cables)
