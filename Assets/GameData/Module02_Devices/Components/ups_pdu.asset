@@ -19,7 +19,9 @@ MonoBehaviour:
   shortDescription: "Representaci\xF3n provisional de distribuci\xF3n y respaldo
     de energ\xEDa."
   function: "Una UPS aporta respaldo temporal; una PDU distribuye energ\xEDa a los
-    equipos del rack."
+    equipos del rack.\n\u2022 <b>Velocidad:</b> Hasta 1 Gbps\r\n\u2022 <b>Ancho de
+    banda:</b> 100 MHz\r\n\u2022 <b>Distancia m\xE1xima:</b> 100 metros\r\n\u2022
+    <b>Estructura:</b> Sin blindaje (UTP)\r\n\u2022 <b>Conector:</b> RJ45"
   rackUnits: 0
   image: {fileID: 0}
   standardReference: "La capacidad, protecciones y conexi\xF3n deben seguir la documentaci\xF3n
