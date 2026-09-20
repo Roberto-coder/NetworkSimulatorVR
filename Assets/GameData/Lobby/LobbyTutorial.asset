@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54267ef5488f4931ab01d7d629d7254d, type: 3}
+  m_Name: LobbyTutorial
+  m_EditorClassIdentifier:
+  dialogues:
+  - id: lobby_intro_controls
+    text: "Hola, soy tu asistente. Presiona el botón B para avanzar el diálogo."
+    speaker: Instructor
+    audio:
+      clip: {fileID: 8300000, guid: f3695e0b5a30ebd469dd78c7dde02b56, type: 3}
+      resourcesPath: 
+    legacyVoiceId: lobby_intro_controls
+  - id: lobby_intro_role
+    text: "Como ingeniero de los laboratorios de red, te acompañaré en tu aprendizaje, comenzando por la capa física del modelo OSI."
+    speaker: Instructor
+    audio:
+      clip: {fileID: 0}
+      resourcesPath: 
+    legacyVoiceId: lobby_intro_role
+  - id: lobby_tools
+    text: "Presiona Y para abrir la rueda, apunta a la herramienta que quieras y usa R2 para utilizarla."
+    speaker: Instructor
+    audio:
+      clip: {fileID: 0}
+      resourcesPath: 
+    legacyVoiceId: lobby_tools
+  - id: lobby_objectives
+    text: "Al girar la muñeca izquierda verás el menú de objetivos de cada módulo. En el Lobby tu único objetivo es completar este tutorial."
+    speaker: Instructor
+    audio:
+      clip: {fileID: 0}
+      resourcesPath: 
+    legacyVoiceId: lobby_objectives
+  - id: lobby_follow_me
+    text: "Sígueme para comenzar el recorrido."
+    speaker: Instructor
+    audio:
+      clip: {fileID: 0}
+      resourcesPath: 
+    legacyVoiceId: lobby_follow_me
+  - id: lobby_storage
+    text: "En este panel puedes gestionar tu almacenamiento. Guarda tu progreso cada vez que completes un módulo."
+    speaker: Instructor
+    audio:
+      clip: {fileID: 0}
+      resourcesPath: 
+    legacyVoiceId: lobby_storage
+  - id: lobby_profile
+    text: "También puedes consultar tu perfil, insignias y módulos completados."
+    speaker: Instructor
+    audio:
+      clip: {fileID: 0}
+      resourcesPath: 
+    legacyVoiceId: lobby_profile
+  - id: lobby_modules
+    text: "Desde aquí podrás desbloquear módulos nuevos o repetir los que ya completaste."
+    speaker: Instructor
+    audio:
+      clip: {fileID: 0}
+      resourcesPath: 
+    legacyVoiceId: lobby_modules
+  - id: lobby_museum_devices
+    text: "En el museo, los dispositivos con contorno amarillo pueden manipularse para conocer su información y características."
+    speaker: Instructor
+    audio:
+      clip: {fileID: 0}
+      resourcesPath: 
+    legacyVoiceId: lobby_museum_devices
+  - id: lobby_museum_controls
+    text: "Puedes interactuar con ellos usando el trigger de los controles o mediante gestos de hand tracking."
+    speaker: Instructor
+    audio:
+      clip: {fileID: 0}
+      resourcesPath: 
+    legacyVoiceId: lobby_museum_controls
+  - id: lobby_farewell
+    text: "Buena suerte. Volveré a acompañarte más adelante en otros módulos."
+    speaker: Instructor
+    audio:
+      clip: {fileID: 0}
+      resourcesPath: 
+    legacyVoiceId: lobby_farewell

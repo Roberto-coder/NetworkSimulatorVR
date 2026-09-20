@@ -17,6 +17,7 @@ MonoBehaviour:
   description: El alumno debera encargarse de fabricar un cable de Red segun la norma
     T568B
   objectives:
+  - {fileID: 11400000, guid: b4a6c97ec155424aa9aa76ef6568b462, type: 2}
   - {fileID: 11400000, guid: 9e5b04c0fb409a84b8db60ba1616d26c, type: 2}
   - {fileID: 11400000, guid: 6089ad452e22de94eb395ae1141856ec, type: 2}
   - {fileID: 11400000, guid: 48d7db9c45062de45840b4122f16d8fc, type: 2}

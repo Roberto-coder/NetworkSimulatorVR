@@ -1,5 +1,8 @@
 # Sprint 8 — NPC y waypoints
 
+El [sprint 9](Module02-Sprint09.md) conecta el waypoint del quiz y sustituye el cierre
+provisional descrito aquí por el cierre completo del módulo.
+
 ## Instalar en la escena
 
 Abrir `Assets/Scenes/Modulo2.unity` fuera de Play y ejecutar:

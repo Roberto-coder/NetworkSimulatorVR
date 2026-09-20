@@ -15,15 +15,19 @@ namespace Modules.Module02_RackInstallation.Presentation.Tutorial
 
         public override IEnumerator Execute(TutorialDirector director)
         {
+            yield return director.WaitForReactions();
             if (objective.IsCompleted) yield break;
             if (!string.IsNullOrWhiteSpace(narration?.explanation))
+            {
                 yield return director.DialogueController.ShowDialogueUntilConfirmed(
-                    narration.explanation, "Instructor", () => objective.IsCompleted);
+                    narration.explanation, "Instructor", () => objective.IsCompleted,
+                    narration.explanationAudio);
+            }
             if (objective.IsCompleted) yield break;
             string instruction = string.IsNullOrWhiteSpace(narration?.instruction)
                 ? objective.Data.Description : narration.instruction;
             // B puede cerrar la instrucción; únicamente el flujo físico completa el objetivo.
-            yield return new GuidedObjectiveStep(objective.Data.Id, instruction).Execute(director);
+            yield return new GuidedObjectiveStep(objective.Data.Id, instruction, narration?.instructionAudio).Execute(director);
         }
     }
 }

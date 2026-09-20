@@ -1,5 +1,8 @@
 # Guion del NPC — módulo 2, sprint 8
 
+El cierre fue actualizado en el [sprint 9](Module02-Sprint09.md) para guiar al quiz.
+Las explicaciones de los nueve objetivos se conservan.
+
 Texto editable en `Assets/GameData/Module02/Module02Tutorial.asset` (ScriptableObject).
 El Builder organiza los pasos; los diálogos no están escritos dentro del Builder.
 

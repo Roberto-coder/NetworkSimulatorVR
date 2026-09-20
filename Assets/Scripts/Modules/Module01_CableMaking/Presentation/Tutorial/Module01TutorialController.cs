@@ -1,3 +1,5 @@
+using System.Collections;
+using GameData.NPC;
 using Modules.Module01_CableMaking.Flow;
 using Presentacion.NPC;
 using Presentacion.Tutorial;
@@ -13,23 +15,26 @@ namespace Modules.Module01_CableMaking.Presentation.Tutorial
     {
         [SerializeField] private bool tutorialEnabled = true;
         [SerializeField] private TutorialDirector director;
+        [SerializeField] private NPCDialogueData data;
         [SerializeField] private NPCReactionController reactionController;
+        [SerializeField] private Waypoint pedestalWaypoint;
         [SerializeField] private Waypoint cableWaypoint;
         [SerializeField] private Waypoint puzzleWaypoint;
         [SerializeField] private Waypoint quizWaypoint;
 
-        private void Start()
+        private IEnumerator Start()
         {
             if (!tutorialEnabled)
-                return;
+                yield break;
 
+            yield return null; // Esperar a que SimulationManager.Start active el flujo.
             ModuleFlowController flow = SimulationManager.Instance?.FlowController;
-            if (director == null || flow == null || cableWaypoint == null)
+            if (data == null || director == null || flow == null || pedestalWaypoint == null || cableWaypoint == null)
             {
                 Debug.LogError(
-                    "El tutorial necesita director, flujo y waypoint del cable.",
+                    "El tutorial necesita GameData, director, flujo y los waypoints del pedestal y del cable.",
                     this);
-                return;
+                yield break;
             }
 
             if (puzzleWaypoint == null)
@@ -50,10 +55,12 @@ namespace Modules.Module01_CableMaking.Presentation.Tutorial
 
             director.SetFlowController(flow);
             director.SetSequence(builder.Build(
+                data,
+                pedestalWaypoint,
                 cableWaypoint,
                 puzzleWaypoint,
                 quizWaypoint));
-            reactionController?.Configure(flow, director);
+            if (reactionController != null) reactionController.Configure(flow, director, data.Find);
             director.StartTutorial();
         }
     }

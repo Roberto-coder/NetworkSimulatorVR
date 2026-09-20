@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net10.0</TargetFramework></PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../Assets/Scripts/Presentacion/NPC/NPCProceduralIdle.cs" />
+    <Compile Include="../../Assets/Scripts/Presentacion/NPC/NPCVoiceController.cs" />
+    <Compile Include="../../Assets/Scripts/Presentacion/NPC/NPCVoiceCatalog.cs" />
+    <Compile Include="../../Assets/Scripts/Presentacion/NPC/NPCDialogueController.cs" />
+    <Compile Include="../../Assets/Scripts/Presentacion/NPC/NPCReactionController.cs" />
+    <Compile Include="../../Assets/Scripts/Presentacion/Tutorial/TutorialDirector.cs" />
+    <Compile Include="../../Assets/Scripts/Presentacion/Tutorial/TutorialSecuence.cs" />
+    <Compile Include="../../Assets/Scripts/Presentacion/Tutorial/TurorialStep.cs" />
+    <Compile Include="../../Assets/Scripts/Presentacion/Tutorial/DialogStep.cs" />
+    <Compile Include="../../Assets/Scripts/Presentacion/Tutorial/GuidedObjectiveStep.cs" />
+    <Compile Include="../../Assets/GameData/NPC/DialogueAudio.cs" />
+    <Compile Include="../../Assets/GameData/NPC/NPCDialogueData.cs" />
+  </ItemGroup>
+</Project>

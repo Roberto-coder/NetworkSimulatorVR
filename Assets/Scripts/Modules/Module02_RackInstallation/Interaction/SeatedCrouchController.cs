@@ -1,5 +1,6 @@
 using Unity.XR.CoreUtils;
 using UnityEngine;
+using Systems.Input;
 using UnityEngine.InputSystem;
 
 namespace Modules.Module02_RackInstallation.Interaction
@@ -73,6 +74,8 @@ namespace Modules.Module02_RackInstallation.Interaction
         private void Update()
         {
             if (!initialized || offsetTransform == null) return;
+            if (VRInputManager.Instance != null && VRInputManager.Instance.UsesOpenXR && VRInputManager.Instance.CrouchPressed)
+                IsCrouched = !IsCrouched;
             float targetY = standingLocalY - (IsCrouched ? crouchDepth : 0f);
             float speed = crouchDepth / Mathf.Max(0.01f, transitionDuration);
             Vector3 position = offsetTransform.localPosition;
@@ -80,7 +83,11 @@ namespace Modules.Module02_RackInstallation.Interaction
             offsetTransform.localPosition = position;
         }
 
-        private void HandlePerformed(InputAction.CallbackContext _) => IsCrouched = !IsCrouched;
+        private void HandlePerformed(InputAction.CallbackContext _)
+        {
+            if (VRInputManager.Instance == null || !VRInputManager.Instance.UsesOpenXR)
+                IsCrouched = !IsCrouched;
+        }
 
         private void OnDestroy() => fallbackAction?.Dispose();
     }

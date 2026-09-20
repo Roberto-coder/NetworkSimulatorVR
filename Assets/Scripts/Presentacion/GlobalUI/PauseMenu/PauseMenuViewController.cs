@@ -21,6 +21,7 @@ public sealed class PauseMenuViewController : MonoBehaviour
         ResolvePanels();
         BuildSecondaryPanelsIfNeeded();
         WireMainButtons();
+        WireSecondaryButtons();
         ShowMain();
     }
 
@@ -28,6 +29,11 @@ public sealed class PauseMenuViewController : MonoBehaviour
     {
         ShowMain();
         SyncMusicSlider();
+    }
+
+    private void OnDisable()
+    {
+        GlobalSettingsManager.Instance?.UnbindMusicSlider(musicSlider);
     }
 
     public void ShowMain()
@@ -80,6 +86,22 @@ public sealed class PauseMenuViewController : MonoBehaviour
     private Button FindButton(string objectName) =>
         GetComponentsInChildren<Button>(true).FirstOrDefault(button => button.name == objectName);
 
+    private void WireSecondaryButtons()
+    {
+        // Los listeners creados en el editor no se serializan en el prefab.
+        BindButton("ButtonSettingsBack", ShowMain);
+        BindButton("ButtonCancelMenu", ShowMain);
+        BindButton("ButtonConfirmMenu", ConfirmReturnToMenu);
+    }
+
+    private void BindButton(string objectName, UnityEngine.Events.UnityAction action)
+    {
+        Button button = FindButton(objectName);
+        if (button == null) return;
+        button.onClick.RemoveListener(action);
+        button.onClick.AddListener(action);
+    }
+
     private void SetVisible(GameObject selected)
     {
         if (mainPanel != null)
@@ -122,7 +144,7 @@ public sealed class PauseMenuViewController : MonoBehaviour
         GlobalSettingsManager manager = GlobalSettingsManager.Instance;
         musicSlider.interactable = manager != null;
         if (manager != null)
-            musicSlider.SetValueWithoutNotify(manager.Current.musicVolume);
+            manager.BindMusicSlider(musicSlider);
     }
 
     private static TMP_Text CreateText(Transform parent, string name, string value, float size, Vector2 position, Vector2 dimensions, FontStyles style = FontStyles.Normal)

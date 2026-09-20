@@ -20,5 +20,14 @@ MonoBehaviour:
   function: Mantiene los dispositivos montados, ordenados y accesibles. Una unidad
     U equivale a 44.45 mm de altura.
   rackUnits: 22
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: fcb3af1d41e4f4543a132c49997176dd, type: 3}
   standardReference: "IEC 60297 (dimensiones mec\xE1nicas de estructuras de 19 pulgadas)"
+  sections:
+  - title: 'Espaciado '
+    body: "El rack debe estar separado de la pared X metros\t"
+    image: {fileID: 0}
+    reference: "ANSI/TIA-568; TIA-569\t"
+  - title: 
+    body: 
+    image: {fileID: 0}
+    reference: 

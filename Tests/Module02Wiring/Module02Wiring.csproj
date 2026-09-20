@@ -4,6 +4,14 @@
     <TargetFramework>net10.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="../../Assets/GameData/NPC/DialogueAudio.cs" Link="DialogueAudio.cs" />
+    <Compile Include="../../Assets/GameData/NPC/NPCDialogueData.cs" Link="NPCDialogueData.cs" />
+    <Compile Include="../../Assets/Scripts/Modules/Module02_RackInstallation/Domain/Module02CompletionState.cs" Link="Module02CompletionState.cs" />
+    <Compile Include="../../Assets/Scripts/Core/Quiz/Domain/QuizSession.cs" Link="QuizSession.cs" />
+    <Compile Include="../../Assets/Scripts/Core/Quiz/Domain/QuizResult.cs" Link="QuizResult.cs" />
+    <Compile Include="../../Assets/GameData/Quiz/QuizData.cs" Link="QuizData.cs" />
+    <Compile Include="../../Assets/GameData/Quiz/QuizQuestion.cs" Link="QuizQuestion.cs" />
+    <Compile Include="../../Assets/Scripts/Systems/Save/AtomicLocalFile.cs" Link="AtomicLocalFile.cs" />
     <Compile Include="../../Assets/Scripts/Core/Objectives/ObjectiveBase.cs" Link="ObjectiveBase.cs" />
     <Compile Include="../../Assets/Scripts/Core/Objectives/ObjectiveState.cs" Link="ObjectiveState.cs" />
     <Compile Include="../../Assets/Scripts/Core/Objectives/IObjectiveFlow.cs" Link="IObjectiveFlow.cs" />

@@ -24,6 +24,12 @@ namespace Presentacion.Tutorial
         public NPCMovementController MovementController => movementController;
         public NPCPlayerLookController LookController { get; private set; }
         public NPCVoiceController VoiceController { get; private set; }
+        private NPCReactionController reactions;
+        public void ConfigureReactions(NPCReactionController controller) => reactions = controller;
+        public IEnumerator WaitForReactions()
+        {
+            if (reactions != null) yield return reactions.WaitForReactions();
+        }
         private IObjectiveFlow flowController;
 
         public IObjectiveFlow FlowController => flowController;
@@ -68,10 +74,11 @@ namespace Presentacion.Tutorial
         /// <summary>Cancela la narración y el movimiento; cancelar no equivale a completar.</summary>
         public void StopTutorial()
         {
+            if (reactions != null) reactions.CancelReactions();
             StopAllCoroutines();
-            movementController?.Stop();
-            VoiceController?.Stop();
-            dialogueController?.HideImmediate();
+            if (movementController != null) movementController.Stop();
+            if (VoiceController != null) VoiceController.Stop();
+            if (dialogueController != null) dialogueController.HideImmediate();
             IsRunning = false;
         }
 
@@ -90,9 +97,11 @@ namespace Presentacion.Tutorial
             
             for (int i = 0; i < _sequence.Count; i++)
             {
+                if (reactions != null) yield return reactions.WaitForReactions();
                 yield return _sequence.Steps[i].Execute(this);
             }
 
+            if (reactions != null) yield return reactions.WaitForReactions();
             IsRunning = false;
             TutorialCompleted?.Invoke();
         }
@@ -102,10 +111,11 @@ namespace Presentacion.Tutorial
             if (movementController == null)
                 return;
 
-            LookController ??= movementController.GetComponent<NPCPlayerLookController>();
-            VoiceController ??= movementController.GetComponent<NPCVoiceController>();
+            if (LookController == null) LookController = movementController.GetComponent<NPCPlayerLookController>();
+            if (VoiceController == null) VoiceController = movementController.GetComponent<NPCVoiceController>();
             if (VoiceController == null)
                 VoiceController = movementController.gameObject.AddComponent<NPCVoiceController>();
+            if (dialogueController != null) dialogueController.ConfigureVoice(VoiceController);
         }
     }
 }

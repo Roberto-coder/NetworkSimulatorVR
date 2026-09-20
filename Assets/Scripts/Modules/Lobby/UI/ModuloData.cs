@@ -11,5 +11,6 @@ namespace Modules.Lobby.UI
         public string objetivos;
         public Sprite imagen;
         public string escena;
+        public bool repetirTutorial;
     }
 }

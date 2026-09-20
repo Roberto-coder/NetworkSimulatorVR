@@ -21,14 +21,19 @@ namespace Systems.Settings
         private readonly List<Slider> boundMusicSliders = new();
         private GameObject persistentRoot;
 
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetStatics() => Instance = null;
+
         private void Awake()
         {
-            persistentRoot = transform.parent != null && transform.parent.name == "GlobalSystems"
+            persistentRoot = transform.parent != null &&
+                (transform.parent.name == "GlobalSystems" || transform.parent.name == "GlobalSystems(Clone)")
                 ? transform.parent.gameObject
                 : gameObject;
 
             if (Instance != null && Instance != this)
             {
+                persistentRoot.SetActive(false);
                 Destroy(persistentRoot);
                 return;
             }
@@ -39,17 +44,26 @@ namespace Systems.Settings
             persistentRoot.transform.SetParent(null);
             DontDestroyOnLoad(persistentRoot);
             Load();
-            ApplyAll();
         }
 
         private void OnEnable()
         {
+            if (Instance != this) return;
             SceneManager.sceneLoaded += HandleSceneLoaded;
         }
 
         private void Start()
         {
+            if (Instance != this) return;
+            // El mixer debe recibir sus parámetros después de Awake/OnEnable.
+            ApplyAll();
             BindSettingsPanel(SceneManager.GetActiveScene());
+        }
+
+        private void OnDestroy()
+        {
+            if (Instance == this)
+                Instance = null;
         }
 
         private void OnDisable()
@@ -161,14 +175,28 @@ namespace Systems.Settings
                     if (slider.name != "SliderMusic")
                         continue;
 
-                    slider.minValue = 0f;
-                    slider.maxValue = 1f;
-                    slider.wholeNumbers = false;
-                    slider.SetValueWithoutNotify(Current.musicVolume);
-                    slider.onValueChanged.AddListener(SetMusicVolume);
-                    boundMusicSliders.Add(slider);
+                    BindMusicSlider(slider);
                 }
             }
+        }
+
+        public void BindMusicSlider(Slider slider)
+        {
+            if (slider == null || Current == null) return;
+            slider.minValue = 0f;
+            slider.maxValue = 1f;
+            slider.wholeNumbers = false;
+            slider.SetValueWithoutNotify(Current.musicVolume);
+            if (boundMusicSliders.Contains(slider)) return;
+            slider.onValueChanged.AddListener(SetMusicVolume);
+            boundMusicSliders.Add(slider);
+        }
+
+        public void UnbindMusicSlider(Slider slider)
+        {
+            if (slider == null) return;
+            slider.onValueChanged.RemoveListener(SetMusicVolume);
+            boundMusicSliders.Remove(slider);
         }
 
         private void UnbindMusicSlider()

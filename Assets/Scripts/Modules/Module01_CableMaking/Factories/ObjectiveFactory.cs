@@ -30,7 +30,7 @@ namespace Modules.Module01_CableMaking.Factories
 
             return objectiveData.Id switch
             {
-                // "cut_cable" => new CutCableObjective(objectiveData),
+                "select_cable" => new SelectCableObjective(objectiveData),
                 "strip_left_end" => new StripLeftEndObjective(objectiveData),
                 "order_left_t568b" => new OrderLeftT568BObjective(objectiveData),
                 "crimp_left_end" => new CrimpLeftEndObjective(objectiveData),

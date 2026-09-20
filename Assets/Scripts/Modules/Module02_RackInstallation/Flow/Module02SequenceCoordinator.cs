@@ -16,7 +16,7 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 namespace Modules.Module02_RackInstallation.Flow
 {
-    /// <summary>Integra la práctica. No concede insignias ni guarda un módulo aprobado: falta el quiz.</summary>
+    /// <summary>Integra la práctica; el cierre del quiz se encarga de la insignia y el guardado.</summary>
     public sealed class Module02SequenceCoordinator : MonoBehaviour
     {
         public static Module02SequenceCoordinator Instance { get; private set; }
@@ -60,7 +60,7 @@ namespace Modules.Module02_RackInstallation.Flow
             { Debug.LogError("La secuencia requiere los nueve objetivos del sprint 7 en orden.", this); enabled = false; return; }
             flow.CompletionGuard = IsSatisfied;
             flow.CurrentObjectiveChanged += OnObjective;
-            flow.ModuleCompleted += OnPracticalComplete;
+            flow.PracticalObjectivesCompleted += OnPracticalComplete;
             cards.PageShown += OnPage;
             power.StateChanged += OnPowerChanged;
             // Mantener estos campos serializados conserva las referencias de escenas existentes.
@@ -83,7 +83,7 @@ namespace Modules.Module02_RackInstallation.Flow
             if (Instance != this) return;
             if (flow != null)
             {
-                flow.CurrentObjectiveChanged -= OnObjective; flow.ModuleCompleted -= OnPracticalComplete;
+                flow.CurrentObjectiveChanged -= OnObjective; flow.PracticalObjectivesCompleted -= OnPracticalComplete;
                 // Si se desactiva el coordinador de una práctica integrada, no permitir avances sin validar.
                 flow.CompletionGuard = _ => false;
             }
@@ -94,7 +94,7 @@ namespace Modules.Module02_RackInstallation.Flow
         private void OnDestroy() { if (Instance == this) Instance = null; }
         private void OnObjective(ObjectiveData _)
         {
-            step = flow.IsCompleted ? 9 : flow.CurrentObjectiveIndex;
+            step = flow.ArePracticalObjectivesCompleted ? 9 : flow.CurrentObjectiveIndex;
             cards.Close();
             foreach (var target in rackTargets) if (target != null) target.enabled = step == 0;
             foreach (var target in switchTargets) if (target != null) target.enabled = step == 1;
@@ -194,8 +194,10 @@ namespace Modules.Module02_RackInstallation.Flow
             if (!locked && step >= 7 && power.IsOn && ValidWiring()) LockInstallationCables();
         }
         private void OnPracticalComplete() { step = 9; PracticalCompleted?.Invoke(); }
-        private void Reject(string message)
+        public string LastRejectionId { get; private set; }
+        private void Reject(string message, string dialogueId)
         {
+            LastRejectionId = dialogueId;
             presenter?.ShowRejection(message);
             ActionRejected?.Invoke(message);
         }
@@ -211,7 +213,7 @@ namespace Modules.Module02_RackInstallation.Flow
             var self = Instance;
             if (self == null) return true; // Las escenas de prueba de sprints anteriores siguen siendo independientes.
             bool allowed = self.isActiveAndEnabled && Module02SequenceRules.Allows(self.step, action, self.locked);
-            if (!allowed && feedback) self.Reject("Esta acción aún no corresponde al objetivo actual.");
+            if (!allowed && feedback) self.Reject("Esta acción aún no corresponde al objetivo actual.", "alert_wrong_action");
             return allowed;
         }
         public static bool AllowConnection(Connector first, Connector second)
@@ -226,7 +228,7 @@ namespace Modules.Module02_RackInstallation.Flow
             var self = Instance; if (self == null) return true;
             if (!self.isActiveAndEnabled) return false;
             if (Allow(Module02Action.Power) && (self.power.IsOn || self.ValidWiring())) return true;
-            self.Reject("Realice el cableado y etiquetado correctamente antes de continuar"); return false;
+            self.Reject("Realice el cableado y etiquetado correctamente antes de continuar", "alert_wiring"); return false;
         }
     }
 }

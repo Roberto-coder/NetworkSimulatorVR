@@ -86,6 +86,8 @@ public static class Module02SequenceSprint07Setup
             try
             {
                 copy.name = $"InstallationCable_{i + 1:00}";
+                if (copy.GetComponent<CablePlayerCollisionFilter>() == null)
+                    copy.AddComponent<CablePlayerCollisionFilter>();
                 prefab = PrefabUtility.SaveAsPrefabAsset(copy, $"{Folder}/InstallationCable_{i + 1:00}.prefab");
             }
             finally { UnityEngine.Object.DestroyImmediate(copy); }

@@ -13,6 +13,8 @@ namespace Presentacion.Tutorial
     /// </summary>
     public sealed class GuidedObjectiveStep : TutorialStep
     {
+        private readonly GameData.NPC.DialogueAudio audio;
+        private readonly string legacyVoiceId;
         private readonly string objectiveId;
         private readonly string instruction;
         private readonly string speaker;
@@ -32,8 +34,16 @@ namespace Presentacion.Tutorial
             this.speaker = speaker;
         }
 
+        public GuidedObjectiveStep(string objectiveId, GameData.NPC.NPCDialogueLine line)
+            : this(objectiveId, line.text, line.speaker)
+        { audio = line.audio; legacyVoiceId = line.legacyVoiceId; }
+
+        public GuidedObjectiveStep(string objectiveId, string instruction, GameData.NPC.DialogueAudio audio)
+            : this(objectiveId, instruction) { this.audio = audio; }
+
         public override IEnumerator Execute(TutorialDirector director)
         {
+            yield return director.WaitForReactions();
             IObjectiveFlow flow = director.FlowController;
             if (flow == null)
             {
@@ -66,9 +76,8 @@ namespace Presentacion.Tutorial
             try
             {
                 yield return director.DialogueController.ShowDialogueUntilConfirmed(
-                    instruction,
-                    speaker,
-                    () => completed || targetObjective.IsCompleted);
+                    instruction, speaker, () => completed || targetObjective.IsCompleted,
+                    audio, legacyVoiceId);
 
                 while (!completed && !targetObjective.IsCompleted)
                     yield return null;

@@ -226,6 +226,32 @@ public class SaveManager : MonoBehaviour
         SaveLocal();
     }
 
+    /// <summary>
+    /// Guarda completitud con recuperación en memoria. Si falla el archivo, reintentar
+    /// no vuelve a sumar tiempo ni deja una insignia registrada únicamente en memoria.
+    /// </summary>
+    public bool TryCompleteModuleLocally(string moduleId, string moduleTitle,
+        AchievementDefinition achievement, int totalObjectives, float playTime, out string error)
+    {
+        EnsureSaveFile();
+        string snapshot = JsonUtility.ToJson(saveFile);
+        int previousSlot = SessionContext.ActiveSlotId;
+        try
+        {
+            CompleteModuleLocally(moduleId, moduleTitle, achievement, totalObjectives, playTime);
+            error = null;
+            return true;
+        }
+        catch (Exception exception) when (exception is IOException || exception is UnauthorizedAccessException)
+        {
+            saveFile = JsonUtility.FromJson<SaveFile>(snapshot);
+            SessionContext.SelectSlot(previousSlot);
+            error = "No se pudo guardar el progreso local. Reintenta antes de salir o reiniciar.";
+            Debug.LogError($"Guardado de completitud fallido: {exception.Message}", this);
+            return false;
+        }
+    }
+
     public bool HasCompletedTutorial(string tutorialId)
     {
         EnsureSaveFile();
@@ -291,7 +317,7 @@ public class SaveManager : MonoBehaviour
     {
         EnsureSaveFile();
         string json = JsonUtility.ToJson(saveFile,true);
-        File.WriteAllText(savePath,json);
+        Systems.Save.AtomicLocalFile.Write(savePath, json);
     }
 
     // Autosave (no sube a firebase)

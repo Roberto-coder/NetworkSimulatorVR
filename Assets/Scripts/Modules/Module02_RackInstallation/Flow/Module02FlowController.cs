@@ -6,6 +6,7 @@ using Framework.Interaction.Tools;
 using GameData.Modules;
 using GameData.Objectives;
 using Modules.Module02_RackInstallation.Objectives;
+using Modules.Module02_RackInstallation.Domain;
 
 namespace Modules.Module02_RackInstallation.Flow
 {
@@ -18,6 +19,7 @@ namespace Modules.Module02_RackInstallation.Flow
         private readonly ModuleDefinition moduleDefinition;
         private readonly ObjectiveController objectiveController;
         private bool hasStarted;
+        private readonly Module02CompletionState completion = new();
 
         public Module02FlowController(ModuleDefinition definition)
         {
@@ -39,6 +41,7 @@ namespace Modules.Module02_RackInstallation.Flow
         public event Action<ObjectiveData> CurrentObjectiveChanged;
         public event Action<ObjectiveData> ObjectiveCompleted;
         public event Action ModuleCompleted;
+        public event Action PracticalObjectivesCompleted;
 
         public ModuleDefinition ModuleDefinition => moduleDefinition;
         public IReadOnlyList<ObjectiveBase> Objectives => objectiveController.Objectives;
@@ -49,7 +52,8 @@ namespace Modules.Module02_RackInstallation.Flow
                 ? moduleDefinition.Objectives[CurrentObjectiveIndex]
                 : null;
         public IReadOnlyList<ToolData> AvailableTools => moduleDefinition.availableTools;
-        public bool IsCompleted { get; private set; }
+        public bool IsCompleted => completion.QuizCompleted;
+        public bool ArePracticalObjectivesCompleted => completion.PracticeCompleted;
         // El coordinador puede comprobar la condición real incluso ante una solicitud directa.
         public Func<string, bool> CompletionGuard { get; set; }
 
@@ -66,7 +70,7 @@ namespace Modules.Module02_RackInstallation.Flow
 
         public bool TryCompleteCurrent(string objectiveId)
         {
-            if (!hasStarted || IsCompleted || string.IsNullOrWhiteSpace(objectiveId) ||
+            if (!hasStarted || ArePracticalObjectivesCompleted || string.IsNullOrWhiteSpace(objectiveId) ||
                 CurrentObjectiveData?.Id != objectiveId)
                 return false;
 
@@ -86,10 +90,13 @@ namespace Modules.Module02_RackInstallation.Flow
 
         private void HandleAllObjectivesCompleted()
         {
-            if (IsCompleted)
-                return;
-            IsCompleted = true;
-            ModuleCompleted?.Invoke();
+            if (completion.CompletePractice()) PracticalObjectivesCompleted?.Invoke();
+        }
+
+        // Solo el cierre del quiz llama a este método tras recibir una entrega completa.
+        public void CompleteFinalQuiz()
+        {
+            if (completion.CompleteQuiz()) ModuleCompleted?.Invoke();
         }
     }
 }

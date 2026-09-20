@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65de2e180cd131f40a327562907bbaf1, type: 3}
+  m_Name: Module02Quiz
+  m_EditorClassIdentifier: Assembly-CSharp::GameData.Quiz.QuizData
+  quizId: module_02_quiz
+  title: "Evaluación de conocimientos: infraestructura de red"
+  passingPercentage: 70
+  questions:
+  - statement: "¿Cuál es la función principal de un rack de comunicaciones?"
+    options:
+    - "Asignar direcciones IP a los equipos."
+    - "Alojar y organizar físicamente los equipos de infraestructura."
+    - "Seleccionar la ruta de los paquetes entre redes."
+    - "Filtrar las conexiones no autorizadas."
+    correctOptionIndex: 1
+  - statement: "¿Cuál es la función principal de un switch en una red local?"
+    options:
+    - "Distribuir alimentación eléctrica a los equipos."
+    - "Traducir nombres de dominio a direcciones IP."
+    - "Conectar dispositivos y reenviar tramas hacia el puerto correspondiente."
+    - "Asignar obligatoriamente una dirección IP a cada dispositivo."
+    correctOptionIndex: 2
+  - statement: "¿Para qué se utiliza un patch panel?"
+    options:
+    - "Para terminar y organizar el cableado y facilitar su conexión a los equipos de red."
+    - "Para decidir a qué dispositivo se envía cada trama Ethernet."
+    - "Para asignar direcciones IP automáticamente."
+    - "Para proporcionar energía de respaldo durante un apagón."
+    correctOptionIndex: 0
+  - statement: "¿Cuál es la función principal de una PDU dentro de un rack?"
+    options:
+    - "Organizar las terminaciones de los cables de datos."
+    - "Controlar el tráfico permitido entre redes."
+    - "Mantener por sí sola los equipos encendidos durante un apagón."
+    - "Distribuir alimentación eléctrica entre los equipos."
+    correctOptionIndex: 3
+  - statement: "¿Por qué es importante mantener libres las entradas y salidas de aire de los equipos?"
+    options:
+    - "Para aumentar el número de puertos disponibles."
+    - "Para favorecer la refrigeración y reducir el riesgo de sobrecalentamiento."
+    - "Para evitar la necesidad de configurar la red."
+    - "Para incrementar automáticamente la velocidad de los enlaces."
+    correctOptionIndex: 1
+  - statement: "¿Cuál es la principal ventaja de identificar los cables en ambos extremos?"
+    options:
+    - "Aumentar la velocidad de transmisión del enlace."
+    - "Evitar que sea necesario comprobar las conexiones."
+    - "Reconocer su origen y destino durante el mantenimiento."
+    - "Corregir automáticamente una conexión equivocada."
+    correctOptionIndex: 2
+  - statement: "¿Para qué sirve el puerto de consola de un switch administrable?"
+    options:
+    - "Para acceder a su administración y configuración local."
+    - "Para ampliar la cantidad de puertos Ethernet de usuario."
+    - "Para distribuir alimentación a otros equipos del rack."
+    - "Para sustituir el enlace que transporta el tráfico de los usuarios."
+    correctOptionIndex: 0
+  - statement: "¿Para qué se configura una dirección IP de gestión en un switch administrable?"
+    options:
+    - "Para fijar la velocidad de todos sus puertos."
+    - "Para reemplazar las direcciones MAC de los dispositivos conectados."
+    - "Para asignar automáticamente direcciones IP a todos los usuarios."
+    - "Para permitir su administración mediante la red, cuando existe conectividad."
+    correctOptionIndex: 3
+  - statement: "¿Qué función cumple la puerta de enlace predeterminada de un dispositivo IP?"
+    options:
+    - "Indicar a qué equipo enviar el tráfico destinado a otras redes cuando no hay una ruta más específica."
+    - "Identificar físicamente cada cable del rack."
+    - "Determinar cuánta energía necesita el dispositivo."
+    - "Traducir todos los nombres de dominio de la red."
+    correctOptionIndex: 0
+  - statement: "Si se cambia el destino de un cable, ¿qué debe hacerse con su identificación y documentación?"
+    options:
+    - "Conservarlas siempre sin cambios para mantener el historial."
+    - "Actualizarlas para que correspondan a la nueva conexión."
+    - "Eliminar la identificación de todos los cables cercanos."
+    - "Cambiar únicamente el nombre del rack."
+    correctOptionIndex: 1

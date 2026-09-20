@@ -26,7 +26,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e1515249b4567474da465949618348cf, type: 2}
   - {fileID: 11400000, guid: 45253d40e890da74e985ab6545e5464d, type: 2}
   - {fileID: 11400000, guid: b08155fab773ecc4883e60c26384f888, type: 2}
-  finalQuiz: {fileID: 0}
+  finalQuiz: {fileID: 11400000, guid: 00e3443e36574549a426b0ca9f421601, type: 2}
   completionAchievement: {fileID: 11400000, guid: 821d4f84cb8641bd876ca43e436f8b21, type: 2}
   availableTools:
   - name: Destornillador

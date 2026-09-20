@@ -17,6 +17,8 @@ namespace Modules.Module02_RackInstallation.Presentation.Tutorial
         [SerializeField] private Module02TutorialData data;
         [SerializeField] private Waypoint rackWaypoint;
         [SerializeField] private Waypoint startWaypoint;
+        [SerializeField] private Waypoint quizWaypoint;
+        public bool IsGuiding => isActiveAndEnabled && tutorialEnabled && started && director != null && director.IsRunning;
         [SerializeField] private NPCReactionController reactionController;
         private Module02SequenceCoordinator coordinator;
         private bool started;
@@ -47,24 +49,27 @@ namespace Modules.Module02_RackInstallation.Presentation.Tutorial
                     startWaypoint.transform.position, startWaypoint.transform.rotation);
             }
             director.SetFlowController(flow);
-            director.SetSequence(new Module02TutorialBuilder().Build(flow, data, rackWaypoint));
-            reactionController?.Configure(flow, director);
+            director.SetSequence(new Module02TutorialBuilder().Build(flow, data, rackWaypoint, quizWaypoint));
+            if (reactionController != null) reactionController.Configure(flow, director, data.FindReaction);
             coordinator = Module02SequenceCoordinator.Instance;
             if (coordinator != null && reactionController != null)
-                coordinator.ActionRejected += reactionController.NotifyActionRejected;
+                coordinator.ActionRejected += HandleActionRejected;
             started = true;
             director.StartTutorial();
         }
+
+        private void HandleActionRejected(string message) =>
+            reactionController.NotifyNarrationRejected(message, coordinator.LastRejectionId);
 
         private void OnDisable()
         {
             StopAllCoroutines();
             if (coordinator != null && reactionController != null)
-                coordinator.ActionRejected -= reactionController.NotifyActionRejected;
+                coordinator.ActionRejected -= HandleActionRejected;
             if (started)
             {
-                director?.StopTutorial();
-                reactionController?.Configure(null, null);
+                if (director != null) director.StopTutorial();
+                if (reactionController != null) reactionController.Configure(null, null);
             }
         }
     }

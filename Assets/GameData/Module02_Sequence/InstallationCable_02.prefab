@@ -3295,6 +3295,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+  - component: {fileID: 8362911088137944150}
   - component: {fileID: 6789870090740580034}
   - component: {fileID: 6036546854120898958}
   - component: {fileID: 8134007129127235219}
@@ -6326,3 +6327,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5746578996609653581}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+
+--- !u!114 &8362911088137944150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4079368578580518107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd8ed14243cf4deaa37c8bf5ca61ca91, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::Shared.Cabling.CablePlayerCollisionFilter

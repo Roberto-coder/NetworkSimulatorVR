@@ -222,6 +222,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Framework.Interaction.Tools.ToolManager
   rightHandAnchor: {fileID: 657184242222895506}
+  rightControllerVisual: {fileID: 0}
+  rightControllerVisualObject: {fileID: 914706325818402137}
   toolPositionOffset: {x: 0, y: 0, z: 0}
   toolRotationOffset: {x: 0, y: 0, z: 0}
   availableToolsOverride: []
@@ -1238,6 +1240,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7089465191485861966}
+  - component: {fileID: 914706325818402138}
   m_Layer: 0
   m_Name: Systems
   m_TagString: Untagged
@@ -1903,6 +1906,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1670256624, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 658028464602686504, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_UseGravity
       value: 0
@@ -1967,6 +1974,10 @@ PrefabInstance:
       propertyPath: m_RightHand
       value: 
       objectReference: {fileID: 1800725127586568702}
+    - target: {fileID: 5895826684305351068, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -3517,3 +3528,26 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5697399126433476533, guid: 88b12c0ca81d9a34eac32a1e1bd19b1c, type: 3}
   m_PrefabInstance: {fileID: 9139407454820817640}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &914706325818402137 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6528530117482412838, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+  m_PrefabInstance: {fileID: 657184243840976483}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &914706325818402138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5291684874997664659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 139a3cda67504dc39eff12187dbc871a, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  backend: 1
+  pauseBinding: <XRController>{LeftHand}/primaryButton
+  toolBinding: <XRController>{LeftHand}/secondaryButton
+  confirmBinding: <XRController>{RightHand}/secondaryButton
+  triggerBinding: <XRController>{RightHand}/trigger
+  crouchBinding: <XRController>{RightHand}/primary2DAxisClick

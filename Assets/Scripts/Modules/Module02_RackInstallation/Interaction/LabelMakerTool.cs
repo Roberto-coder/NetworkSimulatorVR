@@ -2,6 +2,7 @@ using Framework.Interaction.Tools;
 using Shared.Cabling;
 using TMPro;
 using UnityEngine;
+using Systems.Input;
 using UnityEngine.InputSystem;
 
 namespace Modules.Module02_RackInstallation.Interaction
@@ -31,7 +32,15 @@ namespace Modules.Module02_RackInstallation.Interaction
             if (fallback != null) fallback.Disable();
         }
         private void OnDestroy() => fallback?.Dispose();
-        private void Print(InputAction.CallbackContext _) => PrintNearest();
+        private void Update()
+        {
+            var input = VRInputManager.Instance;
+            if (input != null && input.UsesOpenXR && input.TriggerPressed) PrintNearest();
+        }
+        private void Print(InputAction.CallbackContext _)
+        {
+            if (VRInputManager.Instance == null || !VRInputManager.Instance.UsesOpenXR) PrintNearest();
+        }
         [ContextMenu("Print nearest label")]
         public void PrintNearest()
         {

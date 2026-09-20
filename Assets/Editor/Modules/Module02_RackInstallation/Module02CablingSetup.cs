@@ -50,6 +50,7 @@ public static class Module02CablingSetup
             ConfigureCableEnd(FindCableEnd(root.transform, "End"), 1f);
 
             PatchCableLink link = GetOrAdd<PatchCableLink>(root);
+            GetOrAdd<CablePlayerCollisionFilter>(root);
             CableTrafficVisualizer traffic = GetOrAdd<CableTrafficVisualizer>(root);
             var trafficSerialized = new SerializedObject(traffic);
             trafficSerialized.FindProperty("physicalCable").objectReferenceValue = cable;

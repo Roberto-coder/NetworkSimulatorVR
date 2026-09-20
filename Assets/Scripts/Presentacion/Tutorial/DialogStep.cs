@@ -9,6 +9,7 @@ namespace Presentacion.Tutorial
     /// </summary>
     public class DialogueStep : TutorialStep
     {
+        private readonly GameData.NPC.DialogueAudio _audio;
         private readonly string _message;
         private readonly string _speaker;
         private readonly string _voiceId;
@@ -28,22 +29,17 @@ namespace Presentacion.Tutorial
             _voiceId = voiceId;
         }
 
+        public DialogueStep(GameData.NPC.NPCDialogueLine line)
+            : this(line.text, line.speaker, line.legacyVoiceId) { _audio = line.audio; }
+
+        public DialogueStep(string message, GameData.NPC.DialogueAudio audio)
+            : this(message) { _audio = audio; }
+
         public override IEnumerator Execute(TutorialDirector director)
         {
-            Debug.Log($"Director: {(director == null ? "NULL" : "OK")}");
-            Debug.Log($"DialogueController: {(director?.DialogueController == null ? "NULL" : "OK")}");
-
-            director.VoiceController?.Play(_voiceId);
-            try
-            {
-                yield return director.DialogueController.ShowDialogueUntilConfirmed(
-                    _message,
-                    _speaker);
-            }
-            finally
-            {
-                director.VoiceController?.Stop();
-            }
+            yield return director.WaitForReactions();
+            yield return director.DialogueController.ShowDialogueUntilConfirmed(
+                _message, _speaker, audio: _audio, legacyVoiceId: _voiceId);
         }
     }
 }

@@ -3958,6 +3958,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+  - component: {fileID: 8362911088137944150}
   - component: {fileID: 6103640189554787349}
   - component: {fileID: 3406479773345363324}
   - component: {fileID: 5759489537071669884}
@@ -6506,3 +6507,16 @@ MonoBehaviour:
   owner: {fileID: 7733720630639213755}
   visual: {fileID: 6905485488196245722}
   text: {fileID: 7678388754906751533}
+
+--- !u!114 &8362911088137944150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5818946693437217737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd8ed14243cf4deaa37c8bf5ca61ca91, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::Shared.Cabling.CablePlayerCollisionFilter

@@ -12,12 +12,12 @@ namespace Modules.Module02_RackInstallation.Presentation.Tutorial
     /// </summary>
     public sealed class Module02TutorialBuilder
     {
-        public TutorialSequence Build(IObjectiveFlow flow, Module02TutorialData data, Waypoint rackWaypoint)
+        public TutorialSequence Build(IObjectiveFlow flow, Module02TutorialData data, Waypoint rackWaypoint, Waypoint quizWaypoint = null)
         {
             var sequence = new TutorialSequence();
             sequence.AddStep(new LookAtStep(NPCLookMode.Player));
             if (!string.IsNullOrWhiteSpace(data.Introduction))
-                sequence.AddStep(new DialogueStep(data.Introduction));
+                sequence.AddStep(new DialogueStep(data.Introduction, data.IntroductionAudio));
             if (rackWaypoint != null)
             {
                 sequence.AddStep(new LookAtStep(NPCLookMode.MovementDirection));
@@ -34,7 +34,15 @@ namespace Modules.Module02_RackInstallation.Presentation.Tutorial
                 sequence.AddStep(new Module02GuidedTutorialStep(objective, data.Find(info.Id)));
             }
             if (!string.IsNullOrWhiteSpace(data.Completion))
-                sequence.AddStep(new DialogueStep(data.Completion));
+                sequence.AddStep(new DialogueStep(data.Completion, data.CompletionAudio));
+            if (quizWaypoint != null)
+            {
+                sequence.AddStep(new LookAtStep(NPCLookMode.MovementDirection));
+                sequence.AddStep(new MoveNpcStep(quizWaypoint));
+                sequence.AddStep(new LookAtStep(NPCLookMode.Player));
+                if (!string.IsNullOrWhiteSpace(data.QuizInstruction))
+                    sequence.AddStep(new DialogueStep(data.QuizInstruction, data.QuizInstructionAudio));
+            }
             return sequence;
         }
     }

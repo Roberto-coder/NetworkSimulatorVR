@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Presentacion.NPC
@@ -31,6 +32,69 @@ namespace Presentacion.NPC
         [SerializeField] private Vector3 leftLocalAxis = Vector3.forward;
         [SerializeField] private float leftDegreesPerSecond = -720f;
 
+        [Header("Happy reaction")]
+        [SerializeField, Min(0.1f)] private float happyDuration = 1.6f;
+        [SerializeField, Min(0f)] private float bounceHeight = 0.18f;
+        [Header("Sad reaction")]
+        [SerializeField, Min(0.1f)] private float sadDuration = 1.8f;
+        [SerializeField, Range(0f, 60f)] private float shakeAngle = 18f;
+        [SerializeField, Range(0f, 60f)] private float lookDownAngle = 25f;
+        public bool IsReacting { get; private set; }
+        private Vector3 reactionPosition;
+        private Quaternion reactionRotation;
+        private bool restoreAnimator;
+
+        public IEnumerator PlayHappy() => PlayReaction(true);
+        public IEnumerator PlaySad() => PlayReaction(false);
+
+        private IEnumerator PlayReaction(bool happy)
+        {
+            CancelReaction();
+            if (floatingRoot == null || !isActiveAndEnabled) yield break;
+            reactionPosition = floatingRoot.localPosition;
+            reactionRotation = floatingRoot.localRotation;
+            restoreAnimator = animator != null && animator.enabled;
+            if (restoreAnimator) animator.enabled = false;
+            IsReacting = true;
+            float duration = Mathf.Max(0.1f, happy ? happyDuration : sadDuration);
+            float time = 0f;
+            try
+            {
+                while (time < duration && IsReacting && floatingRoot != null)
+                {
+                    float t = Mathf.Clamp01(time / duration);
+                    float envelope = Mathf.Sin(Mathf.PI * t);
+                    if (happy)
+                    {
+                        float bounce = Mathf.Abs(Mathf.Sin(2f * Mathf.PI * t)) * bounceHeight * (1f - 0.6f * t);
+                        floatingRoot.localPosition = reactionPosition + Vector3.up * bounce;
+                        floatingRoot.localRotation = reactionRotation * Quaternion.Euler(0f, 360f * Mathf.SmoothStep(0f, 1f, t), 0f);
+                    }
+                    else
+                    {
+                        float yaw = Mathf.Sin(6f * Mathf.PI * t) * shakeAngle * envelope;
+                        floatingRoot.localRotation = reactionRotation * Quaternion.Euler(lookDownAngle * envelope, yaw, 0f);
+                    }
+                    time += Time.deltaTime;
+                    yield return null;
+                }
+            }
+            finally { CancelReaction(); }
+        }
+
+        public void CancelReaction()
+        {
+            if (!IsReacting) return;
+            if (floatingRoot != null)
+            {
+                floatingRoot.localPosition = reactionPosition;
+                floatingRoot.localRotation = reactionRotation;
+            }
+            if (restoreAnimator && animator != null) animator.enabled = true;
+            restoreAnimator = false;
+            IsReacting = false;
+        }
+
         private Vector3 floatingBasePosition;
         private Quaternion rightBaseRotation;
         private Quaternion leftBaseRotation;
@@ -47,7 +111,7 @@ namespace Presentacion.NPC
 
         private void LateUpdate()
         {
-            if (!IsIdleActive())
+            if (IsReacting || !IsIdleActive())
                 return;
 
             elapsed += Time.deltaTime;
@@ -73,7 +137,7 @@ namespace Presentacion.NPC
                 leftDegreesPerSecond);
         }
 
-        private void OnDisable() => RestoreBasePose();
+        private void OnDisable() { CancelReaction(); RestoreBasePose(); }
 
         [ContextMenu("Capture current pose as idle base")]
         private void CaptureBasePose()

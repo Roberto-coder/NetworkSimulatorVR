@@ -204,6 +204,9 @@ namespace Modules.Module01_CableMaking.Flow
             ModuleCompleted?.Invoke();
         }
 
+        public void RegisterCableSelection() =>
+            CompleteCurrentObjective("select_cable");
+
         private void HandleCablePeeled(CableEnd end) =>
             CompleteEndObjective(end, "strip_left_end", "strip_right_end");
 

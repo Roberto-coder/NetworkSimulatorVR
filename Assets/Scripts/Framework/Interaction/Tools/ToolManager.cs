@@ -15,9 +15,10 @@ namespace Framework.Interaction.Tools
         private Transform rightHandAnchor;
 
         [Header("Controller visuals")]
-        [SerializeField]
-        [Tooltip("Visual del control derecho de Meta. Si no se asigna, se busca automaticamente en PlayerRoot.")]
-        private ControllerVisual rightControllerVisual;
+        [SerializeField, HideInInspector] private ControllerVisual rightControllerVisual;
+        [SerializeField, InspectorName("Right Controller Visual")]
+        [Tooltip("Arrastra Camera Offset/Right Controller/Right Controller Visual. Solo el modelo, no el controlador ni los interactores.")]
+        private Transform rightControllerVisualObject;
 
         [SerializeField]
         private Vector3 toolPositionOffset;
@@ -95,8 +96,10 @@ namespace Framework.Interaction.Tools
 
         private void ResolveRightControllerVisual()
         {
-            if (rightControllerVisual != null)
-                return;
+            if (rightControllerVisual != null || rightControllerVisualObject != null) return;
+            foreach (Transform candidate in transform.root.GetComponentsInChildren<Transform>(true))
+                if (candidate.name == "Right Controller Visual")
+                { rightControllerVisualObject = candidate; return; }
 
             Transform searchRoot = transform.root;
             ControllerVisual[] controllerVisuals =
@@ -112,18 +115,20 @@ namespace Framework.Interaction.Tools
             }
 
             UnityEngine.Debug.LogWarning(
-                "[ToolManager] No se encontro OVRRightControllerVisual. " +
+                "[ToolManager] No se encontró el visual del control derecho (XRI o Meta). " +
                 "Las herramientas se equiparan, pero el modelo del control no se ocultara.",
                 this);
         }
 
         private void SetRightControllerVisible(bool visible)
         {
-            if (rightControllerVisual == null)
+            if (rightControllerVisual == null && rightControllerVisualObject == null)
                 ResolveRightControllerVisual();
 
             if (rightControllerVisual != null)
                 rightControllerVisual.ForceOffVisibility = !visible;
+            else if (rightControllerVisualObject != null)
+                rightControllerVisualObject.gameObject.SetActive(visible);
         }
     }
 }

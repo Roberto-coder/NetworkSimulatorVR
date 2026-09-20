@@ -78,6 +78,7 @@ static class Program
                 }
         Equal(9, Modules.Module02_RackInstallation.Objectives.Module02ObjectiveCatalog.OrderedIds.Count, "Nine practical objectives");
         checks += TutorialRegressionChecks.Run();
+        checks += FinaleRegressionChecks.Run();
         Console.WriteLine($"PASS: {checks} wiring, power, puzzle, sequence and tutorial assertions.");
     }
 }

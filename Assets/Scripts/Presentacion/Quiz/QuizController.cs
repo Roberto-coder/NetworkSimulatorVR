@@ -18,6 +18,7 @@ namespace Presentacion.Quiz
         private QuizSession session;
         private int currentQuestionIndex;
         private bool isConfigured;
+        public bool HasSubmitted { get; private set; }
 
         public event Action<QuizResult> QuizCompleted;
         public event Action FinishRequested;
@@ -82,13 +83,14 @@ namespace Presentacion.Quiz
             }
 
             currentQuestionIndex = 0;
+            HasSubmitted = false;
             isConfigured = true;
             RenderCurrentQuestion();
         }
 
         private void SelectAnswer(int optionIndex)
         {
-            if (!isConfigured)
+            if (!isConfigured || HasSubmitted)
                 return;
 
             session.SelectAnswer(currentQuestionIndex, optionIndex);
@@ -97,7 +99,7 @@ namespace Presentacion.Quiz
 
         private void PreviousQuestion()
         {
-            if (!isConfigured || currentQuestionIndex == 0)
+            if (!isConfigured || HasSubmitted || currentQuestionIndex == 0)
                 return;
 
             currentQuestionIndex--;
@@ -128,6 +130,7 @@ namespace Presentacion.Quiz
             }
 
             QuizResult result = session.CalculateResult();
+            HasSubmitted = true; // Evita doble entrega por clics repetidos o eventos del mismo frame.
             view.ShowResult(result);
             QuizCompleted?.Invoke(result);
         }
@@ -141,11 +144,11 @@ namespace Presentacion.Quiz
         public void ShowAchievement(GameData.Achievements.AchievementDefinition achievement) =>
             view.ShowAchievement(achievement);
 
-        private void HandleFinishRequested() => FinishRequested?.Invoke();
+        private void HandleFinishRequested() { if (HasSubmitted) FinishRequested?.Invoke(); }
 
         private bool CanLeaveCurrentQuestion()
         {
-            if (!isConfigured)
+            if (!isConfigured || HasSubmitted)
                 return false;
 
             if (session.GetSelectedAnswer(currentQuestionIndex) != QuizSession.Unanswered)

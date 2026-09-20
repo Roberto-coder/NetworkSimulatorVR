@@ -1,4 +1,5 @@
 using Presentacion.NPC;
+using Systems.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,6 +21,15 @@ namespace Modules.Module02_RackInstallation.Presentation.Tutorial
         private void OnEnable() { confirm.performed += OnConfirm; confirm.Enable(); }
         private void OnDisable() { confirm.performed -= OnConfirm; confirm.Disable(); }
         private void OnDestroy() => confirm.Dispose();
-        private void OnConfirm(InputAction.CallbackContext _) => dialogue?.Confirm();
+        private void Update()
+        {
+            var input = VRInputManager.Instance;
+            if (input != null && input.ConfirmPressed && dialogue != null && !dialogue.UsesCentralInput)
+                dialogue.Confirm();
+        }
+        private void OnConfirm(InputAction.CallbackContext _)
+        {
+            if (VRInputManager.Instance == null) dialogue?.Confirm();
+        }
     }
 }

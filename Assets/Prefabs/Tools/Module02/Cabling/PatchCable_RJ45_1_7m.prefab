@@ -2095,6 +2095,7 @@ GameObject:
   - component: {fileID: 7541183917373876855}
   - component: {fileID: 766438086014084955}
   - component: {fileID: 3933868773039049401}
+  - component: {fileID: 8362911088137944150}
   m_Layer: 8
   m_Name: PatchCable_RJ45_1_7m
   m_TagString: Untagged
@@ -2102,6 +2103,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8362911088137944150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3644602127420463905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd8ed14243cf4deaa37c8bf5ca61ca91, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::Shared.Cabling.CablePlayerCollisionFilter
 --- !u!4 &683694721124684110
 Transform:
   m_ObjectHideFlags: 0

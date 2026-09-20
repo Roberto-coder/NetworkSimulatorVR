@@ -79,6 +79,8 @@ public static class LobbyModuleSetup
         LobbyTutorialController controller = GetOrAdd<LobbyTutorialController>(managers.gameObject);
         SerializedObject serialized = new(controller);
         serialized.FindProperty("director").objectReferenceValue = director;
+        serialized.FindProperty("data").objectReferenceValue =
+            AssetDatabase.LoadAssetAtPath<GameData.NPC.NPCDialogueData>("Assets/GameData/Lobby/LobbyTutorial.asset");
         serialized.FindProperty("mainPanelWaypoint").objectReferenceValue = panel.GetComponent<Waypoint>();
         serialized.FindProperty("museumAreaWaypoint").objectReferenceValue = museum.GetComponent<Waypoint>();
         serialized.FindProperty("finalWaypoint").objectReferenceValue = final.GetComponent<Waypoint>();

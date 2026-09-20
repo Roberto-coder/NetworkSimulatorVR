@@ -33,6 +33,7 @@
 ExportedObj/
 .consulo/
 *.csproj
+!/Tests/NPCPresentation/NPCPresentation.csproj
 !Tests/Module02Wiring/Module02Wiring.csproj
 /Tests/**/bin/
 /Tests/**/obj/

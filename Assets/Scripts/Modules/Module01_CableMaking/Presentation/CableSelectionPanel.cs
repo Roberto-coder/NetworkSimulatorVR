@@ -6,8 +6,8 @@ using UnityEngine.UI;
 namespace Modules.Module01_CableMaking.Presentation
 {
     /// <summary>
-    /// Selector introductorio del tipo de cable. La eleccion es informativa por ahora:
-    /// todas las opciones habilitan el cable de practica ya configurado en la escena.
+    /// Completa el objetivo de selección al confirmar una categoría de cable.
+    /// Todas las opciones habilitan el cable de práctica configurado en la escena.
     /// </summary>
     public sealed class CableSelectionPanel : MonoBehaviour
     {
@@ -78,16 +78,23 @@ namespace Modules.Module01_CableMaking.Presentation
 
         public void SelectCurrentCable()
         {
-            if (hasSpawned || cableToEnable == null)
+            if (hasSpawned || cableToEnable == null || options == null || options.Length == 0)
+                return;
+
+            var flow = SimulationManager.Instance?.FlowController;
+            if (flow?.CurrentObjectiveData?.Id != "select_cable")
                 return;
 
             hasSpawned = true;
-            selectButton.interactable = false;
+            if (selectButton != null)
+                selectButton.interactable = false;
             cableToEnable.SetActive(true);
+            flow.RegisterCableSelection();
             Debug.Log($"[CableSelection] Cable seleccionado: {SelectedCableName}.", this);
 
             // El panel completo se oculta y no puede volver a generar otro cable.
-            panelRoot.SetActive(false);
+            if (panelRoot != null)
+                panelRoot.SetActive(false);
         }
 
         private void Refresh()

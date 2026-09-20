@@ -383,13 +383,21 @@ MonoBehaviour:
   dialogueController: {fileID: 317789396218392097}
   animator: {fileID: 6164305761537153790}
   audioSource: {fileID: 0}
+  useProceduralReactions: 1
+  proceduralMotion: {fileID: 8962511295907949742}
   messageDuration: 4
   reminderAnimationTrigger: 
   reminderClip: {fileID: 0}
-  completedAnimationTrigger: 
+  completedAnimationTrigger: Feliz
   completedClip: {fileID: 0}
-  alertAnimationTrigger: 
+  completedAnimationState: Feliz
+  alertAnimationTrigger: Triste
   alertClip: {fileID: 0}
+  alertAnimationState: Triste
+  animationLayer: 0
+  animationStartTimeout: 1
+  animationTimeout: 30
+  idleAnimationState: Idle
 --- !u!114 &8882555562162258243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -930,6 +938,11 @@ MonoBehaviour:
   bodyLayerIndex: 0
   idleStateName: Idle
   floatingRoot: {fileID: 5626725249791500070}
+  happyDuration: 1.6
+  bounceHeight: 0.18
+  sadDuration: 1.8
+  shakeAngle: 18
+  lookDownAngle: 25
   floatingAmplitude: 0.05
   floatingFrequency: 0.5
   floatingPhase: 0

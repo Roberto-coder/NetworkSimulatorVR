@@ -1,5 +1,6 @@
 using Presentacion.GlobalUI.RadialSelectorTool;
 using UnityEngine;
+using Systems.Input;
 using UnityEngine.InputSystem;
 
 namespace Modules.Module02_RackInstallation.Presentation
@@ -40,7 +41,13 @@ namespace Modules.Module02_RackInstallation.Presentation
         }
 
         private void OnDestroy() => fallbackAction?.Dispose();
-        private void HandleStarted(InputAction.CallbackContext _) => radialMenu?.ShowMenu();
-        private void HandleCanceled(InputAction.CallbackContext _) => radialMenu?.ConfirmSelection();
+        private void HandleStarted(InputAction.CallbackContext _)
+        {
+            if (VRInputManager.Instance == null) radialMenu?.ShowMenu();
+        }
+        private void HandleCanceled(InputAction.CallbackContext _)
+        {
+            if (VRInputManager.Instance == null) radialMenu?.ConfirmSelection();
+        }
     }
 }
