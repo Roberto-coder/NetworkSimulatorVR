@@ -16,9 +16,10 @@ MonoBehaviour:
   displayName: Servidor 2U
   category: 8
   educationalApproximation: 1
-  shortDescription: Servidor provisional de dos unidades de rack.
-  function: Ejecuta servicios, aplicaciones o almacenamiento para otros equipos de
-    la red.
+  shortDescription: "Servidor para rack de 2U dise\xF1ado para procesamiento y almacenamiento
+    de datos."
+  function: Procesa, almacena y administra datos y aplicaciones para brindar servicios
+    a los equipos conectados a la red.
   rackUnits: 2
   image: {fileID: 0}
   standardReference: 2U equivalen a 88.9 mm de altura nominal.

@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: firewall
   m_EditorClassIdentifier: Assembly-CSharp::Modules.Module02_RackInstallation.Data.RackComponentInfo
   id: firewall
-  displayName: Firewall
+  displayName: Firewall 1U
   category: 9
   educationalApproximation: 1
-  shortDescription: Dispositivo provisional de seguridad de red.
-  function: "Inspecciona y controla el tr\xE1fico de acuerdo con reglas de seguridad."
+  shortDescription: Firewall de seguridad para rack que protege la red contra amenazas
+    y accesos no autorizados.
+  function: "Inspecciona y controla el tr\xE1fico que entra y sale de la red, permitiendo
+    conexiones seguras y bloqueando tr\xE1fico malicioso."
   rackUnits: 1
   image: {fileID: 0}
   standardReference: "Modelo educativo: no representa un producto ni una pol\xEDtica

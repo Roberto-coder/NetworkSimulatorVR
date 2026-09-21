@@ -11,82 +11,99 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 54267ef5488f4931ab01d7d629d7254d, type: 3}
   m_Name: LobbyTutorial
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   dialogues:
   - id: lobby_intro_controls
-    text: "Hola, soy tu asistente. Presiona el botón B para avanzar el diálogo."
+    text: "\xA1Hola! Bienvenido a NetXR Lab. Ser\xE9 tu asistente virtual y te acompa\xF1ar\xE9
+      en tu camino de aprendizaje. Presiona el bot\xF3n B para avanzar en el di\xE1logo. "
     speaker: Instructor
     audio:
-      clip: {fileID: 8300000, guid: f3695e0b5a30ebd469dd78c7dde02b56, type: 3}
+      clip: {fileID: 8300000, guid: 23ed88db66143624c9ada2907ed65697, type: 3}
       resourcesPath: 
     legacyVoiceId: lobby_intro_controls
   - id: lobby_intro_role
-    text: "Como ingeniero de los laboratorios de red, te acompañaré en tu aprendizaje, comenzando por la capa física del modelo OSI."
+    text: "Desarrollar\xE1s el papel de un ingeniero dentro de los laboratorios de
+      redes. Empezaremos conociendo el modelo OSI, el cual divide el proceso de comunicaci\xF3n
+      en 7 capas: F\xEDsica, Enlace de Datos, Red, Transporte, Sesi\xF3n, Presentaci\xF3n
+      y Aplicaci\xF3n.En este proyecto nos enfocaremos \xFAnicamente en las primeras
+      3 capas. "
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: d52c6c129fce10c4bb21ec224c225558, type: 3}
       resourcesPath: 
     legacyVoiceId: lobby_intro_role
   - id: lobby_tools
-    text: "Presiona Y para abrir la rueda, apunta a la herramienta que quieras y usa R2 para utilizarla."
+    text: "En cada nivel contar\xE1s con una rueda de herramientas para realizar
+      tus actividades. Para abrirla, presiona Y. Despu\xE9s, apunta a la herramienta
+      que quieras utilizar y presiona R2 para seleccionarla."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: a8546e77997deee43b0f707d77bd6758, type: 3}
       resourcesPath: 
     legacyVoiceId: lobby_tools
   - id: lobby_objectives
-    text: "Al girar la muñeca izquierda verás el menú de objetivos de cada módulo. En el Lobby tu único objetivo es completar este tutorial."
+    text: "Tambi\xE9n tienes un men\xFA de objetivos que te muestra las tareas realizadas
+      y las que est\xE1n por realizar. Este men\xFA se despliega al girar la mu\xF1eca
+      izquierda. En el lobby, tu \xFAnico objetivo es completar este tutorial."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 07e3fae6f17e5f84fbc53ce4914c4ef9, type: 3}
       resourcesPath: 
     legacyVoiceId: lobby_objectives
   - id: lobby_follow_me
-    text: "Sígueme para comenzar el recorrido."
+    text: "\xA1S\xEDgueme para comenzar el recorrido!"
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: d4cb965d61822df418c3f4db066c62f9, type: 3}
       resourcesPath: 
     legacyVoiceId: lobby_follow_me
   - id: lobby_storage
-    text: "En este panel puedes gestionar tu almacenamiento. Guarda tu progreso cada vez que completes un módulo."
+    text: Este es el panel principal, donde puedes gestionar tus partidas, guardarlas
+      o continuar con ellas.
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: c59125bc3f565af4cb841be2b1258f40, type: 3}
       resourcesPath: 
     legacyVoiceId: lobby_storage
   - id: lobby_profile
-    text: "También puedes consultar tu perfil, insignias y módulos completados."
+    text: "Tambi\xE9n puedes consultar tu perfil, tus insignias y los m\xF3dulos
+      que has completado."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: fa93d051d35c6734bb36457a2980df7c, type: 3}
       resourcesPath: 
     legacyVoiceId: lobby_profile
   - id: lobby_modules
-    text: "Desde aquí podrás desbloquear módulos nuevos o repetir los que ya completaste."
+    text: "Desde aqu\xED podr\xE1s desbloquear nuevos m\xF3dulos o repetir los que
+      ya completaste. T\xF3mate el tiempo para explorar la interfaz y, cuando est\xE9s
+      listo, presiona el bot\xF3n para continuar con el recorrido."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: b90ac7d4d2cb8ec438d6b9778afe50d5, type: 3}
       resourcesPath: 
     legacyVoiceId: lobby_modules
   - id: lobby_museum_devices
-    text: "En el museo, los dispositivos con contorno amarillo pueden manipularse para conocer su información y características."
+    text: "En el museo de exhibici\xF3n, puedes manipular los dispositivos que tienen
+      un contorno amarillo para conocer su informaci\xF3n y caracter\xEDsticas."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 436644cf59a011c44b77b1b02e5286b2, type: 3}
       resourcesPath: 
     legacyVoiceId: lobby_museum_devices
   - id: lobby_museum_controls
-    text: "Puedes interactuar con ellos usando el trigger de los controles o mediante gestos de hand tracking."
+    text: Puedes interactuar con ellos utilizando el trigger de los controles o mediante
+      gestos de hand tracking para sujetarlos.
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: c69f3227566bdc7468940e665eb86ba6, type: 3}
       resourcesPath: 
     legacyVoiceId: lobby_museum_controls
   - id: lobby_farewell
-    text: "Buena suerte. Volveré a acompañarte más adelante en otros módulos."
+    text: "Hasta aqu\xED has aprendido lo b\xE1sico que te ayudar\xE1 a moverte por
+      el entorno y a realizar tus actividades. Te acompa\xF1ar\xE9 m\xE1s adelante
+      en los pr\xF3ximos m\xF3dulos. \xA1Buena suerte!"
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: dc06a44ceaf31c443ba1506c4d297892, type: 3}
       resourcesPath: 
     legacyVoiceId: lobby_farewell

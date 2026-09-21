@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5563bbff71e9e2e418ccdb0a2ede6316, type: 3}
+  m_Name: switch_server
+  m_EditorClassIdentifier: Assembly-CSharp::Modules.Module02_RackInstallation.Data.RackComponentInfo
+  id: switch_server
+  displayName: Switch Servidor 1U
+  category: 5
+  educationalApproximation: 1
+  shortDescription: "Switch de red con 24 puertos Ethernet y 2 ranuras SFP para conexiones
+    de fibra \xF3ptica."
+  function: "Distribuye el tr\xE1fico de datos entre los equipos conectados y permite
+    enlazar la red mediante Ethernet o fibra \xF3ptica."
+  rackUnits: 1
+  image: {fileID: 0}
+  standardReference: "La instalaci\xF3n real debe respetar categor\xEDa, radio de
+    curvatura, longitud y etiquetado del sistema."
+  sections: []

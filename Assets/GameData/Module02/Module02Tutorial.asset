@@ -11,176 +11,235 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd50cbf0eeaa4ca580da2a63edcbbd6e, type: 3}
   m_Name: Module02Tutorial
-  m_EditorClassIdentifier:
-  introduction: "Bienvenido al cuarto de servidores. Hoy inspeccionarás el rack, montarás un switch y prepararás su cableado y configuración. Las herramientas están disponibles desde el inicio; cada una realiza su interacción cuando corresponde. Presiona B para completar el texto o continuar. Acompáñame al rack para comenzar."
-  completion: "Has completado la instalación y configuración del switch. Ahora acompáñame para realizar el quiz final y repasar lo aprendido."
+  m_EditorClassIdentifier: 
+  introduction: "Bienvenido al cuarto de servidores. Hoy inspeccionar\xE1s el rack,
+    instalar\xE1s un switch y preparar\xE1s su cableado y configuraci\xF3n. Las herramientas
+    estar\xE1n disponibles desde el inicio y podr\xE1s utilizarlas cuando corresponda.
+    Acomp\xE1\xF1ame al rack para comenzar. "
+  completion: "Has completado la instalaci\xF3n y configuraci\xF3n del switch. Ahora
+    acomp\xE1\xF1ame para realizar el quiz final y repasar lo aprendido."
+  quizInstruction: "Responde todas las preguntas y entrega el quiz. Al finalizar,
+    ver\xE1s tu puntuaci\xF3n y recibir\xE1s la insignia por completar el m\xF3dulo.
+    Tu progreso se guardar\xE1 en este dispositivo. Despu\xE9s, podr\xE1s repetir
+    el quiz, reiniciar el m\xF3dulo o volver al lobby."
   objectives:
   - objectiveId: inspect_rack
     explanationAudio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 7247bf22a9baf0a4791d8457a7f74e01, type: 3}
       resourcesPath: 
     instructionAudio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 342d94366e03a29468290b5ef3841c59, type: 3}
       resourcesPath: 
-    explanation: "Un rack organiza equipos de red, servidores y alimentación. Existen racks abiertos y gabinetes cerrados; su capacidad vertical se expresa en unidades U. En este entorno, el patch panel concentra puntos de red, el firewall controla el tráfico entre redes y la PDU distribuye alimentación eléctrica."
-    instruction: "Acércate al rack y revisa las fichas de sus elementos estáticos. Recorre todas las páginas y pulsa Marcar como revisado. El contador indica cuántas fichas diferentes llevas; abrir la misma varias veces no suma."
+    explanation: "Un rack permite organizar equipos de red, servidores y sistemas
+      de alimentaci\xF3n. Existen racks abiertos y gabinetes cerrados. Su capacidad
+      vertical se mide en unidades de rack, conocidas como U. Cada U equivale a 1.75
+      pulgadas."
+    instruction: "Ac\xE9rcate al rack y revisa la ficha t\xE9cnica de cada elemento
+      est\xE1tico. Recorre todas sus p\xE1ginas y pulsa \u201CMarcar como revisado\u201D.
+      El contador mostrar\xE1 cu\xE1ntas fichas diferentes has revisado. Abrir la
+      misma ficha varias veces no aumentar\xE1 el contador."
   - objectiveId: inspect_switch
     explanationAudio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 111d3896222e7ec4db31dae545c9f226, type: 3}
       resourcesPath: 
     instructionAudio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: a15648919e65dfe48ae8bc5e50e4e9b1, type: 3}
       resourcesPath: 
-    explanation: "El switch conecta dispositivos de una red local y reenvía tramas Ethernet. En esta práctica ocupará el espacio señalado entre el patch panel y el firewall. Los IDs visibles de dispositivos y puertos te ayudarán a localizar cada conexión."
-    instruction: "Puedes agarrar y girar el switch mientras revisas sus fichas. Identifica el frente, las dos pestañas, la alimentación y el puerto Console. Recorre sus páginas y marca cada ficha como revisada."
+    explanation: "El switch conecta dispositivos dentro de una red local y reenv\xEDa
+      tramas Ethernet. En esta pr\xE1ctica, deber\xE1s instalarlo en el espacio se\xF1alado
+      entre el patch panel y el firewall. Los identificadores visibles de los dispositivos
+      y puertos te ayudar\xE1n a ubicar cada conexi\xF3n."
+    instruction: "Puedes sujetar y girar el switch mientras revisas sus fichas. Identifica
+      el panel frontal, las dos pesta\xF1as de montaje, la alimentaci\xF3n y el puerto
+      Console. Recorre todas las p\xE1ginas y marca cada ficha como revisada."
   - objectiveId: mount_switch
     explanationAudio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 3071c3229ceeafc4b8293ed0f74496e8, type: 3}
       resourcesPath: 
     instructionAudio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: e18dd6e76e697eb4397a4c8de62090e7, type: 3}
       resourcesPath: 
-    explanation: "El switch entra en las guías del rack con el frente y sus puertos orientados hacia ti. La guía visual señala la posición de montaje. Sus dos pestañas laterales quedarán al frente para fijar el equipo."
-    instruction: "Toma el switch, alinea su orientación con la guía e introdúcelo hasta que quede montado. Si la guía no acepta la posición, ajusta el ángulo antes de continuar."
+    explanation: "El switch se instala en las gu\xEDas del rack con el panel frontal
+      y los puertos orientados hacia ti. La gu\xEDa visual te indicar\xE1 la posici\xF3n
+      correcta de montaje. Las dos pesta\xF1as laterales deben quedar al frente para
+      fijar el equipo."
+    instruction: "Toma el switch, alin\xE9alo con la gu\xEDa e introd\xFAcelo hasta
+      que quede montado. Si no encaja en la posici\xF3n indicada, ajusta el \xE1ngulo
+      antes de continuar."
   - objectiveId: fasten_switch
     explanationAudio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 19b49cd2fddc5824c82b7d2d805ff04a, type: 3}
       resourcesPath: 
     instructionAudio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 54ba0ea7c7f5b844ea868ae75e6e1e4e, type: 3}
       resourcesPath: 
-    explanation: "Las pestañas sujetan el switch al rack. Los tornillos ya están colocados: en esta simulación basta mantener la punta del destornillador en cada zona durante unos dos segundos, sin girar físicamente la herramienta."
-    instruction: "Selecciona el destornillador en la rueda y completa las dos pestañas. Observa el progreso de cada lado. Al terminar aparecerán los cinco cables para la instalación."
+    explanation: "Las pesta\xF1as permiten fijar el switch al rack. Los tornillos
+      ya est\xE1n colocados. En esta simulaci\xF3n, mant\xE9n la punta del destornillador
+      sobre cada tornillo durante unos dos segundos. No es necesario girar f\xEDsicamente
+      la herramienta."
+    instruction: "Selecciona el destornillador en la rueda de herramientas y fija
+      las dos pesta\xF1as. Observa el progreso de cada lado. Al terminar, aparecer\xE1n
+      los cinco cables necesarios para la instalaci\xF3n."
   - objectiveId: connect_links
     explanationAudio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: e3d25563b8827464f9e034167e76c819, type: 3}
       resourcesPath: 
     instructionAudio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: fee5d420f215dec498482291be35ad74, type: 3}
       resourcesPath: 
-    explanation: "Son cinco conexiones: una de alimentación y cuatro Ethernet. Cada dirección combina el ID del dispositivo y del puerto, por ejemplo SW1/Gi01. La tabla del entorno muestra los pares exactos; los demás puertos del modelo no son interactuables."
-    instruction: "Conecta PDU-A/AC01 con SW1/Power; PP-A/01, PP-A/02 y PP-A/03 con SW1/Gi01, Gi02 y Gi03, respectivamente; y FW1/eth01 con SW1/Gi04. Comprueba el contador de cinco conexiones correctas."
+    explanation: "Son cinco conexiones: una de alimentaci\xF3n y cuatro Ethernet.
+      Cada conexi\xF3n se identifica mediante el ID del dispositivo y del puerto,
+      por ejemplo, SW1/Gi01. Consulta la tabla del entorno para conocer las conexiones
+      correctas. Los dem\xE1s puertos del modelo no son interactivos."
+    instruction: Conecta PDU-A/AC01 con SW1/Power; PP-A/01, PP-A/02 y PP-A/03 con
+      SW1/Gi01, Gi02 y Gi03, respectivamente; y FW1/eth01 con SW1/Gi04. Comprueba
+      que el contador indique cinco conexiones correctas.
   - objectiveId: label_links
     explanationAudio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: e4e0294a2313a8e41835b03a76c94f6c, type: 3}
       resourcesPath: 
     instructionAudio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: c81ce3e988074fa468f50652bae06d5f, type: 3}
       resourcesPath: 
-    explanation: "Las etiquetas permiten identificar ambos extremos sin seguir visualmente todo el cable. Su texto indica los puertos conectados. Si cambias una conexión después de etiquetarla, sus etiquetas se invalidan y debes aplicarlas de nuevo."
-    instruction: "Selecciona la etiquetadora, acerca su punta a cada extremo y presiona el trigger. Etiqueta ambos extremos de los cinco cables: diez etiquetas en total. Puedes consultar la tabla de conexiones para comprobar los IDs."
+    explanation: "Las etiquetas permiten identificar ambos extremos sin tener que
+      seguir todo el recorrido del cable. Su texto indica los puertos conectados.
+      Si cambias una conexi\xF3n despu\xE9s de etiquetarla, las etiquetas se invalidar\xE1n
+      y deber\xE1s colocarlas de nuevo."
+    instruction: Selecciona la etiquetadora, acerca la boquilla superior a cada extremo
+      del cable y presiona el trigger. Etiqueta ambos extremos de los cinco cables,
+      para un total de diez etiquetas. Puedes consultar la tabla de conexiones para
+      verificar los identificadores.
   - objectiveId: connect_console
     explanationAudio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 5ab21cdc33ba13f4788b950e0fad8fff, type: 3}
       resourcesPath: 
     instructionAudio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 15f34bfb132df0d439636e4e8ffe3542, type: 3}
       resourcesPath: 
-    explanation: "El puerto Console ofrece acceso de administración al switch. La terminal tiene su propio cable integrado y un único extremo libre. Este cable se suma a los cinco de instalación y no cuenta como un enlace Ethernet."
-    instruction: "Selecciona la terminal y conecta su extremo libre a SW1/Console. Conserva la terminal disponible para el puzzle. Si guardas la herramienta, su cable se recoge y tendrás que conectarlo de nuevo para configurar."
+    explanation: "El puerto Console permite acceder a la configuraci\xF3n y administraci\xF3n
+      del switch. La terminal tiene su propio cable integrado, con un \xFAnico extremo
+      libre. Este cable es independiente de los cinco cables de instalaci\xF3n y
+      no cuenta como una conexi\xF3n Ethernet."
+    instruction: "Selecciona la terminal y conecta el extremo libre de su cable a
+      SW1/Console. Mant\xE9n la terminal disponible para realizar el puzzle. Si guardas
+      la herramienta, el cable se recoger\xE1 y tendr\xE1s que conectarlo de nuevo
+      para continuar con la configuraci\xF3n."
   - objectiveId: power_on
     explanationAudio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 9320b8da7b4b23e4d87be2d2065c5a55, type: 3}
       resourcesPath: 
     instructionAudio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 2590ff3c1bad6344297249de9a4e90b6, type: 3}
       resourcesPath: 
-    explanation: "Antes de encender se vuelve a comprobar el cableado y las etiquetas vigentes. Si falta algo, debes corregirlo. Un encendido correcto bloquea el agarre de los cables de instalación para proteger las conexiones; el cable de consola sigue siendo desmontable."
-    instruction: "Pulsa el botón de encendido del switch. Si aparece el aviso de cableado y etiquetado, corrige las conexiones o etiquetas pendientes y vuelve a intentarlo. El LED de alimentación confirma el encendido."
+    explanation: "Antes de encender el switch, se comprobar\xE1n nuevamente el cableado
+      y las etiquetas. Si falta algo, deber\xE1s corregirlo. Una vez encendido correctamente,
+      los cables de instalaci\xF3n quedar\xE1n bloqueados para proteger las conexiones,
+      mientras que el cable de consola seguir\xE1 siendo desmontable."
+    instruction: "Pulsa el bot\xF3n de encendido del switch. Si aparece un aviso
+      de cableado o etiquetado, corrige las conexiones o etiquetas pendientes y vuelve
+      a intentarlo. El indicador de alimentaci\xF3n confirmar\xE1 que el switch est\xE1
+      encendido."
   - objectiveId: configure_switch
     explanationAudio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: e9f551bb45c0b4e408e8255e5fe2e766, type: 3}
       resourcesPath: 
     instructionAudio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: ca6648b82477cbe40ba8a61dc9b8970e, type: 3}
       resourcesPath: 
-    explanation: "La consola real utiliza distintos modos de acceso, como privilegiado y configuración global. Aquí los resumimos en cuatro bloques: acceder a configuración, asignar IP de gestión, definir gateway y habilitar puertos. Los valores son predefinidos para centrarnos en la instalación física."
-    instruction: "Con el switch encendido y la consola conectada, ordena los cuatro bloques y aplica la configuración. Al habilitar los puertos correctos se encienden sus LED y se representa el envío de paquetes en los cuatro cables Ethernet. La alimentación y la consola no muestran ese efecto."
-  quizInstruction: "Responde todas las preguntas y entrega el quiz. Verás tu puntuación y recibirás la insignia por completar el módulo. El progreso se guarda en este dispositivo; después podrás repetir el quiz, reiniciar el módulo o volver al lobby."
+    explanation: "La consola utiliza distintos modos de acceso, como el modo privilegiado
+      y el de configuraci\xF3n global. En esta pr\xE1ctica los resumiremos en cuatro
+      pasos: acceder a la configuraci\xF3n, asignar la IP de gesti\xF3n, definir
+      el gateway y habilitar los puertos. Los valores est\xE1n predefinidos para
+      centrarnos en la instalaci\xF3n f\xEDsica."
+    instruction: "Con el switch encendido y la consola conectada, ordena los cuatro
+      bloques y aplica la configuraci\xF3n. Al habilitar los puertos correctos, se
+      encender\xE1n sus indicadores y se mostrar\xE1 el env\xEDo de paquetes a trav\xE9s
+      de los cuatro cables Ethernet. La alimentaci\xF3n y la consola no mostrar\xE1n
+      este efecto."
   introductionAudio:
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 4838ecaff6129f541be04bff42905b11, type: 3}
     resourcesPath: 
   completionAudio:
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 8cbd017cf711e62439bbe696f4a5b588, type: 3}
     resourcesPath: 
   quizInstructionAudio:
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 67a02d90fc24a9b459b828058dbcfe8d, type: 3}
     resourcesPath: 
   reactions:
   - id: reminder_inspect_rack
-    text: "Recorre y confirma las fichas estáticas."
+    text: "Recorre y confirma las fichas est\xE1ticas."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 3151a75d499019d4d99b526cd43e4c10, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: reminder_inspect_switch
-    text: "Recorre y confirma las fichas del switch."
+    text: Recorre y confirma las fichas del switch.
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 0e3221748940fb9418cf1d4287259a35, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: reminder_mount_switch
-    text: "Introduce el switch en la posición indicada."
+    text: "Introduce el switch en la posici\xF3n indicada."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 22eb1e0f50ae36c4ab868a9160d7ad14, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: reminder_fasten_switch
-    text: "Fija las dos pestañas con el destornillador."
+    text: "Fija las dos pesta\xF1as con el destornillador."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 90e43b89af948364eb5e2424542cbf76, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: reminder_connect_links
-    text: "Conecta alimentación y cuatro enlaces Ethernet según la tabla."
+    text: "Conecta alimentaci\xF3n y cuatro enlaces Ethernet seg\xFAn la tabla."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 45dc1a4150c82db44be3376050ca544f, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: reminder_label_links
-    text: "Aplica las diez etiquetas en conexiones correctas."
+    text: Aplica las diez etiquetas en conexiones correctas.
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: f740603b65145864d97ce0217e309f94, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: reminder_connect_console
-    text: "Conecta el cable integrado a SW1/Console."
+    text: Conecta el cable integrado a SW1/Console.
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: a67a180ca78b7dc4fb45f79bbfcd858a, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: reminder_power_on
-    text: "Completa cableado y etiquetas antes de encender."
+    text: Completa cableado y etiquetas antes de encender.
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: a3429fac2ab570646878b696934f41bd, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: reminder_configure_switch
-    text: "Ordena y aplica los cuatro bloques de configuración."
+    text: "Ordena y aplica los cuatro bloques de configuraci\xF3n."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 3b74ad625963c144aa2826ff2c954b02, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: alert_wrong_action
-    text: "Esta acción aún no corresponde al objetivo actual."
+    text: "Esta acci\xF3n a\xFAn no corresponde al objetivo actual."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: a0ff3e4bc804c864dad34577f4c3f220, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: alert_wiring
-    text: "Realice el cableado y etiquetado correctamente antes de continuar"
+    text: Realice el cableado y etiquetado correctamente antes de continuar
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 2c2dde114f65ac44a8a45b8269eb5331, type: 3}
       resourcesPath: 
     legacyVoiceId: 

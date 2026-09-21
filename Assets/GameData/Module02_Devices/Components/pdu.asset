@@ -10,18 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5563bbff71e9e2e418ccdb0a2ede6316, type: 3}
-  m_Name: ups_pdu
+  m_Name: pdu
   m_EditorClassIdentifier: Assembly-CSharp::Modules.Module02_RackInstallation.Data.RackComponentInfo
-  id: ups_pdu
-  displayName: UPS / PDU vertical
+  id: PDU
+  displayName: PDU 1U
   category: 11
   educationalApproximation: 1
-  shortDescription: "Representaci\xF3n provisional de distribuci\xF3n y respaldo
-    de energ\xEDa."
-  function: "Una UPS aporta respaldo temporal; una PDU distribuye energ\xEDa a los
-    equipos del rack.\n\u2022 <b>Velocidad:</b> Hasta 1 Gbps\r\n\u2022 <b>Ancho de
-    banda:</b> 100 MHz\r\n\u2022 <b>Distancia m\xE1xima:</b> 100 metros\r\n\u2022
-    <b>Estructura:</b> Sin blindaje (UTP)\r\n\u2022 <b>Conector:</b> RJ45"
+  shortDescription: "Unidad de distribuci\xF3n de energ\xEDa para rack, con 24 tomas
+    de corriente y medidor integrado."
+  function: "Centraliza la alimentaci\xF3n de los dispositivos conectados y permite
+    visualizar el voltaje y la corriente consumida."
   rackUnits: 0
   image: {fileID: 0}
   standardReference: "La capacidad, protecciones y conexi\xF3n deben seguir la documentaci\xF3n

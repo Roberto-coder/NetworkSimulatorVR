@@ -2124,7 +2124,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4636924562128239745, guid: e562b0153dfcda84b9d14c7106aac49f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 15
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4636924562128239745, guid: e562b0153dfcda84b9d14c7106aac49f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
@@ -2180,6 +2180,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4636924562128239745, guid: e562b0153dfcda84b9d14c7106aac49f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[14].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4636924562128239745, guid: e562b0153dfcda84b9d14c7106aac49f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[15].m_Mode
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4636924562128239745, guid: e562b0153dfcda84b9d14c7106aac49f, type: 3}
@@ -2239,6 +2243,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1269549519}
     - target: {fileID: 4636924562128239745, guid: e562b0153dfcda84b9d14c7106aac49f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[15].m_Target
+      value: 
+      objectReference: {fileID: 1269549519}
+    - target: {fileID: 4636924562128239745, guid: e562b0153dfcda84b9d14c7106aac49f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
       value: 2
       objectReference: {fileID: 0}
@@ -2288,6 +2296,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4636924562128239745, guid: e562b0153dfcda84b9d14c7106aac49f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[14].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4636924562128239745, guid: e562b0153dfcda84b9d14c7106aac49f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[15].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4636924562128239745, guid: e562b0153dfcda84b9d14c7106aac49f, type: 3}
@@ -2347,6 +2359,10 @@ PrefabInstance:
       value: ShowCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 4636924562128239745, guid: e562b0153dfcda84b9d14c7106aac49f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[15].m_MethodName
+      value: ShowCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 4636924562128239745, guid: e562b0153dfcda84b9d14c7106aac49f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: Modules.Lobby.UI.PanelController, Assembly-CSharp
       objectReference: {fileID: 0}
@@ -2403,6 +2419,10 @@ PrefabInstance:
       value: Modules.Lobby.UI.PanelController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4636924562128239745, guid: e562b0153dfcda84b9d14c7106aac49f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[15].m_TargetAssemblyTypeName
+      value: Modules.Lobby.UI.PanelController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4636924562128239745, guid: e562b0153dfcda84b9d14c7106aac49f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
       value: BackToMain
       objectReference: {fileID: 0}
@@ -2456,6 +2476,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4636924562128239745, guid: e562b0153dfcda84b9d14c7106aac49f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[14].m_Arguments.m_StringArgument
+      value: BackToMain
+      objectReference: {fileID: 0}
+    - target: {fileID: 4636924562128239745, guid: e562b0153dfcda84b9d14c7106aac49f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[15].m_Arguments.m_StringArgument
       value: BackToMain
       objectReference: {fileID: 0}
     - target: {fileID: 4636924562128239745, guid: e562b0153dfcda84b9d14c7106aac49f, type: 3}

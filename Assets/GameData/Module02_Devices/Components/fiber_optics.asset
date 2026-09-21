@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: fiber_optics
   m_EditorClassIdentifier: Assembly-CSharp::Modules.Module02_RackInstallation.Data.RackComponentInfo
   id: fiber_optics
-  displayName: "Fibra \xF3ptica"
+  displayName: "Patch Panel Fibra \xF3ptica 1U"
   category: 13
   educationalApproximation: 1
-  shortDescription: "Representaci\xF3n simplificada de enlaces y terminaciones de
-    fibra \xF3ptica."
-  function: Transporta datos mediante luz y puede enlazar switches, distribuidores
-    y equipos de telecomunicaciones.
+  shortDescription: "Panel distribuidor de 24 conexiones para organizar cableado
+    de fibra \xF3ptica en el rack."
+  function: "Centraliza y protege las conexiones de fibra \xF3ptica, facilitando
+    su conexi\xF3n hacia los equipos de red mediante conectores SC."
   rackUnits: 1
   image: {fileID: 0}
   standardReference: El tipo de fibra, conector, limpieza y radio de curvatura deben

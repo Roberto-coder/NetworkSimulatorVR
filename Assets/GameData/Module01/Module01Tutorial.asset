@@ -14,168 +14,186 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogues:
   - id: module01_bienvenida
-    text: "\xA1Te damos la bienvenida al M\xF3dulo 1! Aqu\xED aprender\xE1s paso
-      a paso a armar tu propio cable de red. \xA1Empezemos!"
+    text: "\xA1Te damos la bienvenida al M\xF3dulo 1! Aqu\xED aprender\xE1s, paso
+      a paso, a armar tu propio cable de red.En este m\xF3dulo conocer\xE1s las tres
+      etapas principales del proceso: preparar los materiales, realizar correctamente
+      el ponchado y comprobar que la conexi\xF3n funcione. "
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: c1092ae6b50dde7428895f3470509d0c, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: module01_conductores
-    text: "Hay tres tipos de conductores, los coaxiales, de par trenzado y de fibra
-      \xF3ptica. El coaxial se limita a instalaciones antiguas, el par trenzado es
-      barato y f\xE1cil de instalar; la fibra \xF3ptica es cara, pero rapid\xEDsima
-      y resistente a interferencias. En esta ocasi\xF3n nos centraremos en el par
-      trenzado."
+    text: "Existen tres medios principales de transmisi\xF3n: cable coaxial, par
+      trenzado y fibra \xF3ptica. El coaxial se utiliza principalmente en televisi\xF3n
+      por cable y algunas instalaciones antiguas. El par trenzado es econ\xF3mico
+      y f\xE1cil de instalar. La fibra \xF3ptica ofrece altas velocidades y gran
+      resistencia a interferencias. En este m\xF3dulo nos centraremos en el cable
+      de par trenzado."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: c7e566579468a10479c3b21a0c4ce548, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: module01_seleccionCable
-    text: "Primero necesitas seleccionar en la pantalla la categor\xEDa del cable
-      que necesitas, observa que las caracter\xEDsticas var\xEDan y deben elegirse
-      seg\xFAn el entorno f\xEDsico donde se desee instalar."
+    text: "Primero, selecciona en la pantalla la categor\xEDa del cable que necesitas.
+      Observa que sus caracter\xEDsticas var\xEDan seg\xFAn la categor\xEDa. Por
+      ello, debes elegir el cable adecuado seg\xFAn el entorno f\xEDsico donde ser\xE1
+      instalado."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 5f5337406f7db584c951e3d9813048a3, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: module01_dialogue_03
-    text: "El pelado consiste en retirar cuidadosamente una parte de la cubierta
-      exterior sin da\xF1ar los conductores internos."
+    text: "El primer paso es el pelado del cable. Este consiste en retirar con cuidado
+      una parte de la cubierta exterior, sin da\xF1ar los conductores que se encuentran
+      en el interior."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
-      resourcesPath: 
-    legacyVoiceId: 
-  - id: module01_dialogue_04
-    text: "Ahora debes ordenar los ocho conductores siguiendo la norma T568B, respetando
-      la posici\xF3n asignada a cada color."
-    speaker: Instructor
-    audio:
-      clip: {fileID: 0}
-      resourcesPath: 
-    legacyVoiceId: 
-  - id: module01_dialogue_05
-    text: "El ponchado fija los conductores dentro del conector RJ45 y crea el contacto
-      el\xE9ctrico con sus terminales."
-    speaker: Instructor
-    audio:
-      clip: {fileID: 0}
-      resourcesPath: 
-    legacyVoiceId: 
-  - id: module01_dialogue_06
-    text: "El segundo extremo necesita la misma preparaci\xF3n antes de ordenar sus
-      conductores."
-    speaker: Instructor
-    audio:
-      clip: {fileID: 0}
-      resourcesPath: 
-    legacyVoiceId: 
-  - id: module01_dialogue_07
-    text: "Repite el orden T568B en el extremo derecho. Ambos conectores deben conservar
-      exactamente la misma distribuci\xF3n."
-    speaker: Instructor
-    audio:
-      clip: {fileID: 0}
-      resourcesPath: 
-    legacyVoiceId: 
-  - id: module01_dialogue_08
-    text: Con los conductores ya ordenados, falta asegurar el segundo conector.
-    speaker: Instructor
-    audio:
-      clip: {fileID: 0}
-      resourcesPath: 
-    legacyVoiceId: 
-  - id: module01_dialogue_09
-    text: Para comprobar el cable, primero conecta ambos extremos en los puertos
-      correspondientes del tester.
-    speaker: Instructor
-    audio:
-      clip: {fileID: 0}
-      resourcesPath: 
-    legacyVoiceId: 
-  - id: module01_dialogue_10
-    text: "El tester verificar\xE1 la continuidad y el orden de los ocho conductores
-      para detectar conexiones incorrectas."
-    speaker: Instructor
-    audio:
-      clip: {fileID: 0}
-      resourcesPath: 
-    legacyVoiceId: 
-  - id: module01_dialogue_11
-    text: "Has completado todos los objetivos pr\xE1cticos. Ahora realizar\xE1s un
-      breve quiz para repasar el m\xF3dulo."
-    speaker: Instructor
-    audio:
-      clip: {fileID: 0}
-      resourcesPath: 
-    legacyVoiceId: 
-  - id: module01_dialogue_12
-    text: "Responde todas las preguntas y entrega el quiz. Cualquier resultado completar\xE1
-      el m\xF3dulo."
-    speaker: Instructor
-    audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 472691053b4e22e4db758fab6e0b61d5, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: strip_left_end_instruction
-    text: "Selecciona la peladora, apunta al extremo izquierdo del cable y realiza
-      la acci\xF3n para retirar la cubierta."
+    text: "Selecciona las pinzas ponchadoras en la rueda de herramientas. Despu\xE9s,
+      apunta al extremo izquierdo del cable. Presiona el trigger primario para retirar
+      la cubierta exterior."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 2670570a34922b0419de20e7798fecbb, type: 3}
+      resourcesPath: 
+    legacyVoiceId: 
+  - id: module01_dialogue_04
+    text: "Un cable directo utiliza la misma norma en ambos extremos y permite conectar
+      diferentes tipos de dispositivos. En cambio, un cable cruzado utiliza una norma
+      diferente en cada extremo y se usa para conectar dispositivos del mismo tipo.
+      En esta pr\xE1ctica armaremos un cable directo. Para ello, utilizaremos la
+      norma T568B en ambos extremos."
+    speaker: Instructor
+    audio:
+      clip: {fileID: 8300000, guid: 7386f012a402d7d47b0ec09cdac1e8c2, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: order_left_t568b_instruction
-    text: Toma el extremo izquierdo preparado, abre el puzzle y coloca cada conductor
-      en el orden T568B.
+    text: "oma el extremo izquierdo del cable y abre el puzzle. Coloca cada conductor
+      siguiendo la norma T568B. Usa el apoyo visual para guiarte y acomodar cada
+      color en la posici\xF3n correcta."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 50130f7c23db6b84fa42fd262b38e399, type: 3}
+      resourcesPath: 
+    legacyVoiceId: 
+  - id: module01_dialogue_05
+    text: "El ponchado consiste en fijar los conductores dentro del conector RJ45.
+      Este proceso crea el contacto el\xE9ctrico entre los conductores y las terminales
+      del conector."
+    speaker: Instructor
+    audio:
+      clip: {fileID: 8300000, guid: daef79e43be6bdd4f9a3f67cf7f600c1, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: crimp_left_end_instruction
-    text: "Selecciona la ponchadora y \xFAsala sobre el conector del extremo izquierdo."
+    text: "Ahora, selecciona las pinzas ponchadoras y \xFAsalas sobre el conector
+      del extremo izquierdo. Al terminar, escuchar\xE1s un peque\xF1o clic que indica
+      que el ponchado se realiz\xF3 correctamente."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: b923645c104417c4988a7069ea0a3925, type: 3}
+      resourcesPath: 
+    legacyVoiceId: 
+  - id: module01_dialogue_06
+    text: "El segundo extremo necesita la misma preparaci\xF3n. Retira con cuidado
+      la cubierta antes de ordenar los conductores."
+    speaker: Instructor
+    audio:
+      clip: {fileID: 8300000, guid: c4faa26c59c009e479136fca350fd0d7, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: strip_right_end_instruction
     text: Usa la peladora para retirar la cubierta del extremo derecho.
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 42dbdc3b12425b9459429b442e8fb1ec, type: 3}
+      resourcesPath: 
+    legacyVoiceId: 
+  - id: module01_dialogue_07
+    text: "Repite el orden de la norma T568B en el extremo derecho. Recuerda que
+      ambos conectores deben tener exactamente la misma distribuci\xF3n de colores."
+    speaker: Instructor
+    audio:
+      clip: {fileID: 8300000, guid: 4618bd5030a868a429f2ddf40eb38411, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: order_right_t568b_instruction
-    text: Ordena los conductores del extremo derecho dentro del puzzle.
+    text: "Ordena los conductores del extremo derecho en el puzzle, siguiendo la
+      misma distribuci\xF3n de colores."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: aba3df13bc21fee42a6b636d0a21c63e, type: 3}
+      resourcesPath: 
+    legacyVoiceId: 
+  - id: module01_dialogue_08
+    text: Con los conductores ya ordenados, solo falta asegurar el segundo conector.
+    speaker: Instructor
+    audio:
+      clip: {fileID: 8300000, guid: 995e935299ae1614ab3153091a452437, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: crimp_right_end_instruction
-    text: Usa la ponchadora sobre el conector del extremo derecho.
+    text: Usa las pinzas ponchadoras sobre el conector del extremo derecho para asegurarlo.
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 23bd3d1ae360fd64db1c57cbb2ccac36, type: 3}
+      resourcesPath: 
+    legacyVoiceId: 
+  - id: module01_dialogue_09
+    text: "Para comprobar el cable, utilizaremos el tester. Esta herramienta nos
+      permite verificar que el cable est\xE9 correctamente armado y funcione sin
+      problemas."
+    speaker: Instructor
+    audio:
+      clip: {fileID: 8300000, guid: 947dccdc54ca75a418d80a84b68ce668, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: connect_tester_instruction
-    text: Selecciona el tester y conecta los dos extremos del cable.
+    text: Selecciona el tester y conecta ambos extremos del cable en las entradas
+      ubicadas en la parte inferior.
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 317ae67f6afaa93449539cf28df3edfb, type: 3}
+      resourcesPath: 
+    legacyVoiceId: 
+  - id: module01_dialogue_10
+    text: "El tester verificar\xE1 la continuidad y el orden de los ocho conductores.
+      As\xED podremos detectar si existe alguna conexi\xF3n incorrecta."
+    speaker: Instructor
+    audio:
+      clip: {fileID: 8300000, guid: 7257116be27ce064a98bbf07e8abad37, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: validate_cable_instruction
-    text: Inicia la prueba y revisa el resultado del cable.
+    text: "Al activar el tester, los LED se encender\xE1n de forma secuencial. Si
+      todos se iluminan en orden, el cable funciona correctamente. Si alguno queda
+      apagado, existe un error de conexi\xF3n o un mal ponchado en ese pin."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 67b8193383290444ba3b5f133dc8ec43, type: 3}
+      resourcesPath: 
+    legacyVoiceId: 
+  - id: module01_dialogue_11
+    text: "Has completado todos los objetivos pr\xE1cticos. Ahora realizar\xE1s un
+      breve quiz para repasar lo aprendido en este m\xF3dulo."
+    speaker: Instructor
+    audio:
+      clip: {fileID: 8300000, guid: 7d6534fda04c43345b3f3cb05224a50f, type: 3}
+      resourcesPath: 
+    legacyVoiceId: 
+  - id: module01_dialogue_12
+    text: "Responde todas las preguntas y entrega el quiz. El resultado obtenido
+      no afectar\xE1 la finalizaci\xF3n del m\xF3dulo."
+    speaker: Instructor
+    audio:
+      clip: {fileID: 8300000, guid: d1ebe36c16b938740bdb25d8e510e56c, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: reminder_select_cable
@@ -183,85 +201,85 @@ MonoBehaviour:
       Seleccionar.
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 99c72878eb4ebfe4fac571923af4ce22, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: reminder_strip_left_end
-    text: Recuerda usar la peladora sobre el extremo izquierdo del cable.
+    text: Recuerda usar la peladora en el extremo izquierdo del cable.
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: cf0a64827888aae4a9605e9b1403e544, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: reminder_order_left_t568b
-    text: Ordena los conductores del extremo izquierdo siguiendo la secuencia T568B.
+    text: Ordena los conductores del extremo izquierdo siguiendo la norma T568B.
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: d2d6b494e942df741b8d563c118e4900, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: reminder_crimp_left_end
     text: Usa la ponchadora para fijar el conector RJ45 del extremo izquierdo.
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 61d93b4cb21271744ab246750355a03f, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: reminder_strip_right_end
     text: Retira la cubierta del extremo derecho con la peladora.
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 12735d7375a4f2c4f999938e87e4b263, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: reminder_order_right_t568b
     text: Repite la secuencia T568B en los conductores del extremo derecho.
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: d90e2681bf890e84ca28576a0b64710c, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: reminder_crimp_right_end
     text: Usa la ponchadora para fijar el conector RJ45 del extremo derecho.
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 1bc8c7928a1c53445971b9d293f8b567, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: reminder_connect_tester
-    text: Conecta ambos extremos RJ45 en los puertos correspondientes del tester.
+    text: onecta ambos extremos del cable en los puertos correspondientes del tester.
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: c559cceb5f10da941bc0e6d1855d9030, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: reminder_validate_cable
-    text: Inicia la prueba del tester para validar la continuidad y el orden del
-      cable.
+    text: Inicia la prueba del tester para verificar la continuidad y el orden de
+      los conductores.
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 02464db933fc9a14bb78869b39aa3089, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: alert_WrongAction
-    text: "Esa herramienta o acci\xF3n no corresponde ahora. Objetivo actual: {objective}."
+    text: "Esa herramienta o acci\xF3n no corresponde en este momento."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 62f78cd044d12aa47b62d387b09f743c, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: alert_WrongCableEnd
-    text: Ese no es el extremo indicado. Trabaja primero el extremo {end}.
+    text: Ese no es el extremo indicado. Trabaja primero el extremo
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: f62e13ad2252bb44693436709bf1a147, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: alert_IncorrectWireOrder
-    text: "El orden de los conductores no coincide con la norma T568B. Revisa los
+    text: "l orden de los conductores no coincide con la norma T568B. Revisa los
       colores e int\xE9ntalo nuevamente."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: f9fd3a4377c6d184291479a24b66ca5a, type: 3}
       resourcesPath: 
     legacyVoiceId: 

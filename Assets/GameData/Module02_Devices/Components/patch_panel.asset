@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: patch_panel
   m_EditorClassIdentifier: Assembly-CSharp::Modules.Module02_RackInstallation.Data.RackComponentInfo
   id: patch_panel
-  displayName: Patch panel
+  displayName: Patch Panel Ethernet 1U
   category: 10
   educationalApproximation: 1
-  shortDescription: "Panel pasivo para terminaci\xF3n y organizaci\xF3n del cableado
-    estructurado."
-  function: Relaciona las salidas permanentes del edificio con latiguillos hacia
-    los equipos activos.
+  shortDescription: Panel de parcheo de 24 puertos para conexiones Ethernet mediante
+    cable de par trenzado blindado.
+  function: Organiza y centraliza el cableado Ethernet para conectarlo de forma ordenada
+    al switch mediante puertos RJ45
   rackUnits: 1
   image: {fileID: 0}
   standardReference: "La categor\xEDa y el desempe\xF1o del enlace dependen del sistema
