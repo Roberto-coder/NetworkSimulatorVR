@@ -19,6 +19,19 @@ namespace Systems.Settings
         public event Action<UserSettings> SettingsChanged;
 
         private readonly List<Slider> boundMusicSliders = new();
+        private readonly List<Slider> boundVoiceSliders = new();
+        private AudioMixerGroup voiceGroup;
+
+        public void RouteVoice(AudioSource source)
+        {
+            if (source == null || audioMixer == null) return;
+            if (voiceGroup == null)
+            {
+                foreach (var group in audioMixer.FindMatchingGroups("Voice"))
+                    if (group.name == "Voice") { voiceGroup = group; break; }
+            }
+            if (voiceGroup != null) source.outputAudioMixerGroup = voiceGroup;
+        }
         private GameObject persistentRoot;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -70,6 +83,7 @@ namespace Systems.Settings
         {
             SceneManager.sceneLoaded -= HandleSceneLoaded;
             UnbindMusicSlider();
+            UnbindVoiceSliders();
         }
 
         public void SetMusicVolume(float value)
@@ -102,6 +116,8 @@ namespace Systems.Settings
         public void SetVoiceVolume(float value)
         {
             Current.voiceVolume = Mathf.Clamp01(value);
+            foreach (Slider slider in boundVoiceSliders)
+                if (slider != null) slider.SetValueWithoutNotify(Current.voiceVolume);
             SetMixerVolume("VoiceVolume", Current.voiceVolume);
             SaveAndNotify();
         }
@@ -168,16 +184,44 @@ namespace Systems.Settings
         private void BindSettingsPanel(Scene scene)
         {
             UnbindMusicSlider();
+            UnbindVoiceSliders();
             foreach (GameObject root in scene.GetRootGameObjects())
             {
                 foreach (Slider slider in root.GetComponentsInChildren<Slider>(true))
                 {
+                    if (slider.name == "SliderVoice") BindVoiceSlider(slider);
                     if (slider.name != "SliderMusic")
                         continue;
 
                     BindMusicSlider(slider);
                 }
             }
+        }
+
+        public void BindVoiceSlider(Slider slider)
+        {
+            if (slider == null || Current == null) return;
+            slider.minValue = 0f;
+            slider.maxValue = 1f;
+            slider.wholeNumbers = false;
+            slider.SetValueWithoutNotify(Current.voiceVolume);
+            if (boundVoiceSliders.Contains(slider)) return;
+            slider.onValueChanged.AddListener(SetVoiceVolume);
+            boundVoiceSliders.Add(slider);
+        }
+
+        public void UnbindVoiceSlider(Slider slider)
+        {
+            if (slider == null) return;
+            slider.onValueChanged.RemoveListener(SetVoiceVolume);
+            boundVoiceSliders.Remove(slider);
+        }
+
+        private void UnbindVoiceSliders()
+        {
+            foreach (Slider slider in boundVoiceSliders)
+                if (slider != null) slider.onValueChanged.RemoveListener(SetVoiceVolume);
+            boundVoiceSliders.Clear();
         }
 
         public void BindMusicSlider(Slider slider)

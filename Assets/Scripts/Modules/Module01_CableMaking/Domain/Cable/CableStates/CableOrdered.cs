@@ -13,6 +13,12 @@ namespace Modules.Module01_CableMaking.Domain.Cable.CableStates
         {
             stateController ??= CableStateController.ResolveFor(this);
         }
+
+        public void Configure(CableEnd cableEnd, CableStateController controller)
+        {
+            end = cableEnd;
+            stateController = controller;
+        }
         public bool CanCrimp =>
             stateController != null && stateController.CanCrimp(end);
         

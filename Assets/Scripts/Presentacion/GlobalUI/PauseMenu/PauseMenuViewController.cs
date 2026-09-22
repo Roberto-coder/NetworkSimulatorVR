@@ -14,6 +14,7 @@ public sealed class PauseMenuViewController : MonoBehaviour
 
     private PauseManager pauseManager;
     private Slider musicSlider;
+    private Slider voiceSlider;
     private bool initialized;
 
     private void Awake()
@@ -34,6 +35,7 @@ public sealed class PauseMenuViewController : MonoBehaviour
     private void OnDisable()
     {
         GlobalSettingsManager.Instance?.UnbindMusicSlider(musicSlider);
+        GlobalSettingsManager.Instance?.UnbindVoiceSlider(voiceSlider);
     }
 
     public void ShowMain()
@@ -119,7 +121,8 @@ public sealed class PauseMenuViewController : MonoBehaviour
 
         if (settingsPanel.transform.childCount > 0 && confirmationPanel.transform.childCount > 0)
         {
-            musicSlider = settingsPanel.GetComponentInChildren<Slider>(true);
+            musicSlider = settingsPanel.GetComponentsInChildren<Slider>(true).FirstOrDefault(slider => slider.name == "SliderMusic");
+            EnsureVoiceSlider();
             initialized = true;
             return;
         }
@@ -128,6 +131,7 @@ public sealed class PauseMenuViewController : MonoBehaviour
         CreateText(settingsPanel.transform, "SettingsTitle", "AJUSTES", 30f, new Vector2(0f, 95f), new Vector2(220f, 45f), FontStyles.Bold);
         CreateText(settingsPanel.transform, "MusicLabel", "Música", 20f, new Vector2(0f, 42f), new Vector2(200f, 35f));
         musicSlider = CreateSlider(settingsPanel.transform, "SliderMusic", new Vector2(0f, 5f));
+        EnsureVoiceSlider();
         CreateButton(settingsPanel.transform, "ButtonSettingsBack", "REGRESAR", new Vector2(0f, -88f), ShowMain);
 
         CreateText(confirmationPanel.transform, "ConfirmationTitle", "VOLVER AL MENÚ", 28f, new Vector2(0f, 82f), new Vector2(225f, 45f), FontStyles.Bold);
@@ -136,15 +140,29 @@ public sealed class PauseMenuViewController : MonoBehaviour
         CreateButton(confirmationPanel.transform, "ButtonCancelMenu", "CANCELAR", new Vector2(0f, -102f), ShowMain);
     }
 
+    private void EnsureVoiceSlider()
+    {
+        voiceSlider = settingsPanel.GetComponentsInChildren<Slider>(true).FirstOrDefault(slider => slider.name == "SliderVoice");
+        if (voiceSlider == null)
+        {
+            CreateText(settingsPanel.transform, "VoiceLabel", "Voz del NPC", 20f, new Vector2(0f, -18f), new Vector2(200f, 30f));
+            voiceSlider = CreateSlider(settingsPanel.transform, "SliderVoice", new Vector2(0f, -48f));
+        }
+        var label = settingsPanel.transform.Find("MusicLabel") as RectTransform;
+        if (label != null) label.anchoredPosition = new Vector2(0f, 50f);
+        if (musicSlider != null) ((RectTransform)musicSlider.transform).anchoredPosition = new Vector2(0f, 20f);
+    }
+
     private void SyncMusicSlider()
     {
-        if (musicSlider == null)
-            return;
-
         GlobalSettingsManager manager = GlobalSettingsManager.Instance;
-        musicSlider.interactable = manager != null;
+        if (musicSlider != null) musicSlider.interactable = manager != null;
+        if (voiceSlider != null) voiceSlider.interactable = manager != null;
         if (manager != null)
+        {
             manager.BindMusicSlider(musicSlider);
+            manager.BindVoiceSlider(voiceSlider);
+        }
     }
 
     private static TMP_Text CreateText(Transform parent, string name, string value, float size, Vector2 position, Vector2 dimensions, FontStyles style = FontStyles.Normal)

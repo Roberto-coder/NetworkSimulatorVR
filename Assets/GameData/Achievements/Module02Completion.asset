@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameData.Achievements.AchievementDefinition
   achievementId: module_02_completed
   title: Especialista de rack y switch
-  description: Completa el módulo de montaje, organización y configuración de infraestructura.
-  icon: {fileID: 21300000, guid: c5a02d41f0fa4394cbfbbfe2d813f13f, type: 3}
+  description: "Completa el m\xF3dulo de montaje, organizaci\xF3n y configuraci\xF3n
+    de infraestructura."
+  icon: {fileID: 21300000, guid: 87e098cbd9901c44da41b6cbb7bdeb50, type: 3}

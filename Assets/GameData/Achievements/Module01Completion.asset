@@ -15,4 +15,4 @@ MonoBehaviour:
   achievementId: module_01_completed
   title: Constructor de cable de red
   description: Completaste todos los objetivos del modulo de fabricacion de cable.
-  icon: {fileID: 21300000, guid: effc694afb3053047a6aef18e0834784, type: 3}
+  icon: {fileID: 21300000, guid: ec7b1c1e557e41244aa8ac3ed686e0ce, type: 3}

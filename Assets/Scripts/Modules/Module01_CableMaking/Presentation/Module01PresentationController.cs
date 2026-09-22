@@ -1,6 +1,7 @@
 using System;
 using Framework.Spawning;
 using Modules.Module01_CableMaking.Domain.Cable;
+using Modules.Module01_CableMaking.Domain.Cable.CableStates;
 using Modules.Module01_CableMaking.Flow;
 using Presentacion.Quiz;
 using SFX;
@@ -27,12 +28,23 @@ namespace Modules.Module01_CableMaking.Presentation
 
             public CableEnd End => end;
 
+            public void Configure(CableStateController controller)
+            {
+                if (crimpedVisual == null)
+                    return;
+
+                // El conector se muestra desde el ordenado y debe seguir siendo crimpable.
+                CableOrdered crimpable = crimpedVisual.GetComponent<CableOrdered>()
+                    ?? crimpedVisual.AddComponent<CableOrdered>();
+                crimpable.Configure(end, controller);
+            }
+
             public void Show(CableState state)
             {
                 SetActive(wholeVisual, state == CableState.Whole);
                 SetActive(peeledVisual, state == CableState.Peeled);
-                SetActive(rj45Visual, state is CableState.Rj45Disordered or CableState.Rj45Ordered);
-                SetActive(crimpedVisual, state == CableState.Rj45Crimped);
+                SetActive(rj45Visual, state == CableState.Rj45Disordered);
+                SetActive(crimpedVisual, state is CableState.Rj45Ordered or CableState.Rj45Crimped);
             }
 
             public void SpawnDebris() => debrisSpawner?.Spawn();
@@ -100,7 +112,10 @@ namespace Modules.Module01_CableMaking.Presentation
                 return;
 
             foreach (EndVisuals visuals in endVisuals)
+            {
+                visuals?.Configure(cableState);
                 visuals?.Show(cableState.GetState(visuals.End));
+            }
         }
 
         private void HandleCableStateChanged(CableEnd end, CableState state)

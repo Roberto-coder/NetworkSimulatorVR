@@ -228,3 +228,13 @@ namespace Presentacion.NPC
     public class NPCMovementController:MonoBehaviour { public void Stop(){} }
     public class NPCPlayerLookController:MonoBehaviour{}
 }
+
+namespace Systems.Settings
+{
+    public class GlobalSettingsManager
+    {
+        public static GlobalSettingsManager Instance;
+        public UnityEngine.AudioSource RoutedSource;
+        public void RouteVoice(UnityEngine.AudioSource source) { RoutedSource = source; }
+    }
+}

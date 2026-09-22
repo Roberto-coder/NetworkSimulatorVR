@@ -431,7 +431,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -461,7 +461,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: 21.683212}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -715,6 +715,20 @@ Transform:
   - {fileID: 283341387}
   m_Father: {fileID: 1713880367}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &274017466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3749819981423883658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6690e83536b24fa38a876a8c29684bb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Modules.Module01_CableMaking.Domain.Cable.CableStates.CableWhole
+  end: 1
+  stateController: {fileID: 232960792}
 --- !u!1 &279425365
 GameObject:
   m_ObjectHideFlags: 0
@@ -1143,6 +1157,57 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 366765952}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &378325830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3749819981423883660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdeaf26e845dc5841bcd31de97d26003, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oculus.Interaction::Oculus.Interaction.TagSet
+  _tags:
+  - RJ45crimped
+--- !u!114 &378325831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3749819981423883660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2756c251a8363df4f9d4b30ee6414bd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oculus.Interaction::Oculus.Interaction.SnapInteractor
+  _activeState: {fileID: 0}
+  _interactableFilters: []
+  _candidateTiebreaker: {fileID: 0}
+  _maxIterationsPerFrame: 3
+  _data: {fileID: 0}
+  _pointableElement: {fileID: 1687672006}
+  _rigidbody: {fileID: 1687672004}
+  _distanceThreshold: 0.01
+  _snapPoseTransform: {fileID: 0}
+  _defaultInteractable: {fileID: 0}
+  _timeOutInteractable: {fileID: 0}
+  _timeOut: 0
+--- !u!114 &378325832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3749819981423883660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f1de8b5a26f47baab493a695b179c1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Modules.Module01_CableMaking.Domain.Cable.CableStates.CableRJ45Crimped
+  stateController: {fileID: 232960792}
 --- !u!1 &383866216
 GameObject:
   m_ObjectHideFlags: 0
@@ -7049,6 +7114,22 @@ MonoBehaviour:
   branchingPath_Creator: {fileID: 0}
   branchingChance: 50
   isLooped: 0
+--- !u!54 &1687672004 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 8819918034818842755, guid: efa810b18b2e33341b4ab3cd64616f45, type: 3}
+  m_PrefabInstance: {fileID: 3749819981423883648}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1687672006 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 237452933862892823, guid: efa810b18b2e33341b4ab3cd64616f45, type: 3}
+  m_PrefabInstance: {fileID: 3749819981423883648}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43f86b14a27b52f4f9298c33015b5c26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oculus.Interaction::Oculus.Interaction.Grabbable
 --- !u!1001 &1698089942
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7164,6 +7245,17 @@ Transform:
   - {fileID: 244735178}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1768415378 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 875360455671785450, guid: efa810b18b2e33341b4ab3cd64616f45, type: 3}
+  m_PrefabInstance: {fileID: 3749819981423883648}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43f86b14a27b52f4f9298c33015b5c26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oculus.Interaction::Oculus.Interaction.Grabbable
 --- !u!1 &1787204620
 GameObject:
   m_ObjectHideFlags: 0
@@ -7317,6 +7409,57 @@ Transform:
   - {fileID: 2127013585}
   m_Father: {fileID: 5128321505671970330}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1812810332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3749819981423883652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdeaf26e845dc5841bcd31de97d26003, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oculus.Interaction::Oculus.Interaction.TagSet
+  _tags:
+  - RJ45crimped
+--- !u!114 &1812810333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3749819981423883652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2756c251a8363df4f9d4b30ee6414bd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oculus.Interaction::Oculus.Interaction.SnapInteractor
+  _activeState: {fileID: 0}
+  _interactableFilters: []
+  _candidateTiebreaker: {fileID: 0}
+  _maxIterationsPerFrame: 3
+  _data: {fileID: 0}
+  _pointableElement: {fileID: 1768415378}
+  _rigidbody: {fileID: 3749819981423883650}
+  _distanceThreshold: 0.01
+  _snapPoseTransform: {fileID: 0}
+  _defaultInteractable: {fileID: 0}
+  _timeOutInteractable: {fileID: 0}
+  _timeOut: 0
+--- !u!114 &1812810334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3749819981423883652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f1de8b5a26f47baab493a695b179c1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Modules.Module01_CableMaking.Domain.Cable.CableStates.CableRJ45Crimped
+  stateController: {fileID: 232960792}
 --- !u!1 &1826804195
 GameObject:
   m_ObjectHideFlags: 0
@@ -7742,6 +7885,21 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6960762941259710306, guid: eb962cd8c801e7048aef3142c7b56b8b, type: 3}
   m_PrefabInstance: {fileID: 1593497528}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1981361716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3749819981423883656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14516b7f84d04604a06013ba9f1bf7ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Modules.Module01_CableMaking.Domain.Cable.CableStates.CablePeeled
+  end: 1
+  stateController: {fileID: 232960792}
+  grabbable: {fileID: 1768415378}
 --- !u!1001 &2012196728
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8035,6 +8193,20 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 545961467705542281, guid: f1a17515d5dd6fc4587cae9bd4e460c6, type: 3}
   m_PrefabInstance: {fileID: 2033453064}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2037468961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3749819981423883654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1066dba621e4853bf1d4f02aff4242a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Modules.Module01_CableMaking.Domain.Cable.CableStates.CableOrdered
+  end: 1
+  stateController: {fileID: 232960792}
 --- !u!1 &2051132780
 GameObject:
   m_ObjectHideFlags: 0
@@ -8529,6 +8701,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.064
       objectReference: {fileID: 0}
+    - target: {fileID: 2849499672564855598, guid: efa810b18b2e33341b4ab3cd64616f45, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2902520267156344718, guid: efa810b18b2e33341b4ab3cd64616f45, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -8686,6 +8862,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4770644192539279760, guid: efa810b18b2e33341b4ab3cd64616f45, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4779968717958695628, guid: efa810b18b2e33341b4ab3cd64616f45, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -8963,7 +9143,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8088189945140166718, guid: efa810b18b2e33341b4ab3cd64616f45, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8089209986558852700, guid: efa810b18b2e33341b4ab3cd64616f45, type: 3}
       propertyPath: m_LocalScale.x
@@ -9122,7 +9302,43 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4514372339081831560, guid: efa810b18b2e33341b4ab3cd64616f45, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2029995877}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7917535788671571131, guid: efa810b18b2e33341b4ab3cd64616f45, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3749819981423883669}
+    - targetCorrespondingSourceObject: {fileID: 1557799771897357411, guid: efa810b18b2e33341b4ab3cd64616f45, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3749819981423883668}
+    - targetCorrespondingSourceObject: {fileID: 2902520267156344718, guid: efa810b18b2e33341b4ab3cd64616f45, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3749819981423883667}
+    - targetCorrespondingSourceObject: {fileID: 8088189945140166718, guid: efa810b18b2e33341b4ab3cd64616f45, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 378325832}
+    - targetCorrespondingSourceObject: {fileID: 8088189945140166718, guid: efa810b18b2e33341b4ab3cd64616f45, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 378325831}
+    - targetCorrespondingSourceObject: {fileID: 8088189945140166718, guid: efa810b18b2e33341b4ab3cd64616f45, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 378325830}
+    - targetCorrespondingSourceObject: {fileID: 4203210739517794219, guid: efa810b18b2e33341b4ab3cd64616f45, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 274017466}
+    - targetCorrespondingSourceObject: {fileID: 4767653527957198707, guid: efa810b18b2e33341b4ab3cd64616f45, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1981361716}
+    - targetCorrespondingSourceObject: {fileID: 9219893122809429150, guid: efa810b18b2e33341b4ab3cd64616f45, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2037468961}
+    - targetCorrespondingSourceObject: {fileID: 2849499672564855598, guid: efa810b18b2e33341b4ab3cd64616f45, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1812810334}
+    - targetCorrespondingSourceObject: {fileID: 2849499672564855598, guid: efa810b18b2e33341b4ab3cd64616f45, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1812810333}
+    - targetCorrespondingSourceObject: {fileID: 2849499672564855598, guid: efa810b18b2e33341b4ab3cd64616f45, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1812810332}
   m_SourcePrefab: {fileID: 100100000, guid: efa810b18b2e33341b4ab3cd64616f45, type: 3}
 --- !u!54 &3749819981423883649 stripped
 Rigidbody:
@@ -9214,6 +9430,49 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7917535788671571131, guid: efa810b18b2e33341b4ab3cd64616f45, type: 3}
   m_PrefabInstance: {fileID: 3749819981423883648}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3749819981423883667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3749819981423883662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1066dba621e4853bf1d4f02aff4242a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Modules.Module01_CableMaking.Domain.Cable.CableStates.CableOrdered
+  end: 0
+  stateController: {fileID: 232960792}
+--- !u!114 &3749819981423883668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3749819981423883664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14516b7f84d04604a06013ba9f1bf7ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Modules.Module01_CableMaking.Domain.Cable.CableStates.CablePeeled
+  end: 0
+  stateController: {fileID: 232960792}
+  grabbable: {fileID: 1687672006}
+--- !u!114 &3749819981423883669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3749819981423883666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6690e83536b24fa38a876a8c29684bb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Modules.Module01_CableMaking.Domain.Cable.CableStates.CableWhole
+  end: 0
+  stateController: {fileID: 232960792}
 --- !u!1 &5128321505671970328 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7985249710112367425, guid: efa810b18b2e33341b4ab3cd64616f45, type: 3}

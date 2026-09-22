@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Framework.Interaction.Tools.Interfaces;
 using GameData.Standards;
 using Modules.Module01_CableMaking.Domain.Cable;
@@ -29,10 +30,21 @@ namespace Modules.Module01_CableMaking.Presentation
         private readonly StandardValidator validator = new();
 
         private CableStateController stateController;
+        private Coroutine completionRoutine;
+        private bool completionPending;
         
         private void Awake()
         {
             stateController = GetComponentInParent<CableStateController>();
+        }
+
+        private void OnDisable()
+        {
+            if (completionRoutine != null)
+                StopCoroutine(completionRoutine);
+
+            completionRoutine = null;
+            completionPending = false;
         }
 
         /// <summary>
@@ -50,6 +62,9 @@ namespace Modules.Module01_CableMaking.Presentation
         
         public void Order()
         {
+            if (completionPending)
+                return;
+
             ModuleActionValidator actionValidator =
                 SimulationManager.Instance?.FlowController?.ActionValidator;
 
@@ -61,15 +76,32 @@ namespace Modules.Module01_CableMaking.Presentation
 
             if (!CanOrder)
                 return;
-            // Aqui la condicion de que el cable este en el estado correcto para pelar, si no esta en ese estado no se puede pelar
+
+            completionPending = true;
+            completionRoutine = StartCoroutine(CompleteAfterFeedback());
+        }
+
+        private IEnumerator CompleteAfterFeedback()
+        {
+            // El cambio de estado cierra el puzzle; conserva antes el resultado visible.
+            yield return new WaitForSecondsRealtime(3f);
+
+            completionRoutine = null;
+            completionPending = false;
+            if (!CanOrder)
+                yield break;
+
             if (!stateController.TryAdvance(end, CableState.Rj45Ordered))
-                return;
-            // Aqui la condicion de que el cable este en el estado correcto para pelar, si no esta en ese estado no se puede pelar
+                yield break;
+
             CableEvents.RaiseCableOrdered(end);
         }
         
         public void ValidatePuzzle()
         {
+            if (completionPending)
+                return;
+
             if (connector == null || standard == null)
             {
                 Debug.LogError("[RJ45Puzzle] Faltan referencias de Connector o CableStandard.", this);

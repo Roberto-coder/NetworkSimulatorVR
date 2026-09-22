@@ -52,6 +52,15 @@ static class Program
     static void Main()
     {
         var f=New();
+        var settings = new Systems.Settings.GlobalSettingsManager();
+        Systems.Settings.GlobalSettingsManager.Instance = settings;
+        f.Voice.PlayClip(new AudioClip());
+        Check(settings.RoutedSource == f.Source, "La voz creada antes del gestor conecta su salida al reproducir");
+        settings.RoutedSource = null;
+        f.Voice.PlayAudio(new DialogueAudio { clip = new AudioClip() });
+        Check(settings.RoutedSource == f.Source, "Los clips del GameData pasan por el canal de voz");
+        Systems.Settings.GlobalSettingsManager.Instance = null;
+        f.Voice.Stop();
         var old=Clock.Start(f.Dialogue,f.Dialogue.ShowDialogueUntilConfirmed("Anterior",audio:new(){clip=new(){length=20}}));
         Clock.Tick(3);Check(f.Source.isPlaying,"La voz anterior debe estar activa");
         var newer=new AudioClip{length=20};
