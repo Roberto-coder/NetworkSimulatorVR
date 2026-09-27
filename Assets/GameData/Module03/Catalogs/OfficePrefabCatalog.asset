@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7225ee47239f0614881e9af62a4aac71, type: 3}
+  m_Name: OfficePrefabCatalog
+  m_EditorClassIdentifier: Assembly-CSharp::GameData.Module03.NetworkPrefabCatalog
+  entries:
+  - key: switch
+    prefab: {fileID: 2225960938001377615, guid: 45f6de272a914854a8d3fda0e851935e, type: 3}
+  - key: patch-panel
+    prefab: {fileID: 6192246772591963051, guid: 5d426273c988ebf4a87c6223d4dc0f6b, type: 3}
+  - key: laptop
+    prefab: {fileID: 9137668468174182759, guid: 84e88286449d2ab4ab96ef17cb18bdd4, type: 3}
+  - key: computer
+    prefab: {fileID: 4313035565081019254, guid: f938433b5686ef94cbb78c0034bef1ba, type: 3}
+  - key: rosette
+    prefab: {fileID: 6885981800467633268, guid: 20ae78133a7efb84baa9d78ecb759697, type: 3}

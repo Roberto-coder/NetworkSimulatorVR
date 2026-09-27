@@ -1,0 +1,285 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91c513de1d59aaf4fb634074e2371356, type: 3}
+  m_Name: OfficeInitialState
+  m_EditorClassIdentifier:
+  definition:
+    schemaVersion: 1
+    scenarioId: office
+    devices:
+    - id: SW-01
+      kind: 1
+      prefabKey: switch
+    - id: PP-01
+      kind: 2
+      prefabKey: patch-panel
+    - id: Laptop
+      kind: 3
+      prefabKey: laptop
+    - id: PC-01
+      kind: 0
+      prefabKey: computer
+    - id: R01
+      kind: 2
+      prefabKey: rosette
+    - id: PC-02
+      kind: 0
+      prefabKey: computer
+    - id: R02
+      kind: 2
+      prefabKey: rosette
+    - id: PC-03
+      kind: 0
+      prefabKey: computer
+    - id: R03
+      kind: 2
+      prefabKey: rosette
+    ports:
+    - id: SW-01/mgmt
+      deviceId: SW-01
+      segmentId: office
+      enabled: 1
+      ipv4: '192.168.10.2'
+      prefixLength: 24
+      mac: '02:00:00:00:00:02'
+    - id: SW-01/P08
+      deviceId: SW-01
+      segmentId: office
+      enabled: 1
+      ipv4: ''
+      prefixLength: 24
+      mac: ''
+    - id: Laptop/eth0
+      deviceId: Laptop
+      segmentId: office
+      enabled: 1
+      ipv4: '192.168.10.100'
+      prefixLength: 24
+      mac: '02:00:00:00:00:64'
+    - id: SW-01/P01
+      deviceId: SW-01
+      segmentId: office
+      enabled: 1
+      ipv4: ''
+      prefixLength: 24
+      mac: ''
+    - id: PP-01/front01
+      deviceId: PP-01
+      segmentId: office
+      enabled: 1
+      ipv4: ''
+      prefixLength: 24
+      mac: ''
+    - id: PP-01/back01
+      deviceId: PP-01
+      segmentId: office
+      enabled: 1
+      ipv4: ''
+      prefixLength: 24
+      mac: ''
+    - id: R01/back
+      deviceId: R01
+      segmentId: office
+      enabled: 1
+      ipv4: ''
+      prefixLength: 24
+      mac: ''
+    - id: R01/front
+      deviceId: R01
+      segmentId: office
+      enabled: 1
+      ipv4: ''
+      prefixLength: 24
+      mac: ''
+    - id: PC-01/eth0
+      deviceId: PC-01
+      segmentId: office
+      enabled: 1
+      ipv4: '192.168.10.11'
+      prefixLength: 24
+      mac: '02:00:00:00:01:01'
+    - id: SW-01/P02
+      deviceId: SW-01
+      segmentId: office
+      enabled: 1
+      ipv4: ''
+      prefixLength: 24
+      mac: ''
+    - id: PP-01/front02
+      deviceId: PP-01
+      segmentId: office
+      enabled: 1
+      ipv4: ''
+      prefixLength: 24
+      mac: ''
+    - id: PP-01/back02
+      deviceId: PP-01
+      segmentId: office
+      enabled: 1
+      ipv4: ''
+      prefixLength: 24
+      mac: ''
+    - id: R02/back
+      deviceId: R02
+      segmentId: office
+      enabled: 1
+      ipv4: ''
+      prefixLength: 24
+      mac: ''
+    - id: R02/front
+      deviceId: R02
+      segmentId: office
+      enabled: 1
+      ipv4: ''
+      prefixLength: 24
+      mac: ''
+    - id: PC-02/eth0
+      deviceId: PC-02
+      segmentId: office
+      enabled: 1
+      ipv4: '192.168.10.12'
+      prefixLength: 24
+      mac: '02:00:00:00:01:02'
+    - id: SW-01/P03
+      deviceId: SW-01
+      segmentId: office
+      enabled: 1
+      ipv4: ''
+      prefixLength: 24
+      mac: ''
+    - id: PP-01/front03
+      deviceId: PP-01
+      segmentId: office
+      enabled: 1
+      ipv4: ''
+      prefixLength: 24
+      mac: ''
+    - id: PP-01/back03
+      deviceId: PP-01
+      segmentId: office
+      enabled: 1
+      ipv4: ''
+      prefixLength: 24
+      mac: ''
+    - id: R03/back
+      deviceId: R03
+      segmentId: office
+      enabled: 1
+      ipv4: ''
+      prefixLength: 24
+      mac: ''
+    - id: R03/front
+      deviceId: R03
+      segmentId: office
+      enabled: 1
+      ipv4: ''
+      prefixLength: 24
+      mac: ''
+    - id: PC-03/eth0
+      deviceId: PC-03
+      segmentId: office
+      enabled: 1
+      ipv4: '192.168.10.13'
+      prefixLength: 24
+      mac: '02:00:00:00:01:03'
+    cables:
+    - id: LaptopLink
+      portA: 'SW-01/P08'
+      portB: 'Laptop/eth0'
+      intact: 1
+      interactable: 0
+      labelA: ''
+      labelB: ''
+    - id: Rack-01
+      portA: 'SW-01/P01'
+      portB: 'PP-01/front01'
+      intact: 1
+      interactable: 0
+      labelA: ''
+      labelB: ''
+    - id: Horizontal-01
+      portA: 'PP-01/back01'
+      portB: 'R01/back'
+      intact: 1
+      interactable: 0
+      labelA: ''
+      labelB: ''
+    - id: Patch-01
+      portA: 'R01/front'
+      portB: 'PC-01/eth0'
+      intact: 0
+      interactable: 1
+      labelA: 'R01'
+      labelB: 'PC-01'
+    - id: Rack-02
+      portA: 'SW-01/P02'
+      portB: 'PP-01/front02'
+      intact: 1
+      interactable: 0
+      labelA: ''
+      labelB: ''
+    - id: Horizontal-02
+      portA: 'PP-01/back02'
+      portB: 'R02/back'
+      intact: 1
+      interactable: 0
+      labelA: ''
+      labelB: ''
+    - id: Patch-02
+      portA: 'R02/front'
+      portB: 'PC-02/eth0'
+      intact: 1
+      interactable: 1
+      labelA: 'R02'
+      labelB: 'PC-02'
+    - id: Rack-03
+      portA: 'SW-01/P03'
+      portB: 'PP-01/front03'
+      intact: 1
+      interactable: 0
+      labelA: ''
+      labelB: ''
+    - id: Horizontal-03
+      portA: 'PP-01/back03'
+      portB: 'R03/back'
+      intact: 1
+      interactable: 0
+      labelA: ''
+      labelB: ''
+    - id: Patch-03
+      portA: 'R03/front'
+      portB: 'PC-03/eth0'
+      intact: 1
+      interactable: 1
+      labelA: 'R03'
+      labelB: 'PC-03'
+    - id: Replacement-01
+      portA: ''
+      portB: ''
+      intact: 1
+      interactable: 1
+      labelA: ''
+      labelB: ''
+    passiveConnections:
+    - portA: PP-01/front01
+      portB: PP-01/back01
+    - portA: R01/back
+      portB: R01/front
+    - portA: PP-01/front02
+      portB: PP-01/back02
+    - portA: R02/back
+      portB: R02/front
+    - portA: PP-01/front03
+      portB: PP-01/back03
+    - portA: R03/back
+      portB: R03/front
+    allowedDuplicatePortIds: []

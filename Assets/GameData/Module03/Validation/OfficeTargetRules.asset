@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf1b7e60e56c65b4ab61453f4dcde9dc, type: 3}
+  m_Name: OfficeTargetRules
+  m_EditorClassIdentifier:
+  definition:
+    schemaVersion: 1
+    scenarioId: office
+    rules:
+    - id: unique-addresses
+      kind: 3
+    - id: address-PC-01
+      kind: 0
+      portA: PC-01/eth0
+      ipv4: 192.168.10.11
+      prefixLength: 24
+    - id: enabled-P01
+      kind: 1
+      portA: SW-01/P01
+      enabled: 1
+    - id: patch-PC-01
+      kind: 2
+      portA: R01/front
+      portB: PC-01/eth0
+      requireLabels: 1
+      labelAtA: R01
+      labelAtB: PC-01
+    - id: address-PC-02
+      kind: 0
+      portA: PC-02/eth0
+      ipv4: 192.168.10.12
+      prefixLength: 24
+    - id: enabled-P02
+      kind: 1
+      portA: SW-01/P02
+      enabled: 1
+    - id: patch-PC-02
+      kind: 2
+      portA: R02/front
+      portB: PC-02/eth0
+      requireLabels: 1
+      labelAtA: R02
+      labelAtB: PC-02
+    - id: address-PC-03
+      kind: 0
+      portA: PC-03/eth0
+      ipv4: 192.168.10.13
+      prefixLength: 24
+    - id: enabled-P03
+      kind: 1
+      portA: SW-01/P03
+      enabled: 1
+    - id: patch-PC-03
+      kind: 2
+      portA: R03/front
+      portB: PC-03/eth0
+      requireLabels: 1
+      labelAtA: R03
+      labelAtB: PC-03

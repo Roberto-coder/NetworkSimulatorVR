@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 604caa0043e70fe4da01172665c1a494, type: 3}
+  m_Name: DiagnosticUiSettings
+  m_EditorClassIdentifier: Assembly-CSharp::GameData.Module03.DiagnosticUiSettings
+  mapNodes:
+  - deviceId: SW-01
+    displayName: SWITCH 01
+    sprite: {fileID: 21300000, guid: 0204dd3d06cd4864a805a57d48df5731, type: 3}
+    position: {x: 325, y: -270}
+  - deviceId: PP-01
+    displayName: PATCH PANEL 01
+    sprite: {fileID: 21300000, guid: 0ff2c473f0b5aff409bd43f71695c817, type: 3}
+    position: {x: 325, y: -85}
+  - deviceId: Laptop
+    displayName: LAPTOP
+    sprite: {fileID: 21300000, guid: 537d3015bdcffaa4890838f5109c2503, type: 3}
+    position: {x: 75, y: -185}
+  - deviceId: PC-01
+    displayName: PC-01
+    sprite: {fileID: 21300000, guid: 9d59541cc52ac5c45905af18bd748d91, type: 3}
+    position: {x: 910, y: -65}
+  - deviceId: R01
+    displayName: ROSETA 01
+    sprite: {fileID: 21300000, guid: de4aa22dfd2650f449c7678b667669ff, type: 3}
+    position: {x: 620, y: -65}
+  - deviceId: PC-02
+    displayName: PC-02
+    sprite: {fileID: 21300000, guid: 9d59541cc52ac5c45905af18bd748d91, type: 3}
+    position: {x: 910, y: -185}
+  - deviceId: R02
+    displayName: ROSETA 02
+    sprite: {fileID: 21300000, guid: de4aa22dfd2650f449c7678b667669ff, type: 3}
+    position: {x: 620, y: -185}
+  - deviceId: PC-03
+    displayName: PC-03
+    sprite: {fileID: 21300000, guid: 9d59541cc52ac5c45905af18bd748d91, type: 3}
+    position: {x: 910, y: -305}
+  - deviceId: R03
+    displayName: ROSETA 03
+    sprite: {fileID: 21300000, guid: de4aa22dfd2650f449c7678b667669ff, type: 3}
+    position: {x: 620, y: -305}
+  laptopDeviceId: Laptop
+  sourcePortId: Laptop/eth0
+  interactionRange: 2.5
+  panelScale: 0.0012
+  focusHint: "A \xB7 Abrir diagn\xF3stico"
+  mapTitle: "Topolog\xEDa documentada \xB7 selecciona destino"
+  commands:
+  - Ping
+  - ARP
+  - "Configuraci\xF3n local"
+  - Puertos del switch
+  - "Bit\xE1cora"
+  - Cerrar

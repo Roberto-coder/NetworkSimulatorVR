@@ -1,0 +1,755 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e67c38e2fc641b43a4a05dbdb985c09, type: 3}
+  m_Name: OfficeLayout
+  m_EditorClassIdentifier: Assembly-CSharp::GameData.Module03.NetworkLayoutAsset
+  scenarioId: office
+  devices:
+  - deviceId: SW-01
+    position: {x: -6.333, y: 0.961, z: -4.307}
+    rotation: {x: -0, y: 0, z: 0}
+    scale: {x: 1, y: 1, z: 1}
+    mapPosition: {x: 0, y: 0}
+  - deviceId: PP-01
+    position: {x: -6.333, y: 1.262, z: -4.307}
+    rotation: {x: -0, y: 0, z: 0}
+    scale: {x: 1, y: 1, z: 1}
+    mapPosition: {x: 1, y: 0}
+  - deviceId: Laptop
+    position: {x: -5.43, y: 0.979, z: -4.214}
+    rotation: {x: -0, y: 0, z: 0}
+    scale: {x: 1, y: 1, z: 1}
+    mapPosition: {x: 2, y: 0}
+  - deviceId: PC-01
+    position: {x: 6.55292, y: 0.97, z: -0.48387003}
+    rotation: {x: 0, y: 90, z: 0}
+    scale: {x: 1.5000001, y: 1.5, z: 1.5000001}
+    mapPosition: {x: 0, y: 1}
+  - deviceId: R01
+    position: {x: 1.39, y: 2.0250502, z: 3.65271}
+    rotation: {x: 0, y: 180, z: 0}
+    scale: {x: 1, y: 1, z: 1}
+    mapPosition: {x: 1, y: 1}
+  - deviceId: PC-02
+    position: {x: 1.4239202, y: 0.969, z: -1.65987}
+    rotation: {x: 0, y: 180, z: 0}
+    scale: {x: 1.5, y: 1.5, z: 1.5}
+    mapPosition: {x: 2, y: 1}
+  - deviceId: R02
+    position: {x: -1.6, y: 1.02505, z: -5.65271}
+    rotation: {x: -0, y: 0, z: 0}
+    scale: {x: 1, y: 1, z: 1}
+    mapPosition: {x: 0, y: 2}
+  - deviceId: PC-03
+    position: {x: 5.30092, y: 0.975, z: -1.44987}
+    rotation: {x: 0, y: 180, z: 0}
+    scale: {x: 1.5, y: 1.5, z: 1.5}
+    mapPosition: {x: 1, y: 2}
+  - deviceId: R03
+    position: {x: 5.27, y: 1.0250499, z: -5.65271}
+    rotation: {x: -0, y: 0, z: 0}
+    scale: {x: 1, y: 1, z: 1}
+    mapPosition: {x: 2, y: 2}
+  ports:
+  - portId: SW-01/mgmt
+    localPosition: {x: -0.20300007, y: 0.0059999824, z: -0.119999886}
+    localRotation: {x: -0, y: 0, z: 0}
+  - portId: SW-01/P08
+    localPosition: {x: 0.19700003, y: 0.005699992, z: -0.119999886}
+    localRotation: {x: -0, y: 0, z: 0}
+  - portId: SW-01/P01
+    localPosition: {x: 0.010099888, y: 0.012799978, z: -0.119999886}
+    localRotation: {x: -0, y: 0, z: 0}
+  - portId: SW-01/P02
+    localPosition: {x: 0.07439995, y: 0.010800004, z: -0.119999886}
+    localRotation: {x: -0, y: 0, z: 0}
+  - portId: SW-01/P03
+    localPosition: {x: 0.13999987, y: 0.005699992, z: -0.119999886}
+    localRotation: {x: -0, y: 0, z: 0}
+  - portId: PP-01/front01
+    localPosition: {x: 0.0076999664, y: 0, z: -0.119999886}
+    localRotation: {x: -0, y: 0, z: 0}
+  - portId: PP-01/back01
+    localPosition: {x: 0.034999847, y: 0, z: 0.00880003}
+    localRotation: {x: -0, y: 0, z: 0}
+  - portId: PP-01/front02
+    localPosition: {x: 0.07000017, y: 0, z: -0.119999886}
+    localRotation: {x: -0, y: 0, z: 0}
+  - portId: PP-01/back02
+    localPosition: {x: 0.10500002, y: 0, z: 0.00880003}
+    localRotation: {x: -0, y: 0, z: 0}
+  - portId: PP-01/front03
+    localPosition: {x: 0.13999987, y: 0, z: -0.119999886}
+    localRotation: {x: -0, y: 0, z: 0}
+  - portId: PP-01/back03
+    localPosition: {x: 0.17500019, y: 0, z: 0.00880003}
+    localRotation: {x: -0, y: 0, z: 0}
+  - portId: Laptop/eth0
+    localPosition: {x: -0.1170001, y: 0, z: 0.022999763}
+    localRotation: {x: -0, y: 0, z: 0}
+  - portId: PC-01/eth0
+    localPosition: {x: 0.000000009934107, y: 0, z: -0.119999886}
+    localRotation: {x: -0, y: 0, z: 0}
+  - portId: R01/back
+    localPosition: {x: 0, y: -0.023600101, z: -0.36170006}
+    localRotation: {x: -0, y: 0, z: 0}
+  - portId: R01/front
+    localPosition: {x: 0.034999967, y: -0.023600101, z: -0.3296001}
+    localRotation: {x: -0, y: 0, z: 0}
+  - portId: PC-02/eth0
+    localPosition: {x: 0, y: 0, z: -0.11999997}
+    localRotation: {x: -0, y: 0, z: 0}
+  - portId: R02/back
+    localPosition: {x: 0, y: -0.024600029, z: -0.36140013}
+    localRotation: {x: -0, y: 0, z: 0}
+  - portId: R02/front
+    localPosition: {x: 0.002300024, y: -0.024600029, z: -0.33440018}
+    localRotation: {x: -0, y: 0, z: 0}
+  - portId: PC-03/eth0
+    localPosition: {x: 0, y: 0, z: -0.11999997}
+    localRotation: {x: -0, y: 0, z: 0}
+  - portId: R03/back
+    localPosition: {x: 0, y: -0.023599982, z: -0.36289978}
+    localRotation: {x: -0, y: 0, z: 0}
+  - portId: R03/front
+    localPosition: {x: 0.0043997765, y: -0.023599982, z: -0.33099985}
+    localRotation: {x: -0, y: 0, z: 0}
+  fixedRoutes:
+  - cableId: LaptopLink
+    knots:
+    - Position:
+        x: -6.136
+        y: 0.9667
+        z: -4.427
+      TangentIn:
+        x: 0
+        y: 0
+        z: 0
+      TangentOut:
+        x: 0
+        y: 0
+        z: 0
+      Rotation:
+        value:
+          x: 0
+          y: 0
+          z: 0
+          w: 1
+    - Position:
+        x: -6.078
+        y: 0.979
+        z: -4.511
+      TangentIn:
+        x: -0
+        y: -0
+        z: -0.033477206
+      TangentOut:
+        x: 0
+        y: 0
+        z: 0.07612238
+      Rotation:
+        value:
+          x: -0.039561953
+          y: 0.7639241
+          z: 0.02321579
+          w: 0.6436737
+    - Position:
+        x: -5.644
+        y: 0.98
+        z: -4.204
+      TangentIn:
+        x: 0
+        y: 0.00000005957554
+        z: -0.059225995
+      TangentOut:
+        x: 0
+        y: 2.910383e-11
+        z: 0.059225995
+      Rotation:
+        value:
+          x: -0.002773
+          y: 0.6777953
+          z: -0.0060495595
+          w: 0.73522055
+    - Position:
+        x: -5.547
+        y: 0.979
+        z: -4.1910005
+      TangentIn:
+        x: 0
+        y: 0
+        z: 0
+      TangentOut:
+        x: 0
+        y: 0
+        z: 0
+      Rotation:
+        value:
+          x: 0
+          y: 0
+          z: 0
+          w: 1
+  - cableId: Rack-01
+    knots:
+    - Position:
+        x: -6.3229003
+        y: 0.9738
+        z: -4.427
+      TangentIn:
+        x: 0
+        y: 0
+        z: 0
+      TangentOut:
+        x: 0
+        y: 0
+        z: 0
+      Rotation:
+        value:
+          x: 0
+          y: 0
+          z: 0
+          w: 1
+    - Position:
+        x: -6.285
+        y: 1.018
+        z: -4.495
+      TangentIn:
+        x: 0
+        y: 0
+        z: 0
+      TangentOut:
+        x: 0
+        y: 0
+        z: 0
+      Rotation:
+        value:
+          x: 0
+          y: 0
+          z: 0
+          w: 1
+    - Position:
+        x: -6.349
+        y: 1.215
+        z: -4.479
+      TangentIn:
+        x: -1.2836954e-16
+        y: -0.00000042282045
+        z: -0.05885826
+      TangentOut:
+        x: 8.6736174e-19
+        y: 0
+        z: 0.058858484
+      Rotation:
+        value:
+          x: -0.5157153
+          y: 7.815678e-11
+          z: 1.2984223e-10
+          w: 0.8567601
+    - Position:
+        x: -6.3253
+        y: 1.262
+        z: -4.427
+      TangentIn:
+        x: -1.283695e-16
+        y: -0.0000004228204
+        z: -0.05885826
+      TangentOut:
+        x: 8.673617e-19
+        y: 0
+        z: 0.05885848
+      Rotation:
+        value:
+          x: -0.1478341
+          y: 0
+          z: -0
+          w: 0.9890121
+  - cableId: Horizontal-01
+    knots:
+    - Position:
+        x: -6.2980003
+        y: 1.262
+        z: -4.2982
+      TangentIn:
+        x: 0
+        y: 0
+        z: 0
+      TangentOut:
+        x: 0
+        y: 0
+        z: 0
+      Rotation:
+        value:
+          x: 0
+          y: 0
+          z: 0
+          w: 1
+    - Position:
+        x: -6.332
+        y: 2.23
+        z: -4.13
+      TangentIn:
+        x: -0.050148964
+        y: -0.00030565262
+        z: -0.4327805
+      TangentOut:
+        x: 0.22890949
+        y: 0.0014433861
+        z: 0.36814725
+      Rotation:
+        value:
+          x: -0.57612634
+          y: 0.10309427
+          z: 0.15186998
+          w: 0.7964833
+    - Position:
+        x: -5.96
+        y: 5.39
+        z: -4.15
+      TangentIn:
+        x: 0.00000008195639
+        y: 0.00000030966476
+        z: -0.5633001
+      TangentOut:
+        x: 0
+        y: 0
+        z: 1.1266004
+      Rotation:
+        value:
+          x: -0.031510007
+          y: 0.3675503
+          z: 0.012461484
+          w: 0.92938614
+    - Position:
+        x: 1.1
+        y: 4.88
+        z: 5
+      TangentIn:
+        x: -0.21900004
+        y: 0.46600008
+        z: -0.085999966
+      TangentOut:
+        x: 0
+        y: 0
+        z: 0
+      Rotation:
+        value:
+          x: 0
+          y: 0
+          z: 0
+          w: 1
+    - Position:
+        x: 1.65
+        y: 2.03
+        z: 5.37
+      TangentIn:
+        x: -0.61592865
+        y: -0.002650261
+        z: -0.571337
+      TangentOut:
+        x: 0.40220022
+        y: 0.000289917
+        z: 0.19190502
+      Rotation:
+        value:
+          x: 0.3749307
+          y: 0.72422606
+          z: -0.26347214
+          w: 0.5152727
+    - Position:
+        x: 1.39
+        y: 2.00145
+        z: 4.01441
+      TangentIn:
+        x: 0
+        y: 0
+        z: 0
+      TangentOut:
+        x: 0
+        y: 0
+        z: 0
+      Rotation:
+        value:
+          x: 0
+          y: 0
+          z: 0
+          w: 1
+  - cableId: Rack-02
+    knots:
+    - Position:
+        x: -6.2586
+        y: 0.9718
+        z: -4.427
+      TangentIn:
+        x: 0
+        y: 0
+        z: 0
+      TangentOut:
+        x: 0
+        y: 0
+        z: 0
+      Rotation:
+        value:
+          x: 0
+          y: 0
+          z: 0
+          w: 1
+    - Position:
+        x: -6.233
+        y: 1.008
+        z: -4.509
+      TangentIn:
+        x: -0.00000016577542
+        y: 0.0000004414469
+        z: -0.028408915
+      TangentOut:
+        x: -0.0000000018626451
+        y: 0
+        z: 0.028408859
+      Rotation:
+        value:
+          x: 0.36696503
+          y: 0.6044309
+          z: 0.55800295
+          w: -0.43431878
+    - Position:
+        x: -6.246
+        y: 1.176
+        z: -4.512
+      TangentIn:
+        x: 0.0000000055879354
+        y: -0.000000007450581
+        z: -0.03787858
+      TangentOut:
+        x: 0.000000007450581
+        y: -0.000000007450581
+        z: 0.07575693
+      Rotation:
+        value:
+          x: 0.25158164
+          y: 0.6608379
+          z: 0.6273573
+          w: -0.32622498
+    - Position:
+        x: -6.263
+        y: 1.262
+        z: -4.427
+      TangentIn:
+        x: 0
+        y: 0
+        z: 0
+      TangentOut:
+        x: 0
+        y: 0
+        z: 0
+      Rotation:
+        value:
+          x: 0
+          y: 0
+          z: 0
+          w: 1
+  - cableId: Horizontal-02
+    knots:
+    - Position:
+        x: -6.228
+        y: 1.262
+        z: -4.2982
+      TangentIn:
+        x: 1
+        y: 1
+        z: 1
+      TangentOut:
+        x: -0.1329999
+        y: 0.062000036
+        z: 0.23720026
+      Rotation:
+        value:
+          x: 0
+          y: 0
+          z: 0
+          w: 1
+    - Position:
+        x: -6.24
+        y: 3.04
+        z: -4.3
+      TangentIn:
+        x: 0.00018262863
+        y: 0.00008511543
+        z: -1.3718054
+      TangentOut:
+        x: 0
+        y: 0
+        z: 0.89434284
+      Rotation:
+        value:
+          x: -0.049446627
+          y: 0.75212467
+          z: 0.65575373
+          w: 0.043018088
+    - Position:
+        x: -6.18
+        y: 4.797
+        z: -5.1
+      TangentIn:
+        x: -0.16463307
+        y: 0.00011561997
+        z: -0.098688155
+      TangentOut:
+        x: 0.3580718
+        y: -0.00030565262
+        z: 0.38513756
+      Rotation:
+        value:
+          x: 0.0049239555
+          y: 0.79963297
+          z: -0.027010083
+          w: 0.59986097
+    - Position:
+        x: -5.42
+        y: 4.4
+        z: -6.942
+      TangentIn:
+        x: -0.66400003
+        y: 0.0069999695
+        z: 0.09100008
+      TangentOut:
+        x: 0.8340001
+        y: -0.010000229
+        z: -0.10400009
+      Rotation:
+        value:
+          x: 0
+          y: 0
+          z: 0
+          w: 1
+    - Position:
+        x: -1.58
+        y: 1.73
+        z: -6.72
+      TangentIn:
+        x: -0
+        y: -0
+        z: -0.83759576
+      TangentOut:
+        x: 0
+        y: 0
+        z: 0.39004278
+      Rotation:
+        value:
+          x: 0.26486158
+          y: 0.45827642
+          z: -0.40002266
+          w: 0.74820644
+    - Position:
+        x: -1.6
+        y: 1.00045
+        z: -6.01411
+      TangentIn:
+        x: -0
+        y: -0
+        z: -0.101534404
+      TangentOut:
+        x: 0
+        y: 0
+        z: 0.101534404
+      Rotation:
+        value:
+          x: -0.0077301743
+          y: -0.39029372
+          z: 0.9206314
+          w: 0.0070004454
+  - cableId: Rack-03
+    knots:
+    - Position:
+        x: -6.1930003
+        y: 0.9667
+        z: -4.427
+      TangentIn:
+        x: 0
+        y: 0
+        z: 0
+      TangentOut:
+        x: 0
+        y: 0
+        z: 0
+      Rotation:
+        value:
+          x: 0
+          y: 0
+          z: 0
+          w: 1
+    - Position:
+        x: -6.193
+        y: 1.112
+        z: -4.502
+      TangentIn:
+        x: 0.0028996468
+        y: -0.07529998
+        z: 0
+      TangentOut:
+        x: -0.013200283
+        y: 0.030200005
+        z: 0.034499645
+      Rotation:
+        value:
+          x: 0
+          y: 0
+          z: 0
+          w: 1
+    - Position:
+        x: -6.1963
+        y: 1.2339
+        z: -4.486
+      TangentIn:
+        x: 0
+        y: -0.028218746
+        z: 0
+      TangentOut:
+        x: 0
+        y: 0.028218746
+        z: 0
+      Rotation:
+        value:
+          x: 0
+          y: 0
+          z: 0
+          w: 1
+    - Position:
+        x: -6.1930003
+        y: 1.262
+        z: -4.427
+      TangentIn:
+        x: 0
+        y: 0
+        z: 0
+      TangentOut:
+        x: 0
+        y: 0
+        z: 0
+      Rotation:
+        value:
+          x: 0
+          y: 0
+          z: 0
+          w: 1
+  - cableId: Horizontal-03
+    knots:
+    - Position:
+        x: -6.158
+        y: 1.262
+        z: -4.2982
+      TangentIn:
+        x: 0
+        y: 0
+        z: 0
+      TangentOut:
+        x: 0
+        y: 0
+        z: 0
+      Rotation:
+        value:
+          x: 0
+          y: 0
+          z: 0
+          w: 1
+    - Position:
+        x: -5.981
+        y: 2.269
+        z: -4.131
+      TangentIn:
+        x: 0
+        y: 0.00000035762787
+        z: -0.8136215
+      TangentOut:
+        x: 0
+        y: -0.00000035762787
+        z: 0.81362176
+      Rotation:
+        value:
+          x: -0.40625978
+          y: 0.6422657
+          z: 0.48999164
+          w: 0.42703155
+    - Position:
+        x: -4.24
+        y: 4.41
+        z: -5.1
+      TangentIn:
+        x: 0.00000035762787
+        y: -0.0000000027939677
+        z: -1.4386752
+      TangentOut:
+        x: -0.00000023841858
+        y: -0.0000000018626451
+        z: 1.438675
+      Rotation:
+        value:
+          x: 0.0029937597
+          y: 0.74729663
+          z: -0.011113029
+          w: 0.66439086
+    - Position:
+        x: 3.48
+        y: 3.99
+        z: -6.34
+      TangentIn:
+        x: -0.00000035762787
+        y: -0.0000000018626451
+        z: -1.0790064
+      TangentOut:
+        x: -0.00000029802322
+        y: -0.00000017089769
+        z: 0.5395035
+      Rotation:
+        value:
+          x: 0.0072943326
+          y: 0.74726707
+          z: -0.0072893384
+          w: 0.66444385
+    - Position:
+        x: 4.78
+        y: 1.48
+        z: -6.73
+      TangentIn:
+        x: -0.0000005364418
+        y: -0.00000023841858
+        z: -0.81761307
+      TangentOut:
+        x: -0.000000059604645
+        y: 0.00000017881393
+        z: 0.81761277
+      Rotation:
+        value:
+          x: 0.48364854
+          y: 0.41195914
+          z: -0.23113583
+          w: 0.73685133
+    - Position:
+        x: 5.27
+        y: 1.00145
+        z: -6.0156097
+      TangentIn:
+        x: 0
+        y: 0
+        z: 0
+      TangentOut:
+        x: 0
+        y: 0
+        z: 0
+      Rotation:
+        value:
+          x: 0
+          y: 0
+          z: 0
+          w: 1
+  cableRadius: 0.008
+  routeSamples: 64
+  cableMaterial: {fileID: 2100000, guid: e120aebf357f6194097b9e5a43dc3aef, type: 2}

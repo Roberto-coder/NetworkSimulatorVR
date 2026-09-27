@@ -35,6 +35,7 @@ ExportedObj/
 *.csproj
 !/Tests/NPCPresentation/NPCPresentation.csproj
 !Tests/Module02Wiring/Module02Wiring.csproj
+!Tests/Module03Diagnostics/Module03Diagnostics.csproj
 /Tests/**/bin/
 /Tests/**/obj/
 *.unityproj

@@ -34,6 +34,8 @@ namespace Presentacion.GlobalUI.RadialSelectorTool
         private RadialMenuBuilder builder;
         private RadialMenuSelector selector;
         private bool menuActive;
+        // El contenedor permanece activo incluso con la rueda cerrada.
+        public bool IsOpen => menuActive && radialPartCanvas != null && radialPartCanvas.gameObject.activeInHierarchy;
 
         protected virtual void Awake()
         {
@@ -96,8 +98,8 @@ namespace Presentacion.GlobalUI.RadialSelectorTool
             bool valid = radialPartPrefab != null && radialPartCanvas != null &&
                          playerCamera != null && toolManager != null &&
                          toolManager.AvailableTools != null && toolManager.AvailableTools.Count > 0;
-            if (!valid && debugLogs)
-                Debug.LogWarning("[RadialMenu] Missing prefab, canvas, camera, ToolManager, or available tools.", this);
+            if (!valid)
+                Debug.LogWarning("[RadialMenu] Revisa prefab, canvas, cámara y ToolManager. Si faltan herramientas, configura Available Tools Override en ToolManager; no requiere ModuleDefinition.", this);
             return valid;
         }
 

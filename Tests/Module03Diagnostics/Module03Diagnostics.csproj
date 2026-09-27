@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../Assets/Scripts/Modules/Module03_Diagnostics/Domain/*.cs" Link="Domain/%(Filename)%(Extension)" />
+    <Compile Include="../../Assets/GameData/Module03/Definitions/NetworkInitialStateAsset.cs" Link="NetworkInitialStateAsset.cs" />
+    <Compile Include="../../Assets/GameData/Module03/Definitions/NetworkTargetRulesAsset.cs" Link="NetworkTargetRulesAsset.cs" />
+  </ItemGroup>
+</Project>

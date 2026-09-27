@@ -19,6 +19,12 @@ namespace Systems.Input
         [SerializeField] private string confirmBinding = "<XRController>{RightHand}/secondaryButton";
         [SerializeField] private string triggerBinding = "<XRController>{RightHand}/trigger";
         [SerializeField] private string crouchBinding = "<XRController>{RightHand}/primary2DAxisClick";
+        // A se comparte entre módulos; B mantiene su función de confirmar diálogos.
+        [SerializeField] private string interactBinding = "<XRController>{RightHand}/primaryButton";
+        private InputAction interact;
+        public bool InteractPressed => UsesOpenXR
+            ? interact != null && interact.WasPressedThisFrame()
+            : OVRInput.GetDown(interactButton, rightController);
         private InputAction pause, tool, confirm, trigger, crouch;
         public bool UsesOpenXR => backend == InputBackend.OpenXR;
         public bool CrouchPressed => UsesOpenXR && crouch != null && crouch.WasPressedThisFrame();
@@ -28,6 +34,7 @@ namespace Systems.Input
         public OVRInput.Button pauseButton = OVRInput.Button.Three;
         public OVRInput.Button toolSelectorButton = OVRInput.Button.Four;
         public OVRInput.Button confirmButton = OVRInput.Button.Two;
+        public OVRInput.Button interactButton = OVRInput.Button.One;
 
         [Header("Controllers")]
         public OVRInput.Controller rightController =
@@ -103,22 +110,24 @@ namespace Systems.Input
             pause = new InputAction("Pause", InputActionType.Button, pauseBinding);
             tool = new InputAction("ToolSelector", InputActionType.Button, toolBinding);
             confirm = new InputAction("Confirm", InputActionType.Button, confirmBinding);
+            interact = new InputAction("Interact", InputActionType.Button, interactBinding);
             trigger = new InputAction("RightTrigger", InputActionType.Value, triggerBinding);
             crouch = new InputAction("Crouch", InputActionType.Button, crouchBinding);
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
             pause.AddBinding("<Keyboard>/escape");
             confirm.AddBinding("<Keyboard>/enter");
+            interact.AddBinding("<Keyboard>/e");
 #endif
         }
 
         private void OnEnable()
         {
-            pause?.Enable(); tool?.Enable(); confirm?.Enable(); trigger?.Enable(); crouch?.Enable();
+            interact?.Enable(); pause?.Enable(); tool?.Enable(); confirm?.Enable(); trigger?.Enable(); crouch?.Enable();
         }
 
         private void OnDisable()
         {
-            pause?.Disable(); tool?.Disable(); confirm?.Disable(); trigger?.Disable(); crouch?.Disable();
+            interact?.Disable(); pause?.Disable(); tool?.Disable(); confirm?.Disable(); trigger?.Disable(); crouch?.Disable();
             previousPressed = false;
             RightTrigger = 0f;
         }
@@ -126,7 +135,7 @@ namespace Systems.Input
         private void OnDestroy()
         {
             if (Instance == this) Instance = null;
-            pause?.Dispose(); tool?.Dispose(); confirm?.Dispose(); trigger?.Dispose(); crouch?.Dispose();
+            interact?.Dispose(); pause?.Dispose(); tool?.Dispose(); confirm?.Dispose(); trigger?.Dispose(); crouch?.Dispose();
         }
 
         private void Update()
