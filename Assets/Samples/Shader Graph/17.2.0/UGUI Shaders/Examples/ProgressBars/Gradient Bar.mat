@@ -51,6 +51,8 @@ Material:
     - _UIMaskSoftnessY: 1
     m_Colors:
     - _ClipRect: {r: 0, g: 0, b: 0, a: 0}
+    - _RectTransformInfo: {r: 100, g: 100, b: 1, a: 100}
+    - _SliderValue: {r: 0, g: 0, b: 0, a: 0}
     - _WidthHeight: {r: 500, g: 50, b: 0, a: 0}
     - _Width_Height: {r: 500, g: 50, b: 0, a: 0}
   m_BuildTextureStacks: []

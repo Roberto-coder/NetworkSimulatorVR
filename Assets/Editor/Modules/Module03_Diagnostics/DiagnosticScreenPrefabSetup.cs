@@ -15,6 +15,78 @@ namespace Modules.Module03_Diagnostics.Editor
     {
         public const string PrefabPath = "Assets/Prefabs/Dispositivos/Modulo3/DiagnosticScreen.prefab";
 
+        [MenuItem("Network Simulator/Module 03/Recrear pantallas desde prefab (Undo)")]
+        public static void RecreateScreens()
+        {
+            if (EditorApplication.isPlayingOrWillChangePlaymode)
+                throw new InvalidOperationException("Sal de Play antes de recrear las pantallas.");
+            if (UnityEditor.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage() != null)
+                throw new InvalidOperationException("Cierra Prefab Mode y abre la escena Modulo3.");
+            var scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
+            var networks = Module03ProbeVisualSetup.InScene<Module03NetworkScene>(scene);
+            if (networks.Length != 1)
+                throw new InvalidOperationException("La escena activa debe contener una única red M3.");
+            var network = networks[0];
+            var controller = Module03ProbeVisualSetup.ControllerFor(network);
+            if (network.initialState == null || controller.settings == null || controller.playerCamera == null ||
+                controller.playerCamera.gameObject.scene != scene)
+                throw new InvalidOperationException("Conserva el controlador y asigna Initial State, Settings y Player Camera de esta escena.");
+            var prefab = AssetDatabase.LoadAssetAtPath<DiagnosticScreenView>(PrefabPath);
+            if (prefab == null || prefab.GetComponent<Canvas>() == null)
+                throw new InvalidOperationException("Falta el prefab DiagnosticScreen o su Canvas.");
+            var definition = network.initialState.CopyDefinition();
+            var targets = network.GetComponentsInChildren<DiagnosticInteractionTarget>(true)
+                .Where(t => DiagnosticWorkspace.HasLocalScreen(definition, t.DeviceId)).ToArray();
+            var expected = definition.devices.Where(d => DiagnosticWorkspace.HasLocalScreen(definition, d.id)).ToArray();
+            if (expected.Length == 0 || expected.Any(d => targets.Count(t => t.DeviceId == d.id) != 1))
+                throw new InvalidOperationException("Cada PC y laptop debe conservar un DiagnosticInteractionTarget con Device asignado. Borra solo los Canvas antiguos, no los dispositivos ni sus componentes de interacción.");
+            if (targets.Any(t => t.screen != null && t.screen.gameObject.scene != scene))
+                throw new InvalidOperationException("Una pantalla apunta fuera de la escena. Limpia esa referencia antes de recrear.");
+
+            Undo.IncrementCurrentGroup(); int group = Undo.GetCurrentGroup();
+            Undo.SetCurrentGroupName("M3 recrear pantallas desde prefab");
+            try
+            {
+                // Un padre neutro evita heredar escalas de modelos o de otros Canvas de la escena.
+                var root = new GameObject("M03 Diagnostic Screens");
+                UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(root, scene);
+                Undo.RegisterCreatedObjectUndo(root, "Contenedor de pantallas");
+                foreach (var target in targets)
+                {
+                    var old = target.screen;
+                    var position = old != null ? old.transform.position :
+                        target.device.transform.position + Vector3.up * .35f - target.device.transform.forward * .8f;
+                    var rotation = old != null ? old.transform.rotation : target.device.transform.rotation;
+                    var view = (GameObject)PrefabUtility.InstantiatePrefab(prefab.gameObject, root.transform);
+                    Undo.RegisterCreatedObjectUndo(view, "Pantalla nueva");
+                    view.name = "Canvas_" + target.DeviceId;
+                    view.transform.SetPositionAndRotation(position, rotation);
+                    // Tamaño, escala y toda la UI interna proceden del prefab, sin copiar overrides antiguos.
+                    var canvas = view.GetComponent<Canvas>();
+                    canvas.worldCamera = controller.playerCamera;
+                    view.SetActive(true);
+                    PrefabUtility.RecordPrefabInstancePropertyModifications(canvas);
+                    PrefabUtility.RecordPrefabInstancePropertyModifications(view.transform);
+                    PrefabUtility.RecordPrefabInstancePropertyModifications(view);
+                    Undo.RecordObject(target, "Reconectar pantalla del dispositivo");
+                    target.screen = view.GetComponent<DiagnosticScreenView>();
+                    PrefabUtility.RecordPrefabInstancePropertyModifications(target);
+                    if (old != null)
+                    {
+                        Undo.RecordObject(old.gameObject, "Desactivar pantalla anterior");
+                        old.name = "Canvas_" + target.DeviceId + " (anterior - borrar)";
+                        old.gameObject.SetActive(false);
+                        PrefabUtility.RecordPrefabInstancePropertyModifications(old.gameObject);
+                    }
+                }
+                Undo.CollapseUndoOperations(group);
+                EditorSceneManager.MarkSceneDirty(scene);
+                Selection.activeGameObject = root;
+                Debug.Log($"M3: {targets.Length} pantallas recreadas y conectadas. Revisa su ubicación y guarda la escena. Puedes borrar las marcadas '(anterior - borrar)'. No se modificó el prefab ni se guardó la escena automáticamente.", root);
+            }
+            catch { Undo.RevertAllDownToGroup(group); throw; }
+        }
+
         public static DiagnosticScreenView LoadOrCreate(Module03NetworkScene network, DiagnosticUiSettings settings)
         {
             var existing = AssetDatabase.LoadAssetAtPath<DiagnosticScreenView>(PrefabPath);

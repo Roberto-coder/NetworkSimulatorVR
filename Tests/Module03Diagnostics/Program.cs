@@ -127,6 +127,8 @@ static class Program
             initialAsset.CopyDefinition().ports.Find(p => p.id == "SW/P1").enabled, "Sesiones independientes del mismo asset");
         SimulationChecks.Run(Office, Check);
         WorkspaceChecks.Run(Office, Check);
+        RepairChecks.Run(Office, Check);
+        AdministrationChecks.Run(Office, Check);
         Console.WriteLine($"Module03Diagnostics: {checks} comprobaciones correctas.");
     }
 }

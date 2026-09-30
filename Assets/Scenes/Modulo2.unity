@@ -171,6 +171,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Patch panel
       objectReference: {fileID: 0}
+    - target: {fileID: 8595791485986196093, guid: 5b4fa032486b1da4ca9528b863cf8e27, type: 3}
+      propertyPath: 'highlightRenderers.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5537761}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -207,6 +211,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a64729e8ae52e2f4986439f324de8263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Modules.Module02_RackInstallation.Exploration.RackInfoTarget
+--- !u!23 &5537761 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5376859652173727860, guid: 5b4fa032486b1da4ca9528b863cf8e27, type: 3}
+  m_PrefabInstance: {fileID: 5537758}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7345954
 GameObject:
   m_ObjectHideFlags: 0
@@ -2106,6 +2115,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1433711307}
     m_Modifications:
+    - target: {fileID: 3896349958622789351, guid: 7af9a0d4f40381e429626ab5520e8ab3, type: 3}
+      propertyPath: 'highlightRenderers.Array.data[0]'
+      value: 
+      objectReference: {fileID: 110561935}
     - target: {fileID: 6260008480462417090, guid: 7af9a0d4f40381e429626ab5520e8ab3, type: 3}
       propertyPath: m_Name
       value: Servidor 2U
@@ -2171,6 +2184,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a64729e8ae52e2f4986439f324de8263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Modules.Module02_RackInstallation.Exploration.RackInfoTarget
+--- !u!23 &110561935 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2696487345069308253, guid: 7af9a0d4f40381e429626ab5520e8ab3, type: 3}
+  m_PrefabInstance: {fileID: 110561932}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &135814548
 GameObject:
   m_ObjectHideFlags: 0
@@ -4049,6 +4067,11 @@ Transform:
 --- !u!4 &252921151 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7667065362983099469, guid: 7b0d7dc76a616ef4484351ee6349c1c6, type: 3}
+  m_PrefabInstance: {fileID: 252921149}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &252921152 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4645091883505781914, guid: 7b0d7dc76a616ef4484351ee6349c1c6, type: 3}
   m_PrefabInstance: {fileID: 252921149}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &252921153 stripped
@@ -7768,7 +7791,7 @@ MonoBehaviour:
   information: {fileID: 11400000, guid: d576ca1f1c7cd474c8116d201d1f58e8, type: 2}
   parentTarget: {fileID: 0}
   highlightRenderers:
-  - {fileID: 0}
+  - {fileID: 252921152}
   - {fileID: 0}
   highlightColor: {r: 0.1, g: 0.75, b: 1, a: 1}
 --- !u!114 &518369833
@@ -15355,6 +15378,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cooling
       objectReference: {fileID: 0}
+    - target: {fileID: 6629969374432150178, guid: cec903a558bd1b748ba3c7b589f92dde, type: 3}
+      propertyPath: 'highlightRenderers.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1208478665}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15376,6 +15403,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a64729e8ae52e2f4986439f324de8263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Modules.Module02_RackInstallation.Exploration.RackInfoTarget
+--- !u!23 &1208478665 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8597707585611523091, guid: cec903a558bd1b748ba3c7b589f92dde, type: 3}
+  m_PrefabInstance: {fileID: 1208478662}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1211745877
 GameObject:
   m_ObjectHideFlags: 0
@@ -18824,6 +18856,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UPS / PDU vertical
       objectReference: {fileID: 0}
+    - target: {fileID: 5544641360327824596, guid: f1d7128258b9449428fc501c37d2a3f6, type: 3}
+      propertyPath: 'highlightRenderers.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1611796742}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -18854,6 +18890,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a64729e8ae52e2f4986439f324de8263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Modules.Module02_RackInstallation.Exploration.RackInfoTarget
+--- !u!23 &1611796742 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5935545882598862687, guid: f1d7128258b9449428fc501c37d2a3f6, type: 3}
+  m_PrefabInstance: {fileID: 1611796739}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1612457514
 GameObject:
   m_ObjectHideFlags: 0
@@ -22669,6 +22710,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1433711307}
     m_Modifications:
+    - target: {fileID: 120209812964906305, guid: 9c58a778c8733394b853964916747897, type: 3}
+      propertyPath: 'highlightRenderers.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2004549068}
     - target: {fileID: 2893240915304722755, guid: 9c58a778c8733394b853964916747897, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -22743,6 +22788,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a64729e8ae52e2f4986439f324de8263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Modules.Module02_RackInstallation.Exploration.RackInfoTarget
+--- !u!23 &2004549068 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8743754689692125645, guid: 9c58a778c8733394b853964916747897, type: 3}
+  m_PrefabInstance: {fileID: 2004549065}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2004549071
 MonoBehaviour:
   m_ObjectHideFlags: 0

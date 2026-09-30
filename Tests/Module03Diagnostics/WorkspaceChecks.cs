@@ -29,5 +29,16 @@ static class WorkspaceChecks
         check(ui.ExpectedAddress("PC2") == "192.168.10.12" && ui.Observation("PC2") == "Responde otro equipo", "IP del inventario no garantiza identidad del respondiente");
         check(ui.History().Contains("Ping"), "Bitácora incluye diagnósticos");
         session.Reset(); check(ui.Observation("PC2") == "Obsoleto", "Reinicio invalida mapa");
+
+        // Abrir una PC cambia el origen real, no solo el título de la consola.
+        ui.OpenLocal("PC2"); ui.SelectDestination("PC3");
+        check(ui.PingSelected().SourcePort == "PC2/eth", "Ping se origina en la PC abierta");
+        check(ui.Neighbours().Contains("192.168.10.13"), "ARP consulta la caché de la PC abierta");
+        check(ui.CanEditLocalAddress && !ui.CanManageSwitch, "PC ofrece IP propia y no administración de switch");
+        ui.SelectDestination("SW");
+        check(!ui.CanManageSwitch, "Seleccionar switch desde PC no habilita administración");
+        check(ui.LocalConfiguration().Contains("255.255.255.0"), "Configuración muestra máscara decimal");
+        ui.OpenLocal("PC1");
+        check(ui.Observation("PC3") == "Sin comprobar", "Mapa no mezcla observaciones de distintos orígenes");
     }
 }

@@ -42,16 +42,64 @@ namespace Modules.Module03_Diagnostics.Domain
                 session.RecordProbe(result);
                 return result;
             }
-            if (source == null || !UsableAddress(source.ipv4, source.prefixLength) || !NetworkDefinitionValidator.IsMac(source.mac))
-                return Finish(ProbeStatus.InvalidSource, "Selecciona una interfaz local con IPv4 y MAC válidas.");
-            if (!source.enabled) return Finish(ProbeStatus.SourceDisabled, "La interfaz de origen está deshabilitada.");
-            if (!NetworkDefinitionValidator.IsIpv4(destinationIp) || !Unicast(destinationIp))
-                return Finish(ProbeStatus.InvalidDestination, "El destino debe ser una IPv4 unicast.");
-            if (!SameSubnet(source.ipv4, destinationIp, source.prefixLength))
-                return Finish(ProbeStatus.NoRoute, "Destino fuera de la subred local; este escenario no tiene gateway.");
-            if (!UsableAddress(destinationIp, source.prefixLength))
-                return Finish(ProbeStatus.InvalidDestination, "El destino es una dirección de red o broadcast.");
+            if (!ValidatePing(source, destinationIp, out var invalidStatus, out var invalidMessage))
+                return Finish(invalidStatus, invalidMessage);
 
+            var graph = BuildOperationalGraph(network, ports);
+            var traversal = TraverseBreadthFirst(graph, source.id);
+            var reachable = FindAddressablePorts(network, traversal.Visited);
+            if (reachable.Count(p => p.ipv4 == source.ipv4) > 1)
+            {
+                trace.AddRange(traversal.Flood.Select(e => e.Step(TracePhase.ArpRequest)));
+                return Finish(ProbeStatus.AddressConflict, "Conflicto observable en la dirección del origen (modelo didáctico).");
+            }
+            if (destinationIp == source.ipv4) return Finish(ProbeStatus.Success, "Respuesta local; no verifica el cable de red.", source.id);
+            // La caché ARP pertenece a la interfaz de origen; BFS no escribe en ella.
+            if (!neighbours.TryGetValue(source.id, out var cache))
+            {
+                cache = new Dictionary<string, NeighbourObservation>();
+                neighbours[source.id] = cache;
+            }
+            bool cached = cache.ContainsKey(destinationIp);
+            if (!cached) trace.AddRange(traversal.Flood.Select(e => e.Step(TracePhase.ArpRequest)));
+            var candidates = reachable.Where(p => p.ipv4 == destinationIp).ToArray();
+            if (candidates.Length == 0)
+                return Finish(ProbeStatus.AddressUnresolved, "No se obtuvo respuesta ARP. Consultar enlace, puertos y configuración para identificar la causa.");
+            // Mostrar las respuestas contradictorias, pero nunca dibujar ICMP exitoso a un equipo ambiguo.
+            if (!cached)
+                foreach (var candidate in candidates.OrderBy(p => p.id, StringComparer.Ordinal))
+                    trace.AddRange(ReconstructPath(traversal.Parents, source.id, candidate.id).AsEnumerable().Reverse().Select(e => e.Step(TracePhase.ArpReply, true)));
+            if (candidates.Length > 1)
+                return Finish(ProbeStatus.AddressConflict, "Varios equipos alcanzables reclaman esa IP (modelo didáctico).");
+            var destination = candidates[0];
+            cache[destinationIp] = new NeighbourObservation(destination, session.Revision);
+            var request = ReconstructPath(traversal.Parents, source.id, destination.id);
+            bool canReply = CanReply(destination, source);
+            AppendEchoAttempts(trace, request, count, canReply);
+            return Finish(canReply ? ProbeStatus.Success : ProbeStatus.ReplyUnavailable,
+                canReply ? "Solicitudes y respuestas completadas." : "Sin respuesta ICMP; revisar la configuración de retorno.", destination.id);
+        }
+
+        /// <summary>Validar antes de construir el grafo evita consultas con direcciones sin sentido.</summary>
+        private static bool ValidatePing(PortDefinition source, string destinationIp, out ProbeStatus status, out string message)
+        {
+            status = ProbeStatus.Success;
+            message = "";
+            if (source == null || !UsableAddress(source.ipv4, source.prefixLength) || !NetworkDefinitionValidator.IsMac(source.mac))
+            { status = ProbeStatus.InvalidSource; message = "Selecciona una interfaz local con IPv4 y MAC válidas."; }
+            else if (!source.enabled)
+            { status = ProbeStatus.SourceDisabled; message = "La interfaz de origen está deshabilitada."; }
+            else if (!NetworkDefinitionValidator.IsIpv4(destinationIp) || !Unicast(destinationIp))
+            { status = ProbeStatus.InvalidDestination; message = "El destino debe ser una IPv4 unicast."; }
+            else if (!SameSubnet(source.ipv4, destinationIp, source.prefixLength))
+            { status = ProbeStatus.NoRoute; message = "Destino fuera de la subred local; este escenario no tiene gateway."; }
+            else if (!UsableAddress(destinationIp, source.prefixLength))
+            { status = ProbeStatus.InvalidDestination; message = "El destino es una dirección de red o broadcast."; }
+            return status == ProbeStatus.Success;
+        }
+
+        private static Dictionary<string, List<Edge>> BuildOperationalGraph(NetworkDefinition network, Dictionary<string, PortDefinition> ports)
+        {
             // Grafo operacional: cables rotos y puertos inhabilitados no conducen tráfico.
             var graph = ports.Keys.ToDictionary(id => id, _ => new List<Edge>());
             void Link(string a, string b, string id, TraceLinkKind kind)
@@ -66,54 +114,72 @@ namespace Modules.Module03_Diagnostics.Domain
             foreach (var device in network.devices.Where(d => d.kind == DeviceKind.Switch))
             {
                 var switchPorts = network.ports.Where(p => p.deviceId == device.id).OrderBy(p => p.id, StringComparer.Ordinal).ToArray();
+                // Cada pareja se visita una vez; Link añade ambos sentidos de circulación.
                 for (int i = 0; i < switchPorts.Length; i++)
-                    for (int j = i + 1; j < switchPorts.Length; j++) Link(switchPorts[i].id, switchPorts[j].id, device.id, TraceLinkKind.SwitchForwarding);
+                {
+                    for (int j = i + 1; j < switchPorts.Length; j++)
+                        Link(switchPorts[i].id, switchPorts[j].id, device.id, TraceLinkKind.SwitchForwarding);
+                }
             }
-            // BFS estable: termina incluso ante ciclos. La inundación ARP se representa por un árbol,
-            // no reproduce tormentas, aprendizaje MAC, STP ni cada copia de una trama Ethernet.
-            var parents = new Dictionary<string, Edge>();
-            var visited = new HashSet<string> { source.id };
-            var queue = new Queue<string>(); queue.Enqueue(source.id);
-            var flood = new List<Edge>();
+            return graph;
+        }
+
+        private sealed class Traversal
+        {
+            public readonly Dictionary<string, Edge> Parents = new();
+            public readonly HashSet<string> Visited = new();
+            public readonly List<Edge> Flood = new();
+        }
+
+        /// <summary>Árbol BFS determinista: evita ciclos; no simula STP ni aprendizaje MAC.</summary>
+        private static Traversal TraverseBreadthFirst(Dictionary<string, List<Edge>> graph, string sourceId)
+        {
+            var result = new Traversal();
+            var queue = new Queue<string>();
+            result.Visited.Add(sourceId);
+            queue.Enqueue(sourceId);
             while (queue.Count > 0)
-                foreach (var edge in graph[queue.Dequeue()].OrderBy(e => e.To, StringComparer.Ordinal).ThenBy(e => e.Id, StringComparer.Ordinal))
-                    if (visited.Add(edge.To)) { parents[edge.To] = edge; flood.Add(edge); queue.Enqueue(edge.To); }
-            List<Edge> Path(string to)
             {
-                var path = new List<Edge>();
-                while (to != source.id) { var edge = parents[to]; path.Add(edge); to = edge.From; }
-                path.Reverse(); return path;
+                string current = queue.Dequeue();
+                var edges = graph[current].OrderBy(e => e.To, StringComparer.Ordinal).ThenBy(e => e.Id, StringComparer.Ordinal);
+                foreach (var edge in edges)
+                {
+                    if (!result.Visited.Add(edge.To)) continue;
+                    result.Parents[edge.To] = edge;
+                    result.Flood.Add(edge);
+                    queue.Enqueue(edge.To);
+                }
             }
-            var reachable = network.ports.Where(p => visited.Contains(p.id) && UsableAddress(p.ipv4, p.prefixLength) && NetworkDefinitionValidator.IsMac(p.mac)).ToArray();
-            if (reachable.Count(p => p.ipv4 == source.ipv4) > 1)
+            return result;
+        }
+
+        private static PortDefinition[] FindAddressablePorts(NetworkDefinition network, HashSet<string> visited) =>
+            network.ports.Where(p => visited.Contains(p.id) && UsableAddress(p.ipv4, p.prefixLength) && NetworkDefinitionValidator.IsMac(p.mac)).ToArray();
+
+        private static List<Edge> ReconstructPath(Dictionary<string, Edge> parents, string sourceId, string destinationId)
+        {
+            var path = new List<Edge>();
+            string current = destinationId;
+            while (current != sourceId)
             {
-                trace.AddRange(flood.Select(e => e.Step(TracePhase.ArpRequest)));
-                return Finish(ProbeStatus.AddressConflict, "Conflicto observable en la dirección del origen (modelo didáctico).");
+                var edge = parents[current];
+                path.Add(edge);
+                current = edge.From;
             }
-            if (destinationIp == source.ipv4) return Finish(ProbeStatus.Success, "Respuesta local; no verifica el cable de red.", source.id);
-            if (!neighbours.TryGetValue(source.id, out var cache)) neighbours[source.id] = cache = new Dictionary<string, NeighbourObservation>();
-            bool cached = cache.ContainsKey(destinationIp);
-            if (!cached) trace.AddRange(flood.Select(e => e.Step(TracePhase.ArpRequest)));
-            var candidates = reachable.Where(p => p.ipv4 == destinationIp).ToArray();
-            if (candidates.Length == 0)
-                return Finish(ProbeStatus.AddressUnresolved, "No se obtuvo respuesta ARP. Consultar enlace, puertos y configuración para identificar la causa.");
-            // Mostrar las respuestas contradictorias, pero nunca dibujar ICMP exitoso a un equipo ambiguo.
-            if (!cached)
-                foreach (var candidate in candidates.OrderBy(p => p.id, StringComparer.Ordinal))
-                    trace.AddRange(Path(candidate.id).AsEnumerable().Reverse().Select(e => e.Step(TracePhase.ArpReply, true)));
-            if (candidates.Length > 1)
-                return Finish(ProbeStatus.AddressConflict, "Varios equipos alcanzables reclaman esa IP (modelo didáctico).");
-            var destination = candidates[0];
-            cache[destinationIp] = new NeighbourObservation(destination, session.Revision);
-            var request = Path(destination.id);
-            bool canReply = SameSubnet(destination.ipv4, source.ipv4, destination.prefixLength) && UsableAddress(source.ipv4, destination.prefixLength);
-            for (int i = 0; i < count; i++)
+            path.Reverse();
+            return path;
+        }
+
+        private static bool CanReply(PortDefinition destination, PortDefinition source) =>
+            SameSubnet(destination.ipv4, source.ipv4, destination.prefixLength) && UsableAddress(source.ipv4, destination.prefixLength);
+
+        private static void AppendEchoAttempts(List<ProbeTraceStep> trace, List<Edge> request, int count, bool canReply)
+        {
+            for (int attempt = 1; attempt <= count; attempt++)
             {
-                trace.AddRange(request.Select(e => e.Step(TracePhase.EchoRequest, false, i + 1)));
-                if (canReply) trace.AddRange(request.AsEnumerable().Reverse().Select(e => e.Step(TracePhase.EchoReply, true, i + 1)));
+                trace.AddRange(request.Select(e => e.Step(TracePhase.EchoRequest, false, attempt)));
+                if (canReply) trace.AddRange(request.AsEnumerable().Reverse().Select(e => e.Step(TracePhase.EchoReply, true, attempt)));
             }
-            return Finish(canReply ? ProbeStatus.Success : ProbeStatus.ReplyUnavailable,
-                canReply ? "Solicitudes y respuestas completadas." : "Sin respuesta ICMP; revisar la configuración de retorno.", destination.id);
         }
 
         private void RefreshCache()

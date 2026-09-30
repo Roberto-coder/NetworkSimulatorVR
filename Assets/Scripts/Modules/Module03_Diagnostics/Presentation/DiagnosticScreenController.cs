@@ -25,11 +25,11 @@ namespace Modules.Module03_Diagnostics.Presentation
             xRayEnabled = value;
             if (targets == null) return;
             foreach (var target in targets)
-                if (target.screen != null && target.screen.xRayLabel != null)
-                    target.screen.xRayLabel.text = value ? "Rayos X: ON" : "Rayos X: OFF";
+                if (target.screen != null) target.screen.SetXRay(value);
         }
         public Module03NetworkScene networkScene;
         public DiagnosticUiSettings settings;
+        public NetworkAdministrationSettings administration;
         public Camera playerCamera;
         public Transform rightAim;
         public GameObject radialCanvas;
@@ -78,6 +78,15 @@ namespace Modules.Module03_Diagnostics.Presentation
                     playerCamera == null ? "Falta Player Camera." : "Falta Right Aim.";
                 Debug.LogError("M3: " + interactionStatus, this); enabled = false; return;
             }
+            CollectTargets();
+            if (!ValidateViews()) return;
+            BindViews();
+            workspace = new DiagnosticWorkspace(networkScene.Session, networkScene.Diagnostics, administration != null && administration.targetRules != null ? administration.targetRules.DocumentedInventory(networkScene.initialState) : networkScene.initialState.CopyDefinition(), settings.sourcePortId);
+            HideHints();
+        }
+
+        private void CollectTargets()
+        {
             targets = networkScene.GetComponentsInChildren<DiagnosticInteractionTarget>(true);
             var definition = networkScene.initialState.CopyDefinition();
             // Compatibilidad con escenas ya generadas: ocultar las vistas antiguas, sin construir ni borrar UI.
@@ -87,6 +96,10 @@ namespace Modules.Module03_Diagnostics.Presentation
                 if (target.focusHint != null) target.focusHint.gameObject.SetActive(false);
             }
             targets = targets.Where(t => t.isActiveAndEnabled && DiagnosticWorkspace.HasLocalScreen(definition, t.DeviceId)).ToArray();
+        }
+
+        private bool ValidateViews()
+        {
             var used = new HashSet<DiagnosticScreenView>();
             foreach (var target in targets)
             {
@@ -94,23 +107,34 @@ namespace Modules.Module03_Diagnostics.Presentation
                 if (view == null || !used.Add(view) || view.title == null || view.output == null || view.outputRect == null ||
                     view.commands == null || view.commands.Length != 6 || view.commands.Any(b => b == null) ||
                     view.nodes == null || view.nodes.Any(n => n == null || n.button == null || n.label == null))
-                { interactionStatus = $"Vista incompleta o compartida: {target.name}. Revisar Console."; Debug.LogError("M3: cada dispositivo necesita una vista fija completa y exclusiva.", target); enabled = false; return; }
+                { interactionStatus = $"Vista incompleta o compartida: {target.name}. Revisar Console."; Debug.LogError("M3: cada dispositivo necesita una vista fija completa y exclusiva.", target); enabled = false; return false; }
             }
+            return true;
+        }
+
+        private void BindViews()
+        {
             foreach (var target in targets)
             {
                 var view = target.screen;
                 view.gameObject.SetActive(false);
+                BindAdministration(view);
                 if (view.xRayButton != null) Bind(view.xRayButton, () => { if (IsOpen && View == view && !Blocked) XRayRequested?.Invoke(); });
                 for (int i = 0; i < view.commands.Length; i++)
-                { int command = i; Bind(view.commands[i], () => Command(view, command)); }
+                {
+                    int command = i; // Capturar el índice de este botón, no el contador mutable del bucle.
+                    Bind(view.commands[i], () => Command(view, command));
+                }
                 foreach (var node in view.nodes)
-                { string id = node.deviceId; Bind(node.button, () => SelectNode(view, id)); }
+                {
+                    string id = node.deviceId;
+                    Bind(node.button, () => SelectNode(view, id));
+                }
             }
-            workspace = new DiagnosticWorkspace(networkScene.Session, networkScene.Diagnostics, networkScene.initialState.CopyDefinition(), settings.sourcePortId);
-            HideHints();
         }
+
         private void Bind(Button button, UnityAction callback)
-        { button.onClick.AddListener(callback); listeners.Add((button, callback)); }
+        { if (button == null) return; button.onClick.AddListener(callback); listeners.Add((button, callback)); }
         private void HideHints()
         {
             if (targets == null) return;
@@ -126,15 +150,29 @@ namespace Modules.Module03_Diagnostics.Presentation
                     modalBlockers.Any(g => g != null && g.activeInHierarchy) ? "Bloqueado: Modal Blockers activo" : "Bloqueado: rueda/Radial Canvas activo";
                 Close(); return;
             }
-            if (IsOpen)
+            if (IsOpen) UpdateOpenScreen();
+            else UpdatePointedDevice();
+        }
+
+        // Mantener una pantalla abierta sólo requiere alcance, disponibilidad y revisión vigente.
+        private void UpdateOpenScreen()
+        {
+            interactionStatus = $"Canvas abierto: {currentTarget.DeviceId}";
+            bool outsideRange = Vector3.Distance(playerCamera.transform.position, currentTarget.InteractionPosition) > settings.interactionRange;
+            if (!currentTarget.isActiveAndEnabled || outsideRange || InteractPressed)
             {
-                interactionStatus = $"Canvas abierto: {currentTarget.DeviceId}";
-                if (!currentTarget.isActiveAndEnabled || Vector3.Distance(playerCamera.transform.position, currentTarget.InteractionPosition) > settings.interactionRange || InteractPressed)
-                { Close(); return; }
-                if (shownRevision != networkScene.Session.Revision)
-                { RefreshNodes(); View.ShowOutput("La red cambió. Repite la consulta; las observaciones anteriores están obsoletas."); }
+                Close();
                 return;
             }
+            if (shownRevision == networkScene.Session.Revision) return;
+            RefreshNodes();
+            var admin = View.GetComponent<NetworkAdministrationView>();
+            if (admin != null && admin.panel.activeSelf) RefreshAdministration(admin);
+            View.ShowOutput("La red cambió. Repite la consulta; las observaciones anteriores están obsoletas.");
+        }
+
+        private void UpdatePointedDevice()
+        {
             // Este rayo usa el eje Z de Right Aim; el dibujo permite compararlo con el puntero XRI.
             if (drawInteractionRay)
                 Debug.DrawRay(rightAim.position, rightAim.forward * settings.interactionRange, Color.cyan);
@@ -165,39 +203,190 @@ namespace Modules.Module03_Diagnostics.Presentation
             // Solo visibilidad y datos: posición, escala y orientación son las guardadas en escena.
             View.gameObject.SetActive(true);
             SetXRayIndicator(xRayEnabled);
-            View.title.text = $"{target.DeviceId} · contexto local | Ping desde {settings.sourcePortId}";
-            HideHints(); RefreshNodes();
+            View.title.text = $"{target.DeviceId} · contexto local | Ping desde {workspace.LocalSourcePortId}";
+            var admin = View.GetComponent<NetworkAdministrationView>();
+            if (admin != null) admin.panel.SetActive(false);
+            HideHints(); RefreshNodes(); RefreshContext();
             View.ShowOutput(target.DeviceId == settings.laptopDeviceId ? settings.mapTitle : workspace.LocalConfiguration());
         }
         public void Close()
-        { if (View != null) { View.gameObject.SetActive(false); ScreenClosed?.Invoke(); } currentTarget = null; }
+        {
+            if (View != null)
+            {
+                View.gameObject.SetActive(false);
+                ScreenClosed?.Invoke();
+            }
+            currentTarget = null;
+        }
         private void SelectNode(DiagnosticScreenView view, string id)
         {
             if (view != View || !IsOpen || Blocked) return;
             selected = id; workspace.SelectDestination(id); RefreshNodes();
+            var admin = view.GetComponent<NetworkAdministrationView>();
+            if (admin != null) { admin.portIndex = 0; if (!workspace.CanManageSwitch && !workspace.CanEditLocalAddress) admin.panel.SetActive(false); }
+            RefreshContext();
+            if (admin != null && admin.panel.activeSelf) RefreshAdministration(admin);
             view.ShowOutput(id + "\nIP documentada: " + (workspace.ExpectedAddress(id) ?? "No aplica (pasivo)") + "\n" + workspace.Observation(id));
         }
         private void Command(DiagnosticScreenView view, int index)
         {
-            if (view != View || !IsOpen || Blocked) return;
+            if (view != View || !IsOpen || Blocked || !view.commands[index].gameObject.activeSelf) return;
             CommandExecuting?.Invoke();
             try
             {
                 switch (index)
                 {
-                    case 0:
-                        var result = workspace.PingSelected();
-                        view.ShowOutput($"ping {result.DestinationIp}\nOrigen: {result.SourcePort}\n{result.Status} · {result.Received}/{result.Sent}\n{result.Message}\nRespondió: {result.ResponderPort}\nRevisión: {result.Revision}");
-                        RefreshNodes(); ProbeExecuted?.Invoke(result, view); break;
-                    case 1: view.ShowOutput("arp -a · " + settings.sourcePortId + "\n" + workspace.Neighbours()); break;
-                    case 2: view.ShowOutput(workspace.LocalConfiguration()); break;
-                    case 3: view.ShowOutput(workspace.SwitchPorts(selected)); break;
-                    case 4: view.ShowOutput(workspace.History()); break;
+                    case 0: ExecutePing(view); break;
+                    case 1: ShowConsole(); view.ShowOutput("arp -a · " + workspace.LocalSourcePortId + "\n" + workspace.Neighbours()); break;
+                    case 2:
+                        if (IsManagingSwitch) view.GetComponent<NetworkAdministrationView>().details.text = workspace.SwitchPorts(selected);
+                        else { ShowConsole(); view.ShowOutput(workspace.LocalConfiguration()); }
+                        break;
+                    case 3:
+                        var admin = view.GetComponent<NetworkAdministrationView>();
+                        if (admin != null && workspace.CanManageSwitch)
+                            AdminAction(view, admin, () => admin.panel.SetActive(true));
+                        break;
+                    case 4: ShowConsole(); view.ShowOutput(workspace.History()); break;
                     case 5: Close(); break;
                 }
             }
             catch (Exception e) { view.ShowOutput(e.Message); }
         }
+        private void ExecutePing(DiagnosticScreenView view)
+        {
+            ShowConsole();
+            var result = workspace.PingSelected();
+            view.ShowOutput($"ping {result.DestinationIp}\nOrigen: {result.SourcePort}\n{result.Status} · {result.Received}/{result.Sent}\n{result.Message}\nRespondió: {result.ResponderPort}\nRevisión: {result.Revision}");
+            RefreshNodes();
+            ProbeExecuted?.Invoke(result, view);
+        }
+
+        private void ShowConsole()
+        {
+            var admin = View.GetComponent<NetworkAdministrationView>();
+            if (admin != null) admin.panel.SetActive(false);
+            RefreshContext();
+        }
+
+
+        private void BindAdministration(DiagnosticScreenView view)
+        {
+            var admin = view.GetComponent<NetworkAdministrationView>();
+            if (admin == null) return; // Las escenas de sprints anteriores siguen funcionando.
+            admin.panel.SetActive(false);
+            Bind(admin.open, () => AdminAction(view, admin, () => { if (!workspace.CanEditLocalAddress && !workspace.CanManageSwitch) return; admin.portIndex = 0; admin.panel.SetActive(true); }));
+            Bind(admin.back, () => AdminAction(view, admin, () => admin.panel.SetActive(false)));
+            Bind(admin.previousPort, () => AdminAction(view, admin, () => admin.portIndex--));
+            Bind(admin.previousAddress, () => AdminAction(view, admin, () => admin.addressIndex--));
+            Bind(admin.nextPort, () => AdminAction(view, admin, () => admin.portIndex++));
+            Bind(admin.nextAddress, () => AdminAction(view, admin, () => admin.addressIndex++));
+            // Compatibilidad con prefabs ya guardados: ocultar el selector antiguo.
+            if (admin.nextPrefix != null) admin.nextPrefix.gameObject.SetActive(false);
+            var applyLabel = admin.applyAddress.GetComponentInChildren<TMPro.TMP_Text>();
+            if (applyLabel != null) applyLabel.text = "Aplicar IP";
+            Bind(admin.applyAddress, () => AdminAction(view, admin, () =>
+            {
+                var port = AdminPort(admin);
+                if (!workspace.ConfigureLocalAddress(port.id, administration.addressOptions[admin.addressIndex]))
+                    throw new InvalidOperationException("IP o prefijo inválidos. Consulta la bitácora.");
+            }));
+            Bind(admin.enablePort, () => AdminAction(view, admin, () => ApplySwitchPort(admin, true)));
+            Bind(admin.disablePort, () => AdminAction(view, admin, () => ApplySwitchPort(admin, false)));
+            Bind(admin.verify, () => AdminAction(view, admin, () => { }, true));
+        }
+
+        private void ApplySwitchPort(NetworkAdministrationView admin, bool enabled)
+        {
+            if (!workspace.ConfigureSwitchPort(AdminPort(admin).id, enabled))
+                throw new InvalidOperationException("No se pudo cambiar el puerto. Consulta la bitácora.");
+        }
+
+        private PortDefinition AdminPort(NetworkAdministrationView admin)
+        {
+            var ports = workspace.EditablePorts();
+            if (ports.Count == 0) throw new InvalidOperationException("Abre una PC o selecciona el switch desde la laptop.");
+            admin.portIndex = Wrap(admin.portIndex, ports.Count);
+            return ports[admin.portIndex];
+        }
+
+        private void AdminAction(DiagnosticScreenView view, NetworkAdministrationView admin, Action action, bool verify = false)
+        {
+            if (view != View || !IsOpen || Blocked) return;
+            CommandExecuting?.Invoke();
+            try
+            {
+                if (administration == null || administration.targetRules == null || administration.addressOptions == null ||
+                    administration.addressOptions.Length == 0)
+                    throw new InvalidOperationException("Falta configuración de administración. Ejecuta el configurador del sprint 7.");
+                action(); RefreshNodes(); RefreshContext(); RefreshAdministration(admin);
+                if (verify) admin.details.text = VerifyConfiguration();
+            }
+            catch (Exception e) { admin.details.text = e.Message; view.ShowOutput(e.Message); }
+        }
+
+        private void RefreshAdministration(NetworkAdministrationView admin)
+        {
+            if (administration == null) return;
+            var ports = workspace.EditablePorts();
+            bool pc = workspace.CanEditLocalAddress;
+            foreach (var control in new[] { admin.previousAddress, admin.nextAddress, admin.applyAddress })
+                if (control != null) { control.gameObject.SetActive(pc); control.interactable = ports.Count > 0; }
+            if (admin.addressLabel != null) admin.addressLabel.gameObject.SetActive(pc);
+            foreach (var control in new[] { admin.enablePort, admin.disablePort })
+                if (control != null) control.gameObject.SetActive(!pc && workspace.CanManageSwitch);
+            admin.nextPort.interactable = ports.Count > 1;
+            if (admin.previousPort != null) admin.previousPort.interactable = ports.Count > 1;
+            if (ports.Count == 0) { admin.details.text = "Selecciona el switch en el minimapa de la laptop o abre una PC presencialmente."; return; }
+            var port = AdminPort(admin);
+            admin.addressIndex = Wrap(admin.addressIndex, administration.addressOptions.Length);
+            if (admin.portLabel != null) admin.portLabel.text = "PUERTO\n" + port.id;
+            if (admin.addressLabel != null) admin.addressLabel.text = "IP PROPUESTA\n" + administration.addressOptions[admin.addressIndex] + "/" + workspace.DocumentedPrefix(port.id);
+            admin.enablePort.interactable = !port.enabled;
+            admin.disablePort.interactable = port.enabled;
+            // La consulta del switch verifica acceso antes de mostrar su configuración remota.
+            admin.details.text = pc ? workspace.LocalConfiguration() : workspace.SwitchPorts(workspace.SelectedDeviceId);
+            admin.details.text += "\n\nPuerto seleccionado: " + port.id + (pc ?
+                "\nPropuesta: " + administration.addressOptions[admin.addressIndex] + "/" + workspace.DocumentedPrefix(port.id) :
+                "\nHabilitar/deshabilitar requiere acceso de gestión en cada cambio.");
+        }
+
+        private static int Wrap(int index, int count) => count > 0 ? (index % count + count) % count : 0;
+
+        private bool IsManagingSwitch => workspace.CanManageSwitch &&
+            View.GetComponent<NetworkAdministrationView>() is NetworkAdministrationView admin && admin.panel.activeSelf;
+
+        private void RefreshContext()
+        {
+            var admin = View.GetComponent<NetworkAdministrationView>();
+            bool remote = IsManagingSwitch;
+            View.title.text = remote ? $"{selected} · Gestión desde {workspace.LocalDeviceId}" :
+                $"{workspace.LocalDeviceId} · Consola local | Origen: {workspace.LocalSourcePortId}";
+            View.commands[0].gameObject.SetActive(!remote);
+            View.commands[1].gameObject.SetActive(!remote);
+            View.commands[3].gameObject.SetActive(workspace.CanManageSwitch && !remote);
+            var configLabel = View.commands[2].GetComponentInChildren<TMPro.TMP_Text>();
+            if (configLabel != null) configLabel.text = remote ? "Datos de gestión" : "IP / máscara / MAC";
+            if (admin == null) return;
+            admin.open.gameObject.SetActive(!admin.panel.activeSelf && (workspace.CanEditLocalAddress || workspace.CanManageSwitch));
+            var label = admin.open.GetComponentInChildren<TMPro.TMP_Text>();
+            if (label != null) label.text = workspace.CanEditLocalAddress ? "Modificar IP" : "Administrar switch";
+        }
+
+        private string VerifyConfiguration()
+        {
+            var rules = administration.targetRules.Evaluate(networkScene.Session);
+            var required = administration.requiredRuleIds;
+            var devices = administration.verificationDeviceIds;
+            if (required == null || required.Length == 0 || devices == null || devices.Length == 0)
+                return "Faltan reglas o equipos de verificación en GameData.";
+            bool configuration = required.All(id => rules.Any(r => r.RuleId == id && r.Passed));
+            bool probes = devices.All(workspace.HasCurrentSuccessfulProbe);
+            return (configuration && probes ? "Incidentes de puerto e IP verificados." : "Verificación pendiente.") +
+                "\nConfiguración esperada: " + (configuration ? "correcta" : "hay diferencias") + "\n" +
+                string.Join("\n", devices.Select(id => id + ": " + (workspace.HasCurrentSuccessfulProbe(id) ? "ping vigente al equipo correcto" : "repite ping tras el último cambio")));
+        }
+
         private void RefreshNodes()
         {
             shownRevision = networkScene.Session.Revision;

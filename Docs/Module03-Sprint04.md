@@ -102,3 +102,12 @@ Incluye ampliaciones posteriores del sprint; los archivos reutilizados o modific
 | `Module03DiagnosticUiSetup.cs` | Ventana de configuración y migración del sprint 4. |
 | `VRInputManager.cs (modificado)` | Centraliza A en OpenXR/OVR. |
 | `RadialMenuController.cs (modificado)` | Expone visibilidad real para bloquear la pantalla. |
+
+
+## Refactorización de legibilidad
+
+| Script modificado | Objetivo o función |
+| --- | --- |
+| `DiagnosticScreenController.cs` | Refactor sin cambiar referencias serializadas: CollectTargets, ValidateViews, BindViews, UpdateOpenScreen, UpdatePointedDevice y ExecutePing. |
+
+Se conserva el comportamiento probado por las 129 comprobaciones de dominio. Las pruebas de interacción deben repetirse en Unity.

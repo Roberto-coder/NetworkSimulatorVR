@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbc2b607f0d96bc4f8c8b04d0f7911b0, type: 3}
+  m_Name: NetworkAdministrationSettings
+  m_EditorClassIdentifier: Assembly-CSharp::GameData.Module03.NetworkAdministrationSettings
+  targetRules: {fileID: 11400000, guid: 0cda4952bff14d369b32050b6d7c89d8, type: 2}
+  addressOptions:
+  - 192.168.10.11
+  - 192.168.10.12
+  - 192.168.10.13
+  - 192.168.10.14
+  requiredRuleIds:
+  - enabled-P02
+  - address-PC-02
+  - address-PC-03
+  - unique-addresses
+  verificationDeviceIds:
+  - PC-02
+  - PC-03

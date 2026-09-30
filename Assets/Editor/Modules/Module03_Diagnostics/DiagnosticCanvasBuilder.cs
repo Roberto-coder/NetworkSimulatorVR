@@ -10,7 +10,7 @@ using UnityEngine.XR.Interaction.Toolkit.UI;
 
 namespace Modules.Module03_Diagnostics.Editor
 {
-    // Solo se ejecuta desde el configurador del Editor. La jerarquía resultante se guarda en escena.
+    // Solo se ejecuta desde el configurador del Editor. La jerarquÃ­a resultante se guarda en escena.
     public static class DiagnosticCanvasBuilder
     {
         private static RectTransform Rect(string name, Transform parent, Vector2 size, Vector2 position)
@@ -38,7 +38,7 @@ namespace Modules.Module03_Diagnostics.Editor
             scroll.viewport = rect; scroll.content = content; scroll.movementType = ScrollRect.MovementType.Clamped;
             return content;
         }
-        // Autoría únicamente: se aplica también a Canvas/prefabs creados antes del sprint 5.
+        // AutorÃ­a Ãºnicamente: se aplica tambiÃ©n a Canvas/prefabs creados antes del sprint 5.
         public static void AddTraceControls(DiagnosticScreenView view)
         {
             // El contorno usa el fondo completo: incluye icono, nombre y estado.
@@ -59,10 +59,38 @@ namespace Modules.Module03_Diagnostics.Editor
             }
             if (view.animationStatus == null)
             {
-                view.animationStatus = Text(view.transform, "Traza de ping · velocidad didáctica", new Vector2(1030, 30), new Vector2(0, -145), 15);
+                view.animationStatus = Text(view.transform, "Traza de ping Â· velocidad didÃ¡ctica", new Vector2(1030, 30), new Vector2(0, -145), 15);
                 view.animationStatus.name = "Trace status";
             }
         }
+        public static void AddAdministrationControls(DiagnosticScreenView view)
+        {
+            var existing = view.GetComponent<NetworkAdministrationView>();
+            if (existing != null)
+            {
+                if (existing.nextPrefix != null) existing.nextPrefix.gameObject.SetActive(false);
+                if (existing.applyAddress != null) existing.applyAddress.GetComponentInChildren<TMP_Text>().text = "Aplicar IP";
+                DiagnosticConsoleStyle.Apply(view);
+                return;
+            }
+            var admin = view.gameObject.AddComponent<NetworkAdministrationView>();
+            admin.open = Button(view.transform, "Administrar", new Vector2(245, 48), new Vector2(390, -312));
+            var panel = Rect("Administration", view.transform, new Vector2(1040, 540), new Vector2(0, 35));
+            panel.gameObject.AddComponent<Image>().color = new Color(0.025f, 0.035f, 0.055f);
+            admin.panel = panel.gameObject;
+            admin.details = Text(panel, "Administración de red", new Vector2(1000, 330), new Vector2(0, 90), 18);
+            admin.details.alignment = TextAlignmentOptions.TopLeft;
+            admin.nextPort = Button(panel, "Siguiente puerto", new Vector2(310, 45), new Vector2(-330, -105));
+            admin.nextAddress = Button(panel, "Siguiente IP", new Vector2(310, 45), new Vector2(0, -105));
+            admin.applyAddress = Button(panel, "Aplicar IP", new Vector2(310, 45), new Vector2(-330, -165));
+            admin.enablePort = Button(panel, "Habilitar puerto", new Vector2(310, 45), new Vector2(0, -165));
+            admin.disablePort = Button(panel, "Deshabilitar puerto", new Vector2(310, 45), new Vector2(330, -165));
+            admin.verify = Button(panel, "Verificar incidentes", new Vector2(310, 45), new Vector2(-165, -225));
+            admin.back = Button(panel, "Volver al mapa", new Vector2(310, 45), new Vector2(165, -225));
+            panel.gameObject.SetActive(false);
+            DiagnosticConsoleStyle.Apply(view);
+        }
+
         public static DiagnosticScreenView Build(Transform parent, Module03NetworkScene networkScene, DiagnosticUiSettings settings, Camera playerCamera)
         {
             var root = Rect("M03 Diagnostic Screen", parent, new Vector2(1100, 730), Vector2.zero);
@@ -72,7 +100,7 @@ namespace Modules.Module03_Diagnostics.Editor
             panel.AddComponent<TrackedDeviceGraphicRaycaster>(); panel.AddComponent<GraphicRaycaster>();
             panel.AddComponent<Image>().color = new Color(0.025f, 0.035f, 0.055f);
             view.title = Text(root, "", new Vector2(1060, 45), new Vector2(0, 320), 24);
-            Text(root, settings.mapTitle, new Vector2(580, 40), new Vector2(-230, 265), 20);
+            Text(root, settings.mapTitle, new Vector2(580, 40), new Vector2(-230, 265), 20).name = "DescriptionText";
             var n = networkScene.initialState.CopyDefinition();
             int columns = Mathf.Max(3, Mathf.CeilToInt(Mathf.Sqrt(n.devices.Count)));
             float mapWidth = Mathf.Max(550, columns * 180), mapHeight = Mathf.Max(420, Mathf.Ceil(n.devices.Count / (float)columns) * 110);
@@ -90,7 +118,7 @@ namespace Modules.Module03_Diagnostics.Editor
                 positions[n.devices[i].id] = authored ? new Vector2(85 + (pose.mapPosition.x - minX) / rangeX * (mapWidth - 170),
                     -55 - (pose.mapPosition.y - minY) / rangeY * (mapHeight - 110)) : new Vector2(85 + i % columns * 180, -55 - i / columns * 110);
             }
-            // Las posiciones del asset UI prevalecen sobre la distribución automática.
+            // Las posiciones del asset UI prevalecen sobre la distribuciÃ³n automÃ¡tica.
             foreach (var node in settings.mapNodes)
                 if (positions.ContainsKey(node.deviceId)) positions[node.deviceId] = node.position;
             map.sizeDelta = new Vector2(Mathf.Max(mapWidth, positions.Values.Max(p => p.x) + 85),
@@ -138,6 +166,7 @@ namespace Modules.Module03_Diagnostics.Editor
                 view.commands[i] = Button(root, settings.commands[i], new Vector2(245, 48), new Vector2(-390 + i % 4 * 260, -250 - i / 4 * 62));
             }
             AddTraceControls(view);
+            AddAdministrationControls(view);
             panel.SetActive(false); return view;
         }
 

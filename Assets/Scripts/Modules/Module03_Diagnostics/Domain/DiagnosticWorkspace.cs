@@ -14,9 +14,16 @@ namespace Modules.Module03_Diagnostics.Domain
         private readonly NetworkSimulationService diagnostics;
         private readonly NetworkDefinition inventory;
         private readonly Dictionary<string, ProbeResult> observations = new();
+        private readonly Dictionary<(string source, string destination), ProbeResult> localObservations = new();
         public string LocalDeviceId { get; private set; }
         public string SelectedDeviceId { get; private set; }
         public string SourcePortId { get; }
+        // El origen de las consultas locales sigue a la pantalla abierta.
+        public string LocalSourcePortId => inventory.ports.FirstOrDefault(p =>
+            p.deviceId == LocalDeviceId && !string.IsNullOrEmpty(p.ipv4))?.id ?? SourcePortId;
+        public bool CanEditLocalAddress => inventory.devices.Any(d => d.id == LocalDeviceId && d.kind == DeviceKind.Computer);
+        public bool CanManageSwitch => inventory.devices.Any(d => d.id == LocalDeviceId && d.kind == DeviceKind.DiagnosticStation) &&
+            inventory.devices.Any(d => d.id == SelectedDeviceId && d.kind == DeviceKind.Switch);
         public ProbeResult LastProbe { get; private set; }
         public DiagnosticWorkspace(NetworkSession session, NetworkSimulationService diagnostics, NetworkDefinition inventory, string sourcePort)
         {
@@ -38,18 +45,68 @@ namespace Modules.Module03_Diagnostics.Domain
         {
             string ip = ExpectedAddress(SelectedDeviceId);
             if (string.IsNullOrEmpty(ip)) throw new InvalidOperationException("Selecciona un equipo con IPv4 en el inventario.");
-            LastProbe = diagnostics.Ping(SourcePortId, ip);
+            LastProbe = diagnostics.Ping(LocalSourcePortId, ip);
             observations[SelectedDeviceId] = LastProbe;
+            localObservations[(LocalSourcePortId, SelectedDeviceId)] = LastProbe;
             return LastProbe;
         }
         public string Observation(string id)
         {
-            if (!observations.TryGetValue(id, out var result)) return "Sin comprobar";
+            if (!localObservations.TryGetValue((LocalSourcePortId, id), out var result)) return "Sin comprobar";
             if (!diagnostics.IsCurrent(result)) return "Obsoleto";
             if (result.Status != ProbeStatus.Success) return result.Status.ToString();
             return inventory.ports.Any(p => p.id == result.ResponderPort && p.deviceId == id) ? "Responde" : "Responde otro equipo";
         }
         public bool LastIsCurrent => diagnostics.IsCurrent(LastProbe);
+
+        // La selección del minimapa nunca concede permisos para editar otra PC.
+        public IReadOnlyList<PortDefinition> EditablePorts()
+        {
+            var n = session.Snapshot();
+            var local = n.devices.Find(d => d.id == LocalDeviceId);
+            string device = local?.kind == DeviceKind.Computer ? LocalDeviceId :
+                local?.kind == DeviceKind.DiagnosticStation &&
+                n.devices.Any(d => d.id == SelectedDeviceId && d.kind == DeviceKind.Switch) ? SelectedDeviceId : null;
+            return n.ports.Where(p => device != null && p.deviceId == device).ToArray();
+        }
+
+        // La actividad evalúa direcciones duplicadas; el prefijo procede del inventario documentado.
+        public int DocumentedPrefix(string portId) => inventory.ports.First(p => p.id == portId).prefixLength;
+        public bool ConfigureLocalAddress(string portId, string ip) =>
+            ConfigureLocalAddress(portId, ip, DocumentedPrefix(portId));
+
+        public bool ConfigureLocalAddress(string portId, string ip, int prefix)
+        {
+            var n = session.Snapshot();
+            if (!n.devices.Any(d => d.id == LocalDeviceId && d.kind == DeviceKind.Computer) ||
+                !n.ports.Any(p => p.id == portId && p.deviceId == LocalDeviceId))
+                throw new InvalidOperationException("La IP se configura presencialmente en la PC correspondiente.");
+            return session.SetAddress(portId, ip, prefix);
+        }
+
+        public bool ConfigureSwitchPort(string portId, bool enabled)
+        {
+            var n = session.Snapshot();
+            if (!n.devices.Any(d => d.id == LocalDeviceId && d.kind == DeviceKind.DiagnosticStation) ||
+                !n.ports.Any(p => p.id == SourcePortId && p.deviceId == LocalDeviceId) ||
+                !n.devices.Any(d => d.id == SelectedDeviceId && d.kind == DeviceKind.Switch) ||
+                !n.ports.Any(p => p.id == portId && p.deviceId == SelectedDeviceId))
+                throw new InvalidOperationException("Selecciona el switch desde la laptop para administrar sus puertos.");
+            // Comprobar acceso en cada escritura: apagar el uplink corta también la administración.
+            var ip = ExpectedAddress(SelectedDeviceId);
+            if (string.IsNullOrEmpty(ip)) throw new InvalidOperationException("Sin IP de gestión documentada.");
+            var access = diagnostics.Ping(SourcePortId, ip, 1);
+            if (access.Status != ProbeStatus.Success || !n.ports.Any(p => p.id == access.ResponderPort && p.deviceId == SelectedDeviceId))
+                throw new InvalidOperationException("Administración inaccesible: revisa la conexión de la laptop.");
+            return session.SetPortEnabled(portId, enabled);
+        }
+
+        // La evidencia corresponde al equipo esperado, a esta sesión y a la revisión actual.
+        public bool HasCurrentSuccessfulProbe(string deviceId) =>
+            observations.TryGetValue(deviceId, out var result) && diagnostics.IsCurrent(result) &&
+            result.Status == ProbeStatus.Success && inventory.ports.Any(p =>
+                p.deviceId == deviceId && p.id == result.ResponderPort && p.ipv4 == result.DestinationIp);
+
         public string LocalConfiguration()
         {
             var n = session.Snapshot();
@@ -59,9 +116,9 @@ namespace Modules.Module03_Diagnostics.Domain
                 string.Join("\n", n.ports.Where(p => p.deviceId == device.id).Select(p => p.id));
             if (device.kind == DeviceKind.Switch) return device.id + " · Consulta sus puertos mediante administración desde la laptop.";
             return string.Join("\n", n.ports.Where(p => p.deviceId == LocalDeviceId).Select(p =>
-                $"{p.id}\nIP: {(string.IsNullOrEmpty(p.ipv4) ? "No aplica" : p.ipv4 + "/" + p.prefixLength)}  MAC: {p.mac}\nAdministrativo: {(p.enabled ? "habilitado" : "inhabilitado")} · Enlace: {(HasLink(n, p.id) ? "activo" : "caído")}"));
+                $"{p.id}\nIP: {(string.IsNullOrEmpty(p.ipv4) ? "No aplica" : p.ipv4 + "/" + p.prefixLength)}\nMáscara: {SubnetMask(p.prefixLength)}  MAC: {p.mac}\nAdministrativo: {(p.enabled ? "habilitado" : "inhabilitado")} · Enlace: {(HasLink(n, p.id) ? "activo" : "caído")}"));
         }
-        public string Neighbours() => string.Join("\n", diagnostics.GetNeighbours(SourcePortId).Select(n => $"{n.Ip} → {n.Mac}"));
+        public string Neighbours() => string.Join("\n", diagnostics.GetNeighbours(LocalSourcePortId).Select(n => $"{n.Ip} → {n.Mac}"));
         public string History() => string.Join("\n", session.History.Skip(Math.Max(0, session.History.Count - 30)).Select(h =>
             $"#{h.Sequence} {h.Action} {h.EntityId}: {h.After} {h.Reason}"));
         public string SwitchPorts(string switchId)
@@ -73,13 +130,20 @@ namespace Modules.Module03_Diagnostics.Domain
             var access = diagnostics.Ping(SourcePortId, ip, 1);
             if (access.Status != ProbeStatus.Success || !n.ports.Any(p => p.id == access.ResponderPort && p.deviceId == switchId))
                 return "Administración inaccesible desde la laptop.";
-            return string.Join("\n", n.ports.Where(p => p.deviceId == switchId).Select(p =>
+            var management = n.ports.Where(p => p.deviceId == switchId && !string.IsNullOrEmpty(p.ipv4));
+            return string.Join("\n", management.Select(p => $"Gestión: {p.ipv4}/{p.prefixLength}\nMáscara: {SubnetMask(p.prefixLength)}  MAC: {p.mac}")) + "\n\n" +
+                string.Join("\n", n.ports.Where(p => p.deviceId == switchId).Select(p =>
             {
                 var cable = n.cables.FirstOrDefault(c => c.portA == p.id || c.portB == p.id);
                 // Conexión física no implica integridad ni conectividad IP; no revela daños remotos.
                 bool connected = cable != null;
                 return $"{p.id}: admin={(p.enabled ? "ON" : "OFF")}; cable local={(connected ? "conectado" : "sin cable")}; enlace={(HasLink(n, p.id) ? "activo" : "caído / no aplica a interfaz lógica")}";
             }));
+        }
+        private static string SubnetMask(int prefix)
+        {
+            uint mask = prefix == 0 ? 0 : uint.MaxValue << (32 - prefix);
+            return $"{mask >> 24}.{(mask >> 16) & 255}.{(mask >> 8) & 255}.{mask & 255}";
         }
         // El enlace físico termina en la siguiente interfaz activa. No atraviesa internamente switches.
         private static bool HasLink(NetworkDefinition n, string source)

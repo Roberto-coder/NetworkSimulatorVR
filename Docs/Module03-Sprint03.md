@@ -87,3 +87,12 @@ Incluye ampliaciones posteriores del sprint; los archivos reutilizados o modific
 | `NetworkSimulationService.cs` | Construye grafo operativo, ejecuta BFS, ARP e ICMP simulados. |
 | `ProbeResult.cs` | Define resultado, fases, traza y observaciones ARP. |
 | `Module03DiagnosticsWindow.cs` | Permite probar la simulación desde el Editor. |
+
+
+## Refactorización de legibilidad
+
+| Script modificado | Objetivo o función |
+| --- | --- |
+| `NetworkSimulationService.cs` | Refactor sin cambio de reglas: ValidatePing, BuildOperationalGraph, TraverseBreadthFirst, ReconstructPath y AppendEchoAttempts. |
+
+Se conserva el comportamiento probado por las 129 comprobaciones de dominio. Las pruebas de interacción deben repetirse en Unity.

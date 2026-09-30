@@ -47,6 +47,9 @@ namespace Modules.Module03_Diagnostics.Domain
         internal void RecordProbe(ProbeResult result) => Record(result.SourcePort, "Ping", "", result.DestinationIp,
             result.Status == ProbeStatus.Success, result.Status + ": " + result.Message);
 
+        internal void RecordCableTest(string cableId, bool accepted, string message) =>
+            Record(cableId, "CableTest", "", message, accepted, "Prueba de continuidad con ambos extremos desconectados.");
+
         // La revisión nunca retrocede: una evidencia previa tampoco vuelve a ser válida tras Reset.
         public void Reset()
         {

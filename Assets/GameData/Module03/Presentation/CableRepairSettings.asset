@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6df82e0e3e51d4a4c82705a94b619c97, type: 3}
+  m_Name: CableRepairSettings
+  m_EditorClassIdentifier: Assembly-CSharp::GameData.Module03.CableRepairSettings
+  incident:
+    faultyCableId: Patch-01
+    portA: R01/front
+    portB: PC-01/eth0
+    labelAtA: R01
+    labelAtB: PC-01
+    probeSource: Laptop/eth0
+    destinationIp: 192.168.10.11
+    responderPort: PC-01/eth0
+  patchCordPrefab: {fileID: 5092199493155504689, guid: 5a89c29f6bcffed48b4feccfdf109e4e, type: 3}
+  socketPrefab: {fileID: 4392845294359262780, guid: b2713130fa7c0384d866120ec4e9a8a1, type: 3}
+  testerPrefab: {fileID: 8898605496326245099, guid: 297a59ba5756d8c48945083f970eca45, type: 3}
+  labelMakerPrefab: {fileID: 7785070085971868030, guid: 53d63d59100f11f429eafbdf0dd20e48, type: 3}
+  testerRadius: 0.3
+  testerLedSeconds: 0.15
+  testerLedOn: {r: 0, g: 1, b: 0, a: 1}
+  testerLedOff: {r: 0, g: 0, b: 0, a: 1}
+  labelRadius: 0.12

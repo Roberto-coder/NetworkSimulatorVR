@@ -21,6 +21,13 @@ namespace Modules.Module03_Diagnostics.Presentation
         public TMP_Text title, output;
         public TMP_Text animationStatus, xRayLabel;
         public Button xRayButton;
+        public Image xRayIndicator;
+        public Sprite xRayOffSprite, xRayOnSprite;
+        public void SetXRay(bool value)
+        {
+            if (xRayLabel != null) xRayLabel.text = value ? "Rayos X · Activos" : "Rayos X · Inactivos";
+            if (xRayIndicator != null) xRayIndicator.sprite = value ? xRayOnSprite : xRayOffSprite;
+        }
         public RectTransform outputRect;
         public Button[] commands;
         public List<DiagnosticNodeBinding> nodes = new();
@@ -28,7 +35,8 @@ namespace Modules.Module03_Diagnostics.Presentation
         {
             output.text = value; output.ForceMeshUpdate();
             // Solo cambia el contenido desplazable; el Canvas conserva su transform.
-            outputRect.sizeDelta = new Vector2(outputRect.sizeDelta.x, Mathf.Max(390, output.preferredHeight + 30));
+            float viewportHeight = outputRect.parent is RectTransform viewport ? viewport.rect.height : 390;
+            outputRect.sizeDelta = new Vector2(outputRect.sizeDelta.x, Mathf.Max(viewportHeight, output.preferredHeight + 30));
             outputRect.anchoredPosition = Vector2.zero;
         }
     }

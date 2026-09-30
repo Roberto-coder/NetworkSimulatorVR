@@ -55,6 +55,12 @@ namespace Modules.Module03_Diagnostics.Editor
                 try { DiagnosticScreenPrefabSetup.Migrate(network, settings); status = "Instancias vinculadas al prefab. Anteriores desactivados como respaldo. Guarda la escena."; }
                 catch (Exception e) { status = e.Message; Debug.LogException(e); }
             }
+            EditorGUILayout.HelpBox("Para reemplazar pantallas antiguas o volver a crearlas después de borrar sus Canvas, usa Recrear. Conserva DiagnosticScreenController y los DiagnosticInteractionTarget de cada dispositivo. Las anteriores se desactivan; puedes borrarlas después.", MessageType.Info);
+            if (GUILayout.Button("Recrear pantallas desde prefab (Undo)"))
+            {
+                try { DiagnosticScreenPrefabSetup.RecreateScreens(); status = "Pantallas nuevas conectadas en la escena activa. Revisa ubicación y guarda la escena."; }
+                catch (Exception e) { status = e.Message; Debug.LogException(e); }
+            }
             EditorGUILayout.HelpBox(status ?? "Listo", MessageType.None);
         }
         private void Build()

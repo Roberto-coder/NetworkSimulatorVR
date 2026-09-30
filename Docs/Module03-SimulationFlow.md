@@ -138,3 +138,20 @@ La sección roja es una anotación de fallo, no un tramo por el que pasó una tr
 | ProbeTracePresenter.cs | Animación y señal persistente sin modificar dominio. |
 
 Limitaciones deliberadas: sin STP, tabla MAC del switch, tormentas, temporizadores ARP, pérdida aleatoria ni sockets reales. `Sent` cuenta intentos solicitados; `Received` vale count sólo en Success. El modelo no produce éxito parcial.
+
+
+## Refactorización de legibilidad
+
+El algoritmo anterior conserva el mismo orden y resultados. `Ping` ahora delega en métodos con una responsabilidad:
+
+| Método actual | Función |
+| --- | --- |
+| ValidatePing | Validar origen, habilitación, destino y subred antes de construir conexiones. |
+| BuildOperationalGraph | Crear graph con enlaces habilitados y cables íntegros. |
+| TraverseBreadthFirst | Devolver Traversal con Parents, Visited y Flood; queue sigue siendo local al recorrido. |
+| FindAddressablePorts | Filtrar reachable por IP/MAC válidas. |
+| ReconstructPath | Reconstruir el camino que antes calculaba la función local Path. |
+| CanReply | Comprobar subred/máscara de retorno. |
+| AppendEchoAttempts | Registrar intentos ICMP y respuestas cuando hay retorno. |
+
+En los diagramas anteriores, `parents`, `visited` y `flood` corresponden ahora a `traversal.Parents`, `traversal.Visited` y `traversal.Flood`; son los mismos datos agrupados en Traversal. No se añadieron hilos ni se cambiaron las reglas ARP.

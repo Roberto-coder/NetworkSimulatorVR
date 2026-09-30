@@ -80,8 +80,10 @@ namespace Shared.Cabling
                 nearbyPorts.Remove(port);
         }
 
-        private void HandleGrabbed(SelectEnterEventArgs _)
+        private void HandleGrabbed(SelectEnterEventArgs args)
         {
+            // Un socket XR retiene el plug; no equivale a retirarlo con la mano.
+            if (args.interactorObject is UnityEngine.XR.Interaction.Toolkit.Interactors.XRSocketInteractor) return;
             // Si se vuelve a tomar el cable antes de completar una conexión pendiente,
             // se cancela para que el plug no salte al socket mientras está en la mano.
             if (pendingConnection != null)
@@ -170,6 +172,8 @@ namespace Shared.Cabling
             nearbyPorts.RemoveWhere(port => port == null);
             foreach (NetworkPort port in nearbyPorts)
             {
+                // Los puertos XR administran su propio snap; evitar dos sistemas compitiendo.
+                if (port.GetComponentInChildren<UnityEngine.XR.Interaction.Toolkit.Interactors.XRSocketInteractor>() != null) continue;
                 if (!port.isActiveAndEnabled || port.Socket == null || port.IsConnected)
                     continue;
                 if (cableLink != null && port.Kind != cableLink.Kind)

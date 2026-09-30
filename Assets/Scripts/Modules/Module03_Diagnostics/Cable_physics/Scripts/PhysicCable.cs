@@ -240,6 +240,7 @@ namespace HPhysic
                     timeToBrake -= Time.deltaTime;
                     if (timeToBrake < 0f)
                     {
+                        Debug.LogWarning($"Cable desconectado por estiramiento: {cableLength:F2} m; límite {brakeLength:F2} m. Revisar puntos, colisiones y distancia entre sockets.", this);
                         startConnector.Disconnect();
                         endConnector.Disconnect();
                         timeToBrake = minBrakeTime;
