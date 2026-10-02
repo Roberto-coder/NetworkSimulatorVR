@@ -293,6 +293,98 @@ namespace HPhysic
         public Connector EndConnector => endConnector;
         public IReadOnlyList<Transform> Points => points;
 
+        /// <summary>
+        /// Recoloca la cadena completa tras mover sus sockets. No regenera objetos ni cambia IDs.
+        /// La curva es una propuesta de tendido: no busca caminos alrededor de muebles.
+        /// </summary>
+        public bool PlaceBetween(Vector3 a, Vector3 b, float length, Vector3 slackDirection)
+        {
+            if (length <= 0 || Vector3.Distance(a, b) > length) return false;
+            var chain = new List<Transform> { start.transform };
+            for (int i = 0; i < numberOfPoints; i++)
+            {
+                var point = GetPoint(i);
+                if (point == null) return false;
+                chain.Add(point);
+            }
+            chain.Add(end.transform);
+            Vector3 axis = (b - a).normalized;
+            Vector3 side = Vector3.ProjectOnPlane(slackDirection, axis).normalized;
+            if (side.sqrMagnitude < 0.01f) side = Vector3.Cross(axis, Vector3.up).normalized;
+            if (side.sqrMagnitude < 0.01f) side = Vector3.right;
+            Vector3 At(int i, float amplitude) => Vector3.Lerp(a, b, i / (float)(chain.Count - 1)) +
+                side * (amplitude * Mathf.Sin(Mathf.PI * i / (chain.Count - 1)));
+            float low = 0, high = length;
+            for (int pass = 0; pass < 32; pass++)
+            {
+                float mid = (low + high) / 2, measured = 0;
+                for (int i = 1; i < chain.Count; i++) measured += Vector3.Distance(At(i - 1, mid), At(i, mid));
+                if (measured < length) low = mid; else high = mid;
+            }
+            for (int i = 0; i < chain.Count; i++)
+            {
+                Vector3 position = At(i, (low + high) / 2);
+                chain[i].position = position;
+                if (chain[i].TryGetComponent<Rigidbody>(out var body))
+                {
+                    body.position = position;
+                    if (Application.isPlaying && !body.isKinematic)
+                    { body.linearVelocity = Vector3.zero; body.angularVelocity = Vector3.zero; }
+                }
+            }
+            space = length / (numberOfPoints + 1);
+            foreach (var joint in GetComponentsInChildren<SpringJoint>())
+                if (joint.connectedBody != null)
+                {
+                    joint.autoConfigureConnectedAnchor = false;
+                    joint.anchor = joint.connectedAnchor = Vector3.zero;
+                    joint.minDistance = joint.maxDistance = Vector3.Distance(joint.transform.position, joint.connectedBody.position);
+                }
+            for (int i = 0; i < chain.Count - 1; i++)
+            {
+                var visual = GetConnector(i);
+                if (visual == null) continue;
+                Vector3 delta = chain[i + 1].position - chain[i].position;
+                visual.position = (chain[i].position + chain[i + 1].position) / 2;
+                if (delta.sqrMagnitude > 0.000001f) visual.rotation = Quaternion.LookRotation(delta);
+                visual.localScale = new Vector3(size, size, delta.magnitude / 2);
+            }
+            return true;
+        }
+
+        /// <summary>Límite físico por tramo para M3. Los resortes solos no limitan el estiramiento.</summary>
+        public void LimitStretch(float fraction, float damping)
+        {
+            float restLength = 0;
+            foreach (var spring in GetComponentsInChildren<SpringJoint>())
+            {
+                if (spring.connectedBody == null) continue;
+                spring.damper = Mathf.Max(0, damping);
+                restLength += spring.maxDistance;
+                ConfigurableJoint limit = null;
+                foreach (var candidate in spring.GetComponents<ConfigurableJoint>())
+                    if (candidate.connectedBody == spring.connectedBody) { limit = candidate; break; }
+                if (limit == null) limit = spring.gameObject.AddComponent<ConfigurableJoint>();
+                limit.connectedBody = spring.connectedBody;
+                limit.autoConfigureConnectedAnchor = false;
+                limit.anchor = limit.connectedAnchor = Vector3.zero;
+                limit.xMotion = limit.yMotion = limit.zMotion = ConfigurableJointMotion.Limited;
+                limit.angularXMotion = limit.angularYMotion = limit.angularZMotion = ConfigurableJointMotion.Free;
+                limit.linearLimit = new SoftJointLimit { limit = spring.maxDistance * (1 + Mathf.Clamp(fraction, 0, 0.25f)) };
+                limit.projectionMode = JointProjectionMode.PositionAndRotation;
+                limit.projectionDistance = 0.02f;
+                limit.enableCollision = false;
+            }
+            foreach (var body in GetComponentsInChildren<Rigidbody>())
+            {
+                body.solverIterations = Mathf.Max(12, body.solverIterations);
+                body.solverVelocityIterations = Mathf.Max(4, body.solverVelocityIterations);
+            }
+            // Tolerancia de emergencia, no una longitud de trabajo varias veces mayor.
+            brakeLength = restLength * (1 + Mathf.Clamp(fraction, 0, 0.25f)) + 0.25f;
+            timeToBrake = minBrakeTime;
+        }
+
         /// <summary>Editor/runtime configuration for reusable patch-cord variants.</summary>
         public void ConfigureDimensions(int segments, float segmentLength, float diameter)
         {

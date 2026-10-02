@@ -146,3 +146,43 @@ La selección por socket ya no se interpreta como retirada manual. El detector a
 | `PhysicCable.cs` | Avisa con longitud medida y límite cuando desconecta por estiramiento. |
 
 Compilación externa correcta. Pendiente en Play: insertar/retirar ambos plugs, esperar sin tocar, tomar de nuevo desde el socket, comprobar bitácora y conectar el cable al tester. Si aparece el aviso de estiramiento, revisar geometría y colisiones antes de aumentar el límite: el socket no corrige una cadena que atraviesa el suelo.
+
+
+## Recolocar después de mover PCs y limitar extensión
+
+Al iniciar/reiniciar M3 se recoloca toda la cadena física entre los extremos ya alineados con sus sockets, usando la longitud de CableRepairSettings. Antes solo se movían los plugs, dejando los puntos intermedios en las posiciones anteriores. El mismo cálculo se usa con **Recolocar patch cords desde sockets** en Editor.
+
+1. Fuera de Play, mueve la PC con su NetworkPortAnchor y socket como hijos. Revisa el ConnectionPoint del socket y el Attach Transform del socket XR: ambos deben quedar en el puerto real, no en la posición anterior.
+2. Conserva `Patch Cord Length = 4` en CableRepairSettings. Dos extremos separados más de 4 m no admiten ese cable: acerca PC/roseta. No cambiar escala del cable para hacerlo llegar.
+3. En cada RepairPatchCord, ajusta `Slack Direction` (dirección local de holgura): por ejemplo `(0,0,1)` o `(0,0,-1)` para invertir el lado. Ejecuta el menú de recolocación y guarda. No utiliza rutas alrededor de obstáculos; revisa muebles y paredes. La gravedad acomodará la cadena después.
+4. Ajustes iniciales en CableRepairSettings: `Maximum Stretch Fraction = 0.08` (8 % por tramo), `Spring Damping = 5`. El primero establece límites de ConfigurableJoint; el segundo amortigua oscilaciones de los resortes. No son garantías de cero extensión: el solver y los agarres cinemáticos pueden producir exceso transitorio. Evita sujetar los extremos a mayor distancia de la longitud admitida.
+5. Point0/Part_X_Point requieren Collider sólido y Rigidbody, el suelo Collider sólido y capas compatibles. Los tramos Conn son visuales. Si caen bajo el suelo, el límite de longitud no sustituye la corrección de colisiones.
+
+Los límites físicos se añaden/reutilizan al iniciar M3, no alteran automáticamente cables de otros módulos. Una recolocación imposible se informa y deja los extremos desconectados, evitando simular una instalación correcta con un cable que no alcanza. La desconexión por exceso sigue siendo protección de emergencia.
+
+| Script modificado | Función |
+| --- | --- |
+| PhysicCable.cs | Recoloca la cadena y visuales, elimina velocidades residuales y limita extensión por tramo mediante ConfigurableJoint. |
+| RepairPatchCord.cs | Dirección de holgura editable por instancia. |
+| CableRepairSettings.cs | Tolerancia de extensión y amortiguación en GameData. |
+| CableRepairController.cs | Recoloca desde los sockets actuales y configura límites al iniciar/reset. |
+| Module03CableRepairSetup.cs | Comparte el cálculo de recolocación con runtime. |
+
+Validación: compilación externa correcta con referencias Unity. Pendiente prueba física en visor: mover PC, recolocar, iniciar; sujetar/soltar, sacar de socket, probar tester y reiniciar. Verificar suelo y mesas, ambos extremos conectados y repuesto libre. No se modificaron las posiciones de las PCs en la escena.
+
+
+## Etiquetado simplificado por activación
+
+La etiquetadora ya no permite elegir A/B ni texto. Tras instalar el reemplazo en los puertos del incidente, acercar la punta a cada extremo y pulsar el trigger. Se reutiliza el TMP_Text precolocado; no se instancia ninguna etiqueta. El texto se obtiene del puerto conectado, también si el cable está invertido. Repetir la activación no duplica objetos ni invalida un ping vigente. Reset restaura el estado inicial y oculta las etiquetas vacías del repuesto.
+
+Los botones A/B de prefabs anteriores se ocultan al equipar la herramienta. No hace falta regenerar los cables o recolocar etiquetas; conservar las referencias Label A y Label B y sus posiciones. Label Radius en CableRepairSettings controla el alcance. La acción sigue limitada al reemplazo correctamente instalado; después activar ambos extremos y verificar con ping desde la laptop.
+
+| Script modificado | Función |
+| --- | --- |
+| CableRepairService.cs | ActivateLabel resuelve el texto por puerto, sin elección del usuario. |
+| CableRepairTool.cs | Trigger activa el extremo cercano; oculta selectores antiguos y respeta pausa. |
+| CableRepairController.cs | Muestra/oculta los textos precolocados según el estado lógico. |
+| Module03CableRepairSetup.cs | Los nuevos prefabs de herramienta no generan botones de selección. |
+| RepairChecks.cs | Cable invertido, activación repetida, puerto inválido y reset. |
+
+Pruebas de lógica y compilación externa correctas. Pendiente prueba de proximidad y visibilidad en visor.

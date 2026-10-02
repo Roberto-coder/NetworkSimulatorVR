@@ -16,6 +16,10 @@ namespace Modules.Module03_Diagnostics
         public NetworkPrefabCatalog prefabCatalog;
         public NetworkSession Session { get; private set; }
         public NetworkSimulationService Diagnostics { get; private set; }
+        private NetworkPortAnchor[] ledAnchors = Array.Empty<NetworkPortAnchor>();
+        private Shared.Cabling.NetworkPort[] physicalPorts = Array.Empty<Shared.Cabling.NetworkPort>();
+        private readonly Dictionary<string, bool> linkStates = new();
+        private long ledRevision = -1;
 
         private void Awake()
         {
@@ -27,6 +31,35 @@ namespace Modules.Module03_Diagnostics
             if (errors.Count > 0) { Debug.LogError(string.Join("\n", errors), this); enabled = false; return; }
             Session = initialState.CreateSession();
             Diagnostics = new NetworkSimulationService(Session);
+            ledAnchors = GetComponentsInChildren<NetworkPortAnchor>(true);
+            physicalPorts = GetComponentsInChildren<Shared.Cabling.NetworkPort>(true);
+        }
+
+        private void LateUpdate()
+        {
+            if (Session == null) return;
+            // CableRepairController sincroniza los extremos físicos en Update.
+            // Recalcular continuidad sólo cuando cambia la red, no en cada frame.
+            if (ledRevision != Session.Revision)
+            {
+                var snapshot = Session.Snapshot();
+                linkStates.Clear();
+                foreach (var port in snapshot.ports)
+                    linkStates[port.id] = DiagnosticWorkspace.HasLink(snapshot, port.id);
+                ledRevision = Session.Revision;
+            }
+            foreach (var anchor in ledAnchors)
+                if (anchor != null) anchor.SetLinkState(linkStates.TryGetValue(anchor.PortId, out bool linked) && linked);
+            // También actualizar LEDs ya asignados a sockets NetworkPort de escenas anteriores.
+            foreach (var port in physicalPorts)
+                if (port != null) port.SetOperationalLink(port.isActiveAndEnabled && linkStates.TryGetValue(port.Address, out bool linked) && linked);
+        }
+
+        private void OnDisable()
+        {
+            ledRevision = -1;
+            foreach (var anchor in ledAnchors) if (anchor != null) anchor.SetLinkState(false);
+            foreach (var port in physicalPorts) if (port != null) port.SetOperationalLink(false);
         }
 
         // La raíz delimita el inventario: un demo o una segunda escena no contaminan los IDs.

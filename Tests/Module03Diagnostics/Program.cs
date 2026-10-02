@@ -129,6 +129,7 @@ static class Program
         WorkspaceChecks.Run(Office, Check);
         RepairChecks.Run(Office, Check);
         AdministrationChecks.Run(Office, Check);
+        GuidedFlowChecks.Run(Office, Check);
         Console.WriteLine($"Module03Diagnostics: {checks} comprobaciones correctas.");
     }
 }

@@ -17,6 +17,8 @@ namespace Modules.Module03_Diagnostics.Presentation
     {
         public event Action<ProbeResult, DiagnosticScreenView> ProbeExecuted;
         public event Action ScreenClosed;
+        public event Action<string> ScreenOpened;
+        public event Action<int> CommandInvoked;
         public event Action CommandExecuting;
         public event Action XRayRequested;
         private bool xRayEnabled;
@@ -187,6 +189,9 @@ namespace Modules.Module03_Diagnostics.Presentation
             float distance = Vector3.Distance(playerCamera.transform.position, target.InteractionPosition);
             if (distance > settings.interactionRange)
             { interactionStatus = $"{target.DeviceId}: cámara a {distance:F2} m; máximo {settings.interactionRange:F2} m."; return; }
+            var flow = Modules.Module03_Diagnostics.Flow.Module03GuidedFlow.Instance;
+            if (flow != null && !flow.Allows(DiagnosticStage.OpenLaptop))
+            { interactionStatus = "Espera la introducción del instructor para abrir la terminal."; return; }
             if (target.focusHint != null)
             {
                 target.focusHint.gameObject.SetActive(true);
@@ -199,7 +204,10 @@ namespace Modules.Module03_Diagnostics.Presentation
         }
         private void Open(DiagnosticInteractionTarget target)
         {
+            var flow = Modules.Module03_Diagnostics.Flow.Module03GuidedFlow.Instance;
+            if (flow != null && !flow.Allows(DiagnosticStage.OpenLaptop)) return;
             currentTarget = target; workspace.OpenLocal(target.DeviceId);
+            ScreenOpened?.Invoke(target.DeviceId);
             // Solo visibilidad y datos: posición, escala y orientación son las guardadas en escena.
             View.gameObject.SetActive(true);
             SetXRayIndicator(xRayEnabled);
@@ -232,12 +240,13 @@ namespace Modules.Module03_Diagnostics.Presentation
         {
             if (view != View || !IsOpen || Blocked || !view.commands[index].gameObject.activeSelf) return;
             CommandExecuting?.Invoke();
+            CommandInvoked?.Invoke(index);
             try
             {
                 switch (index)
                 {
                     case 0: ExecutePing(view); break;
-                    case 1: ShowConsole(); view.ShowOutput("arp -a · " + workspace.LocalSourcePortId + "\n" + workspace.Neighbours()); break;
+                    case 1: ShowConsole(); view.ShowOutput(workspace.Neighbours()); break;
                     case 2:
                         if (IsManagingSwitch) view.GetComponent<NetworkAdministrationView>().details.text = workspace.SwitchPorts(selected);
                         else { ShowConsole(); view.ShowOutput(workspace.LocalConfiguration()); }
@@ -255,9 +264,10 @@ namespace Modules.Module03_Diagnostics.Presentation
         }
         private void ExecutePing(DiagnosticScreenView view)
         {
+            RequireStage(DiagnosticStage.FirstPing);
             ShowConsole();
             var result = workspace.PingSelected();
-            view.ShowOutput($"ping {result.DestinationIp}\nOrigen: {result.SourcePort}\n{result.Status} · {result.Received}/{result.Sent}\n{result.Message}\nRespondió: {result.ResponderPort}\nRevisión: {result.Revision}");
+            view.ShowOutput(workspace.PingOutput(result));
             RefreshNodes();
             ProbeExecuted?.Invoke(result, view);
         }
@@ -285,8 +295,11 @@ namespace Modules.Module03_Diagnostics.Presentation
             if (admin.nextPrefix != null) admin.nextPrefix.gameObject.SetActive(false);
             var applyLabel = admin.applyAddress.GetComponentInChildren<TMPro.TMP_Text>();
             if (applyLabel != null) applyLabel.text = "Aplicar IP";
+            var verifyLabel = admin.verify.GetComponentInChildren<TMPro.TMP_Text>();
+            if (verifyLabel != null) verifyLabel.text = "Comprobar reparación";
             Bind(admin.applyAddress, () => AdminAction(view, admin, () =>
             {
+                RequireStage(DiagnosticStage.Addresses);
                 var port = AdminPort(admin);
                 if (!workspace.ConfigureLocalAddress(port.id, administration.addressOptions[admin.addressIndex]))
                     throw new InvalidOperationException("IP o prefijo inválidos. Consulta la bitácora.");
@@ -296,8 +309,16 @@ namespace Modules.Module03_Diagnostics.Presentation
             Bind(admin.verify, () => AdminAction(view, admin, () => { }, true));
         }
 
+        private static void RequireStage(DiagnosticStage stage)
+        {
+            var flow = Modules.Module03_Diagnostics.Flow.Module03GuidedFlow.Instance;
+            if (flow != null && !flow.Allows(stage))
+                throw new InvalidOperationException("Esta acción se habilita al llegar a su objetivo. Revisa tu muñeca y la instrucción del instructor.");
+        }
+
         private void ApplySwitchPort(NetworkAdministrationView admin, bool enabled)
         {
+            RequireStage(DiagnosticStage.Ports);
             if (!workspace.ConfigureSwitchPort(AdminPort(admin).id, enabled))
                 throw new InvalidOperationException("No se pudo cambiar el puerto. Consulta la bitácora.");
         }
@@ -382,9 +403,13 @@ namespace Modules.Module03_Diagnostics.Presentation
                 return "Faltan reglas o equipos de verificación en GameData.";
             bool configuration = required.All(id => rules.Any(r => r.RuleId == id && r.Passed));
             bool probes = devices.All(workspace.HasCurrentSuccessfulProbe);
-            return (configuration && probes ? "Incidentes de puerto e IP verificados." : "Verificación pendiente.") +
-                "\nConfiguración esperada: " + (configuration ? "correcta" : "hay diferencias") + "\n" +
-                string.Join("\n", devices.Select(id => id + ": " + (workspace.HasCurrentSuccessfulProbe(id) ? "ping vigente al equipo correcto" : "repite ping tras el último cambio")));
+            return "COMPROBAR REPARACIÓN DE IP Y PUERTOS\n\n" +
+                "Esta consulta no repara la red. Comprueba la configuración y las pruebas realizadas.\n\n" +
+                (configuration && probes ? "RESULTADO: reparación verificada." : "RESULTADO: faltan comprobaciones.") +
+                "\n\n1. Configuración de IP y puertos: " + (configuration ? "correcta" : "revisa las direcciones y los puertos habilitados") +
+                "\n\n2. Evidencia de conectividad:\n" +
+                string.Join("\n", devices.Select(id => id + ": " + (workspace.HasCurrentSuccessfulProbe(id) ? "OK · ping vigente al equipo correcto" : "PENDIENTE · ejecuta ping después del último cambio"))) +
+                "\n\nLa continuidad y el etiquetado del cable se comprueban por separado con las herramientas de reparación.";
         }
 
         private void RefreshNodes()

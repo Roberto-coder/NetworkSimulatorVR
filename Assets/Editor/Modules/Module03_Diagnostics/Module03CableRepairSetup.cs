@@ -298,47 +298,8 @@ namespace Modules.Module03_Diagnostics.Editor
 
         private static void PlaceCable(PhysicCable physical, RepairPatchCord cable, Vector3 a, Vector3 b, float length)
         {
-            var data = new SerializedObject(physical);
-            int count = data.FindProperty("numberOfPoints").intValue;
-            if (Vector3.Distance(a, b) > length)
-                throw new InvalidOperationException(cable.name + ": la distancia entre extremos supera la longitud del cable.");
-            var points = new System.Collections.Generic.List<Transform> { cable.endA.transform };
-            points.Add(((GameObject)data.FindProperty("point0").objectReferenceValue).transform);
-            for (int i = 1; i < count; i++) points.Add(physical.transform.Find($"Part_{i}_Point"));
-            points.Add(cable.endB.transform);
-            if (points.Any(p => p == null)) throw new InvalidOperationException("Faltan puntos físicos del prefab.");
-            // Curva horizontal: la holgura no nace debajo de los sockets ni del suelo.
-            Vector3 side = Vector3.Cross(b - a, Vector3.up).normalized;
-            if (side.sqrMagnitude < 0.01f) side = Vector3.right;
-            Vector3 Position(int i, float amplitude) => Vector3.Lerp(a, b, i / (float)(count + 1)) +
-                side * (amplitude * Mathf.Sin(Mathf.PI * i / (count + 1)));
-            float low = 0, high = length;
-            for (int iteration = 0; iteration < 32; iteration++)
-            {
-                float mid = (low + high) * 0.5f, measured = 0;
-                for (int i = 1; i < points.Count; i++) measured += Vector3.Distance(Position(i - 1, mid), Position(i, mid));
-                if (measured < length) low = mid; else high = mid;
-            }
-            for (int i = 0; i < points.Count; i++) points[i].position = Position(i, (low + high) * 0.5f);
-            data.FindProperty("space").floatValue = length / (count + 1);
-            data.ApplyModifiedProperties();
-            // Ajustar cada resorte a su tramo evita un tirón inicial por distancias heredadas.
-            foreach (var joint in physical.GetComponentsInChildren<SpringJoint>())
-                if (joint.connectedBody != null)
-                {
-                    joint.autoConfigureConnectedAnchor = false;
-                    joint.anchor = joint.connectedAnchor = Vector3.zero;
-                    joint.minDistance = joint.maxDistance = Vector3.Distance(joint.transform.position, joint.connectedBody.position);
-                }
-            for (int i = 0; i <= count; i++)
-            {
-                var visual = i == 0 ? ((GameObject)data.FindProperty("connector0").objectReferenceValue).transform : physical.transform.Find($"Part_{i}_Conn");
-                Vector3 delta = points[i + 1].position - points[i].position;
-                visual.position = (points[i].position + points[i + 1].position) * 0.5f;
-                if (delta.sqrMagnitude > 0) visual.rotation = Quaternion.LookRotation(delta);
-                float size = data.FindProperty("size").floatValue;
-                visual.localScale = new Vector3(size, size, delta.magnitude * 0.5f);
-            }
+            if (!physical.PlaceBetween(a, b, length, cable.transform.TransformDirection(cable.slackDirection)))
+                throw new InvalidOperationException(cable.name + ": extremos demasiado separados o puntos físicos incompletos.");
         }
         private static GameObject BuildTool(CableRepairTool.Mode mode)
         {
@@ -358,12 +319,6 @@ namespace Modules.Module03_Diagnostics.Editor
                 var tip = new GameObject("Tip"); tip.transform.SetParent(root.transform, false); tip.transform.localPosition = Vector3.forward * 0.16f; tool.tip = tip.transform;
                 tool.feedback = Text(root.transform, "Display", new Vector3(0, 0.06f, 0.06f), new Vector2(250, 90), 16);
                 tool.feedback.text = mode.ToString();
-                if (mode == CableRepairTool.Mode.LabelMaker)
-                {
-                    var canvas = tool.feedback.GetComponentInParent<Canvas>(); canvas.gameObject.AddComponent<TrackedDeviceGraphicRaycaster>();
-                    AddLabelButton(canvas.transform, "Etiqueta extremo A", new Vector2(-65, -65), tool.SelectFirstLabel);
-                    AddLabelButton(canvas.transform, "Etiqueta extremo B", new Vector2(65, -65), tool.SelectSecondLabel);
-                }
                 return PrefabUtility.SaveAsPrefabAsset(root, path);
             }
             finally { DestroyImmediate(root); }

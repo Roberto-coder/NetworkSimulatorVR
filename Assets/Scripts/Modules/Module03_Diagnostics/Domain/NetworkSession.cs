@@ -47,6 +47,11 @@ namespace Modules.Module03_Diagnostics.Domain
         internal void RecordProbe(ProbeResult result) => Record(result.SourcePort, "Ping", "", result.DestinationIp,
             result.Status == ProbeStatus.Success, result.Status + ": " + result.Message);
 
+        internal void RecordSwitchQuery(string id) => Record(id, "SwitchPorts", "", "", true, "Consulta de puertos mediante gestión LAN.");
+
+        internal void RecordArpQuery(string sourcePort) =>
+            Record(sourcePort, "Arp", "", "", true, "Consulta de la caché ARP local.");
+
         internal void RecordCableTest(string cableId, bool accepted, string message) =>
             Record(cableId, "CableTest", "", message, accepted, "Prueba de continuidad con ambos extremos desconectados.");
 

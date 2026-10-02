@@ -115,12 +115,54 @@ namespace Modules.Module03_Diagnostics.Domain
             if (device.kind == DeviceKind.Passive) return device.id + " · Elemento pasivo, sin IP.\n" +
                 string.Join("\n", n.ports.Where(p => p.deviceId == device.id).Select(p => p.id));
             if (device.kind == DeviceKind.Switch) return device.id + " · Consulta sus puertos mediante administración desde la laptop.";
-            return string.Join("\n", n.ports.Where(p => p.deviceId == LocalDeviceId).Select(p =>
+            return $"{LocalDeviceId}> ipconfig /all\n\n" + string.Join("\n\n", n.ports.Where(p => p.deviceId == LocalDeviceId).Select(p =>
                 $"{p.id}\nIP: {(string.IsNullOrEmpty(p.ipv4) ? "No aplica" : p.ipv4 + "/" + p.prefixLength)}\nMáscara: {SubnetMask(p.prefixLength)}  MAC: {p.mac}\nAdministrativo: {(p.enabled ? "habilitado" : "inhabilitado")} · Enlace: {(HasLink(n, p.id) ? "activo" : "caído")}"));
         }
-        public string Neighbours() => string.Join("\n", diagnostics.GetNeighbours(LocalSourcePortId).Select(n => $"{n.Ip} → {n.Mac}"));
-        public string History() => string.Join("\n", session.History.Skip(Math.Max(0, session.History.Count - 30)).Select(h =>
-            $"#{h.Sequence} {h.Action} {h.EntityId}: {h.After} {h.Reason}"));
+        public string Neighbours()
+        {
+            var entries = diagnostics.GetNeighbours(LocalSourcePortId);
+            session.RecordArpQuery(LocalSourcePortId);
+            string header = $"{LocalDeviceId}> arp -a\nInterfaz: {LocalSourcePortId}\n\n";
+            if (entries.Count == 0)
+                return header + "Sin entradas ARP aprendidas.\nEjecuta ping a otro equipo de la red.\nLa tabla se limpia cuando cambia la red.";
+            return header + $"{"Dirección IP",-15}  {"Dirección MAC",-17}  Tipo\n" +
+                string.Join("\n", entries.Select(n => $"{n.Ip,-15}  {n.Mac,-17}  dinámica")) +
+                "\n\nAprendida mediante ARP; no es el inventario.\nUna entrada no garantiza respuesta ICMP.";
+        }
+
+        public string PingOutput(ProbeResult result)
+        {
+            string response = result.Status == ProbeStatus.Success
+                ? string.Join("\n", Enumerable.Range(1, result.Received).Select(i => $"Respuesta de {result.DestinationIp} ({i}/{result.Sent})"))
+                : "Sin respuesta.\n" + result.Message;
+            int lost = result.Sent - result.Received;
+            return $"{LocalDeviceId}> ping {result.DestinationIp}\nOrigen: {result.SourcePort}\n\n{response}\n\n" +
+                $"Enviados = {result.Sent}, recibidos = {result.Received}\nPerdidos = {lost} ({lost * 100 / result.Sent}% pérdida)\n" +
+                (result.ResponderPort == null ? "" : $"Interfaz que respondió: {result.ResponderPort}\n") +
+                (result.Status == ProbeStatus.Success ? result.Message + "\n" : "") +
+                "Simulación didáctica: no mide latencia ni TTL.";
+        }
+
+        public string History()
+        {
+            var entries = session.History.Skip(Math.Max(0, session.History.Count - 30));
+            return "BITÁCORA DE LA SESIÓN\nÚltimas 30 acciones de la red\n\n" + string.Join("\n\n", entries.Select(h =>
+                $"[{h.TimestampUtc:HH:mm:ss} UTC] #{h.Sequence} · {(h.Accepted ? "OK" : "FALLO")}\n" +
+                HistoryCommand(h) + (string.IsNullOrEmpty(h.Reason) ? "" : "\n" + h.Reason)));
+        }
+
+        private static string HistoryCommand(NetworkActionRecord entry) => entry.Action switch
+        {
+            "Ping" => $"{entry.EntityId}> ping {entry.After}",
+            "Arp" => $"{entry.EntityId}> arp -a",
+            "Address" => $"{entry.EntityId} · Configurar IPv4\n{entry.Before} -> {entry.After}",
+            "PortEnabled" => $"{entry.EntityId}(config-if)# {(entry.After == "True" ? "no shutdown" : "shutdown")}",
+            "Connect" => $"{entry.EntityId} · Conexión física\n{entry.Before} -> {entry.After}",
+            "CableTest" => $"{entry.EntityId} · Prueba de continuidad\n{entry.After}",
+            "Label" => $"{entry.EntityId} · Etiquetado\n{entry.After}",
+            "Reset" => "Reinicio del escenario: las evidencias anteriores dejan de ser válidas.",
+            _ => $"{entry.EntityId} · {entry.Action}\n{entry.After}"
+        };
         public string SwitchPorts(string switchId)
         {
             var n = session.Snapshot();
@@ -130,8 +172,11 @@ namespace Modules.Module03_Diagnostics.Domain
             var access = diagnostics.Ping(SourcePortId, ip, 1);
             if (access.Status != ProbeStatus.Success || !n.ports.Any(p => p.id == access.ResponderPort && p.deviceId == switchId))
                 return "Administración inaccesible desde la laptop.";
+            session.RecordSwitchQuery(switchId);
             var management = n.ports.Where(p => p.deviceId == switchId && !string.IsNullOrEmpty(p.ipv4));
-            return string.Join("\n", management.Select(p => $"Gestión: {p.ipv4}/{p.prefixLength}\nMáscara: {SubnetMask(p.prefixLength)}  MAC: {p.mac}")) + "\n\n" +
+            return $"Conectado a {switchId} por gestión LAN\n{switchId}# show ip interface brief\n\n" +
+                string.Join("\n", management.Select(p => $"Gestión: {p.ipv4}/{p.prefixLength}\nMáscara: {SubnetMask(p.prefixLength)}  MAC: {p.mac}")) +
+                $"\n\n{switchId}# show interfaces status\n\n" +
                 string.Join("\n", n.ports.Where(p => p.deviceId == switchId).Select(p =>
             {
                 var cable = n.cables.FirstOrDefault(c => c.portA == p.id || c.portB == p.id);
@@ -146,9 +191,10 @@ namespace Modules.Module03_Diagnostics.Domain
             return $"{mask >> 24}.{(mask >> 16) & 255}.{(mask >> 8) & 255}.{mask & 255}";
         }
         // El enlace físico termina en la siguiente interfaz activa. No atraviesa internamente switches.
-        private static bool HasLink(NetworkDefinition n, string source)
+        public static bool HasLink(NetworkDefinition n, string source)
         {
             var ports = n.ports.ToDictionary(p => p.id); var kinds = n.devices.ToDictionary(d => d.id, d => d.kind);
+            if (source == null || !ports.ContainsKey(source)) return false;
             var visited = new HashSet<string>(); var queue = new Queue<string>(); queue.Enqueue(source);
             while (queue.Count > 0)
             {

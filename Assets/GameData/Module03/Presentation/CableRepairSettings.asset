@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6df82e0e3e51d4a4c82705a94b619c97, type: 3}
   m_Name: CableRepairSettings
   m_EditorClassIdentifier: Assembly-CSharp::GameData.Module03.CableRepairSettings
+  patchCordLength: 5
+  maximumStretchFraction: 0.1
+  springDamping: 5
   incident:
     faultyCableId: Patch-01
     portA: R01/front

@@ -26,6 +26,7 @@ namespace Presentacion.GlobalUI.ObjectivesWristMenu
         private ModuleFlowController flow;
         private LobbyFlowController lobbyFlow;
         private Module02FlowController module02Flow;
+        private Modules.Module03_Diagnostics.Flow.Module03FlowController module03Flow;
 
         private void Start()
         {
@@ -50,16 +51,19 @@ namespace Presentacion.GlobalUI.ObjectivesWristMenu
                 ? Module02Manager.Instance?.FlowController
                 : null;
 
-            if ((currentFlow == null && currentLobby == null && currentModule02 == null) ||
+            var currentModule03 = Modules.Module03_Diagnostics.Flow.Module03GuidedFlow.Instance?.FlowController;
+            if ((currentFlow == null && currentLobby == null && currentModule02 == null && currentModule03 == null) ||
                 content == null || prefab == null)
                 return;
 
-            if (flow != currentFlow || lobbyFlow != currentLobby || module02Flow != currentModule02)
+            if (flow != currentFlow || lobbyFlow != currentLobby || module02Flow != currentModule02 || module03Flow != currentModule03)
             {
                 Unsubscribe();
                 flow = currentFlow;
                 lobbyFlow = currentLobby;
                 module02Flow = currentModule02;
+                module03Flow = currentModule03;
+                if (module03Flow != null) module03Flow.CurrentObjectiveChanged += HandleCurrentObjectiveChanged;
                 if (flow != null)
                 {
                     flow.CurrentObjectiveChanged += HandleCurrentObjectiveChanged;
@@ -206,7 +210,7 @@ namespace Presentacion.GlobalUI.ObjectivesWristMenu
             RefreshVisualState();
         }
 
-        private IReadOnlyList<ObjectiveBase> ActiveObjectives => flow != null
+        private IReadOnlyList<ObjectiveBase> ActiveObjectives => module03Flow != null ? module03Flow.Objectives : flow != null
             ? flow.Objectives
             : lobbyFlow != null ? lobbyFlow.Objectives
             : module02Flow != null ? module02Flow.Objectives
@@ -232,6 +236,8 @@ namespace Presentacion.GlobalUI.ObjectivesWristMenu
             flow = null;
             lobbyFlow = null;
             module02Flow = null;
+            if (module03Flow != null) module03Flow.CurrentObjectiveChanged -= HandleCurrentObjectiveChanged;
+            module03Flow = null;
         }
     }
 }

@@ -8,6 +8,8 @@ namespace GameData.Module03
     {
         [Tooltip("Longitud nominal del patch cord, en metros (1 unidad Unity = 1 m).") ]
         [Min(0.1f)] public float patchCordLength = 4f;
+        [Range(0, 0.25f)] public float maximumStretchFraction = 0.08f;
+        [Min(0)] public float springDamping = 5f;
         public CableRepairDefinition incident = new();
         public GameObject patchCordPrefab;
         public GameObject socketPrefab;

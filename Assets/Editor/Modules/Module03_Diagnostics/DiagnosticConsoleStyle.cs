@@ -96,7 +96,7 @@ namespace Modules.Module03_Diagnostics.Editor
             Style(admin.applyAddress, "Aplicar IP", 0, -218, 230);
             Style(admin.enablePort, "Habilitar puerto", -124, -218, 232);
             Style(admin.disablePort, "Deshabilitar puerto", 124, -218, 232);
-            Style(admin.verify, "Verificar incidentes", -124, -280, 232);
+            Style(admin.verify, "Comprobar reparación", -124, -280, 232);
             Style(admin.back, "Volver a consola", 124, -280, 232);
             if (admin.nextPrefix != null) admin.nextPrefix.gameObject.SetActive(false);
             if (admin.detailsRect == null)

@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a41bad9c26f44f418b18e7381d3ae71, type: 3}
+  m_Name: Module03_Diagnostics
+  m_EditorClassIdentifier:
+  moduleId: module03
+  moduleName: "Diagn\xF3stico de redes"
+  description: Identificar, corregir y verificar problemas de conectividad en la
+    oficina.
+  objectives:
+  - {fileID: 11400000, guid: 904741a019b847cfa8458170c5336136, type: 2}
+  - {fileID: 11400000, guid: 94bc297bc08943c782a5d8e49c33f437, type: 2}
+  - {fileID: 11400000, guid: 75f17fbf10ec4c3197b23e7038f49720, type: 2}
+  - {fileID: 11400000, guid: 05e9ab346d8c43b883b22b019bfe37f3, type: 2}
+  - {fileID: 11400000, guid: ccce9e20d8b149f09c44f0a52452e6e0, type: 2}
+  - {fileID: 11400000, guid: b453496dc4ea43f2a7e2b32cc5a376ee, type: 2}
+  finalQuiz: {fileID: 11400000, guid: f1756a6b65864de390185e51c7432c96, type: 2}
+  completionAchievement: {fileID: 11400000, guid: e9082e0a4a5049e09222d1c61cc18a8c, type: 2}
+  availableTools:
+  - name: Empty Hands
+    prefab: {fileID: 0}
+    icon: {fileID: 21300000, guid: 6770013508cecef43a401ec5f419a66b, type: 3}
+  - name: Tester XR M3
+    prefab: {fileID: 8898605496326245099, guid: 297a59ba5756d8c48945083f970eca45, type: 3}
+    icon: {fileID: 21300000, guid: 92526459dd7bd7246af9c613e9f9697f, type: 3}
+  - name: Etiquetadora M3
+    prefab: {fileID: 7785070085971868030, guid: 53d63d59100f11f429eafbdf0dd20e48, type: 3}
+    icon: {fileID: 21300000, guid: f75aeea2cdf04dd4c98d69aa388e2152, type: 3}
+  inputSettings:
+    enablePauseMenu: 1
+    enableToolSelector: 1
+    enableObjectiveMenu: 1
+    enableConfirm: 1

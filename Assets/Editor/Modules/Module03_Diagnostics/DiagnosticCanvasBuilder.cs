@@ -85,7 +85,7 @@ namespace Modules.Module03_Diagnostics.Editor
             admin.applyAddress = Button(panel, "Aplicar IP", new Vector2(310, 45), new Vector2(-330, -165));
             admin.enablePort = Button(panel, "Habilitar puerto", new Vector2(310, 45), new Vector2(0, -165));
             admin.disablePort = Button(panel, "Deshabilitar puerto", new Vector2(310, 45), new Vector2(330, -165));
-            admin.verify = Button(panel, "Verificar incidentes", new Vector2(310, 45), new Vector2(-165, -225));
+            admin.verify = Button(panel, "Comprobar reparación", new Vector2(310, 45), new Vector2(-165, -225));
             admin.back = Button(panel, "Volver al mapa", new Vector2(310, 45), new Vector2(165, -225));
             panel.gameObject.SetActive(false);
             DiagnosticConsoleStyle.Apply(view);

@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65de2e180cd131f40a327562907bbaf1, type: 3}
+  m_Name: Module03Quiz
+  m_EditorClassIdentifier: Assembly-CSharp::GameData.Quiz.QuizData
+  quizId: module_03_quiz
+  title: "Evaluación: diagnóstico de conectividad"
+  passingPercentage: 70
+  questions:
+  - statement: "¿Qué comprueba principalmente un ping exitoso?"
+    options:
+    - "Que todos los servicios funcionan."
+    - "Que hubo respuesta ICMP del destino consultado."
+    - "Que el cable está certificado."
+    - "Que no existen otras fallas."
+    correctOptionIndex: 1
+  - statement: "¿Qué asociación permite obtener ARP en esta LAN IPv4?"
+    options:
+    - "IP y dirección MAC."
+    - "Nombre y contraseña."
+    - "Puerto y categoría de cable."
+    - "IP y ubicación del escritorio."
+    correctOptionIndex: 0
+  - statement: "Un cable está conectado, pero el puerto del switch está deshabilitado. ¿Qué corresponde revisar?"
+    options:
+    - "El color del cable."
+    - "La caché del navegador."
+    - "El estado administrativo del puerto correcto."
+    - "La velocidad de la animación."
+    correctOptionIndex: 2
+  - statement: "PC-02 y PC-03 usan la misma IPv4 en esta subred. ¿Cómo corriges el incidente?"
+    options:
+    - "Cambiar únicamente las etiquetas."
+    - "Desactivar permanentemente una PC."
+    - "Repetir ping sin cambiar nada."
+    - "Asignar la dirección documentada a la PC correspondiente y verificar."
+    correctOptionIndex: 3
+  - statement: "¿Qué demuestra el tester utilizado en esta práctica?"
+    options:
+    - "La velocidad máxima certificada."
+    - "La continuidad simulada del cable."
+    - "La configuración IP de la PC."
+    - "La ausencia de conflictos de direcciones."
+    correctOptionIndex: 1
+  - statement: "Después de sustituir y etiquetar el cable de PC-01, ¿qué prueba verifica su enlace?"
+    options:
+    - "Ping desde la laptop hacia PC-01."
+    - "Ping de PC-01 a sí misma."
+    - "Abrir el mapa."
+    - "Escuchar la instrucción completa."
+    correctOptionIndex: 0
+  - statement: "¿Por qué repetir las pruebas después de modificar la red?"
+    options:
+    - "Porque cambia la ubicación del mapa."
+    - "Porque el NPC lo exige siempre."
+    - "Porque la evidencia anterior puede no representar el estado actual."
+    - "Porque ARP nunca conserva información."
+    correctOptionIndex: 2
+  - statement: "¿Qué representa la animación de Rayos X?"
+    options:
+    - "Una medición de latencia."
+    - "Una certificación del cable."
+    - "Tráfico real capturado en Internet."
+    - "El intercambio simulado de mensajes a velocidad didáctica."
+    correctOptionIndex: 3

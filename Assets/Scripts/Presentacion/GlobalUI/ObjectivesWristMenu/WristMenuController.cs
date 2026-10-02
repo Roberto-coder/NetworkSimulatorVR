@@ -29,7 +29,12 @@ namespace Presentacion.GlobalUI.ObjectivesWristMenu
         [Header("Diagnostics")]
         [SerializeField] private bool debugLogs;
 
+        private CanvasGroup visibilityGroup;
         private bool isMenuVisible;
+        public void Configure(Transform head, Transform wrist, GameObject canvas)
+        {
+            headTransform = head; wristTransform = wrist; wristMenuCanvas = canvas;
+        }
         private bool pendingVisibility;
         private float pendingSince;
 
@@ -114,8 +119,16 @@ namespace Presentacion.GlobalUI.ObjectivesWristMenu
             isMenuVisible = visible;
             pendingVisibility = visible;
             pendingSince = Time.unscaledTime;
-            if (wristMenuCanvas != null)
-                wristMenuCanvas.SetActive(visible);
+            if (wristMenuCanvas == null) return;
+            if (transform == wristMenuCanvas.transform || transform.IsChildOf(wristMenuCanvas.transform))
+            {
+                // No desactivar nuestro propio Update: solo ocultar la presentación.
+                if (visibilityGroup == null)
+                    visibilityGroup = wristMenuCanvas.GetComponent<CanvasGroup>() ?? wristMenuCanvas.AddComponent<CanvasGroup>();
+                visibilityGroup.alpha = visible ? 1 : 0;
+                visibilityGroup.interactable = visibilityGroup.blocksRaycasts = visible;
+            }
+            else wristMenuCanvas.SetActive(visible);
         }
 
         private void ResolveRuntimeCanvas()

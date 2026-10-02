@@ -38,5 +38,49 @@ static class RepairChecks
         repair.ObserveProbe(sim.Ping("PC2/eth","192.168.10.11")); check(repair.IsComplete,"Flujo completo después de Reset");
         s.ConnectCable("spare","SW/P1",""); check(!repair.IsComplete,"Retirar extremo revoca resolución");
         check(!repair.LabelEnd("spare",true,"SW",out _),"Repuesto a medio conectar no se etiqueta");
+
+        // Los otros incidentes no deben bloquear la reparación física de PC1.
+        var concurrent = office(4);
+        concurrent.devices.Find(d => d.id == "PC4").kind = DeviceKind.DiagnosticStation;
+        concurrent.cables.Find(c => c.id == "C1").intact = false;
+        concurrent.ports.Find(p => p.id == "SW/P2").enabled = false;
+        concurrent.ports.Find(p => p.id == "PC3/eth").ipv4 = "192.168.10.12";
+        concurrent.allowedDuplicatePortIds.AddRange(new[] { "PC2/eth", "PC3/eth" });
+        var live = new NetworkSession(concurrent);
+        var simulator = new NetworkSimulationService(live);
+        rules.probeSource = "PC4/eth";
+        var incident = new CableRepairService(live, simulator, rules);
+        live.ConnectCable("C1", "", "");
+        incident.TestCable("C1", out _);
+        incident.TestCable("spare", out _);
+        live.ConnectCable("spare", "SW/P1", "PC1/eth");
+        incident.LabelEnd("spare", true, "SW", out _);
+        incident.LabelEnd("spare", false, "PC1", out _);
+        incident.ObserveProbe(simulator.Ping("PC1/eth", "192.168.10.11"));
+        check(incident.Progress == CableRepairProgress.VerifyFromLaptop && !incident.IsComplete,
+            "Ping a sí misma no prueba reparación del enlace");
+        incident.ObserveProbe(simulator.Ping("PC4/eth", "192.168.10.11"));
+        check(incident.IsComplete, "Cable se acredita aunque persistan puerto apagado e IP duplicada");
+        long before = live.Revision;
+        incident.LabelEnd("spare", false, "PC1", out _);
+        check(live.Revision == before && incident.IsComplete, "Reaplicar la misma etiqueta conserva evidencia vigente");
+        var module = new GameData.Modules.ModuleDefinition();
+        for (int i = 0; i < 4; i++) module.Objectives.Add(new GameData.Objectives.ObjectiveData());
+        var flow = new Modules.Module03_Diagnostics.Flow.Module03FlowController(module, i => i == 0 && incident.IsComplete);
+        flow.Begin(); flow.Evaluate();
+        check(flow.Index == 1, "Reparación verificada hace avanzar al objetivo del puerto");
+
+        live.ConnectCable("spare", "", "");
+        check(!incident.ActivateLabel("spare", true, out _), "Etiqueta automática requiere conexión del reemplazo");
+        live.ConnectCable("spare", "PC1/eth", "SW/P1");
+        check(incident.ActivateLabel("spare", true, out _) && incident.ActivateLabel("spare", false, out _), "Activar ambos extremos invertidos");
+        var labeled = live.Snapshot().cables.Find(c => c.id == "spare");
+        check(labeled.labelA == "PC1" && labeled.labelB == "SW", "Texto automático corresponde al puerto real");
+        incident.ObserveProbe(simulator.Ping("PC4/eth", "192.168.10.11"));
+        before = live.Revision;
+        incident.ActivateLabel("spare", true, out _);
+        check(incident.IsComplete && live.Revision == before, "Activar de nuevo no duplica ni invalida evidencia");
+        live.Reset();
+        check(string.IsNullOrEmpty(live.Snapshot().cables.Find(c => c.id == "spare").labelA), "Reset deja etiquetas del repuesto ocultas");
     }
 }

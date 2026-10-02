@@ -54,7 +54,13 @@ namespace Modules.Module03_Diagnostics.Interaction
             if (Service == null) return;
             Ready = true; diagnostics.ProbeExecuted += Observe; diagnostics.CommandExecuting += SyncConnections;
         }
-        private void Observe(ProbeResult result, DiagnosticScreenView _) { SyncConnections(); Service.ObserveProbe(result); RefreshStatus(); }
+        private void Observe(ProbeResult result, DiagnosticScreenView view)
+        {
+            SyncConnections(); Service.ObserveProbe(result); RefreshStatus();
+            // Mostrar la condición pendiente donde el alumno acaba de comprobar la reparación.
+            if (view != null && view.output != null && result.DestinationIp == settings.incident.destinationIp)
+                view.ShowOutput(view.output.text + "\n\nReparación de cable: " + Service.Status);
+        }
         private void Update()
         {
             if (!Ready) return;
@@ -85,12 +91,14 @@ namespace Modules.Module03_Diagnostics.Interaction
                     cable.endA.Disconnect(); cable.endB.Disconnect();
                     Debug.LogWarning("M3: conexión rechazada para " + cable.cableId, cable);
                 }
-                if (cable.labelA != null) cable.labelA.text = state.labelA;
-                if (cable.labelB != null) cable.labelB.text = state.labelB;
+                if (cable.labelA != null) { cable.labelA.text = state.labelA; cable.labelA.gameObject.SetActive(!string.IsNullOrEmpty(state.labelA)); }
+                if (cable.labelB != null) { cable.labelB.text = state.labelB; cable.labelB.gameObject.SetActive(!string.IsNullOrEmpty(state.labelB)); }
             }
         }
         private void RestoreConnections()
         {
+            // Un cable retirado por el presenter debe existir de nuevo antes de restaurar su conexión.
+            foreach (var cable in cables) cable.gameObject.SetActive(true);
             var sockets = network.GetComponentsInChildren<NetworkPort>(true).ToDictionary(p => p.Address);
             foreach (var cable in cables) { cable.endA.Disconnect(); cable.endB.Disconnect(); }
             foreach (var cable in cables)
@@ -99,6 +107,16 @@ namespace Modules.Module03_Diagnostics.Interaction
                 // Sólo al inicio/reset: después el usuario controla todos los encajes.
                 if (!string.IsNullOrEmpty(state.portA) && sockets.TryGetValue(state.portA, out var a)) a.Socket.Connect(cable.endA);
                 if (!string.IsNullOrEmpty(state.portB) && sockets.TryGetValue(state.portB, out var b)) b.Socket.Connect(cable.endB);
+                // Reconstruir todos los puntos con las posiciones actuales, no solo teletransportar plugs.
+                var physical = cable.GetComponent<HPhysic.PhysicCable>();
+                if (physical.PlaceBetween(cable.endA.transform.position, cable.endB.transform.position,
+                    settings.patchCordLength, cable.transform.TransformDirection(cable.slackDirection)))
+                    physical.LimitStretch(settings.maximumStretchFraction, settings.springDamping);
+                else
+                {
+                    cable.endA.Disconnect(); cable.endB.Disconnect();
+                    Debug.LogError(cable.name + ": no cabe entre sus sockets con la longitud configurada. Acerca los dispositivos y recoloca el cable fuera de Play.", cable);
+                }
                 cable.Link.RefreshLink();
             }
         }

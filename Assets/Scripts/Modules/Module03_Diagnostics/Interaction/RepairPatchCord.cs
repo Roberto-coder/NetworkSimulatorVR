@@ -9,6 +9,8 @@ namespace Modules.Module03_Diagnostics.Interaction
     [RequireComponent(typeof(PatchCableLink))]
     public sealed class RepairPatchCord : MonoBehaviour
     {
+        [Tooltip("Dirección local hacia la que se distribuye la holgura al recolocar. Cambia el signo para invertir el lado.")]
+        public Vector3 slackDirection = Vector3.forward;
         public string cableId;
         public Connector endA, endB;
         public TMP_Text labelA, labelB;

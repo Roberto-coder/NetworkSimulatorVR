@@ -57,3 +57,52 @@ El menú **Network Simulator > Module 03 > Sprint 7 - Puertos e IP** crea o reut
 | `Module03AdministrationSetup.cs` (añadido) | Crea/asigna el asset, valida las reglas contra la red y actualiza controles fijos del prefab. |
 
 Guía de aplicación, tabla completa de scripts y pruebas: [Sprint 7](Module03-Sprint07.md).
+
+
+## Sprint 8 · Flujo guiado
+
+| Asset | Función |
+| --- | --- |
+| `Module03/Presentation/Module03FlowSettings.asset` | Referencias a definición/reglas, fuente de pings, equipos requeridos y Module03Tutorial.asset. |
+| `ModulesManagers/Module03_Diagnostics.asset` | Secuencia de seis objetivos, herramientas, quiz e insignia. |
+| `Objectives/Module03/OB-01.asset` a `OB-04.asset` | Títulos, instrucciones y descripción para progreso de práctica. |
+
+| Script añadido/modificado | Función |
+| --- | --- |
+| `Module03FlowSettings.cs` (nuevo) | Esquema de configuración narrativa y verificación, sin estado mutable de sesión. |
+| `Module03GuidedFlowSetup.cs` (nuevo) | Conecta los assets con la escena y copia las herramientas existentes a la definición. |
+
+Los clips aún no están asignados: puede usarse el texto y agregar audios desde Inspector. Los textos y audios ahora viven en `Module03Tutorial.asset`; `Module03FlowSettings` sólo lo referencia. Tabla completa de scripts y aplicación: [Sprint 8](Module03-Sprint08.md).
+
+
+Revisión de presentación del sprint 8: los textos IN/OB/AY/PI se reutilizan como diálogos contextuales y recordatorios; ya no se presenta un catálogo de ayudas. Tutorial Enabled y Reminder Interval se configuran en Module03GuidancePresenter de escena; el progreso permanece independiente del tutorial.
+
+
+### Física de patch cords tras mover dispositivos
+
+| Script modificado | Parámetros / función |
+| --- | --- |
+| CableRepairSettings.cs | patchCordLength (4 m), maximumStretchFraction (0.08), springDamping (5): longitud, tolerancia por tramo y amortiguación, usados al iniciar/reiniciar M3. |
+| RepairPatchCord.cs | slackDirection en la instancia de escena para orientar la holgura sin cambiar la topología. |
+
+Aplicar en Editor con Recolocar patch cords desde sockets. Ver sección final del documento Sprint06 para límites y comprobaciones de física.
+
+
+Estado inicial corregido: OfficeInitialState mantiene SW-01/P02 apagado y PC-02/PC-03 con .12/24, declaradas en allowedDuplicatePortIds. Las reglas finales conservan .13 para PC-03. Cambios al asset requieren una sesión nueva (salir/entrar Play). La tabla de scripts de acreditación está en la revisión final de Sprint08.
+
+
+## Sprint 9 · Quiz y cierre
+
+Module03Quiz.asset en Assets/GameData/Quiz contiene ocho preguntas y porcentaje formativo de 70. El configurador asigna el quiz y la insignia existente Module03Completion a Module03_Diagnostics. No se guardan resultados de ejecución en los ScriptableObjects.
+
+| Script añadido/modificado | Función |
+| --- | --- |
+| Module03FinaleSetup.cs (nuevo) | Asigna Final Quiz y Completion Achievement, conservando objetivos y herramientas. |
+| Module03FinaleController.cs (nuevo) | Consume configuración del módulo para evaluación y persistencia local. |
+| Module03GuidedFlow.cs (modificado) | Expone validación inmediata para el cierre. |
+
+Aplicación y criterios en [Sprint 9](Module03-Sprint09.md).
+
+## Revisión narrativa secuencial
+
+Fuente única de diálogos: `Module03/Module03Tutorial.asset` (M3D01–26 y M3R01–07). Se añaden objetivos IN-01/IN-02 antes de los cuatro OB existentes. Fallas en OfficeInitialState, soluciones en OfficeTargetRules. La tabla completa de scripts añadidos/modificados, montaje y permisos está en [Tutorial secuencial](Module03-TutorialSequence.md).

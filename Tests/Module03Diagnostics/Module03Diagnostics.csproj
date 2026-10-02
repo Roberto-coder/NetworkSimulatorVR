@@ -8,5 +8,12 @@
     <Compile Include="../../Assets/Scripts/Modules/Module03_Diagnostics/Domain/*.cs" Link="Domain/%(Filename)%(Extension)" />
     <Compile Include="../../Assets/GameData/Module03/Definitions/NetworkInitialStateAsset.cs" Link="NetworkInitialStateAsset.cs" />
     <Compile Include="../../Assets/GameData/Module03/Definitions/NetworkTargetRulesAsset.cs" Link="NetworkTargetRulesAsset.cs" />
+    <Compile Include="../../Assets/GameData/Objectives/ObjectiveData.cs" Link="ObjectiveData.cs" />
+    <Compile Include="../../Assets/Scripts/Core/Objectives/ObjectiveBase.cs" Link="ObjectiveBase.cs" />
+    <Compile Include="../../Assets/Scripts/Core/Objectives/ObjectiveController.cs" Link="ObjectiveController.cs" />
+    <Compile Include="../../Assets/Scripts/Core/Objectives/ObjectiveState.cs" Link="ObjectiveState.cs" />
+    <Compile Include="../../Assets/Scripts/Core/Objectives/IObjectiveFlow.cs" Link="IObjectiveFlow.cs" />
+    <Compile Include="../../Assets/Scripts/Modules/Module03_Diagnostics/Factories/Module03ObjectiveFactory.cs" Link="Module03ObjectiveFactory.cs" />
+    <Compile Include="../../Assets/Scripts/Modules/Module03_Diagnostics/Flow/Module03FlowController.cs" Link="Module03FlowController.cs" />
   </ItemGroup>
 </Project>

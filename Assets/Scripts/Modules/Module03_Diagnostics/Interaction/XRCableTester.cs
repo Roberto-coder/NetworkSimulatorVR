@@ -35,6 +35,8 @@ namespace Modules.Module03_Diagnostics.Interaction
         }
         public void BeginTest()
         {
+            var flow = Modules.Module03_Diagnostics.Flow.Module03GuidedFlow.Instance;
+            if (flow != null && !flow.Allows(Modules.Module03_Diagnostics.Domain.DiagnosticStage.Cable)) return;
             if (routine != null || controller == null || !controller.Ready) return;
             if (masterLeds == null || remoteLeds == null || masterLeds.Length != 8 || remoteLeds.Length != 8 ||
                 masterLeds.Any(r => r == null) || remoteLeds.Any(r => r == null))

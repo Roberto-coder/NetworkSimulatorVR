@@ -33,7 +33,9 @@ namespace Modules.Module03_Diagnostics.Presentation
         public List<DiagnosticNodeBinding> nodes = new();
         public void ShowOutput(string value)
         {
-            output.text = value; output.ForceMeshUpdate();
+            // Espaciado fijo para alinear las columnas IP/MAC con la fuente TMP existente.
+            output.richText = true;
+            output.text = "<mspace=0.55em>" + value + "</mspace>"; output.ForceMeshUpdate();
             // Solo cambia el contenido desplazable; el Canvas conserva su transform.
             float viewportHeight = outputRect.parent is RectTransform viewport ? viewport.rect.height : 390;
             outputRect.sizeDelta = new Vector2(outputRect.sizeDelta.x, Mathf.Max(viewportHeight, output.preferredHeight + 30));
