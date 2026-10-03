@@ -95,7 +95,7 @@ namespace Modules.Module03_Diagnostics.Presentation
             foreach (var target in targets)
             {
                 if (target.screen != null) target.screen.gameObject.SetActive(false);
-                if (target.focusHint != null) target.focusHint.gameObject.SetActive(false);
+                if (target.focusHint != null) target.FocusHintRoot.SetActive(false);
             }
             targets = targets.Where(t => t.isActiveAndEnabled && DiagnosticWorkspace.HasLocalScreen(definition, t.DeviceId)).ToArray();
         }
@@ -140,7 +140,7 @@ namespace Modules.Module03_Diagnostics.Presentation
         private void HideHints()
         {
             if (targets == null) return;
-            foreach (var target in targets) if (target.focusHint != null) target.focusHint.gameObject.SetActive(false);
+            foreach (var target in targets) if (target.focusHint != null) target.FocusHintRoot.SetActive(false);
         }
         private void Update()
         {
@@ -194,8 +194,8 @@ namespace Modules.Module03_Diagnostics.Presentation
             { interactionStatus = "Espera la introducción del instructor para abrir la terminal."; return; }
             if (target.focusHint != null)
             {
-                target.focusHint.gameObject.SetActive(true);
-                interactionStatus = target.focusHint.gameObject.activeInHierarchy
+                target.FocusHintRoot.SetActive(true);
+                interactionStatus = target.FocusHintRoot.activeInHierarchy
                     ? $"Hint activado: {target.DeviceId}. Esperando A. Si no es visible, revisar posición/orientación/render del texto."
                     : $"Hint activado pero un padre está desactivado: {target.focusHint.name}";
             }

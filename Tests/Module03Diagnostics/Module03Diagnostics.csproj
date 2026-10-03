@@ -15,5 +15,8 @@
     <Compile Include="../../Assets/Scripts/Core/Objectives/IObjectiveFlow.cs" Link="IObjectiveFlow.cs" />
     <Compile Include="../../Assets/Scripts/Modules/Module03_Diagnostics/Factories/Module03ObjectiveFactory.cs" Link="Module03ObjectiveFactory.cs" />
     <Compile Include="../../Assets/Scripts/Modules/Module03_Diagnostics/Flow/Module03FlowController.cs" Link="Module03FlowController.cs" />
+    <Compile Include="../../Assets/Scripts/Modules/Module03_Diagnostics/Presentation/Tutorial/Module03TutorialBuilder.cs" Link="Module03TutorialBuilder.cs" />
+    <Compile Include="../../Assets/Scripts/Presentacion/Tutorial/TurorialStep.cs" Link="TurorialStep.cs" />
+    <Compile Include="../../Assets/Scripts/Presentacion/Tutorial/TutorialSecuence.cs" Link="TutorialSecuence.cs" />
   </ItemGroup>
 </Project>

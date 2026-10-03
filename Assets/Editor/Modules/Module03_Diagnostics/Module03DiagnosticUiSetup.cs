@@ -117,15 +117,13 @@ namespace Modules.Module03_Diagnostics.Editor
                     view.transform.position = device.transform.position + Vector3.up * 0.35f - device.transform.forward * 0.8f;
                     view.transform.rotation = device.transform.rotation;
                     target.screen = view;
-                    var prompt = new GameObject("Diagnostic A hint");
+                    var text = DiagnosticFocusHintStyle.Instantiate(device.transform);
+                    var prompt = text.GetComponentInParent<Canvas>().gameObject;
                     Undo.RegisterCreatedObjectUndo(prompt, "Indicador fijo");
-                    prompt.transform.SetParent(device.transform, false);
                     prompt.transform.localPosition = Vector3.up * 0.3f;
-                    var text = Undo.AddComponent<TextMeshPro>(prompt);
-                    text.text = settings.focusHint; text.fontSize = 0.2f;
-                    text.alignment = TextAlignmentOptions.Center;
-                    text.rectTransform.sizeDelta = new Vector2(1, 0.2f);
+                    PrefabUtility.RecordPrefabInstancePropertyModifications(prompt.transform);
                     target.focusHint = text; prompt.SetActive(false);
+                    PrefabUtility.RecordPrefabInstancePropertyModifications(prompt);
                     var zone = new GameObject("Diagnostic hit zone"); Undo.RegisterCreatedObjectUndo(zone, "Zona A"); zone.transform.SetParent(device.transform, false);
                     var box = Undo.AddComponent<BoxCollider>(zone); box.isTrigger = true; box.size = new Vector3(0.5f, 0.35f, 0.3f);
                     target.hitZone = box;
@@ -151,7 +149,7 @@ namespace Modules.Module03_Diagnostics.Editor
                 if (target.screen != null && !protectedViews.Contains(target.screen))
                 { Undo.RecordObject(target.screen.gameObject, "Ocultar Canvas sobrante"); target.screen.gameObject.SetActive(false); }
                 if (target.focusHint != null)
-                { Undo.RecordObject(target.focusHint.gameObject, "Ocultar indicación"); target.focusHint.gameObject.SetActive(false); }
+                { Undo.RecordObject(target.FocusHintRoot, "Ocultar indicación"); target.FocusHintRoot.SetActive(false); }
             }
             Undo.CollapseUndoOperations(group); EditorSceneManager.MarkSceneDirty(network.gameObject.scene);
         }

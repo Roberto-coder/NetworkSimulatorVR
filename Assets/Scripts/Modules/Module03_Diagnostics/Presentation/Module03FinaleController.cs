@@ -16,7 +16,9 @@ namespace Modules.Module03_Diagnostics.Presentation
         public QuizController quiz;
         public Module02QuizActionsView actions; // Vista reutilizable: solo botones, no lógica del módulo 2.
         public Module03GuidancePresenter guidance;
-        private bool ready, opened, submitted, saved, restoreGuidance;
+        [SerializeField, TextArea(2, 5)] private string closureStatus = "Inicializando cierre";
+        public string ClosureStatus => closureStatus;
+        private bool ready, opened, submitted, saved;
         private float startedAt, completedTime;
         private void Awake() { startedAt = Time.realtimeSinceStartup; if (quizRoot != null) quizRoot.SetActive(false); }
         private IEnumerator Start()
@@ -24,7 +26,10 @@ namespace Modules.Module03_Diagnostics.Presentation
             while (flow != null && flow.isActiveAndEnabled && flow.FlowController == null) yield return null;
             if (flow == null || flow.FlowController == null || quizRoot == null || quiz == null || actions == null ||
                 flow.settings.module.FinalQuiz == null || !flow.settings.module.FinalQuiz.IsValid || flow.settings.module.CompletionAchievement == null)
-            { Debug.LogError("M3 cierre: aplicar el configurador del sprint 9; faltan referencias o datos.", this); enabled = false; yield break; }
+            {
+                closureStatus = "Faltan referencias, quiz válido o insignia. Reaplica Sprint 9 - Quiz y cierre.";
+                Debug.LogError("M3 cierre: " + closureStatus, this); enabled = false; yield break;
+            }
             quiz.QuizCompleted += Submit;
             quiz.FinishRequested += Lobby;
             actions.RestartModuleRequested += Reload;
@@ -34,21 +39,37 @@ namespace Modules.Module03_Diagnostics.Presentation
         }
         private void Update()
         {
-            if (!ready || Time.timeScale <= 0 || saved) return;
+            if (!ready || saved) return;
+            if (Time.timeScale <= 0) { closureStatus = "Pausa"; return; }
             bool valid = flow.CanFinishPractice();
             if (opened && !valid) { ResetFinale(); return; }
-            if (!opened && valid && (guidance == null || guidance.ReadyForQuiz))
+            if (opened) { closureStatus = "Quiz activo"; return; }
+            if (!valid)
             {
-                // La narrativa es opcional; detenerla evita superponer instrucciones con preguntas.
-                restoreGuidance = guidance != null && guidance.enabled;
-                if (guidance != null) guidance.enabled = false;
-                flow.screens.Close();
-                if (flow.tools != null) flow.tools.UnequipTool();
-                quizRoot.SetActive(true);
-                quiz.Configure(flow.settings.module.FinalQuiz);
-                actions.ShowSaveState(false, "Responde y entrega el quiz para registrar la finalización.", false);
-                opened = true;
+                closureStatus = flow.FlowController.PracticeCompleted
+                    ? "Falta revalidar la red: repite los pings desde la laptop tras el último cambio. " + flow.repair.Service.Status
+                    : "Objetivo pendiente: " + flow.FlowController.CurrentObjectiveData?.Description;
+                return;
             }
+            if (guidance != null && !guidance.ReadyForQuiz)
+            { closureStatus = "Esperando tutorial — " + guidance.TutorialStatus; return; }
+            OpenQuiz();
+        }
+        private void OpenQuiz()
+        {
+            // El tutorial ya terminó o está omitido. No deshabilitarlo/reiniciarlo al volver a verificar.
+            flow.screens.Close();
+            if (flow.tools != null) flow.tools.UnequipTool();
+            quizRoot.SetActive(true);
+            if (!quizRoot.activeInHierarchy)
+            {
+                closureStatus = "El Canvas está activo, pero un padre está desactivado: " + quizRoot.transform.parent?.name;
+                return;
+            }
+            quiz.Configure(flow.settings.module.FinalQuiz);
+            actions.ShowSaveState(false, "Responde y entrega el quiz para registrar la finalización.", false);
+            opened = true;
+            closureStatus = "Quiz activo";
         }
         private void Submit(QuizResult result)
         {
@@ -80,7 +101,7 @@ namespace Modules.Module03_Diagnostics.Presentation
         {
             opened = submitted = saved = false;
             quizRoot.SetActive(false);
-            if (guidance != null && restoreGuidance) guidance.enabled = true;
+            closureStatus = "Esperando práctica verificada";
         }
         private void Lobby() => Navigate("Lobby");
         private void Reload() => Navigate(gameObject.scene.name);

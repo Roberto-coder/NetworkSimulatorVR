@@ -23,12 +23,17 @@ namespace Modules.Module03_Diagnostics.Editor
             flow.guidance = guidance;
             var camera = Module03ProbeVisualSetup.InScene<Camera>(scene).FirstOrDefault(c => c.CompareTag("MainCamera"));
             var parent = guidance.laptopWaypoint.transform.parent;
+            var creator = guidance.laptopWaypoint.creator;
+            if (creator == null && parent != null) creator = parent.GetComponentInParent<Waypoints_Creator>();
+            if (creator == null) creator = Undo.AddComponent<Waypoints_Creator>(parent != null ? parent.gameObject : flow.gameObject);
             float height = guidance.laptopWaypoint.transform.position.y;
             Waypoint Point(string name, Vector3 position)
             {
                 var obj = new GameObject(name); Undo.RegisterCreatedObjectUndo(obj, "Waypoint M3");
                 obj.transform.SetParent(parent, false); position.y = height; obj.transform.position = position;
-                return Undo.AddComponent<Waypoint>(obj);
+                var point = Undo.AddComponent<Waypoint>(obj);
+                point.creator = creator;
+                return point;
             }
             // Crear sólo lo faltante. Nunca sobreescribir posiciones que el autor ya acomodó.
             if (guidance.initialWaypoint == null)
@@ -44,6 +49,30 @@ namespace Modules.Module03_Diagnostics.Editor
                 var finale = Module03ProbeVisualSetup.InScene<Module03FinaleController>(scene).FirstOrDefault();
                 var pos = finale != null && finale.quizRoot != null ? finale.quizRoot.transform.position : guidance.initialWaypoint.transform.position;
                 guidance.quizWaypoint = Point("Waypoint_quiz", pos + Vector3.right);
+            }
+            // Reparar también los puntos existentes sin cambiar posición, nombre ni enlaces.
+            foreach (var point in new[] { guidance.initialWaypoint, guidance.laptopEntryWaypoint,
+                guidance.laptopWaypoint, guidance.cableWaypoint, guidance.quizWaypoint }.Distinct())
+            {
+                Undo.RecordObject(point, "Creador de waypoint M3");
+                if (point.creator == null) point.creator = creator;
+                var owner = new SerializedObject(point.creator);
+                var list = owner.FindProperty("waypoints");
+                bool registered = false;
+                for (int i = 0; i < list.arraySize; i++)
+                    registered |= list.GetArrayElementAtIndex(i).objectReferenceValue == point;
+                if (!registered)
+                {
+                    int index = list.arraySize;
+                    list.InsertArrayElementAtIndex(index);
+                    list.GetArrayElementAtIndex(index).objectReferenceValue = point;
+                }
+                var holder = owner.FindProperty("_waypoints_Holder");
+                if (holder.objectReferenceValue == null && point.transform.parent != null)
+                    holder.objectReferenceValue = point.transform.parent.gameObject;
+                owner.ApplyModifiedProperties();
+                EditorUtility.SetDirty(point);
+                PrefabUtility.RecordPrefabInstancePropertyModifications(point);
             }
             var presenter = flow.GetComponent<Module03PresentationController>();
             if (presenter == null) presenter = Undo.AddComponent<Module03PresentationController>(flow.gameObject);

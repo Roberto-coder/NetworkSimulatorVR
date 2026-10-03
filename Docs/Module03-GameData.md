@@ -106,3 +106,5 @@ Aplicación y criterios en [Sprint 9](Module03-Sprint09.md).
 ## Revisión narrativa secuencial
 
 Fuente única de diálogos: `Module03/Module03Tutorial.asset` (M3D01–26 y M3R01–07). Se añaden objetivos IN-01/IN-02 antes de los cuatro OB existentes. Fallas en OfficeInitialState, soluciones en OfficeTargetRules. La tabla completa de scripts añadidos/modificados, montaje y permisos está en [Tutorial secuencial](Module03-TutorialSequence.md).
+
+El orden narrativo se construye ahora en `Presentation/Tutorial/Module03TutorialBuilder.cs`, utilizando `TutorialSequence`/`TutorialStep` y el evento `TutorialDirector.TutorialCompleted`. Los textos siguen en el mismo asset; no hay migración de diálogos. Véase la tabla de scripts y diagnóstico del quiz en [Tutorial secuencial](Module03-TutorialSequence.md#builder-y-activación-del-quiz).

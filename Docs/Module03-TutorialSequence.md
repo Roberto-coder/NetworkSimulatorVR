@@ -36,7 +36,7 @@ Recorridos: inicial → laptop1 → laptop2; laptop2 → laptop1 → PC01; PC01 
 
 ## Orden y acciones habilitadas
 
-El orden se lee en `Module03GuidancePresenter.RunSequence()`. `Say`, `Move` y `WaitFor` separan locución, desplazamiento y espera de evidencia. B confirma los diálogos; completar una instrucción permite continuar sin una confirmación adicional. Confirmar un diálogo **no completa** el objetivo. Los recordatorios aparecen solamente durante las esperas.
+El orden se lee en `Presentation/Tutorial/Module03TutorialBuilder.Build()`. El builder crea una `TutorialSequence` de `TutorialStep`; `TutorialDirector` la ejecuta y emite `TutorialCompleted` al terminar el último movimiento. `Say`, `Move` y `WaitFor` separan locución, desplazamiento y espera de evidencia. B confirma los diálogos; completar una instrucción permite continuar sin una confirmación adicional. Confirmar un diálogo **no completa** el objetivo. Los recordatorios aparecen solamente durante las esperas.
 
 | Objetivo visible | Evidencia para avanzar | Desbloqueo |
 | --- | --- | --- |
@@ -84,3 +84,31 @@ Rutas runtime relativas a `Assets/Scripts/Modules/Module03_Diagnostics`; GameDat
 Compilación externa con Roslyn de Unity sin errores; 802 comprobaciones de dominio/flujo, incluyendo la matriz de permisos con/sin narración, evidencias inválidas, seis objetivos y reinicio. No equivale a una prueba XR ni a ejecutar el configurador dentro del Editor.
 
 Prueba manual pendiente: abrir laptop tras introducción, ping fallido, recorrer la entrada en L sin chocar, intentar agarrar antes de la etapa (los sockets deben seguir conectados), completar tester/etiquetas/ping, soltar averiado, habilitar P02, corregir PC-03, repetir tres pings y llegar al quiz. Repetir sin tutorial y con `RestartPractice()`. Los audios siguen sin asignarse; el guion funciona con texto.
+
+## Corrección de referencias de waypoints
+
+El configurador ahora asigna `Waypoint.creator` al crear puntos y repara los ya existentes, registrándolos sin duplicados en su `Waypoints_Creator`. Reaplicar el menú conserva posiciones, nombres y enlaces. `Waypoint.cs` también admite puntos sin creador al dibujar gizmos o destruirlos; así no genera NullReferenceException mientras se edita una ruta.
+
+| Script | Cambio | Función |
+| --- | --- | --- |
+| `Module03TutorialSetup.cs` | Corregido | Asignar creador y registrar puntos nuevos o existentes. |
+| `Waypoint.cs` | Corregido | Gizmos y eliminación seguros cuando no hay creador; limpiar una rama antes de destruir su componente. |
+
+## Builder y activación del quiz
+
+El presenter conserva sus campos/GUID para no perder los waypoints de la escena. Ahora administra el ciclo de vida y las esperas, y entrega al director la secuencia real construida por `Module03TutorialBuilder`. Ya no inicia una secuencia vacía ni ejecuta una narración paralela. El guion y los IDs permanecen iguales; la referencia a RunSequence del Word anterior corresponde a la implementación previa.
+
+El Canvas guardado es `_UI/QuizCanvas_Module03`; `Module03FinaleController` activa esa instancia. Se exigen práctica terminada, verificaciones vigentes y tutorial concluido (salvo tutorial omitido). El último diálogo requiere B y después se espera llegar al waypoint del quiz. No se omite la verificación para forzar la apertura.
+
+Durante Play, inspecciona **Closure Status** en `Module03 finale` y **Tutorial Status** en `Module03GuidancePresenter`: indican objetivo pendiente, pings obsoletos, diálogo activo, waypoint pendiente o padre del Canvas desactivado. Las referencias de quiz, acciones y guía están presentes en la escena revisada; el punto exacto del bloqueo observado por el usuario requiere reproducirlo en Play.
+
+Si reaplicas **Sprint 9 - Quiz y cierre**, ahora se reparan las referencias existentes sin duplicar ni recolocar el Canvas. Si la red cambia durante el quiz, éste se cierra y espera revalidación sin reiniciar toda la narración.
+
+| Script | Cambio | Función |
+| --- | --- | --- |
+| `Presentation/Tutorial/Module03TutorialBuilder.cs` | Añadido | Construye los pasos, movimientos, desbloqueos y esperas en su orden real. |
+| `Module03GuidancePresenter.cs` | Modificado | Ejecuta mediante TutorialDirector; escucha TutorialCompleted y expone Tutorial Status. |
+| `Module03FinaleController.cs` | Modificado | Activa el Canvas tras los requisitos, expone Closure Status y evita reiniciar tutorial al invalidar el quiz. |
+| `Module03FinaleSetup.cs` | Modificado | Repara referencias al reaplicar sobre un cierre existente. |
+
+Validación: compilación externa de Unity sin errores y 809 comprobaciones; las nuevas ejecutan el builder real con adaptadores mínimos de Unity para comprobar las esperas de apertura, verificación y llegada al quiz, además del orden de diálogos/desbloqueos. Falta probar renderizado y recorrido XR en Play.

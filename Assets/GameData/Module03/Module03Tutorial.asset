@@ -11,236 +11,304 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 54267ef5488f4931ab01d7d629d7254d, type: 3}
   m_Name: Module03Tutorial
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   dialogues:
   - id: M3D01
-    text: "Bienvenido al tercer módulo. Como ingeniero de redes, tu responsabilidad será identificar y resolver los problemas de conectividad de esta oficina. Consulta los dispositivos, comprueba tus hipótesis y verifica cada reparación. Los objetivos estarán en tu muñeca."
+    text: "Bienvenido al tercer m\xF3dulo. Como ingeniero de redes, tu responsabilidad
+      ser\xE1 identificar y resolver los problemas de conectividad de esta oficina.
+      Consulta los dispositivos, comprueba tus hip\xF3tesis y verifica cada reparaci\xF3n.
+      Los objetivos estar\xE1n en tu mu\xF1eca."
     speaker: Instructor
     audio:
       clip: {fileID: 0}
-      resourcesPath:
-    legacyVoiceId:
+      resourcesPath: 
+    legacyVoiceId: 
   - id: M3D02
-    text: "Sígueme al cuarto de red para comenzar el diagnóstico de esta subred."
+    text: "S\xEDgueme al cuarto de red para comenzar el diagn\xF3stico de esta subred."
     speaker: Instructor
     audio:
       clip: {fileID: 0}
-      resourcesPath:
-    legacyVoiceId:
+      resourcesPath: 
+    legacyVoiceId: 
   - id: M3D03
-    text: "Aquí se concentran el switch, el patch panel y el cableado UTP de la oficina. La laptop permite realizar pruebas y administrar el switch. El patch panel organiza las conexiones; no decide a dónde enviar los paquetes."
+    text: "Aqu\xED se concentran el switch, el patch panel y el cableado UTP de la
+      oficina. La laptop permite realizar pruebas y administrar el switch. El patch
+      panel organiza las conexiones; no decide a d\xF3nde enviar los paquetes."
     speaker: Instructor
     audio:
       clip: {fileID: 0}
-      resourcesPath:
-    legacyVoiceId:
+      resourcesPath: 
+    legacyVoiceId: 
   - id: M3D04
-    text: "Acércate a la laptop, apunta al dispositivo y pulsa A para abrir su terminal."
+    text: "Ac\xE9rcate a la laptop, apunta al dispositivo y pulsa A para abrir su
+      terminal."
     speaker: Instructor
     audio:
       clip: {fileID: 0}
-      resourcesPath:
-    legacyVoiceId:
+      resourcesPath: 
+    legacyVoiceId: 
   - id: M3D05
-    text: "El diagrama representa la topología de la oficina. Los equipos se conectan al switch central, formando una estrella. Las rosetas y el patch panel muestran el recorrido físico del cableado. Consulta la leyenda para interpretar los colores de la traza."
+    text: "El diagrama representa la topolog\xEDa de la oficina. Los equipos se conectan
+      al switch central, formando una estrella. Las rosetas y el patch panel muestran
+      el recorrido f\xEDsico del cableado. Consulta la leyenda para interpretar los
+      colores de la traza."
     speaker: Instructor
     audio:
       clip: {fileID: 0}
-      resourcesPath:
-    legacyVoiceId:
+      resourcesPath: 
+    legacyVoiceId: 
   - id: M3D06
-    text: "Activa Rayos X para observar la animación de los paquetes a través de paredes y objetos. Es una representación didáctica de la simulación: te ayudará a localizar hasta dónde avanza una prueba."
+    text: "Activa Rayos X para observar la animaci\xF3n de los paquetes a trav\xE9s
+      de paredes y objetos. Es una representaci\xF3n did\xE1ctica de la simulaci\xF3n:
+      te ayudar\xE1 a localizar hasta d\xF3nde avanza una prueba."
     speaker: Instructor
     audio:
       clip: {fileID: 0}
-      resourcesPath:
-    legacyVoiceId:
+      resourcesPath: 
+    legacyVoiceId: 
   - id: M3D07
-    text: "Datos de red muestra la IP, la máscara y la MAC de la interfaz consultada. La IP identifica la interfaz en la red IP; la máscara delimita su subred y la MAC la identifica en Ethernet. Para localizar el equipo en la oficina, usa el inventario y las etiquetas."
+    text: "Datos de red muestra la IP, la m\xE1scara y la MAC de la interfaz consultada.
+      La IP identifica la interfaz en la red IP; la m\xE1scara delimita su subred
+      y la MAC la identifica en Ethernet. Para localizar el equipo en la oficina,
+      usa el inventario y las etiquetas."
     speaker: Instructor
     audio:
       clip: {fileID: 0}
-      resourcesPath:
-    legacyVoiceId:
+      resourcesPath: 
+    legacyVoiceId: 
   - id: M3D08
-    text: "La bitácora conserva las consultas, los cambios y los resultados de tus pruebas. Úsala para comparar qué ocurrió antes y después de una reparación y evitar repetir acciones sin una hipótesis."
+    text: "La bit\xE1cora conserva las consultas, los cambios y los resultados de
+      tus pruebas. \xDAsala para comparar qu\xE9 ocurri\xF3 antes y despu\xE9s de
+      una reparaci\xF3n y evitar repetir acciones sin una hip\xF3tesis."
     speaker: Instructor
     audio:
       clip: {fileID: 0}
-      resourcesPath:
-    legacyVoiceId:
+      resourcesPath: 
+    legacyVoiceId: 
   - id: M3D09
-    text: "Para comunicarse con otra interfaz de su subred, el equipo necesita conocer su MAC. ARP envía una consulta de difusión: pregunta quién tiene la IP de destino. En la animación, la solicitud ámbar recorre los enlaces alcanzables; no revela una ubicación física."
+    text: "Para comunicarse con otra interfaz de su subred, el equipo necesita conocer
+      su MAC. ARP env\xEDa una consulta de difusi\xF3n: pregunta qui\xE9n tiene la
+      IP de destino. En la animaci\xF3n, la solicitud \xE1mbar recorre los enlaces
+      alcanzables; no revela una ubicaci\xF3n f\xEDsica."
     speaker: Instructor
     audio:
       clip: {fileID: 0}
-      resourcesPath:
-    legacyVoiceId:
+      resourcesPath: 
+    legacyVoiceId: 
   - id: M3D10
-    text: "ARP puede reutilizar una asociación IP y MAC válida de su caché. No consulta de nuevo en cada ping. En esta simulación, los cambios de red invalidan las observaciones para que la siguiente prueba refleje la configuración actual."
+    text: "ARP puede reutilizar una asociaci\xF3n IP y MAC v\xE1lida de su cach\xE9.
+      No consulta de nuevo en cada ping. En esta simulaci\xF3n, los cambios de red
+      invalidan las observaciones para que la siguiente prueba refleje la configuraci\xF3n
+      actual."
     speaker: Instructor
     audio:
       clip: {fileID: 0}
-      resourcesPath:
-    legacyVoiceId:
+      resourcesPath: 
+    legacyVoiceId: 
   - id: M3D11
-    text: "Desde el switch, el enlace pasa por el patch panel, el cableado permanente y la roseta hasta el patch cord de la PC. El modelo convencional de cableado de cobre contempla un canal de hasta 100 metros: 90 de enlace permanente y 10 de latiguillos en conjunto."
+    text: 'Desde el switch, el enlace pasa por el patch panel, el cableado permanente
+      y la roseta hasta el patch cord de la PC. El modelo convencional de cableado
+      de cobre contempla un canal de hasta 100 metros: 90 de enlace permanente y
+      10 de latiguillos en conjunto.'
     speaker: Instructor
     audio:
       clip: {fileID: 0}
-      resourcesPath:
-    legacyVoiceId:
+      resourcesPath: 
+    legacyVoiceId: 
   - id: M3D12
-    text: "Selecciona PC-01 en el diagrama y ejecuta Ping desde la laptop. Observa el resultado y hasta dónde llega la traza. Una prueba fallida también aporta evidencia para el diagnóstico."
+    text: "Selecciona PC-01 en el diagrama y ejecuta Ping desde la laptop. Observa
+      el resultado y hasta d\xF3nde llega la traza. Una prueba fallida tambi\xE9n
+      aporta evidencia para el diagn\xF3stico."
     speaker: Instructor
     audio:
       clip: {fileID: 0}
-      resourcesPath:
-    legacyVoiceId:
+      resourcesPath: 
+    legacyVoiceId: 
   - id: M3D13
-    text: "El enlace de PC-01 impide completar la comunicación. Revisa el tramo señalado antes de cambiar la configuración. Consultar ARP muestra las asociaciones aprendidas; si no se obtuvo una respuesta ARP válida, no habrá una asociación para ese destino."
+    text: "El enlace de PC-01 impide completar la comunicaci\xF3n. Revisa el tramo
+      se\xF1alado antes de cambiar la configuraci\xF3n. Consultar ARP muestra las
+      asociaciones aprendidas; si no se obtuvo una respuesta ARP v\xE1lida, no habr\xE1
+      una asociaci\xF3n para ese destino."
     speaker: Instructor
     audio:
       clip: {fileID: 0}
-      resourcesPath:
-    legacyVoiceId:
+      resourcesPath: 
+    legacyVoiceId: 
   - id: M3D14
-    text: "Ahora salgamos del cuarto de red y examinemos el patch cord entre la roseta y PC-01."
+    text: Ahora salgamos del cuarto de red y examinemos el patch cord entre la roseta
+      y PC-01.
     speaker: Instructor
     audio:
       clip: {fileID: 0}
-      resourcesPath:
-    legacyVoiceId:
+      resourcesPath: 
+    legacyVoiceId: 
   - id: M3D15
-    text: "Retira ambos extremos del cable sospechoso. Encájalos en Master y Remote del tester, pulsa el gatillo y espera a que termine la secuencia de LEDs. Esta prueba comprueba continuidad; no certifica por sí sola el rendimiento del cable."
+    text: "Retira ambos extremos del cable sospechoso. Enc\xE1jalos en Master y Remote
+      del tester, pulsa el gatillo y espera a que termine la secuencia de LEDs. Esta
+      prueba comprueba continuidad; no certifica por s\xED sola el rendimiento del
+      cable."
     speaker: Instructor
     audio:
       clip: {fileID: 0}
-      resourcesPath:
-    legacyVoiceId:
+      resourcesPath: 
+    legacyVoiceId: 
   - id: M3D16
-    text: "Tendrás un repuesto disponible. Pruébalo también antes de instalarlo. Para esta práctica usamos patch cords de hasta cinco metros en el área de trabajo; la longitud admisible real depende del diseño completo del canal y del cable utilizado."
+    text: "Tendr\xE1s un repuesto disponible. Pru\xE9balo tambi\xE9n antes de instalarlo.
+      Para esta pr\xE1ctica usamos patch cords de hasta cinco metros en el \xE1rea
+      de trabajo; la longitud admisible real depende del dise\xF1o completo del canal
+      y del cable utilizado."
     speaker: Instructor
     audio:
       clip: {fileID: 0}
-      resourcesPath:
-    legacyVoiceId:
+      resourcesPath: 
+    legacyVoiceId: 
   - id: M3D17
-    text: "Instala el reemplazo entre la roseta y PC-01. Acerca la etiquetadora a cada extremo y pulsa el gatillo para activar su etiqueta. Al recuperar el enlace físico puede encenderse el LED del puerto, pero aún falta verificar la comunicación IP."
+    text: "Instala el reemplazo entre la roseta y PC-01. Acerca la etiquetadora a
+      cada extremo y pulsa el gatillo para activar su etiqueta. Al recuperar el enlace
+      f\xEDsico puede encenderse el LED del puerto, pero a\xFAn falta verificar la
+      comunicaci\xF3n IP."
     speaker: Instructor
     audio:
       clip: {fileID: 0}
-      resourcesPath:
-    legacyVoiceId:
+      resourcesPath: 
+    legacyVoiceId: 
   - id: M3D18
-    text: "Con el reemplazo probado, conectado y etiquetado, volvamos al cuarto de red para verificar la reparación."
+    text: "Con el reemplazo probado, conectado y etiquetado, volvamos al cuarto de
+      red para verificar la reparaci\xF3n."
     speaker: Instructor
     audio:
       clip: {fileID: 0}
-      resourcesPath:
-    legacyVoiceId:
+      resourcesPath: 
+    legacyVoiceId: 
   - id: M3D19
-    text: "Desde la laptop, selecciona PC-01 y ejecuta otro ping. La respuesta debe corresponder al equipo correcto y haberse obtenido después del último cambio."
+    text: "Desde la laptop, selecciona PC-01 y ejecuta otro ping. La respuesta debe
+      corresponder al equipo correcto y haberse obtenido despu\xE9s del \xFAltimo
+      cambio."
     speaker: Instructor
     audio:
       clip: {fileID: 0}
-      resourcesPath:
-    legacyVoiceId:
+      resourcesPath: 
+    legacyVoiceId: 
   - id: M3D20
-    text: "Ahora se completa la resolución ARP y pueden intercambiarse mensajes ICMP. Viajan dentro de paquetes IP, transportados en tramas Ethernet y transmitidos como señales por el cable. Así relacionamos las capas de red, enlace y física: tres, dos y uno del modelo OSI."
+    text: "Ahora se completa la resoluci\xF3n ARP y pueden intercambiarse mensajes
+      ICMP. Viajan dentro de paquetes IP, transportados en tramas Ethernet y transmitidos
+      como se\xF1ales por el cable. As\xED relacionamos las capas de red, enlace
+      y f\xEDsica: tres, dos y uno del modelo OSI."
     speaker: Instructor
     audio:
       clip: {fileID: 0}
-      resourcesPath:
-    legacyVoiceId:
+      resourcesPath: 
+    legacyVoiceId: 
   - id: M3D21
-    text: "Quedan problemas de conectividad en la oficina. Un cable conectado no garantiza comunicación: el puerto del switch puede estar deshabilitado administrativamente. Revisa su estado antes de sustituir un componente que podría funcionar correctamente."
+    text: "Quedan problemas de conectividad en la oficina. Un cable conectado no
+      garantiza comunicaci\xF3n: el puerto del switch puede estar deshabilitado administrativamente.
+      Revisa su estado antes de sustituir un componente que podr\xEDa funcionar correctamente."
     speaker: Instructor
     audio:
       clip: {fileID: 0}
-      resourcesPath:
-    legacyVoiceId:
+      resourcesPath: 
+    legacyVoiceId: 
   - id: M3D22
-    text: "Desde la laptop, selecciona el switch y abre Administrar switch. Consulta sus puertos, identifica el enlace de PC-02 y habilítalo si está desactivado."
+    text: "Desde la laptop, selecciona el switch y abre Administrar switch. Consulta
+      sus puertos, identifica el enlace de PC-02 y habil\xEDtalo si est\xE1 desactivado."
     speaker: Instructor
     audio:
       clip: {fileID: 0}
-      resourcesPath:
-    legacyVoiceId:
+      resourcesPath: 
+    legacyVoiceId: 
   - id: M3D23
-    text: "Después de habilitar el puerto, prueba PC-02 y PC-03. Hay un conflicto de IP: dos interfaces tienen la misma dirección. Pueden anunciar asociaciones diferentes para esa IP y causar comunicación incorrecta o intermitente. La simulación lo presenta como un conflicto explícito."
+    text: "Despu\xE9s de habilitar el puerto, prueba PC-02 y PC-03. Hay un conflicto
+      de IP: dos interfaces tienen la misma direcci\xF3n. Pueden anunciar asociaciones
+      diferentes para esa IP y causar comunicaci\xF3n incorrecta o intermitente.
+      La simulaci\xF3n lo presenta como un conflicto expl\xEDcito."
     speaker: Instructor
     audio:
       clip: {fileID: 0}
-      resourcesPath:
-    legacyVoiceId:
+      resourcesPath: 
+    legacyVoiceId: 
   - id: M3D24
-    text: "Visita PC-02 y PC-03 y consulta sus datos de red. Compara las direcciones con el inventario, corrige la IP del equipo que no coincide y regresa a la laptop para probar ambas PCs. Cada interfaz debe tener una dirección única en esta subred."
+    text: "Visita PC-02 y PC-03 y consulta sus datos de red. Compara las direcciones
+      con el inventario, corrige la IP del equipo que no coincide y regresa a la
+      laptop para probar ambas PCs. Cada interfaz debe tener una direcci\xF3n \xFAnica
+      en esta subred."
     speaker: Instructor
     audio:
       clip: {fileID: 0}
-      resourcesPath:
-    legacyVoiceId:
+      resourcesPath: 
+    legacyVoiceId: 
   - id: M3D25
-    text: "Realiza desde la laptop un ping a cada PC. Las tres deben responder con su identidad correcta y con pruebas vigentes. Si vuelves a cambiar la red, repite las verificaciones."
+    text: Realiza desde la laptop un ping a cada PC. Las tres deben responder con
+      su identidad correcta y con pruebas vigentes. Si vuelves a cambiar la red,
+      repite las verificaciones.
     speaker: Instructor
     audio:
       clip: {fileID: 0}
-      resourcesPath:
-    legacyVoiceId:
+      resourcesPath: 
+    legacyVoiceId: 
   - id: M3D26
-    text: "Has completado la práctica de diagnóstico y reparación. Sígueme al quiz para cerrar el módulo y obtener tu insignia. El sistema registra el progreso al entregar el quiz; si aparece un error de guardado, usa Reintentar antes de volver al Lobby."
+    text: "Has completado la pr\xE1ctica de diagn\xF3stico y reparaci\xF3n. S\xEDgueme
+      al quiz para cerrar el m\xF3dulo y obtener tu insignia. El sistema registra
+      el progreso localmente al entregar el quiz, asi que recuerda guardar tu progreso
+      al volver al Lobby."
     speaker: Instructor
     audio:
       clip: {fileID: 0}
-      resourcesPath:
-    legacyVoiceId:
+      resourcesPath: 
+    legacyVoiceId: 
   - id: M3R01
-    text: "Acércate a la laptop, apunta al dispositivo y pulsa A. Abrir la pantalla de otra PC no completa este objetivo."
+    text: "Ac\xE9rcate a la laptop, apunta al dispositivo y pulsa A. Abrir la pantalla
+      de otra PC no completa este objetivo."
     speaker: Instructor
     audio:
       clip: {fileID: 0}
-      resourcesPath:
-    legacyVoiceId:
+      resourcesPath: 
+    legacyVoiceId: 
   - id: M3R02
-    text: "Desde la laptop, selecciona PC-01 y ejecuta Ping. No es necesario que tenga éxito en este primer diagnóstico."
+    text: "Desde la laptop, selecciona PC-01 y ejecuta Ping. No es necesario que
+      tenga \xE9xito en este primer diagn\xF3stico."
     speaker: Instructor
     audio:
       clip: {fileID: 0}
-      resourcesPath:
-    legacyVoiceId:
+      resourcesPath: 
+    legacyVoiceId: 
   - id: M3R03
-    text: "Prueba ambos cables por separado hasta terminar los LEDs. Instala el repuesto y activa las dos etiquetas. La muñeca indica el objetivo; la consola explica qué evidencia falta."
+    text: "Prueba ambos cables por separado hasta terminar los LEDs. Instala el repuesto
+      y activa las dos etiquetas. La mu\xF1eca indica el objetivo; la consola explica
+      qu\xE9 evidencia falta."
     speaker: Instructor
     audio:
       clip: {fileID: 0}
-      resourcesPath:
-    legacyVoiceId:
+      resourcesPath: 
+    legacyVoiceId: 
   - id: M3R04
-    text: "Verifica PC-01 desde la laptop después de conectar y etiquetar. Un ping de la PC a sí misma no demuestra que su enlace funcione."
+    text: "Verifica PC-01 desde la laptop despu\xE9s de conectar y etiquetar. Un
+      ping de la PC a s\xED misma no demuestra que su enlace funcione."
     speaker: Instructor
     audio:
       clip: {fileID: 0}
-      resourcesPath:
-    legacyVoiceId:
+      resourcesPath: 
+    legacyVoiceId: 
   - id: M3R05
-    text: "Consulta los puertos del switch desde la laptop e identifica el enlace de PC-02. Cambia sólo el puerto que necesita corrección."
+    text: "Consulta los puertos del switch desde la laptop e identifica el enlace
+      de PC-02. Cambia s\xF3lo el puerto que necesita correcci\xF3n."
     speaker: Instructor
     audio:
       clip: {fileID: 0}
-      resourcesPath:
-    legacyVoiceId:
+      resourcesPath: 
+    legacyVoiceId: 
   - id: M3R06
-    text: "Compara IP, máscara e inventario en PC-02 y PC-03. Después de corregir la dirección duplicada, prueba ambas desde la laptop."
+    text: "Compara IP, m\xE1scara e inventario en PC-02 y PC-03. Despu\xE9s de corregir
+      la direcci\xF3n duplicada, prueba ambas desde la laptop."
     speaker: Instructor
     audio:
       clip: {fileID: 0}
-      resourcesPath:
-    legacyVoiceId:
+      resourcesPath: 
+    legacyVoiceId: 
   - id: M3R07
-    text: "Comprueba las tres PCs desde la laptop después del último cambio. Consultar la configuración no sustituye estas pruebas."
+    text: "Comprueba las tres PCs desde la laptop despu\xE9s del \xFAltimo cambio.
+      Consultar la configuraci\xF3n no sustituye estas pruebas."
     speaker: Instructor
     audio:
       clip: {fileID: 0}
-      resourcesPath:
-    legacyVoiceId:
+      resourcesPath: 
+    legacyVoiceId: 

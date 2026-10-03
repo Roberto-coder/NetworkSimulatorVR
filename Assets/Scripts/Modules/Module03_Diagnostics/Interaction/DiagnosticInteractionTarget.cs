@@ -8,6 +8,15 @@ namespace Modules.Module03_Diagnostics.Interaction
         public NetworkDeviceBinding device;
         public Modules.Module03_Diagnostics.Presentation.DiagnosticScreenView screen;
         public TMPro.TMP_Text focusHint;
+        public GameObject FocusHintRoot
+        {
+            get
+            {
+                if (focusHint == null) return null;
+                var canvas = focusHint.GetComponentInParent<Canvas>(true);
+                return canvas != null ? canvas.gameObject : focusHint.gameObject;
+            }
+        }
         public Collider hitZone;
         public Vector3 InteractionPosition => hitZone != null ? hitZone.bounds.center : transform.position;
         public string DeviceId => device != null ? device.DeviceId : null;

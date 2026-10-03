@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Waypoints
 {
@@ -15,7 +15,8 @@ namespace Waypoints
 
         private void OnDrawGizmos()
         {
-            if (!creator.IsShowingPathway)
+            // Los puntos creados manualmente pueden no pertenecer todavía a una ruta.
+            if (creator != null && !creator.IsShowingPathway)
                 return;
 
             if (nextWaypoint != null)
@@ -58,7 +59,7 @@ namespace Waypoints
 
         public void CreateBranchingPathway()
         {
-            if (!IsBranchingPathway())
+            if (creator != null && !IsBranchingPathway())
             {
                 branchingPath_Creator = gameObject.AddComponent<Waypoints_Creator>();
                 branchingPath_Creator.ResourcesPath = creator.ResourcesPath;
@@ -71,11 +72,12 @@ namespace Waypoints
         {
             if (IsBranchingPathway())
             {
-                if (gameObject.activeInHierarchy)//only destroy if the Waypoint is not being destroyed; otherwise the breanchingcreator is destroyed twice
+                // Limpiar antes de destruir: el componente deja de ser accesible tras DestroyImmediate.
+                branchingPath_Creator.ClearWaypoints();
+                if (gameObject.activeInHierarchy)
                     DestroyImmediate(branchingPath_Creator);
 
-                branchingPath_Creator.ClearWaypoints();
-                creator.UpdateWaypointNames();//update the names in the root pathway
+                if (creator != null) creator.UpdateWaypointNames();
             }
 
         }
@@ -88,6 +90,8 @@ namespace Waypoints
         private void OnDestroy()
         {
             RemoveBranchingPathway();
+            // Al cerrar la escena el creador puede haberse destruido primero.
+            if (creator == null) return;
             creator.FixWaypointLinks(this);
             creator.RemoveWaypointFromList(this);
         }

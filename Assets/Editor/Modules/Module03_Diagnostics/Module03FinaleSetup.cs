@@ -20,13 +20,32 @@ namespace Modules.Module03_Diagnostics.Editor
             if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Salir de Play.");
             var scene = EditorSceneManager.GetActiveScene();
             var flow = Module03ProbeVisualSetup.InScene<Module03GuidedFlow>(scene).Single();
-            if (Module03ProbeVisualSetup.InScene<Module03FinaleController>(scene).Length > 0)
-            { Debug.Log("El cierre ya existe. Ajusta el Canvas y referencias en Inspector; no se duplica."); return; }
             var data = AssetDatabase.LoadAssetAtPath<QuizData>("Assets/GameData/Quiz/Module03Quiz.asset");
             var achievement = AssetDatabase.LoadAssetAtPath<AchievementDefinition>("Assets/GameData/Achievements/Module03Completion.asset");
             var camera = Module03ProbeVisualSetup.InScene<Camera>(scene).FirstOrDefault(c => c.CompareTag("MainCamera"));
             if (data == null || !data.IsValid || achievement == null || camera == null || flow.settings == null || flow.settings.module == null)
                 throw new InvalidOperationException("Falta quiz válido, insignia, cámara o configuración del sprint 8.");
+            var existing = Module03ProbeVisualSetup.InScene<Module03FinaleController>(scene).SingleOrDefault();
+            if (existing != null)
+            {
+                Undo.RecordObject(existing, "Reparar cierre M3");
+                existing.flow = flow;
+                existing.guidance = flow.GetComponent<Module03GuidancePresenter>();
+                if (existing.quizRoot == null && existing.quiz != null) existing.quizRoot = existing.quiz.gameObject;
+                if (existing.quizRoot == null) throw new InvalidOperationException("Asigna Quiz Root al Canvas existente antes de reaplicar.");
+                existing.quiz = existing.quizRoot.GetComponentInChildren<QuizController>(true);
+                existing.actions = existing.quizRoot.GetComponentInChildren<Module02QuizActionsView>(true);
+                if (existing.quiz == null || existing.actions == null) throw new InvalidOperationException("El Canvas existente no contiene QuizController o QuizActionsView.");
+                var moduleData = new SerializedObject(flow.settings.module);
+                moduleData.FindProperty("finalQuiz").objectReferenceValue = data;
+                moduleData.FindProperty("completionAchievement").objectReferenceValue = achievement;
+                moduleData.ApplyModifiedProperties();
+                EditorUtility.SetDirty(existing);
+                AssetDatabase.SaveAssets(); EditorSceneManager.MarkSceneDirty(scene);
+                Selection.activeGameObject = existing.gameObject;
+                Debug.Log("Referencias del cierre actualizadas. Se conserva el Canvas y su colocación. Closure Status muestra qué espera durante Play.", existing);
+                return;
+            }
             const string folder = "Assets/Prefabs/UI_Components/Quiz/Module03";
             const string path = folder + "/QuizCanvas_Module03_XRI.prefab";
             if (!AssetDatabase.IsValidFolder(folder)) AssetDatabase.CreateFolder("Assets/Prefabs/UI_Components/Quiz", "Module03");
