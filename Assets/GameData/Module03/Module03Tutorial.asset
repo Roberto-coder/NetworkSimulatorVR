@@ -20,14 +20,14 @@ MonoBehaviour:
       Los objetivos estar\xE1n en tu mu\xF1eca."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: cdafa5bcf1cc6884fb5559cb83f11cfc, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3D02
     text: "S\xEDgueme al cuarto de red para comenzar el diagn\xF3stico de esta subred."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 2fb42f7a0cfce0442801b8ecb84e75f6, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3D03
@@ -36,7 +36,7 @@ MonoBehaviour:
       panel organiza las conexiones; no decide a d\xF3nde enviar los paquetes."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 94fe543f2de9dd54684fa76372f61ac1, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3D04
@@ -44,7 +44,7 @@ MonoBehaviour:
       terminal."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 2b607add27753f74199485a3ce7349ee, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3D05
@@ -54,7 +54,7 @@ MonoBehaviour:
       colores de la traza."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 6e88f1042593384408846f84244c970d, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3D06
@@ -63,7 +63,7 @@ MonoBehaviour:
       te ayudar\xE1 a localizar hasta d\xF3nde avanza una prueba."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 01ee203e4caf5124588ac869212141be, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3D07
@@ -73,7 +73,7 @@ MonoBehaviour:
       usa el inventario y las etiquetas."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 3cfbb907052663c459a0c4348e0f757b, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3D08
@@ -82,7 +82,7 @@ MonoBehaviour:
       una reparaci\xF3n y evitar repetir acciones sin una hip\xF3tesis."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 18ed03bf66ef8ce40818ab8f99d0c0ea, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3D09
@@ -92,7 +92,7 @@ MonoBehaviour:
       alcanzables; no revela una ubicaci\xF3n f\xEDsica."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 8bbb7fc6ffa5ca241aa8e3d8a1c19257, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3D10
@@ -102,7 +102,7 @@ MonoBehaviour:
       actual."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: ae6be7f93a71a8848aa344cb2ef73870, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3D11
@@ -112,7 +112,7 @@ MonoBehaviour:
       10 de latiguillos en conjunto.'
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 42b84c1866d06fa41b5d14b2e4a74e29, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3D12
@@ -121,7 +121,7 @@ MonoBehaviour:
       aporta evidencia para el diagn\xF3stico."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 4f034ca32894e9444858154a800aba58, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3D13
@@ -131,7 +131,7 @@ MonoBehaviour:
       una asociaci\xF3n para ese destino."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 9806edcf5893ff24c85abc73ff58cf7c, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3D14
@@ -139,7 +139,7 @@ MonoBehaviour:
       y PC-01.
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 37d20a209245fe940a1e3ce7435ac87d, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3D15
@@ -149,7 +149,7 @@ MonoBehaviour:
       cable."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: c99564e2bd1d2e644a7b1ec889a5b64d, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3D16
@@ -159,7 +159,7 @@ MonoBehaviour:
       y del cable utilizado."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 8b3d025c7903b1d4b8ee98cec1ad9fee, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3D17
@@ -169,7 +169,7 @@ MonoBehaviour:
       comunicaci\xF3n IP."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 34b977c4eebccd843b0a575a9e36fbf3, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3D18
@@ -177,7 +177,7 @@ MonoBehaviour:
       red para verificar la reparaci\xF3n."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 23426a69d01f9054a96679beb5a1bd27, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3D19
@@ -186,7 +186,7 @@ MonoBehaviour:
       cambio."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 508cd6e63621fa94898c890f23cfb726, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3D20
@@ -196,7 +196,7 @@ MonoBehaviour:
       y f\xEDsica: tres, dos y uno del modelo OSI."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 47bc0419de38b8a4399adca3007295d4, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3D21
@@ -205,7 +205,7 @@ MonoBehaviour:
       Revisa su estado antes de sustituir un componente que podr\xEDa funcionar correctamente."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 68cbf0c40d7ef6d48b002fec59cf3ad3, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3D22
@@ -213,7 +213,7 @@ MonoBehaviour:
       sus puertos, identifica el enlace de PC-02 y habil\xEDtalo si est\xE1 desactivado."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 0829061f1d3874d44a207b6d538955df, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3D23
@@ -223,7 +223,7 @@ MonoBehaviour:
       La simulaci\xF3n lo presenta como un conflicto expl\xEDcito."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 4c64fe3dad751c748951b74494c1b476, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3D24
@@ -233,7 +233,7 @@ MonoBehaviour:
       en esta subred."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: b1b954f9f15a99449a6a8b3a3353799f, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3D25
@@ -242,7 +242,7 @@ MonoBehaviour:
       repite las verificaciones.
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 2114c65bf7cbcc448af4bae41f1e1256, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3D26
@@ -252,7 +252,7 @@ MonoBehaviour:
       al volver al Lobby."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 5df22181dad9a4543801753edd63d0e8, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3R01
@@ -260,7 +260,7 @@ MonoBehaviour:
       de otra PC no completa este objetivo."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 3693685406329b843a813717df834352, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3R02
@@ -268,7 +268,7 @@ MonoBehaviour:
       tenga \xE9xito en este primer diagn\xF3stico."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 0c6f7e3f910009647a61aa2ffc9fc2b6, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3R03
@@ -277,7 +277,7 @@ MonoBehaviour:
       qu\xE9 evidencia falta."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: c13547f8e33b79143a1c10b16a4c682f, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3R04
@@ -285,7 +285,7 @@ MonoBehaviour:
       ping de la PC a s\xED misma no demuestra que su enlace funcione."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 067862459645b1b44b808bf14e174d1e, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3R05
@@ -293,7 +293,7 @@ MonoBehaviour:
       de PC-02. Cambia s\xF3lo el puerto que necesita correcci\xF3n."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: cc286ab50efeb1e40aec18e53ad06205, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3R06
@@ -301,7 +301,7 @@ MonoBehaviour:
       la direcci\xF3n duplicada, prueba ambas desde la laptop."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: 6f0534040817ba54fab9bae82efb1473, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3R07
@@ -309,6 +309,6 @@ MonoBehaviour:
       Consultar la configuraci\xF3n no sustituye estas pruebas."
     speaker: Instructor
     audio:
-      clip: {fileID: 0}
+      clip: {fileID: 8300000, guid: b8fae10110f0ca849bc936767d13b927, type: 3}
       resourcesPath: 
     legacyVoiceId: 
