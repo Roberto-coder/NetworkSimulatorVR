@@ -81,3 +81,5 @@ crashlytics-build.properties
 
 # Firebase Unity SDK
 Assets/Firebase/
+
+!/Tests/SaveSafety/SaveSafety.csproj

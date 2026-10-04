@@ -1,3 +1,4 @@
+using Systems.Settings;
 using System.Collections;
 using UnityEngine;
 
@@ -87,7 +88,10 @@ namespace Framework.Interaction.Tools
             }
 
             if (count > 0 && approvalAudioSource != null && approvalClip != null)
+            {
+                GlobalSettingsManager.Instance?.RouteSfx(approvalAudioSource);
                 approvalAudioSource.PlayOneShot(approvalClip, approvalVolume);
+            }
 
             animationRoutine = null;
         }

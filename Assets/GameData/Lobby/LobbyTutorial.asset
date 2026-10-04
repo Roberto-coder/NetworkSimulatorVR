@@ -15,7 +15,7 @@ MonoBehaviour:
   dialogues:
   - id: lobby_intro_controls
     text: "\xA1Hola! Bienvenido a NetXR Lab. Ser\xE9 tu asistente virtual y te acompa\xF1ar\xE9
-      en tu camino de aprendizaje. Presiona el bot\xF3n B para avanzar en el di\xE1logo. "
+      en tu camino de aprendizaje. Presiona el bot\xF3n {control:confirmar} para avanzar en el di\xE1logo. "
     speaker: Instructor
     audio:
       clip: {fileID: 8300000, guid: 23ed88db66143624c9ada2907ed65697, type: 3}
@@ -34,8 +34,8 @@ MonoBehaviour:
     legacyVoiceId: lobby_intro_role
   - id: lobby_tools
     text: "En cada nivel contar\xE1s con una rueda de herramientas para realizar
-      tus actividades. Para abrirla, presiona Y. Despu\xE9s, apunta a la herramienta
-      que quieras utilizar y presiona R2 para seleccionarla."
+      tus actividades. Para abrirla, presiona {control:herramientas}. Despu\xE9s, apunta a la herramienta
+      que quieras utilizar y presiona {control:usar} para seleccionarla."
     speaker: Instructor
     audio:
       clip: {fileID: 8300000, guid: a8546e77997deee43b0f707d77bd6758, type: 3}
@@ -76,7 +76,7 @@ MonoBehaviour:
   - id: lobby_modules
     text: "Desde aqu\xED podr\xE1s desbloquear nuevos m\xF3dulos o repetir los que
       ya completaste. T\xF3mate el tiempo para explorar la interfaz y, cuando est\xE9s
-      listo, presiona el bot\xF3n para continuar con el recorrido."
+      listo, presiona el bot\xF3n {control:confirmar} para continuar con el recorrido."
     speaker: Instructor
     audio:
       clip: {fileID: 8300000, guid: b90ac7d4d2cb8ec438d6b9778afe50d5, type: 3}

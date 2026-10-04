@@ -22,15 +22,15 @@ MonoBehaviour:
   finalQuiz: {fileID: 0}
   completionAchievement: {fileID: 0}
   availableTools:
-  - name: Cube
-    prefab: {fileID: 8394900017115752709, guid: e3c7371a2b7177f4b9302e7ec0e8a061, type: 3}
-    icon: {fileID: 21300000, guid: 367065669e818429cbdbccfe973c1935, type: 3}
-  - name: Capsule
-    prefab: {fileID: 1733026204621751213, guid: 6f168449ed72a0741adf0cf42db7d6dd, type: 3}
-    icon: {fileID: 21300000, guid: 367065669e818429cbdbccfe973c1935, type: 3}
-  - name: Sphere
+  - name: Sword
     prefab: {fileID: 4539016709398761532, guid: a8a298fd4fcd49a41b610a9aa5feb611, type: 3}
-    icon: {fileID: 21300000, guid: 367065669e818429cbdbccfe973c1935, type: 3}
+    icon: {fileID: 21300000, guid: e2ebee6f8ecba4771a60f088dea3e8fe, type: 3}
+  - name: EmptyHands
+    prefab: {fileID: 0}
+    icon: {fileID: 21300000, guid: 6770013508cecef43a401ec5f419a66b, type: 3}
+  - name: Fix
+    prefab: {fileID: 8394900017115752709, guid: e3c7371a2b7177f4b9302e7ec0e8a061, type: 3}
+    icon: {fileID: 21300000, guid: fc029bf130e8b47c0b6343bd7f4f9f51, type: 3}
   inputSettings:
     enablePauseMenu: 1
     enableToolSelector: 1

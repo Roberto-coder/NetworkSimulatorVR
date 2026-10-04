@@ -88,10 +88,9 @@ namespace Systems.Auth
 
         private void RestoreSaveAndShowMenu(string remoteJson)
         {
-            bool hasPendingChanges = SaveManager.Instance.RestoreSessionData(remoteJson);
+            SaveManager.Instance.RestoreSessionData(remoteJson);
             canvasController.ShowCanvas("MainMenu");
-            if (hasPendingChanges)
-                SaveManager.Instance.SyncLocalToFirebase();
+
         }
     
 

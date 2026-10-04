@@ -56,7 +56,7 @@ MonoBehaviour:
     legacyVoiceId: 
   - id: strip_left_end_instruction
     text: "Selecciona las pinzas ponchadoras en la rueda de herramientas. Despu\xE9s,
-      apunta al extremo izquierdo del cable. Presiona el trigger primario para retirar
+      apunta al extremo izquierdo del cable. Presiona el trigger primario {control:usar} para retirar
       la cubierta exterior."
     speaker: Instructor
     audio:

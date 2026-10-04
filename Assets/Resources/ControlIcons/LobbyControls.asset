@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2103686
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: TextMeshPro/Sprite
+  m_Shader: {fileID: 4800000, guid: cf81c85f95fe47e1a27f6ae460cf182c, type: 3}
+  m_ShaderKeywords: UNITY_UI_CLIP_RECT
+  m_LightmapFlags: 5
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: e2ab9018dbf009f4786e5976919c4207, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _ColorMask: 15
+    - _CullMode: 0
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84a92b25f83d49b9bc132d206b370281, type: 3}
+  m_Name: LobbyControls
+  m_EditorClassIdentifier: 
+  hashCode: 0
+  material: {fileID: 2103686}
+  materialHashCode: 0
+  m_Version: 1.1.0
+  m_FaceInfo:
+    m_FamilyName: 
+    m_StyleName: 
+    m_PointSize: 0
+    m_Scale: 0
+    m_LineHeight: 0
+    m_AscentLine: 0
+    m_CapLine: 0
+    m_MeanLine: 0
+    m_Baseline: 0
+    m_DescentLine: 0
+    m_SuperscriptOffset: 0
+    m_SuperscriptSize: 0
+    m_SubscriptOffset: 0
+    m_SubscriptSize: 0
+    m_UnderlineOffset: 0
+    m_UnderlineThickness: 0
+    m_StrikethroughOffset: 0
+    m_StrikethroughThickness: 0
+    m_TabWidth: 0
+  spriteSheet: {fileID: 2800000, guid: e2ab9018dbf009f4786e5976919c4207, type: 3}
+  m_SpriteCharacterTable: []
+  m_SpriteGlyphTable: []
+  fallbackSpriteAssets:
+  - {fileID: 11400000, guid: 41ba1b193e9b418b9a074d1cedb8456d, type: 2}
+  - {fileID: 11400000, guid: 2793f5d07ebc46bdbb38fffdae9238a8, type: 2}
+  - {fileID: 11400000, guid: 6db1108e90714890a644d546da92dfa1, type: 2}
+  - {fileID: 11400000, guid: 71587646dff946c5b0c420b2af4f6210, type: 2}
+  - {fileID: 11400000, guid: dbe67da4afe7414890eb5c3baa92922f, type: 2}
+  - {fileID: 11400000, guid: 64dbaf0670b048dfa115d0eb5c7150fb, type: 2}
+  - {fileID: 11400000, guid: 075a6a446cf84aa88d6be2e61549987a, type: 2}
+  - {fileID: 11400000, guid: 50fc89a55a7946a990bfda61d8cc7c85, type: 2}
+  - {fileID: 11400000, guid: 7c4c680eb5bd4b72ad147fd1fb16dd50, type: 2}
+  - {fileID: 11400000, guid: 4f4512084e144d8181be3879a353a770, type: 2}

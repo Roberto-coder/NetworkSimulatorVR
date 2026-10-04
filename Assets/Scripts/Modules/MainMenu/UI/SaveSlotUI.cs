@@ -22,9 +22,46 @@ namespace Modules.MainMenu.UI
         public int slotID;
         private bool isEmpty;
         private bool deleteConfirmationPending;
+        private SaveManager boundManager;
+
+        private void OnEnable() => BindStatus();
+        private void OnDisable()
+        {
+            if (boundManager != null) boundManager.StatusChanged -= RefreshSyncStatus;
+            boundManager = null;
+        }
+        private void BindStatus()
+        {
+            if (boundManager != null) boundManager.StatusChanged -= RefreshSyncStatus;
+            boundManager = SaveManager.Instance;
+            if (boundManager != null) boundManager.StatusChanged += RefreshSyncStatus;
+        }
+        private void RefreshSyncStatus()
+        {
+            var manager = SaveManager.Instance;
+            if (manager == null) return;
+            var slot = manager.saveFile?.slots?.Find(item => item.slotID == slotID);
+            if (title != null)
+            {
+                title.text = title.text.Replace("! ", string.Empty);
+                if (slot != null && slot.needsCloudSync) title.text = "! " + title.text;
+            }
+            if (date != null)
+            {
+                date.text = manager.StatusMessage;
+                date.color = manager.State == SaveManager.SyncState.Synced ? Color.green : Color.white;
+            }
+            if (saveButton != null)
+            {
+                saveButton.interactable = !manager.IsSyncInProgress && (!isEmpty || manager.HasPendingChanges);
+                var label = saveButton.GetComponentInChildren<TMP_Text>(true);
+                if (label != null) label.text = "Sincronizar todo";
+            }
+        }
 
         public void Setup(SaveSlot slot)
         {
+            BindStatus();
             RemoveListeners();
             slotID = slot.slotID;
             isEmpty = slot.data == null;
@@ -48,10 +85,12 @@ namespace Modules.MainMenu.UI
             deleteConfirmationPending = false;
             BindListeners();
             SetActionAvailability(true);
+            RefreshSyncStatus();
         }
 
         public void SetupEmpty(int id)
         {
+            BindStatus();
             RemoveListeners();
             slotID = id;
             isEmpty = true;
@@ -62,6 +101,7 @@ namespace Modules.MainMenu.UI
             deleteConfirmationPending = false;
             BindListeners();
             SetActionAvailability(false);
+            RefreshSyncStatus();
         }
 
         private void BindListeners()
@@ -105,20 +145,14 @@ namespace Modules.MainMenu.UI
 
         private void SyncSlot()
         {
-            if (SaveManager.Instance == null || isEmpty)
+            if (SaveManager.Instance == null)
                 return;
 
             deleteConfirmationPending = false;
 
             date.text = "Sincronizando...";
             date.color = Color.white;
-            SaveManager.Instance.SyncLocalToFirebase((success, message) =>
-            {
-                date.text = message;
-                date.color = success ? Color.green : new Color(1f, 0.65f, 0f);
-                if (success)
-                    title.text = title.text.Replace("! ", string.Empty);
-            });
+            SaveManager.Instance.SyncLocalToFirebase();
         }
 
         private void DeleteSlot()
@@ -136,12 +170,7 @@ namespace Modules.MainMenu.UI
 
             SaveManager.Instance.DeleteSlot(slotID);
             SetupEmpty(slotID);
-            date.text = "Slot eliminado localmente";
-            SaveManager.Instance.SyncLocalToFirebase((success, message) =>
-            {
-                date.text = success ? "Slot eliminado y sincronizado" : message;
-                date.color = success ? Color.green : new Color(1f, 0.65f, 0f);
-            });
+            date.text = "Eliminado en este dispositivo. Pulsa Sincronizar todo para actualizar Firebase.";
         }
     }
 }

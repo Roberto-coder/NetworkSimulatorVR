@@ -97,6 +97,30 @@ namespace Systems.Input
         public bool ConfirmPressed =>
             UsesOpenXR ? (confirm != null && confirm.WasPressedThisFrame()) : OVRInput.GetDown(confirmButton);
 
+        // Names match the shared button sprites. Unknown bindings use readable text.
+        public string GetControlIcon(string action)
+        {
+            if (!UsesOpenXR)
+            {
+                if (action == "usar") return rightController == OVRInput.Controller.LTouch ? "L2" : "R2";
+                var button = action == "confirmar" ? confirmButton : action == "pausa" ? pauseButton : action == "interactuar" ? interactButton : toolSelectorButton;
+                if (button == OVRInput.Button.One) return "A";
+                if (button == OVRInput.Button.Two) return "B";
+                if (button == OVRInput.Button.Three) return "X";
+                if (button == OVRInput.Button.Four) return "Y";
+                return button.ToString();
+            }
+            string binding = action == "confirmar" ? confirmBinding : action == "pausa" ? pauseBinding : action == "usar" ? triggerBinding : action == "interactuar" ? interactBinding : toolBinding;
+            bool left = binding.Contains("{LeftHand}");
+            bool right = binding.Contains("{RightHand}");
+            if (!left && !right) return binding;
+            if (binding.EndsWith("/primaryButton")) return left ? "X" : "A";
+            if (binding.EndsWith("/secondaryButton")) return left ? "Y" : "B";
+            if (binding.EndsWith("/trigger") || binding.EndsWith("/triggerPressed")) return left ? "L2" : "R2";
+            if (binding.EndsWith("/grip") || binding.EndsWith("/gripPressed")) return left ? "L1" : "R1";
+            return binding;
+        }
+
         private void Awake()
         {
             if (Instance != null && Instance != this)

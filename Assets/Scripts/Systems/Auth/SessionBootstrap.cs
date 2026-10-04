@@ -71,11 +71,10 @@ namespace Systems.Auth
             timeoutAt = Time.realtimeSinceStartup + 10f;
             while (!downloadFinished && Time.realtimeSinceStartup < timeoutAt)
                 yield return null;
-            bool hasPendingChanges = SaveManager.Instance.RestoreSessionData(remoteJson);
+            SaveManager.Instance.RestoreSessionData(remoteJson);
             canvasController.ShowCanvas("MainMenu");
 
-            if (hasPendingChanges)
-                SaveManager.Instance.SyncLocalToFirebase();
+
         }
     }
 }

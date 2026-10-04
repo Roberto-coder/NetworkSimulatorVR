@@ -40,7 +40,7 @@ MonoBehaviour:
       resourcesPath: 
     legacyVoiceId: 
   - id: M3D04
-    text: "Ac\xE9rcate a la laptop, apunta al dispositivo y pulsa A para abrir su
+    text: "Ac\xE9rcate a la laptop, apunta al dispositivo y pulsa {control:interactuar} para abrir su
       terminal."
     speaker: Instructor
     audio:
@@ -144,7 +144,7 @@ MonoBehaviour:
     legacyVoiceId: 
   - id: M3D15
     text: "Retira ambos extremos del cable sospechoso. Enc\xE1jalos en Master y Remote
-      del tester, pulsa el gatillo y espera a que termine la secuencia de LEDs. Esta
+      del tester, pulsa el gatillo {control:usar} y espera a que termine la secuencia de LEDs. Esta
       prueba comprueba continuidad; no certifica por s\xED sola el rendimiento del
       cable."
     speaker: Instructor
@@ -164,7 +164,7 @@ MonoBehaviour:
     legacyVoiceId: 
   - id: M3D17
     text: "Instala el reemplazo entre la roseta y PC-01. Acerca la etiquetadora a
-      cada extremo y pulsa el gatillo para activar su etiqueta. Al recuperar el enlace
+      cada extremo y pulsa el gatillo {control:usar} para activar su etiqueta. Al recuperar el enlace
       f\xEDsico puede encenderse el LED del puerto, pero a\xFAn falta verificar la
       comunicaci\xF3n IP."
     speaker: Instructor
@@ -256,7 +256,7 @@ MonoBehaviour:
       resourcesPath: 
     legacyVoiceId: 
   - id: M3R01
-    text: "Ac\xE9rcate a la laptop, apunta al dispositivo y pulsa A. Abrir la pantalla
+    text: "Ac\xE9rcate a la laptop, apunta al dispositivo y pulsa {control:interactuar}. Abrir la pantalla
       de otra PC no completa este objetivo."
     speaker: Instructor
     audio:

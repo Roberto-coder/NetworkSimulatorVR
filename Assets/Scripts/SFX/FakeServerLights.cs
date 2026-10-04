@@ -1,62 +1,71 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
+/// <summary>Decorative server activity. Shared materials animate on the GPU.</summary>
 public class FakeServerLights : MonoBehaviour
 {
+    [Tooltip("Shared Server LEDs material; adjust activity and color on the material.")]
     public Material fakeLightMaterial;
-    public float blinkSpeed = 0.5f;
-    public Color[] ledColors = { Color.green, Color.blue, Color.cyan };
-    
-    void Start()
+    [Tooltip("Imported object containing the server cabinets.")]
+    [SerializeField] private string serverObjectName = "Servers";
+    [SerializeField] private Transform serverRoot;
+    private GameObject generatedRoot;
+
+    private void Start() => Rebuild();
+
+    [ContextMenu("Rebuild server LED preview")]
+    public void Rebuild()
     {
-        // Crea pequeños quad automáticamente
-        for (int i = 0; i < 30; i++)
+        Clear();
+        if (fakeLightMaterial == null) return;
+        Transform searchRoot = transform.parent;
+        if (serverRoot == null && searchRoot != null)
+            foreach (Transform candidate in searchRoot.GetComponentsInChildren<Transform>(true))
+                if (candidate.name == serverObjectName) { serverRoot = candidate; break; }
+        if (serverRoot == null)
         {
-            GameObject led = GameObject.CreatePrimitive(PrimitiveType.Quad);
-            led.transform.parent = this.transform;
-            led.transform.localPosition = new Vector3(
-                Random.Range(-8f, 8f),
-                Random.Range(-3f, 3f),
-                Random.Range(-2f, 2f)
-            );
-            led.transform.localScale = Vector3.one * 0.1f;
-            
-            // Material con emisión
-            led.GetComponent<MeshRenderer>().material = fakeLightMaterial;
-            led.GetComponent<MeshRenderer>().material.color = ledColors[Random.Range(0, ledColors.Length)];
-            
-            // Script de parpadeo
-            led.AddComponent<BlinkEffect>().speed = blinkSpeed + Random.Range(-0.2f, 0.2f);
+            Debug.LogWarning("Server LEDs: assign Server Root to the imported Servers object.", this);
+            return;
+        }
+        generatedRoot = new GameObject("Server LED overlays (generated)");
+        generatedRoot.transform.SetParent(transform, false);
+        // Temporary preview is never serialized into the scene; regenerated on Play.
+        generatedRoot.hideFlags = HideFlags.DontSave;
+        foreach (MeshFilter source in serverRoot.GetComponentsInChildren<MeshFilter>(true))
+        {
+            if (source.sharedMesh == null) continue;
+            var originalRenderer = source.GetComponent<MeshRenderer>();
+            if (originalRenderer == null || !originalRenderer.enabled || !source.gameObject.activeInHierarchy) continue;
+            var overlay = new GameObject("LED - " + source.name, typeof(MeshFilter), typeof(MeshRenderer));
+            overlay.hideFlags = HideFlags.DontSave;
+            overlay.layer = source.gameObject.layer;
+            overlay.transform.SetParent(generatedRoot.transform, false);
+            // Preserve the imported mesh's exact transform (including parent scale).
+            overlay.transform.SetPositionAndRotation(source.transform.position, source.transform.rotation);
+            Vector3 parentScale = generatedRoot.transform.lossyScale;
+            Vector3 scale = source.transform.lossyScale;
+            overlay.transform.localScale = new Vector3(scale.x / parentScale.x, scale.y / parentScale.y, scale.z / parentScale.z);
+            overlay.GetComponent<MeshFilter>().sharedMesh = source.sharedMesh;
+            var renderer = overlay.GetComponent<MeshRenderer>();
+            var materials = new Material[source.sharedMesh.subMeshCount];
+            for (int i = 0; i < materials.Length; i++) materials[i] = fakeLightMaterial;
+            renderer.sharedMaterials = materials;
+            renderer.shadowCastingMode = ShadowCastingMode.Off;
+            renderer.receiveShadows = false;
+            renderer.lightProbeUsage = LightProbeUsage.Off;
+            renderer.reflectionProbeUsage = ReflectionProbeUsage.Off;
         }
     }
-}
 
-
-
-public class BlinkEffect : MonoBehaviour
-{
-    public float speed = 0.5f;
-    private Material mat;
-    private Color originalColor;
-    private float minIntensity = 0.2f;
-    private float maxIntensity = 1.5f;
-    
-    void Start()
+    private void OnEnable() { if (generatedRoot != null) generatedRoot.SetActive(true); }
+    private void OnDisable() { if (generatedRoot != null) generatedRoot.SetActive(false); }
+    private void OnDestroy() => Clear();
+    private void Clear()
     {
-        mat = GetComponent<MeshRenderer>().material;
-        originalColor = mat.GetColor("_EmissionColor");
-        
-        // Si el material no tiene emisión activada, la activamos
-        mat.EnableKeyword("_EMISSION");
-    }
-    
-    void Update()
-    {
-        // Parpadeo usando seno (más suave y sin errores)
-        float blink = (Mathf.Sin(Time.time * speed) + 1f) / 2f;
-        float currentIntensity = Mathf.Lerp(minIntensity, maxIntensity, blink);
-        
-        // Aplicar el color con intensidad variable
-        Color finalColor = originalColor * currentIntensity;
-        mat.SetColor("_EmissionColor", finalColor);
+        if (generatedRoot == null) return;
+        generatedRoot.SetActive(false);
+        if (Application.isPlaying) Destroy(generatedRoot);
+        else DestroyImmediate(generatedRoot);
+        generatedRoot = null;
     }
 }

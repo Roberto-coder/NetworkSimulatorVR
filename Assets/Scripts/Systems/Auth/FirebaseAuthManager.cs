@@ -185,6 +185,8 @@ namespace Systems.Auth
                 .GetValueAsync()
                 .ContinueWithOnMainThread(task =>
                 {
+                    if (auth.CurrentUser == null || auth.CurrentUser.UserId != currentUser.UserId)
+                        return;
                     if (task.IsCompleted && !task.IsFaulted && !task.IsCanceled && task.Result.Exists)
                     {
                         string username = task.Result.Child("usuario").Value?.ToString();

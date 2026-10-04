@@ -1,4 +1,5 @@
 using Modules.Module02_RackInstallation.Data;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
@@ -12,10 +13,12 @@ namespace Modules.Module02_RackInstallation.Exploration
         [SerializeField] private RackInfoTarget parentTarget;
         [SerializeField] private Renderer[] highlightRenderers;
         [SerializeField] private Color highlightColor = new(0.1f, 0.75f, 1f, 1f);
+        [SerializeField, Range(0f, 10f)] private float outlineWidth = 2f;
 
         private XRBaseInteractable interactable;
-        private MaterialPropertyBlock propertyBlock;
-        private static readonly int EmissionColor = Shader.PropertyToID("_EmissionColor");
+        private readonly List<Outline> hoverOutlines = new();
+        private readonly List<Outline> ownedOutlines = new();
+        private bool outlinesInitialized;
 
         public RackInfoTarget ResolvedTarget
         {
@@ -35,7 +38,6 @@ namespace Modules.Module02_RackInstallation.Exploration
         private void Awake()
         {
             interactable = GetComponent<XRBaseInteractable>();
-            propertyBlock = new MaterialPropertyBlock();
         }
 
         private void OnEnable()
@@ -52,9 +54,11 @@ namespace Modules.Module02_RackInstallation.Exploration
 
         private void OnDisable()
         {
-            if (interactable == null) return;
-            interactable.hoverEntered.RemoveListener(HandleHoverEntered);
-            interactable.hoverExited.RemoveListener(HandleHoverExited);
+            if (interactable != null)
+            {
+                interactable.hoverEntered.RemoveListener(HandleHoverEntered);
+                interactable.hoverExited.RemoveListener(HandleHoverExited);
+            }
             InfoFocusDetector.Instance?.ClearFocus(this);
             SetHighlight(false);
         }
@@ -73,14 +77,41 @@ namespace Modules.Module02_RackInstallation.Exploration
 
         private void SetHighlight(bool visible)
         {
+            if (visible && !outlinesInitialized)
+                InitializeOutlines();
+
+            foreach (Outline outline in hoverOutlines)
+            {
+                if (outline == null) continue;
+                outline.OutlineMode = Outline.Mode.OutlineVisible;
+                outline.OutlineColor = highlightColor;
+                outline.OutlineWidth = outlineWidth;
+                outline.enabled = visible;
+            }
+        }
+
+        private void InitializeOutlines()
+        {
+            outlinesInitialized = true;
             if (highlightRenderers == null) return;
+            var visited = new HashSet<GameObject>();
             foreach (Renderer targetRenderer in highlightRenderers)
             {
-                if (targetRenderer == null) continue;
-                targetRenderer.GetPropertyBlock(propertyBlock);
-                propertyBlock.SetColor(EmissionColor, visible ? highlightColor : Color.black);
-                targetRenderer.SetPropertyBlock(propertyBlock);
+                if (targetRenderer == null || !visited.Add(targetRenderer.gameObject)) continue;
+                Outline outline = targetRenderer.GetComponent<Outline>();
+                if (outline == null)
+                {
+                    outline = targetRenderer.gameObject.AddComponent<Outline>();
+                    ownedOutlines.Add(outline);
+                }
+                hoverOutlines.Add(outline);
             }
+        }
+
+        private void OnDestroy()
+        {
+            foreach (Outline outline in ownedOutlines)
+                if (outline != null) Destroy(outline);
         }
     }
 }

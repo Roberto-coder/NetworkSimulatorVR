@@ -45,6 +45,8 @@ public class FirebaseSaveManager : MonoBehaviour
 
         string json = JsonUtility.ToJson(saveFile);
 
+        try
+        {
         db.Child("simulador_redes_vr")
             .Child("usuarios")
             .Child(uid)
@@ -63,12 +65,19 @@ public class FirebaseSaveManager : MonoBehaviour
                   callback?.Invoke(false, "Error al guardar en Firebase");
               }
           });
+        }
+        catch (Exception exception)
+        {
+            Debug.LogError("No se pudo iniciar la subida: " + exception.Message);
+            callback?.Invoke(false, "No se pudo iniciar la sincronizacion");
+        }
     }
 
     // DESCARGAR SAVE (login)
     public void DownloadSave(System.Action<string> callback)
     {
-        string uid = FirebaseAuth.DefaultInstance.CurrentUser.UserId;
+        string uid = GetUserID();
+        if (string.IsNullOrEmpty(uid)) { callback?.Invoke(null); return; }
 
         Debug.Log("Intentando descargar save para UID: " + uid);
 
@@ -79,9 +88,10 @@ public class FirebaseSaveManager : MonoBehaviour
             .GetValueAsync()
             .ContinueWithOnMainThread(task =>
             {
+                if (uid != GetUserID()) return;
                 Debug.Log("Firebase respondió");
 
-                if(task.IsCompleted && !task.IsFaulted)
+                if(task.IsCompleted && !task.IsFaulted && !task.IsCanceled)
                 {
                     var snapshot = task.Result;
 

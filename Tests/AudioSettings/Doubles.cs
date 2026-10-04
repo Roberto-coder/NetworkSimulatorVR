@@ -29,7 +29,7 @@ namespace UnityEngine {
   public static string ToJson(object value)=>System.Text.Json.JsonSerializer.Serialize(value,options);
  }
 }
-namespace UnityEngine.Audio { public class AudioMixer { public Dictionary<string,float> Values=new(); public bool SetFloat(string key,float value) { Values[key]=value; return true; } } }
+namespace UnityEngine.Audio { public class AudioMixerGroup { public string name="Voice"; } public class AudioMixer { public AudioMixerGroup[] FindMatchingGroups(string name)=>new[]{new AudioMixerGroup { name = name }}; public Dictionary<string,float> Values=new(); public bool SetFloat(string key,float value) { Values[key]=value; return true; } } }
 namespace UnityEngine.UI {
  public class Slider { public string name="SliderMusic"; public float minValue,maxValue,value; public bool wholeNumbers; public ValueEvent onValueChanged=new(); public void SetValueWithoutNotify(float v)=>value=v; }
  public class ValueEvent { private event Action<float> Changed; public void AddListener(Action<float> a)=>Changed+=a; public void RemoveListener(Action<float> a)=>Changed-=a; public void Invoke(float v)=>Changed?.Invoke(v); }
@@ -39,3 +39,5 @@ namespace UnityEngine.SceneManagement {
  public struct Scene { public UnityEngine.GameObject[] Roots; public UnityEngine.GameObject[] GetRootGameObjects()=>Roots??Array.Empty<UnityEngine.GameObject>(); }
  public static class SceneManager { public static event Action<Scene,LoadSceneMode> sceneLoaded; public static Scene Current; public static Scene GetActiveScene()=>Current; public static void Load(Scene scene) { Current=scene;sceneLoaded?.Invoke(scene,LoadSceneMode.Single); } }
 }
+
+namespace UnityEngine { public class AudioSource { public UnityEngine.Audio.AudioMixerGroup outputAudioMixerGroup; } }

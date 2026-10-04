@@ -1,3 +1,4 @@
+using Systems.Settings;
 using Framework.Interaction.Tools.Interfaces;
 using Framework.Interaction.Tools;
 using Systems.Input;
@@ -56,7 +57,10 @@ namespace Modules.Module01_CableMaking.Interaction
                 animationController.Play();
 
             if (audioSource != null)
+            {
+                GlobalSettingsManager.Instance?.RouteSfx(audioSource);
                 audioSource.Play();
+            }
 
             VRInputManager.Instance?.PlayHaptic(
                 hapticController,

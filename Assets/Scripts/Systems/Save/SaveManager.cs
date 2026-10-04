@@ -11,6 +11,28 @@ public class SaveManager : MonoBehaviour
 
     string savePath;
     public SaveFile saveFile;
+    public enum SyncState { Local, Pending, Syncing, WaitingForServer, Synced, Offline, Error }
+    public SyncState State { get; private set; } = SyncState.Local;
+    public string StatusMessage { get; private set; } = "Progreso local";
+    public event Action StatusChanged;
+    public bool IsSyncInProgress { get; private set; }
+    public bool HasPendingChanges => saveFile?.slots?.Exists(slot => slot != null && slot.needsCloudSync) == true;
+    private int sessionGeneration;
+    private int syncOperation;
+
+    private void SetStatus(SyncState state, string message)
+    {
+        State = state;
+        StatusMessage = message;
+        StatusChanged?.Invoke();
+    }
+
+    private void RefreshLocalStatus()
+    {
+        SetStatus(HasPendingChanges ? SyncState.Pending : SyncState.Local,
+            HasPendingChanges ? "Guardado en este dispositivo. Pendiente de sincronizar todas las partidas."
+                : "Progreso local disponible.");
+    }
 
     void Awake()
     {
@@ -31,6 +53,7 @@ public class SaveManager : MonoBehaviour
     // Cargar archivo al iniciar sesión
     public void LoadFromLocal()
     {
+        sessionGeneration++;
         try
         {
             RefreshSavePath();
@@ -42,7 +65,7 @@ public class SaveManager : MonoBehaviour
             {
                 string json = File.ReadAllText(path);
 
-                Debug.Log("JSON cargado: " + json);
+    
 
                 saveFile = JsonUtility.FromJson<SaveFile>(json);
             }
@@ -61,9 +84,10 @@ public class SaveManager : MonoBehaviour
             saveFile = new SaveFile();
             NormalizeSaveFile();
         }
+        RefreshLocalStatus();
     }
 
-    // Guardado manual
+    // Crear una partida nueva; no usar para guardar progreso existente.
     public void SaveGame(int slotID, string module, float playtime)
     {
         SaveSlot slot = new SaveSlot();
@@ -108,7 +132,10 @@ public class SaveManager : MonoBehaviour
         bool hasPendingLocalChanges = saveFile?.slots?.Exists(slot => slot.needsCloudSync) == true;
 
         if (string.IsNullOrWhiteSpace(remoteJson) || hasPendingLocalChanges)
+        {
+            RefreshLocalStatus();
             return hasPendingLocalChanges;
+        }
 
         ImportRemoteJson(remoteJson);
         return false;
@@ -116,9 +143,11 @@ public class SaveManager : MonoBehaviour
 
     public void ClearInMemorySession()
     {
+        sessionGeneration++;
         saveFile = new SaveFile();
         NormalizeSaveFile();
         RefreshSavePath();
+        RefreshLocalStatus();
     }
 
     public bool SelectSlot(int slotId)
@@ -162,6 +191,7 @@ public class SaveManager : MonoBehaviour
         EnsureSaveFile();
         int index = saveFile.slots.FindIndex(item => item.slotID == slotId);
         SaveSlot empty = CreateEmptySlot(slotId);
+        empty.needsCloudSync = true; // La eliminacion tambien debe llegar a la nube.
         if (index >= 0)
             saveFile.slots[index] = empty;
         else
@@ -278,39 +308,87 @@ public class SaveManager : MonoBehaviour
     public void SyncLocalToFirebase(Action<bool, string> callback = null)
     {
         EnsureSaveFile();
+        if (IsSyncInProgress)
+        {
+            callback?.Invoke(false, "Ya hay una sincronizacion en curso. Espera la respuesta del servidor.");
+            return;
+        }
         if (!SessionContext.CanSyncToFirebase)
         {
-            Debug.LogWarning("La sesión actual es local; no se sincronizará con Firebase.");
-            callback?.Invoke(false, "Sesión local: guardado conservado en este dispositivo");
+            SetStatus(SyncState.Local, "Sesion local: progreso conservado en este dispositivo.");
+            callback?.Invoke(false, StatusMessage);
             return;
         }
-
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            SetStatus(SyncState.Offline, "Sin conexion. Tu progreso local se conserva; conectate y pulsa Sincronizar.");
+            callback?.Invoke(false, StatusMessage);
+            return;
+        }
         if (FirebaseSaveManager.Instance == null)
         {
-            Debug.LogWarning("No hay FirebaseSaveManager activo; el guardado local se conserva.");
-            callback?.Invoke(false, "Firebase no está disponible");
+            SetStatus(SyncState.Error, "Firebase no esta disponible. Tu progreso local se conserva.");
+            callback?.Invoke(false, StatusMessage);
             return;
         }
 
-        System.Collections.Generic.List<int> pendingSlots = saveFile.slots
-            .FindAll(slot => slot.needsCloudSync)
-            .ConvertAll(slot => slot.slotID);
-
-        foreach (SaveSlot slot in saveFile.slots)
-            slot.needsCloudSync = false;
-
-        SaveLocal();
-        FirebaseSaveManager.Instance.UploadSave(saveFile, (success, message) =>
+        // Persistir antes de enviar. Nunca borrar pendientes antes de la confirmacion.
+        try { SaveLocal(); }
+        catch (Exception e) when (e is IOException || e is UnauthorizedAccessException)
         {
+            SetStatus(SyncState.Error, "No se pudo escribir el archivo local. No se inicio la sincronizacion.");
+            callback?.Invoke(false, StatusMessage);
+            return;
+        }
+        string uid = SessionContext.UserId;
+        int generation = sessionGeneration;
+        var originalSlots = new System.Collections.Generic.Dictionary<int, string>();
+        foreach (var slot in saveFile.slots) originalSlots[slot.slotID] = JsonUtility.ToJson(slot);
+        SaveFile snapshot = JsonUtility.FromJson<SaveFile>(JsonUtility.ToJson(saveFile));
+        foreach (var slot in snapshot.slots) slot.needsCloudSync = false;
+        IsSyncInProgress = true;
+        SetStatus(SyncState.Syncing, "Sincronizando todas las partidas con Firebase...");
+        StartCoroutine(ReportSlowSync(generation, ++syncOperation));
+        FirebaseSaveManager.Instance.UploadSave(snapshot, (success, message) =>
+        {
+            IsSyncInProgress = false;
+            // Una respuesta anterior nunca modifica la cuenta o sesion actual.
+            if (generation != sessionGeneration || uid != SessionContext.UserId)
+            {
+                RefreshLocalStatus();
+                return;
+            }
             if (!success)
             {
-                foreach (SaveSlot slot in saveFile.slots)
-                    slot.needsCloudSync = pendingSlots.Contains(slot.slotID);
-                SaveLocal();
+                SetStatus(SyncState.Error, "No se pudo sincronizar. Tu progreso local sigue pendiente; puedes reintentar.");
+                callback?.Invoke(false, StatusMessage);
+                return;
             }
-
-            callback?.Invoke(success, message);
+            string beforeAcknowledgement = JsonUtility.ToJson(saveFile);
+            foreach (var slot in saveFile.slots)
+                if (originalSlots.TryGetValue(slot.slotID, out string original) && original == JsonUtility.ToJson(slot))
+                    slot.needsCloudSync = false;
+            try { SaveLocal(); }
+            catch (Exception e) when (e is IOException || e is UnauthorizedAccessException)
+            {
+                saveFile = JsonUtility.FromJson<SaveFile>(beforeAcknowledgement);
+                SetStatus(SyncState.Error, "Firebase recibio la copia, pero fallo la confirmacion local. Se conservan los pendientes.");
+                callback?.Invoke(false, StatusMessage);
+                return;
+            }
+            SetStatus(HasPendingChanges ? SyncState.Pending : SyncState.Synced,
+                HasPendingChanges ? "Copia sincronizada. Hay cambios posteriores pendientes de subir."
+                    : "Todas las partidas sincronizadas con Firebase.");
+            callback?.Invoke(true, StatusMessage);
         });
+    }
+
+    private System.Collections.IEnumerator ReportSlowSync(int generation, int operation)
+    {
+        yield return new WaitForSecondsRealtime(20f);
+        if (IsSyncInProgress && generation == sessionGeneration && operation == syncOperation)
+            SetStatus(SyncState.WaitingForServer,
+                "Firebase tarda en responder. Tu progreso local esta guardado. La operacion sigue pendiente de confirmacion.");
     }
 
     public void SaveLocal()
@@ -318,6 +396,7 @@ public class SaveManager : MonoBehaviour
         EnsureSaveFile();
         string json = JsonUtility.ToJson(saveFile,true);
         Systems.Save.AtomicLocalFile.Write(savePath, json);
+        if (!IsSyncInProgress) RefreshLocalStatus();
     }
 
     // Autosave (no sube a firebase)

@@ -106,7 +106,7 @@ MonoBehaviour:
       Si cambias una conexi\xF3n despu\xE9s de etiquetarla, las etiquetas se invalidar\xE1n
       y deber\xE1s colocarlas de nuevo."
     instruction: Selecciona la etiquetadora, acerca la boquilla superior a cada extremo
-      del cable y presiona el trigger. Etiqueta ambos extremos de los cinco cables,
+      del cable y presiona el trigger {control:usar}. Etiqueta ambos extremos de los cinco cables,
       para un total de diez etiquetas. Puedes consultar la tabla de conexiones para
       verificar los identificadores.
   - objectiveId: connect_console

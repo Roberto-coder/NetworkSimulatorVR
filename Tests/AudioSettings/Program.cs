@@ -33,7 +33,7 @@ static class Program {
   pauseSlider.onValueChanged.Invoke(0.25f);
   Check(notifications==1 && menuSlider.value==0.25f && manager.Current.musicVolume==0.25f,"Late pause slider and idempotent binding must synchronize");
   Check(Math.Abs(mixer.Values["MusicVolume"]-20*MathF.Log10(0.25f))<0.001,"Live logarithmic mixer adjustment");
-  Check(mixer.Values["VoiceVolume"]==0,"Music slider must not change voices");
+  Check(mixer.Values["VoiceVolume"]==6,"Music slider must not change voices");
   pauseSlider.onValueChanged.Invoke(0);Check(mixer.Values["MusicVolume"]==-80 && !manager.Current.musicEnabled,"Zero must mute");
   manager.UnbindMusicSlider(pauseSlider);int count=notifications;pauseSlider.onValueChanged.Invoke(0.9f);Check(count==notifications,"Closed panel listener removed");
   manager.BindMusicSlider(pauseSlider);pauseSlider.onValueChanged.Invoke(0.4f);
@@ -42,6 +42,30 @@ static class Program {
   count=notifications;pauseSlider.onValueChanged.Invoke(0.9f);Check(count==notifications,"Old scene listeners removed");
   Call(manager,"OnDisable");Call(manager,"OnDestroy");
   var restored=Create("GlobalSystems(Clone)",new AudioMixer());Call(restored,"Start");Check(restored.Current.musicVolume==0.4f,"Volume survives a new session");
+  restored.SetVoiceVolume(0);
+  Check(restored.Current.voiceVolume == 0, "Voice mute is saved");
+  var voiceMixer = new AudioMixer();
+  Set(restored, "audioMixer", voiceMixer);
+  restored.SetVoiceVolume(0);
+  Check(voiceMixer.Values["VoiceVolume"] == -80, "Voice boost must preserve mute");
+  restored.SetVoiceVolume(1);
+  Check(voiceMixer.Values["VoiceVolume"] == 6, "Full voice volume includes gain");
+  restored.SetVoiceVolume(0.5f);
+  Check(Math.Abs(voiceMixer.Values["VoiceVolume"] - (20*MathF.Log10(0.5f)+6)) < 0.001, "Voice gain follows slider");
+  var sfxA = new Slider(); var sfxB = new Slider();
+  restored.BindSfxSlider(sfxA); restored.BindSfxSlider(sfxA); restored.BindSfxSlider(sfxB);
+  int sfxChanges = 0; restored.SettingsChanged += _ => sfxChanges++;
+  sfxA.onValueChanged.Invoke(0.25f);
+  Check(sfxChanges == 1 && sfxB.value == 0.25f, "SFX sliders synchronize without duplicate listeners");
+  Check(Math.Abs(voiceMixer.Values["SFXVolume"] - 20*MathF.Log10(0.25f)) < 0.001, "SFX adjusts its mixer channel");
+  Check(restored.Current.voiceVolume == 0.5f && restored.Current.musicVolume == 0.4f, "SFX preserves music and voice");
+  Check(JsonUtility.FromJson<UserSettings>(PlayerPrefs.Saved).sfxVolume == 0.25f, "SFX is persisted");
+  sfxA.onValueChanged.Invoke(0);
+  Check(voiceMixer.Values["SFXVolume"] == -80, "SFX zero mutes");
+  restored.UnbindSfxSlider(sfxA); int before = sfxChanges; sfxA.onValueChanged.Invoke(1);
+  Check(sfxChanges == before, "SFX listener removed when panel closes");
+  var effect = new AudioSource(); restored.RouteSfx(effect);
+  Check(effect.outputAudioMixerGroup?.name == "SFX", "Effects route to SFX");
   Console.WriteLine("PASS: direct startup, duplicate prevention, persistent music root, mixer timing, late slider binding, synchronization, mute, scene changes, and saved volume.");
  }
 }

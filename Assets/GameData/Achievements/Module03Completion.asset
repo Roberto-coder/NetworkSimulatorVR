@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Module03Completion
   m_EditorClassIdentifier: Assembly-CSharp::GameData.Achievements.AchievementDefinition
   achievementId: module_03_completed
-  title: Analista de diagnóstico de red
-  description: Completa el módulo de detección y resolución de fallas de conectividad.
-  icon: {fileID: 21300000, guid: f8c38088c69280141b3a9f5e8f19df97, type: 3}
+  title: "Analista de diagn\xF3stico de red"
+  description: "Completa el m\xF3dulo de detecci\xF3n y resoluci\xF3n de fallas de
+    conectividad."
+  icon: {fileID: 21300000, guid: 0509e706913cb074a8f009296dd1410f, type: 3}

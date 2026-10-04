@@ -11,6 +11,8 @@ namespace Systems.Settings
     {
         private const string SettingsKey = "global.userSettings";
         private const float MutedDecibels = -80f;
+        // Ganancia de los diálogos independiente del volumen guardado por el usuario.
+        private const float VoiceBoostDecibels = 6f;
 
         [SerializeField] private AudioMixer audioMixer;
 
@@ -21,6 +23,8 @@ namespace Systems.Settings
         private readonly List<Slider> boundMusicSliders = new();
         private readonly List<Slider> boundVoiceSliders = new();
         private AudioMixerGroup voiceGroup;
+        private AudioMixerGroup sfxGroup;
+        private readonly List<Slider> boundSfxSliders = new();
 
         public void RouteVoice(AudioSource source)
         {
@@ -31,6 +35,16 @@ namespace Systems.Settings
                     if (group.name == "Voice") { voiceGroup = group; break; }
             }
             if (voiceGroup != null) source.outputAudioMixerGroup = voiceGroup;
+        }
+        public void RouteSfx(AudioSource source)
+        {
+            if (source == null || audioMixer == null) return;
+            if (sfxGroup == null)
+            {
+                foreach (var group in audioMixer.FindMatchingGroups("SFX"))
+                    if (group.name == "SFX") { sfxGroup = group; break; }
+            }
+            if (sfxGroup != null) source.outputAudioMixerGroup = sfxGroup;
         }
         private GameObject persistentRoot;
 
@@ -84,6 +98,7 @@ namespace Systems.Settings
             SceneManager.sceneLoaded -= HandleSceneLoaded;
             UnbindMusicSlider();
             UnbindVoiceSliders();
+            UnbindSfxSliders();
         }
 
         public void SetMusicVolume(float value)
@@ -125,6 +140,8 @@ namespace Systems.Settings
         public void SetSfxVolume(float value)
         {
             Current.sfxVolume = Mathf.Clamp01(value);
+            foreach (Slider slider in boundSfxSliders)
+                if (slider != null) slider.SetValueWithoutNotify(Current.sfxVolume);
             SetMixerVolume("SFXVolume", Current.sfxVolume);
             SaveAndNotify();
         }
@@ -166,6 +183,8 @@ namespace Systems.Settings
             float decibels = normalizedValue <= 0.0001f
                 ? MutedDecibels
                 : Mathf.Log10(Mathf.Clamp01(normalizedValue)) * 20f;
+            if (parameter == "VoiceVolume" && normalizedValue > 0.0001f)
+                decibels += VoiceBoostDecibels;
             audioMixer.SetFloat(parameter, decibels);
         }
 
@@ -185,11 +204,13 @@ namespace Systems.Settings
         {
             UnbindMusicSlider();
             UnbindVoiceSliders();
+            UnbindSfxSliders();
             foreach (GameObject root in scene.GetRootGameObjects())
             {
                 foreach (Slider slider in root.GetComponentsInChildren<Slider>(true))
                 {
                     if (slider.name == "SliderVoice") BindVoiceSlider(slider);
+                    if (slider.name == "SliderSFX") BindSfxSlider(slider);
                     if (slider.name != "SliderMusic")
                         continue;
 
@@ -222,6 +243,32 @@ namespace Systems.Settings
             foreach (Slider slider in boundVoiceSliders)
                 if (slider != null) slider.onValueChanged.RemoveListener(SetVoiceVolume);
             boundVoiceSliders.Clear();
+        }
+
+        public void BindSfxSlider(Slider slider)
+        {
+            if (slider == null || Current == null) return;
+            slider.minValue = 0f;
+            slider.maxValue = 1f;
+            slider.wholeNumbers = false;
+            slider.SetValueWithoutNotify(Current.sfxVolume);
+            if (boundSfxSliders.Contains(slider)) return;
+            slider.onValueChanged.AddListener(SetSfxVolume);
+            boundSfxSliders.Add(slider);
+        }
+
+        public void UnbindSfxSlider(Slider slider)
+        {
+            if (slider == null) return;
+            slider.onValueChanged.RemoveListener(SetSfxVolume);
+            boundSfxSliders.Remove(slider);
+        }
+
+        private void UnbindSfxSliders()
+        {
+            foreach (Slider slider in boundSfxSliders)
+                if (slider != null) slider.onValueChanged.RemoveListener(SetSfxVolume);
+            boundSfxSliders.Clear();
         }
 
         public void BindMusicSlider(Slider slider)

@@ -1,3 +1,4 @@
+using Systems.Settings;
 using Modules.Module02_RackInstallation.Flow.Validation;
 using System.Collections.Generic;
 using TMPro;
@@ -46,7 +47,7 @@ namespace Modules.Module02_RackInstallation.Interaction
             if (elapsed >= holdSeconds)
             {
                 IsFastened = true;
-                if (feedbackAudio != null && feedbackAudio.clip != null) feedbackAudio.Play();
+                if (feedbackAudio != null && feedbackAudio.clip != null) { GlobalSettingsManager.Instance?.RouteSfx(feedbackAudio); feedbackAudio.Play(); }
                 assembly.NotifyScrewFastened();
             }
             Refresh();
