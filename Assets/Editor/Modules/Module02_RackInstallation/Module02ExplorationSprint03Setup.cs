@@ -60,11 +60,11 @@ public static class Module02ExplorationSprint03Setup
             "2U equivalen a 88.9 mm de altura nominal.",
             "Assets/Prefabs/Dispositivos/Modulo2/Server_2U_provisional.prefab"),
 
-        new("firewall", "Firewall", "Firewall_Static_1U", RackComponentCategory.Firewall,
+        new("switch_expansion", "Switch secundario SW2", "Switch_static", RackComponentCategory.Switch,
             new Vector3(0.4826f, U, 0.35f), 1,
-            "Dispositivo provisional de seguridad de red.",
-            "Inspecciona y controla el tráfico de acuerdo con reglas de seguridad.",
-            "Modelo educativo: no representa un producto ni una política de seguridad específicos.",
+            "Switch fijo para ampliar los puertos de la red local.",
+            "Enlaza SW1/Gi04 con SW2/Gi04 y ofrece puertos adicionales para otros dispositivos.",
+            "Modelo educativo provisional; los puertos adicionales no son interactivos en esta práctica.",
             "Assets/Prefabs/Dispositivos/Modulo2/Switch1U_provisional.prefab"),
 
         new("patch_panel", "Patch panel", "PatchPanel_Static_1U", RackComponentCategory.PatchPanel,

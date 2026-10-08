@@ -93,7 +93,12 @@ namespace Modules.Module02_RackInstallation.Exploration
         private void InitializeOutlines()
         {
             outlinesInitialized = true;
-            if (highlightRenderers == null) return;
+            bool hasAssignedRenderer = false;
+            if (highlightRenderers != null)
+                foreach (Renderer renderer in highlightRenderers)
+                    if (renderer != null) { hasAssignedRenderer = true; break; }
+            if (!hasAssignedRenderer)
+                highlightRenderers = GetComponentsInChildren<Renderer>();
             var visited = new HashSet<GameObject>();
             foreach (Renderer targetRenderer in highlightRenderers)
             {

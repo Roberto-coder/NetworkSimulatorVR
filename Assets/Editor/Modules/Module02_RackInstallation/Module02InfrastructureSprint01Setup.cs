@@ -17,7 +17,7 @@ public sealed class Module02InfrastructureSprint01Setup : EditorWindow
     private const string RootName = "Module02_Infrastructure_Sprint01";
     private const string SocketPath = "Assets/Prefabs/Tools/Module02/Cabling/NetworkPortSocket_RJ45.prefab";
     private const string CablePath = "Assets/Prefabs/Tools/Module02/Cabling/PatchCable_RJ45_1_7m.prefab";
-    private Transform switchDevice, patchPanel, firewall, pdu;
+    private Transform switchDevice, patchPanel, secondarySwitch, pdu;
     private Vector3 hooksPosition = new(1, 1.5f, 0);
     private Vector3 hooksRotation;
     private string message;
@@ -34,8 +34,8 @@ public sealed class Module02InfrastructureSprint01Setup : EditorWindow
         var grab = existing != null ? existing.GetComponentInParent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>() : null;
         switchDevice = grab != null ? grab.transform : Find("Switch_12Port_Educational");
         patchPanel = Find("Patch panel");
-        firewall = Find("Firewall");
-        pdu = Find("UPS / PDU vertical");
+        secondarySwitch = Find("Switch secundario SW2");
+        pdu = Find("PDU-A");
         var rack = Find("rackV1");
         if (rack != null)
         {
@@ -49,7 +49,7 @@ public sealed class Module02InfrastructureSprint01Setup : EditorWindow
         EditorGUILayout.HelpBox("Escena Modulo2 abierta, fuera de Play. Asigna las raíces de los dispositivos. Se conservan sockets existentes con el mismo ID. Las posiciones nuevas son iniciales: alinea sus anclajes con el modelo antes de probar en VR.", MessageType.Info);
         switchDevice = (Transform)EditorGUILayout.ObjectField("SW1", switchDevice, typeof(Transform), true);
         patchPanel = (Transform)EditorGUILayout.ObjectField("PP-A", patchPanel, typeof(Transform), true);
-        firewall = (Transform)EditorGUILayout.ObjectField("FW1", firewall, typeof(Transform), true);
+        secondarySwitch = (Transform)EditorGUILayout.ObjectField("SW2", secondarySwitch, typeof(Transform), true);
         pdu = (Transform)EditorGUILayout.ObjectField("PDU-A", pdu, typeof(Transform), true);
         hooksPosition = EditorGUILayout.Vector3Field("Ganchos (posición mundo)", hooksPosition);
         hooksRotation = EditorGUILayout.Vector3Field("Ganchos (rotación)", hooksRotation);
@@ -74,7 +74,7 @@ public sealed class Module02InfrastructureSprint01Setup : EditorWindow
         var scene = EditorSceneManager.GetActiveScene();
         if (EditorApplication.isPlayingOrWillChangePlaymode || scene.path != "Assets/Scenes/Modulo2.unity")
             throw new InvalidOperationException("Abre Modulo2 fuera de Play Mode.");
-        Transform[] devices = { switchDevice, patchPanel, firewall, pdu };
+        Transform[] devices = { switchDevice, patchPanel, secondarySwitch, pdu };
         if (devices.Any(d => d == null || d.gameObject.scene != scene) || devices.Distinct().Count() != 4)
             throw new InvalidOperationException("Asigna cuatro dispositivos distintos de esta escena.");
         if (Find(RootName) != null)
@@ -91,12 +91,12 @@ public sealed class Module02InfrastructureSprint01Setup : EditorWindow
         {
             var root = Create(RootName, null);
             Identify(switchDevice, "SW1"); Identify(patchPanel, "PP-A");
-            Identify(firewall, "FW1"); Identify(pdu, "PDU-A");
+            Identify(secondarySwitch, "SW2"); Identify(pdu, "PDU-A");
             for (int i = 0; i < 4; i++) Port(switchDevice, "SW1", $"Gi{i + 1:00}", NetworkPortKind.EthernetRj45, i, socketPrefab);
             Port(switchDevice, "SW1", "Console", NetworkPortKind.ConsoleRj45, 4, socketPrefab);
             Port(switchDevice, "SW1", "Power", NetworkPortKind.Power, 5, socketPrefab);
             for (int i = 0; i < 3; i++) Port(patchPanel, "PP-A", $"{i + 1:00}", NetworkPortKind.EthernetRj45, i, socketPrefab);
-            Port(firewall, "FW1", "eth01", NetworkPortKind.EthernetRj45, 0, socketPrefab);
+            Port(secondarySwitch, "SW2", "Gi04", NetworkPortKind.EthernetRj45, 0, socketPrefab);
             Port(pdu, "PDU-A", "AC01", NetworkPortKind.Power, 0, socketPrefab);
 
             // Disable only unused cabling sockets, never the device's inspection or grab components.
@@ -258,7 +258,7 @@ public sealed class Module02InfrastructureSprint01Setup : EditorWindow
         if (ports.Length != 11 || expected.Any(id => ports.Count(p => p.Address == id) != 1))
             throw new InvalidOperationException("Se requieren exactamente 11 puertos activos, sin IDs repetidos.");
         var devices = SceneObjects<DeviceIdentity>().Where(d => d.gameObject.activeInHierarchy).ToArray();
-        if (new[] { "SW1", "PP-A", "FW1", "PDU-A" }.Any(id => devices.Count(d => d.DeviceId == id) != 1))
+        if (new[] { "SW1", "PP-A", "SW2", "PDU-A" }.Any(id => devices.Count(d => d.DeviceId == id) != 1))
             throw new InvalidOperationException("Faltan IDs de dispositivos o están duplicados.");
         var cables = SceneObjects<PatchCableLink>().Where(c => c.gameObject.activeInHierarchy).ToArray();
         if (cables.Length != 5 || cables.Count(c => c.Kind == NetworkPortKind.Power) != 1 || cables.Count(c => c.Kind == NetworkPortKind.EthernetRj45) != 4 || cables.Any(c => c.GetComponent<CableHookStorage>() == null))

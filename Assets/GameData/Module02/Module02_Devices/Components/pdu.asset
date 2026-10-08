@@ -20,7 +20,7 @@ MonoBehaviour:
     de corriente y medidor integrado."
   function: "Centraliza la alimentaci\xF3n de los dispositivos conectados y permite
     visualizar el voltaje y la corriente consumida."
-  rackUnits: 0
+  rackUnits: 1
   image: {fileID: 0}
   standardReference: "La capacidad, protecciones y conexi\xF3n deben seguir la documentaci\xF3n
     el\xE9ctrica del equipo."

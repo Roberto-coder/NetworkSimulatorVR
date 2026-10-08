@@ -29,7 +29,7 @@ namespace Modules.Module02_RackInstallation.Domain
             new PlannedConnection("PP-A/01", "SW1/Gi01", NetworkPortKind.EthernetRj45),
             new PlannedConnection("PP-A/02", "SW1/Gi02", NetworkPortKind.EthernetRj45),
             new PlannedConnection("PP-A/03", "SW1/Gi03", NetworkPortKind.EthernetRj45),
-            new PlannedConnection("FW1/eth01", "SW1/Gi04", NetworkPortKind.EthernetRj45)
+            new PlannedConnection("SW2/Gi04", "SW1/Gi04", NetworkPortKind.EthernetRj45)
         });
 
         public static int FindMatch(string start, string end, NetworkPortKind cableKind,

@@ -8905,7 +8905,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3199206670162089647, guid: ada985443e85e8e49a385c57ef12735f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3226663553720969990, guid: ada985443e85e8e49a385c57ef12735f, type: 3}
       propertyPath: m_LocalScale.x
@@ -21807,6 +21807,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 657184242118504722, guid: bc87fd7c5ef151a48a7d4eff789648a1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1370318873}
+    - targetCorrespondingSourceObject: {fileID: 5047048396007152335, guid: bc87fd7c5ef151a48a7d4eff789648a1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2706000001}
   m_SourcePrefab: {fileID: 100100000, guid: bc87fd7c5ef151a48a7d4eff789648a1, type: 3}
 --- !u!1 &1370318872 stripped
 GameObject:
@@ -34157,3 +34160,27 @@ SceneRoots:
   - {fileID: 945172797}
   - {fileID: 1044945489}
   - {fileID: 840106481}
+--- !u!1 &2706000000 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5047048396007152335, guid: bc87fd7c5ef151a48a7d4eff789648a1, type: 3}
+  m_PrefabInstance: {fileID: 1370318871}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2706000001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2706000000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7951c64acb0fa62458bf30a60089fe2d, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.UI.TrackedDeviceGraphicRaycaster
+  m_IgnoreReversedGraphics: 0
+  m_CheckFor2DOcclusion: 0
+  m_CheckFor3DOcclusion: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RaycastTriggerInteraction: 1

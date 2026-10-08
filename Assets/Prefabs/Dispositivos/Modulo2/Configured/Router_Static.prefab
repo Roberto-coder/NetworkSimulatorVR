@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4873477413437177224}
   - component: {fileID: 7015463477580036948}
   - component: {fileID: 5808622907030555620}
+  - component: {fileID: 910000000000000010}
   m_Layer: 0
   m_Name: Router_Static
   m_TagString: Untagged
@@ -56,7 +57,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.4826, y: 0.04445, z: 0.3}
+  m_Size: {x: 0.48260000, y: 0.04445000, z: 0.31200000}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4873477413437177224
 MonoBehaviour:
@@ -313,3 +314,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7181038862564684675, guid: e0765fe0dca334642b78d78190ddf625, type: 3}
   m_PrefabInstance: {fileID: 2121245590667845051}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &910000000000000010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035080384111345874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8d732cf62ca4e47a204519d69562452, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Modules.Module02_RackInstallation.Presentation.RackStaticVisualFit
+  visuals: {fileID: 3723115422000438202}
+  targetSize: {x: 0.48260000, y: 0.04445000, z: 0.31200000}

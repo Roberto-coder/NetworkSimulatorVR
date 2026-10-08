@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5967113224441692132}
   - component: {fileID: 8595791485986196093}
   - component: {fileID: 5503423488192171574}
+  - component: {fileID: 910000000000000010}
   m_Layer: 0
   m_Name: PatchPanel_Static_1U
   m_TagString: Untagged
@@ -56,7 +57,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.4826, y: 0.04445, z: 0.08}
+  m_Size: {x: 0.48260000, y: 0.04445000, z: 0.11200000}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5967113224441692132
 MonoBehaviour:
@@ -309,3 +310,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7181038862564684675, guid: 39049b825cf43b24285a16aa22f1ecbf, type: 3}
   m_PrefabInstance: {fileID: 4670812158362402052}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &910000000000000010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049489857694058961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8d732cf62ca4e47a204519d69562452, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Modules.Module02_RackInstallation.Presentation.RackStaticVisualFit
+  visuals: {fileID: 5018354121364040960}
+  targetSize: {x: 0.48260000, y: 0.04445000, z: 0.11200000}

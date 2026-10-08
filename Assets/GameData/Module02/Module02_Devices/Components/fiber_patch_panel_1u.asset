@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5563bbff71e9e2e418ccdb0a2ede6316, type: 3}
+  m_Name: fiber_patch_panel_1u
+  m_EditorClassIdentifier: Assembly-CSharp::Modules.Module02_RackInstallation.Data.RackComponentInfo
+  id: fiber_patch_panel_1u
+  displayName: Fiber Patch Panel de 1U
+  category: 13
+  educationalApproximation: 1
+  shortDescription: "Panel de fibra óptica montado en una unidad de rack."
+  function: "Organiza y protege las terminaciones de fibra óptica y facilita su conexión con los equipos de red mediante latiguillos."
+  rackUnits: 1
+  image: {fileID: 0}
+  standardReference: "1U equivale a 44.45 mm de altura nominal. Verifica el tipo de fibra, los conectores, la limpieza y el radio de curvatura antes de conectar."
+  sections: []

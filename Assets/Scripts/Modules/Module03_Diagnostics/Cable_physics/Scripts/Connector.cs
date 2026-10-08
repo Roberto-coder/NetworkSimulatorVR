@@ -40,6 +40,7 @@ namespace Modules.Module03_Diagnostics.Cable_physics.Scripts
         public Vector3 ConnectedOutOffset => connectionPoint ? connectionPoint.right : transform.right;
 
         public bool IsConnected => ConnectedTo != null;
+        public bool IsConnectionLocked { get; private set; }
         public bool IsConnectedRight => IsConnected && ConnectionColor == ConnectedTo.ConnectionColor;
 
 
@@ -64,10 +65,36 @@ namespace Modules.Module03_Diagnostics.Cable_physics.Scripts
             }
         }
 
-        private void OnDisable() => Disconnect();
+        private void OnDisable()
+        {
+            // Scene teardown must still release joints and reciprocal references.
+            IsConnectionLocked = false;
+            if (ConnectedTo != null) ConnectedTo.IsConnectionLocked = false;
+            Disconnect();
+        }
+
+        /// <summary>Locks an installed pair until either object is disabled or destroyed.</summary>
+        public void LockConnection()
+        {
+            if (ConnectedTo == null || ConnectedTo.ConnectedTo != this) return;
+            IsConnectionLocked = true;
+            ConnectedTo.IsConnectionLocked = true;
+        }
 
         private void LateUpdate()
         {
+            // XRI can restore the old body state after a forced deselection.
+            // Locked cable ends stay anchored even if that release arrives later.
+            if (IsConnectionLocked && CableOwner != null && ConnectedTo != null && Rigidbody != null)
+            {
+                if (!Rigidbody.isKinematic)
+                {
+                    Rigidbody.linearVelocity = Vector3.zero;
+                    Rigidbody.angularVelocity = Vector3.zero;
+                    Rigidbody.isKinematic = true;
+                }
+                ConnectedTo.AlignConnector(this);
+            }
             // Un FixedJoint no puede arrastrar de forma fiable dos Rigidbody cinemáticos.
             // Cuando este Connector pertenece a un socket fijo o a un dispositivo móvil,
             // mantenemos el plug alineado explícitamente con su punto de conexión.
@@ -86,6 +113,7 @@ namespace Modules.Module03_Diagnostics.Cable_physics.Scripts
         }
         public void Connect(Connector secondConnector)
         {
+            if (IsConnectionLocked || (secondConnector != null && secondConnector.IsConnectionLocked)) return;
             if (secondConnector == null)
             {
                 Debug.LogWarning("Attempt to connect null");
@@ -124,6 +152,7 @@ namespace Modules.Module03_Diagnostics.Cable_physics.Scripts
         }
         public void Disconnect(Connector onlyThis = null)
         {
+            if (IsConnectionLocked || (ConnectedTo != null && ConnectedTo.IsConnectionLocked)) return;
             if (ConnectedTo == null || onlyThis != null && onlyThis != ConnectedTo)
                 return;
 

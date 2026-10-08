@@ -62,7 +62,7 @@ namespace Modules.Module02_RackInstallation.Flow
             flow.CurrentObjectiveChanged += OnObjective;
             flow.PracticalObjectivesCompleted += OnPracticalComplete;
             cards.PageShown += OnPage;
-            power.StateChanged += OnPowerChanged;
+            cabling.StateChanged += OnCablingChanged;
             // Mantener estos campos serializados conserva las referencias de escenas existentes.
             presenter = new Module02SequencePresenter(confirmReview, status, ConfirmCard);
             // Los tres monitores comienzan sin cables: las plantillas de escena no son progreso real.
@@ -88,7 +88,7 @@ namespace Modules.Module02_RackInstallation.Flow
                 flow.CompletionGuard = _ => false;
             }
             if (cards != null) cards.PageShown -= OnPage;
-            if (power != null) power.StateChanged -= OnPowerChanged;
+            if (cabling != null) cabling.StateChanged -= OnCablingChanged;
             presenter?.Dispose();
         }
         private void OnDestroy() { if (Instance == this) Instance = null; }
@@ -167,8 +167,12 @@ namespace Modules.Module02_RackInstallation.Flow
         private void Update()
         {
             if (flow == null || step < 0) return;
-            // Cerrar el agarre justo tras el encendido, sin desactivar Connector ni sus sockets.
-            if (!locked && step >= 7 && power.IsOn && ValidWiring()) LockInstallationCables();
+            // Freeze the five installed links before labeling, console use or power-on.
+            if (!locked && spawned && step >= 4)
+            {
+                cabling.RefreshState();
+                if (cabling.IsComplete) LockInstallationCables();
+            }
             if (step < 9 && IsSatisfied(Modules.Module02_RackInstallation.Objectives.Module02ObjectiveCatalog.OrderedIds[step]))
                 flow.TryCompleteCurrent(Modules.Module02_RackInstallation.Objectives.Module02ObjectiveCatalog.OrderedIds[step]);
             var required = step <= 1 ? RequiredIds() : Array.Empty<string>();
@@ -185,13 +189,28 @@ namespace Modules.Module02_RackInstallation.Flow
                 foreach (var end in new[] { physics.StartConnector, physics.EndConnector })
                 {
                     if (end == null) continue;
+                    // Set the lock before disabling XRI: deselection can request Disconnect.
+                    end.LockConnection();
                     var grab = end.GetComponent<XRGrabInteractable>(); if (grab != null) grab.enabled = false;
+                    FreezeCableBody(end.Rigidbody);
                 }
+                // Keep the installed route stable as well as the two plugs.
+                foreach (var body in cable.GetComponentsInChildren<Rigidbody>()) FreezeCableBody(body);
             }
         }
-        private void OnPowerChanged()
+        private static void FreezeCableBody(Rigidbody body)
         {
-            if (!locked && step >= 7 && power.IsOn && ValidWiring()) LockInstallationCables();
+            if (body == null) return;
+            if (!body.isKinematic)
+            {
+                body.linearVelocity = Vector3.zero;
+                body.angularVelocity = Vector3.zero;
+            }
+            body.isKinematic = true;
+        }
+        private void OnCablingChanged()
+        {
+            if (!locked && spawned && step >= 4 && cabling.IsComplete) LockInstallationCables();
         }
         private void OnPracticalComplete() { step = 9; PracticalCompleted?.Invoke(); }
         public string LastRejectionId { get; private set; }

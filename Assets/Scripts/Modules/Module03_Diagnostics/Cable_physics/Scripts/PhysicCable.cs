@@ -233,7 +233,7 @@ namespace HPhysic
                 lastPoint = nextPoint;
             }
 
-            if (isConnected)
+            if (isConnected && !startConnector.IsConnectionLocked && !endConnector.IsConnectionLocked)
             {
                 if (cableLength > brakeLength)
                 {

@@ -91,6 +91,7 @@ GameObject:
   - component: {fileID: 84706657211074175}
   - component: {fileID: 5544641360327824596}
   - component: {fileID: 2850525974020140661}
+  - component: {fileID: 910000000000000010}
   m_Layer: 0
   m_Name: UPS_PDU_Static
   m_TagString: Untagged
@@ -134,7 +135,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.055, y: 0.75, z: 0.055}
+  m_Size: {x: 0.06500000, y: 1.80500000, z: 0.04000000}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &84706657211074175
 MonoBehaviour:
@@ -301,3 +302,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4360810772656516068, guid: 53d13f22e41207d4ab6ee20900ea52a6, type: 3}
   m_PrefabInstance: {fileID: 9120019180402966484}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &910000000000000010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5306722915766400700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8d732cf62ca4e47a204519d69562452, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Modules.Module02_RackInstallation.Presentation.RackStaticVisualFit
+  visuals: {fileID: 3810919100303214420}
+  targetSize: {x: 0.06500000, y: 1.80500000, z: 0.04000000}

@@ -16,7 +16,7 @@ namespace Modules.Module03_Diagnostics.Cable_physics.Scripts
         // se llama cuando se suelta
         public void TryConnect(Connector target)
         {
-            if (target == null) return;
+            if (target == null || _connector.IsConnectionLocked) return;
 
             if (_connector.CanConnectConditioned(target))
             {

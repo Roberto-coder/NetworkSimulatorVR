@@ -47,11 +47,13 @@ MonoBehaviour:
       resourcesPath: 
     explanation: "El switch conecta dispositivos dentro de una red local y reenv\xEDa
       tramas Ethernet. En esta pr\xE1ctica, deber\xE1s instalarlo en el espacio se\xF1alado
-      entre el patch panel y el firewall. Los identificadores visibles de los dispositivos
-      y puertos te ayudar\xE1n a ubicar cada conexi\xF3n."
-    instruction: "Puedes sujetar y girar el switch mientras revisas sus fichas. Identifica
-      el panel frontal, las dos pesta\xF1as de montaje, la alimentaci\xF3n y el puerto
-      Console. Recorre todas las p\xE1ginas y marca cada ficha como revisada."
+      del rack y enlazarlo con el segundo switch para ampliar los puertos disponibles.
+      Los identificadores visibles de los dispositivos y puertos te ayudar\xE1n a
+      ubicar cada conexi\xF3n."
+    instruction: "Puedes sujetar y girar el switch ubicado en la mesa mientras revisas
+      sus fichas. Identifica el panel frontal, las dos pesta\xF1as de montaje, la
+      alimentaci\xF3n y el puerto Console. Recorre todas las p\xE1ginas y marca cada
+      ficha como revisada."
   - objectiveId: mount_switch
     explanationAudio:
       clip: {fileID: 8300000, guid: 3071c3229ceeafc4b8293ed0f74496e8, type: 3}
@@ -85,14 +87,14 @@ MonoBehaviour:
       clip: {fileID: 8300000, guid: e3d25563b8827464f9e034167e76c819, type: 3}
       resourcesPath: 
     instructionAudio:
-      clip: {fileID: 8300000, guid: fee5d420f215dec498482291be35ad74, type: 3}
+      clip: {fileID: 0}
       resourcesPath: 
     explanation: "Son cinco conexiones: una de alimentaci\xF3n y cuatro Ethernet.
       Cada conexi\xF3n se identifica mediante el ID del dispositivo y del puerto,
       por ejemplo, SW1/Gi01. Consulta la tabla del entorno para conocer las conexiones
       correctas. Los dem\xE1s puertos del modelo no son interactivos."
     instruction: Conecta PDU-A/AC01 con SW1/Power; PP-A/01, PP-A/02 y PP-A/03 con
-      SW1/Gi01, Gi02 y Gi03, respectivamente; y FW1/eth01 con SW1/Gi04. Comprueba
+      SW1/Gi01, Gi02 y Gi03, respectivamente; y SW2/Gi04 con SW1/Gi04. Comprueba
       que el contador indique cinco conexiones correctas.
   - objectiveId: label_links
     explanationAudio:
@@ -106,9 +108,9 @@ MonoBehaviour:
       Si cambias una conexi\xF3n despu\xE9s de etiquetarla, las etiquetas se invalidar\xE1n
       y deber\xE1s colocarlas de nuevo."
     instruction: Selecciona la etiquetadora, acerca la boquilla superior a cada extremo
-      del cable y presiona el trigger {control:usar}. Etiqueta ambos extremos de los cinco cables,
-      para un total de diez etiquetas. Puedes consultar la tabla de conexiones para
-      verificar los identificadores.
+      del cable y presiona el trigger {control:usar}. Etiqueta ambos extremos de
+      los cinco cables, para un total de diez etiquetas. Puedes consultar la tabla
+      de conexiones para verificar los identificadores.
   - objectiveId: connect_console
     explanationAudio:
       clip: {fileID: 8300000, guid: 5ab21cdc33ba13f4788b950e0fad8fff, type: 3}
@@ -135,10 +137,10 @@ MonoBehaviour:
       y las etiquetas. Si falta algo, deber\xE1s corregirlo. Una vez encendido correctamente,
       los cables de instalaci\xF3n quedar\xE1n bloqueados para proteger las conexiones,
       mientras que el cable de consola seguir\xE1 siendo desmontable."
-    instruction: "Pulsa el bot\xF3n de encendido del switch. Si aparece un aviso
-      de cableado o etiquetado, corrige las conexiones o etiquetas pendientes y vuelve
-      a intentarlo. El indicador de alimentaci\xF3n confirmar\xE1 que el switch est\xE1
-      encendido."
+    instruction: "Pulsa el bot\xF3n usando {boton:L2}/{boton:R2} de encendido del
+      switch. Si aparece un aviso de cableado o etiquetado, corrige las conexiones
+      o etiquetas pendientes y vuelve a intentarlo. El indicador de alimentaci\xF3n
+      confirmar\xE1 que el switch est\xE1 encendido."
   - objectiveId: configure_switch
     explanationAudio:
       clip: {fileID: 8300000, guid: e9f551bb45c0b4e408e8255e5fe2e766, type: 3}

@@ -152,7 +152,7 @@ namespace Modules.Lobby.UI
         {
             SetText(moduleNameText, ModuleNames[index]);
             ModuleProgress progress = FindModuleProgress(index);
-            bool available = index == 0 || progress != null || HasCompletedModule(index) || HasAchievement(index);
+            bool available = SessionContext.IsDebugSession || index == 0 || progress != null || HasCompletedModule(index) || HasAchievement(index);
 
             EnsureDetailTextVisible(moduleNameText);
             EnsureDetailTextVisible(moduleStatusText);

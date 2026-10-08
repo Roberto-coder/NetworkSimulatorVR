@@ -12,9 +12,10 @@ namespace Modules.Module02_RackInstallation.Flow.Validation
             {
                 Module02Action.Mount => step == 2,
                 Module02Action.Fasten => step == 3,
-                // Tras completar estos objetivos se permite reparar hasta encender el switch.
+                // Wiring stays editable only until the five valid links are locked.
                 Module02Action.Wire => step >= 4 && step <= 7 && !cablesLocked,
-                Module02Action.Label => step >= 5 && step <= 7 && !cablesLocked,
+                // Labels are applied after locking; they do not change the connection.
+                Module02Action.Label => step >= 5 && step <= 7,
                 Module02Action.Console => step >= 6,
                 Module02Action.Power => step >= 7 && step <= 8,
                 Module02Action.Configure => step == 8,

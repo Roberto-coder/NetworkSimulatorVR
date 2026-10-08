@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5563bbff71e9e2e418ccdb0a2ede6316, type: 3}
+  m_Name: fiber_cabling
+  m_EditorClassIdentifier: Assembly-CSharp::Modules.Module02_RackInstallation.Data.RackComponentInfo
+  id: fiber_cabling
+  displayName: Cableado de fibra
+  category: 13
+  educationalApproximation: 1
+  shortDescription: "Latiguillos de fibra óptica representados por el modelo FibraOpCE."
+  function: "Conectan las terminaciones del panel de fibra con los equipos de red y permiten organizar el recorrido del enlace óptico dentro del rack."
+  rackUnits: 0
+  image: {fileID: 0}
+  standardReference: "Evita dobleces cerrados y tirones. Mantén limpios los conectores y respeta el radio de curvatura indicado por el fabricante."
+  sections: []

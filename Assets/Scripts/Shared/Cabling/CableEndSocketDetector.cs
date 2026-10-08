@@ -82,6 +82,7 @@ namespace Shared.Cabling
 
         private void HandleGrabbed(SelectEnterEventArgs args)
         {
+            if (cableConnector != null && cableConnector.IsConnectionLocked) return;
             // Un socket XR retiene el plug; no equivale a retirarlo con la mano.
             if (args.interactorObject is UnityEngine.XR.Interaction.Toolkit.Interactors.XRSocketInteractor) return;
             // Si se vuelve a tomar el cable antes de completar una conexión pendiente,

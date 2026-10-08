@@ -32,7 +32,9 @@ namespace Presentacion.NPC
             RouteVoice();
             audioSource.playOnAwake = false;
             audioSource.loop = false;
-            audioSource.spatialBlend = 1f;
+            // Narración a volumen constante, independiente de la distancia al NPC.
+            // El canal Voice conserva el ajuste de volumen del usuario.
+            audioSource.spatialBlend = 0f;
         }
 
         public bool Play(string voiceId)

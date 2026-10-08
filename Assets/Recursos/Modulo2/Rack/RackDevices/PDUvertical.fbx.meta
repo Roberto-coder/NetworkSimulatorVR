@@ -5,10 +5,30 @@ ModelImporter:
   internalIDToNameTable: []
   externalObjects:
   - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_PDU_Display
+    second: {fileID: 2100000, guid: f733b0ade63b71749903d30a1c23700f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_PDU_LED
+    second: {fileID: 2100000, guid: f3f4a74011c551447a6f99fcbc3dcc95, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_Vertical_PDU_Body
+    second: {fileID: 2100000, guid: 056c2084598d8f543a2f219e0f43609d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.018
+    second: {fileID: 2100000, guid: 698d73a92b2ae1841aede51906e07f01, type: 2}
+  - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Conector
-    second: {fileID: 2800000, guid: ab56dcf0c43ac66428400812899409a4, type: 3}
+    second: {fileID: 2800000, guid: 7a1b08845333758449ee668d07006e1a, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
