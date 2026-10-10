@@ -13,11 +13,36 @@ namespace Modules.Module02_RackInstallation.Interaction
     {
         public NetworkPort port;
         private Connector selectedPlug;
+        private Transform connectionPose;
 
         protected override void Awake()
         {
             if (port == null) port = GetComponentInParent<NetworkPort>();
             base.Awake();
+            connectionPose = new GameObject("ConnectionPose_Runtime").transform;
+            connectionPose.SetParent(transform, false);
+        }
+
+        public override Transform GetAttachTransform(IXRInteractable interactable)
+        {
+            var plug = interactable?.transform.GetComponent<Connector>();
+            var grab = interactable as XRGrabInteractable;
+            if (connectionPose == null || port == null || port.Socket == null || plug == null || grab == null)
+                return base.GetAttachTransform(interactable);
+
+            // XRI attaches the grab pivot; Connector attaches the physical tip.
+            // Convert the tip pose to that pivot, including the opposite cable end.
+            Transform tip = plug.ConnectionTransform;
+            Transform grabPoint = grab.GetAttachTransform(this);
+            Quaternion inverseRoot = Quaternion.Inverse(plug.transform.rotation);
+            Quaternion tipRotation = inverseRoot * tip.rotation;
+            Quaternion rootRotation = port.Socket.ConnectionRotation * Quaternion.Inverse(tipRotation);
+            Vector3 rootToTip = inverseRoot * (tip.position - plug.transform.position);
+            Vector3 rootToGrab = inverseRoot * (grabPoint.position - plug.transform.position);
+            Vector3 rootPosition = port.Socket.ConnectionPosition - rootRotation * rootToTip;
+            connectionPose.SetPositionAndRotation(rootPosition + rootRotation * rootToGrab,
+                rootRotation * (inverseRoot * grabPoint.rotation));
+            return connectionPose;
         }
 
         private bool Compatible(Transform candidate)

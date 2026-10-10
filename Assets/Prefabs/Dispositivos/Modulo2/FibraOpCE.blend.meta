@@ -3,7 +3,62 @@ guid: f67f3f77fecaa404c8d813e880ffa2fe
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cable_Fibra_Amarillo
+    second: {fileID: 2100000, guid: 5a37516b5c0258041b430b300432aa07, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cable_Fibra_Amarillo.001
+    second: {fileID: 2100000, guid: 7d014d6b8a2a7a54d9c795a4c6102c8a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cable_Fibra_Amarillo.002
+    second: {fileID: 2100000, guid: b3e76f11155c40d4b9b87be20de23138, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cable_Fibra_Amarillo.003
+    second: {fileID: 2100000, guid: 0ac461799ed0dd74ab945b34541b0bd9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cable_Fibra_Amarillo.004
+    second: {fileID: 2100000, guid: 3c5731f0d0a4fde4783bf9f4ab7cadf7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_Cable_Management_1
+    second: {fileID: 2100000, guid: 0bbafde530a943449ab7e3e6c4d9c4e0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_Cable_Management_1.003
+    second: {fileID: 2100000, guid: ad5208ad8bed3344bb1a3d0e5527b13d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plastico_Organizador_Grafito
+    second: {fileID: 2100000, guid: a8109d2aa20fc244e8fa9c7feb443fc6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plastico_Organizador_Grafito.001
+    second: {fileID: 2100000, guid: df9185d157c6e0b4a99c6ed4ce0485fa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RackEar_Metal
+    second: {fileID: 2100000, guid: 5497f7d44b8793e4587405cad591a58e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RackEar_Metal.008
+    second: {fileID: 2100000, guid: bb7b61ec7dd54c54dbbae545784f829c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -30,7 +85,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1

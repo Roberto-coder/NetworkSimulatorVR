@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 1187683180700858528}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.229, y: -1, z: 0.864}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -135,7 +135,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.06500000, y: 1.80500000, z: 0.04000000}
+  m_Size: {x: 0.065, y: 1.805, z: 0.04}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &84706657211074175
 MonoBehaviour:
@@ -228,6 +228,7 @@ MonoBehaviour:
   highlightRenderers:
   - {fileID: 0}
   highlightColor: {r: 0.1, g: 0.75, b: 1, a: 1}
+  outlineWidth: 2
 --- !u!114 &2850525974020140661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,6 +241,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b514bdcd8dbde546af1db4a19e5132c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Modules.Module02_RackInstallation.Exploration.HoverOnlyInfoTargetSelectFilter
+--- !u!114 &910000000000000010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5306722915766400700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8d732cf62ca4e47a204519d69562452, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Modules.Module02_RackInstallation.Presentation.RackStaticVisualFit
+  visuals: {fileID: 3810919100303214420}
+  targetSize: {x: 0.065, y: 1.805, z: 0.04}
 --- !u!1001 &9120019180402966484
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -254,15 +269,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4360810772656516068, guid: 53d13f22e41207d4ab6ee20900ea52a6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.22
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4360810772656516068, guid: 53d13f22e41207d4ab6ee20900ea52a6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.223
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4360810772656516068, guid: 53d13f22e41207d4ab6ee20900ea52a6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4360810772656516068, guid: 53d13f22e41207d4ab6ee20900ea52a6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -302,17 +317,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4360810772656516068, guid: 53d13f22e41207d4ab6ee20900ea52a6, type: 3}
   m_PrefabInstance: {fileID: 9120019180402966484}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &910000000000000010
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5306722915766400700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8d732cf62ca4e47a204519d69562452, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Modules.Module02_RackInstallation.Presentation.RackStaticVisualFit
-  visuals: {fileID: 3810919100303214420}
-  targetSize: {x: 0.06500000, y: 1.80500000, z: 0.04000000}

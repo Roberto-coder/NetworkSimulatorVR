@@ -50,6 +50,44 @@ namespace Systems.Scenes
             Instance.RequestLoad(buildIndex);
         }
 
+        /// <summary>Runs an in-scene recovery under the loading overlay without resetting objectives.</summary>
+        public static void RunWithLoadingScreen(Action recover, Action onComplete = null)
+        {
+            EnsureInstance();
+            if (Instance.isLoading || recover == null) return;
+            Instance.StartCoroutine(Instance.RecoveryRoutine(recover, onComplete));
+        }
+
+        private IEnumerator RecoveryRoutine(Action recover, Action onComplete)
+        {
+            isLoading = true;
+            Time.timeScale = 0f;
+            SetProgress(0f);
+            ResolveHead();
+            PositionCanvas();
+            canvasGroup.blocksRaycasts = true;
+            try
+            {
+                yield return Fade(0f, 1f, FadeDuration);
+                try { recover(); }
+                catch (Exception error) { Debug.LogException(error, this); }
+                SetProgress(1f);
+                head = null;
+                ResolveHead();
+                PositionCanvas();
+                yield return new WaitForSecondsRealtime(MinimumVisibleTime);
+                yield return Fade(1f, 0f, FadeDuration);
+            }
+            finally
+            {
+                canvasGroup.alpha = 0f;
+                canvasGroup.blocksRaycasts = false;
+                isLoading = false;
+                Time.timeScale = 1f;
+                onComplete?.Invoke();
+            }
+        }
+
         private static void EnsureInstance()
         {
             if (Instance != null) return;

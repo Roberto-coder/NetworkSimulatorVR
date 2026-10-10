@@ -24,7 +24,8 @@ namespace Modules.Module03_Diagnostics.Cable_physics.Scripts
             }
             else if (!target.IsConnected)
             {
-                transform.rotation = target.ConnectionRotation * _connector.RotationOffset;
+                Quaternion offset = Quaternion.Inverse(transform.rotation) * _connector.ConnectionRotation;
+                transform.rotation = target.ConnectionRotation * Quaternion.Inverse(offset);
                 transform.position =
                     (target.ConnectionPosition + target.ConnectedOutOffset * 0.2f)
                     - (_connector.ConnectionPosition - transform.position);

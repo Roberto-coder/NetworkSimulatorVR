@@ -24,7 +24,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Probe
-  m_Shader: {fileID: -6465566751694194690, guid: 049c0eeed4c91274c81ff21b832de66b, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: f141b0d5f09d8044aa032f9571b49bce, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []

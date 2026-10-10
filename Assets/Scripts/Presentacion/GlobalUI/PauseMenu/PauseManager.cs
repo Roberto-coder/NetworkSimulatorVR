@@ -2,6 +2,10 @@ using System.Collections;
 using Systems.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.XR.CoreUtils;
+using Systems.Scenes;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
+using UnityEngine.XR.Interaction.Toolkit.Locomotion.Gravity;
 
 public class PauseManager : MonoBehaviour
 {
@@ -13,10 +17,25 @@ public class PauseManager : MonoBehaviour
     public InputActionProperty pauseAction;
 
     private bool isPaused = false;
+    private XROrigin xrOrigin;
+    private Vector3 spawnFloorPosition;
+    private Vector3 spawnForward;
+    public bool CanReturnToSpawn => xrOrigin != null && cameraTransform != null;
+
+    private void Start()
+    {
+        xrOrigin = cameraTransform != null ? cameraTransform.GetComponentInParent<XROrigin>() : null;
+        if (xrOrigin == null) return;
+        Transform origin = xrOrigin.Origin.transform;
+        spawnFloorPosition = new Vector3(cameraTransform.position.x, origin.position.y, cameraTransform.position.z);
+        spawnForward = Vector3.ProjectOnPlane(origin.forward, Vector3.up).normalized;
+        if (spawnForward.sqrMagnitude < 0.001f) spawnForward = Vector3.forward;
+    }
 
     void Update()
     {
         var input = VRInputManager.Instance;
+        if (SceneTransitionManager.IsLoading) return;
         if (input != null && input.PausePressed)
             TogglePause();
     }
@@ -76,5 +95,52 @@ public class PauseManager : MonoBehaviour
         if (locomotor != null)
             locomotor.SetActive(true);
         StartCoroutine(UnpauseRoutine());
+    }
+
+    public void ReturnToSpawn()
+    {
+        if (!CanReturnToSpawn || SceneTransitionManager.IsLoading) return;
+        StopAllCoroutines();
+        isPaused = false;
+        if (locomotor != null) locomotor.SetActive(false);
+        HideMenu();
+        SceneTransitionManager.RunWithLoadingScreen(RestoreSpawnPose, () =>
+        {
+            if (this != null && locomotor != null) locomotor.SetActive(true);
+        });
+    }
+
+    private void RestoreSpawnPose()
+    {
+        if (xrOrigin == null || cameraTransform == null) return;
+        foreach (var interactor in xrOrigin.GetComponentsInChildren<XRBaseInteractor>(true))
+            if (interactor is not XRSocketInteractor && interactor.interactionManager != null)
+                interactor.interactionManager.CancelInteractorSelection((IXRSelectInteractor)interactor);
+        foreach (var gravity in xrOrigin.GetComponentsInChildren<GravityProvider>(true))
+            gravity.ResetFallForce();
+        var controller = xrOrigin.GetComponent<CharacterController>();
+        bool controllerEnabled = controller != null && controller.enabled;
+        if (controllerEnabled) controller.enabled = false;
+        try
+        {
+            // Preserve tracked head height, including seated/crouched posture.
+            float headHeight = cameraTransform.position.y - xrOrigin.Origin.transform.position.y;
+            xrOrigin.MatchOriginUpCameraForward(Vector3.up, spawnForward);
+            xrOrigin.MoveCameraToWorldLocation(spawnFloorPosition + Vector3.up * headHeight);
+        }
+        finally
+        {
+            if (controllerEnabled && controller != null) controller.enabled = true;
+        }
+        if (fade != null)
+        {
+            if (fade.fadeImage != null)
+            {
+                Color color = fade.fadeImage.color;
+                color.a = 0f;
+                fade.fadeImage.color = color;
+            }
+        }
+        Physics.SyncTransforms();
     }
 }

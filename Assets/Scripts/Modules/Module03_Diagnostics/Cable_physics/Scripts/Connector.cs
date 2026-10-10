@@ -35,12 +35,15 @@ namespace Modules.Module03_Diagnostics.Cable_physics.Scripts
         public Shared.Cabling.PatchCableLink CableOwner { get; private set; }
 
         public Vector3 ConnectionPosition => connectionPoint ? connectionPoint.position : transform.position;
+        public Transform ConnectionTransform => connectionPoint ? connectionPoint : transform;
         public Quaternion ConnectionRotation => connectionPoint ? connectionPoint.rotation : transform.rotation;
         public Quaternion RotationOffset => connectionPoint ? connectionPoint.localRotation : Quaternion.Euler(Vector3.zero);
         public Vector3 ConnectedOutOffset => connectionPoint ? connectionPoint.right : transform.right;
 
         public bool IsConnected => ConnectedTo != null;
         public bool IsConnectionLocked { get; private set; }
+        private Vector3 lockedLocalPosition;
+        private Quaternion lockedLocalRotation;
         public bool IsConnectedRight => IsConnected && ConnectionColor == ConnectedTo.ConnectionColor;
 
 
@@ -76,24 +79,41 @@ namespace Modules.Module03_Diagnostics.Cable_physics.Scripts
         /// <summary>Locks an installed pair until either object is disabled or destroyed.</summary>
         public void LockConnection()
         {
-            if (ConnectedTo == null || ConnectedTo.ConnectedTo != this) return;
+            if (IsConnectionLocked || ConnectedTo == null || ConnectedTo.ConnectedTo != this) return;
+            CaptureLockedPose();
+            ConnectedTo.CaptureLockedPose();
             IsConnectionLocked = true;
             ConnectedTo.IsConnectionLocked = true;
+        }
+
+        private void CaptureLockedPose()
+        {
+            if (CableOwner == null || ConnectedTo == null) return;
+            Transform socket = ConnectedTo.transform;
+            lockedLocalPosition = socket.InverseTransformPoint(transform.position);
+            lockedLocalRotation = Quaternion.Inverse(socket.rotation) * transform.rotation;
         }
 
         private void LateUpdate()
         {
             // XRI can restore the old body state after a forced deselection.
             // Locked cable ends stay anchored even if that release arrives later.
-            if (IsConnectionLocked && CableOwner != null && ConnectedTo != null && Rigidbody != null)
+            if (IsConnectionLocked)
             {
-                if (!Rigidbody.isKinematic)
+                if (CableOwner != null && ConnectedTo != null)
                 {
-                    Rigidbody.linearVelocity = Vector3.zero;
-                    Rigidbody.angularVelocity = Vector3.zero;
-                    Rigidbody.isKinematic = true;
+                    if (Rigidbody != null && !Rigidbody.isKinematic)
+                    {
+                        Rigidbody.linearVelocity = Vector3.zero;
+                        Rigidbody.angularVelocity = Vector3.zero;
+                        Rigidbody.isKinematic = true;
+                    }
+                    Transform socket = ConnectedTo.transform;
+                    transform.SetPositionAndRotation(socket.TransformPoint(lockedLocalPosition),
+                        socket.rotation * lockedLocalRotation);
                 }
-                ConnectedTo.AlignConnector(this);
+                // Neither endpoint may recalculate the locked plug from Connection Point.
+                return;
             }
             // Un FixedJoint no puede arrastrar de forma fiable dos Rigidbody cinemáticos.
             // Cuando este Connector pertenece a un socket fijo o a un dispositivo móvil,
@@ -225,7 +245,8 @@ namespace Modules.Module03_Diagnostics.Cable_physics.Scripts
         /// </summary>
         private void AlignConnector(Connector connector)
         {
-            connector.transform.rotation = ConnectionRotation * connector.RotationOffset;
+            Quaternion offset = Quaternion.Inverse(connector.transform.rotation) * connector.ConnectionRotation;
+            connector.transform.rotation = ConnectionRotation * Quaternion.Inverse(offset);
             connector.transform.position =
                 ConnectionPosition - (connector.ConnectionPosition - connector.transform.position);
         }

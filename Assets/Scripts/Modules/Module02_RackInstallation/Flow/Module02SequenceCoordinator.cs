@@ -33,6 +33,14 @@ namespace Modules.Module02_RackInstallation.Flow
         [SerializeField] private TMP_Text status;
         [SerializeField] private RackInfoTarget[] rackTargets;
         [SerializeField] private RackInfoTarget[] switchTargets;
+        private RackInfoTarget[] inspectionTargets = Array.Empty<RackInfoTarget>();
+        [Header("Recordatorio de fichas pendientes")]
+        [SerializeField] private bool enableInspectionReminders = true;
+        [SerializeField, Min(0.1f)] private float inspectionReminderInterval = 40f;
+        [SerializeField, Min(0.1f)] private float inspectionReminderDuration = 2.4f;
+        [SerializeField, Min(0.05f)] private float inspectionReminderBlinkHalfPeriod = 0.4f;
+        private float nextInspectionReminder;
+        private float inspectionReminderStarted = -1f;
         [SerializeField] private ObjectSpawner[] cableSpawners;
         [Header("Depuración (solo Editor / Development Build)")]
         [SerializeField] private bool skipRackInspection;
@@ -59,6 +67,9 @@ namespace Modules.Module02_RackInstallation.Flow
             if (flow.ModuleDefinition.Objectives.Count != 9 || flow.ModuleDefinition.Objectives.Where((d, i) => d.Id != Modules.Module02_RackInstallation.Objectives.Module02ObjectiveCatalog.OrderedIds[i]).Any())
             { Debug.LogError("La secuencia requiere los nueve objetivos del sprint 7 en orden.", this); enabled = false; return; }
             flow.CompletionGuard = IsSatisfied;
+            // Required lists determine progress; every scene target still follows the inspection phase.
+            inspectionTargets = gameObject.scene.GetRootGameObjects()
+                .SelectMany(root => root.GetComponentsInChildren<RackInfoTarget>(true)).ToArray();
             flow.CurrentObjectiveChanged += OnObjective;
             flow.PracticalObjectivesCompleted += OnPracticalComplete;
             cards.PageShown += OnPage;
@@ -81,6 +92,7 @@ namespace Modules.Module02_RackInstallation.Flow
         private void OnDisable()
         {
             if (Instance != this) return;
+            ClearInspectionReminders();
             if (flow != null)
             {
                 flow.CurrentObjectiveChanged -= OnObjective; flow.PracticalObjectivesCompleted -= OnPracticalComplete;
@@ -95,9 +107,12 @@ namespace Modules.Module02_RackInstallation.Flow
         private void OnObjective(ObjectiveData _)
         {
             step = flow.ArePracticalObjectivesCompleted ? 9 : flow.CurrentObjectiveIndex;
+            ClearInspectionReminders();
+            nextInspectionReminder = Time.time + Mathf.Max(0.1f, inspectionReminderInterval);
             cards.Close();
-            foreach (var target in rackTargets) if (target != null) target.enabled = step == 0;
-            foreach (var target in switchTargets) if (target != null) target.enabled = step == 1;
+            var switchGroup = new HashSet<RackInfoTarget>(switchTargets.Where(t => t != null).Select(t => t.ResolvedTarget));
+            foreach (var target in inspectionTargets)
+                if (target != null) target.enabled = switchGroup.Contains(target.ResolvedTarget) ? step == 1 : step == 0;
             installationZone.SetActive(step >= 2);
             if (step >= 4 && !spawned) SpawnAndRegister();
         }
@@ -138,7 +153,50 @@ namespace Modules.Module02_RackInstallation.Flow
         private void ConfirmCard()
         {
             if (!CanConfirm()) return;
-            reviewed.Add(cards.DisplayedTarget.Information.Id); cards.Close();
+            string id = cards.DisplayedTarget.Information.Id;
+            reviewed.Add(id);
+            foreach (var target in inspectionTargets)
+                if (target != null && target.Information != null && target.Information.Id == id)
+                    target.SetReminderHighlight(false);
+            cards.Close();
+        }
+
+        private void ClearInspectionReminders()
+        {
+            inspectionReminderStarted = -1f;
+            foreach (var target in inspectionTargets)
+                if (target != null) target.SetReminderHighlight(false);
+        }
+
+        private void UpdateInspectionReminders()
+        {
+            if (!enableInspectionReminders || step < 0 || step > 1)
+            {
+                if (inspectionReminderStarted >= 0f) ClearInspectionReminders();
+                return;
+            }
+            // Scaled time pauses the countdown while the pause menu is open.
+            float interval = Mathf.Max(0.1f, inspectionReminderInterval);
+            if (Time.time >= nextInspectionReminder)
+            {
+                inspectionReminderStarted = Time.time;
+                nextInspectionReminder = Time.time + interval;
+            }
+            if (inspectionReminderStarted < 0f) return;
+            float elapsed = Time.time - inspectionReminderStarted;
+            float duration = Mathf.Min(Mathf.Max(0.1f, inspectionReminderDuration), interval);
+            bool blink = Module02InspectionReminderRules.IsBlinkOn(elapsed, duration,
+                Mathf.Max(0.05f, inspectionReminderBlinkHalfPeriod));
+            var required = new HashSet<string>(RequiredIds());
+            foreach (var target in inspectionTargets)
+            {
+                if (target == null) continue;
+                var info = target.Information;
+                target.SetReminderHighlight(Module02InspectionReminderRules.ShouldHighlight(step,
+                    target.isActiveAndEnabled, info != null && required.Contains(info.Id),
+                    info != null && reviewed.Contains(info.Id), blink));
+            }
+            if (elapsed >= duration) inspectionReminderStarted = -1f;
         }
         private bool ValidWiring()
         {
@@ -167,6 +225,7 @@ namespace Modules.Module02_RackInstallation.Flow
         private void Update()
         {
             if (flow == null || step < 0) return;
+            UpdateInspectionReminders();
             // Freeze the five installed links before labeling, console use or power-on.
             if (!locked && spawned && step >= 4)
             {

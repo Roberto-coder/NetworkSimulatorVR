@@ -385,7 +385,8 @@ namespace Modules.Module03_Diagnostics.Presentation
                 $"{workspace.LocalDeviceId} · Consola local | Origen: {workspace.LocalSourcePortId}";
             View.commands[0].gameObject.SetActive(!remote);
             View.commands[1].gameObject.SetActive(!remote);
-            View.commands[3].gameObject.SetActive(workspace.CanManageSwitch && !remote);
+            // Administration already includes the port list and controls.
+            View.commands[3].gameObject.SetActive(false);
             var configLabel = View.commands[2].GetComponentInChildren<TMPro.TMP_Text>();
             if (configLabel != null) configLabel.text = remote ? "Datos de gestión" : "IP / máscara / MAC";
             if (admin == null) return;

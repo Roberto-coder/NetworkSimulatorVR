@@ -3,7 +3,172 @@ guid: 4023042ba8f63a1408bfe06973ff1f2d
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BodyRouter_001
+    second: {fileID: 2100000, guid: c55ca2c6cc00f814aa6edb1eaeacdde0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LED_Tri_mat_00
+    second: {fileID: 2100000, guid: 8789df97d40a00240951acfa0943d9ac, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LED_Tri_mat_01
+    second: {fileID: 2100000, guid: 6e2454aff600714438a67ff10abd2d12, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LED_Tri_mat_02
+    second: {fileID: 2100000, guid: 08d5102a4da6d80449d0e40b5ccf0cae, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LED_Tri_mat_03
+    second: {fileID: 2100000, guid: bfc4ef1672d00164caad1b5d138c00fc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LED_Tri_mat_04
+    second: {fileID: 2100000, guid: cae442f4af8474c4ebdccd961c1db26b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LED_Tri_mat_05
+    second: {fileID: 2100000, guid: 7ff94db32ac53ab4690c52144f944e7a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LED_Tri_mat_06
+    second: {fileID: 2100000, guid: 03fa54fa267e6bd4ba5dd10b53d326bc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LED_Tri_mat_07
+    second: {fileID: 2100000, guid: 682383620f8060f4aa0e93970446ff8a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LED_Tri_mat_08
+    second: {fileID: 2100000, guid: 3c1b3968480008a4fa07bf3e38d4070d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LED_Tri_mat_09
+    second: {fileID: 2100000, guid: 33287063b59150c409ea7a54c308511f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LED_Tri_mat_10
+    second: {fileID: 2100000, guid: ff36821c53e1b1d42b102daf8c161f5a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LED_Tri_mat_11
+    second: {fileID: 2100000, guid: 0a8a6f64a2b23834b9bd70b6e846bcbd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LED_Tri_mat_12
+    second: {fileID: 2100000, guid: 381bb13b4783e72469c6116be878c45e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LED_Tri_mat_13
+    second: {fileID: 2100000, guid: 45c2b04bc0b2f0d4e9e8f0031771d639, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LED_Tri_mat_14
+    second: {fileID: 2100000, guid: a3ddd6fe8857bd543b74a4a541f54b86, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LED_Tri_mat_15
+    second: {fileID: 2100000, guid: 82f12146c8e124a45bd6eb6fd659e4e1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LED_Tri_mat_16
+    second: {fileID: 2100000, guid: 80f0dcde79b68d74b9672066c1dd2515, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LED_Tri_mat_17
+    second: {fileID: 2100000, guid: 7fd14ed5d86a44a48ab096e3df0ec736, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LED_Tri_mat_18
+    second: {fileID: 2100000, guid: de28d5fff7fcd38439ad4059e18259be, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LED_Tri_mat_19
+    second: {fileID: 2100000, guid: 9d5e0a00f3899a442bf610bf0808783e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LED_Tri_mat_20
+    second: {fileID: 2100000, guid: 15d43696ddbddc84d99a1839d3179011, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LED_Tri_mat_21
+    second: {fileID: 2100000, guid: b46ab73e4e009c547895e57fda5606c2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LED_Tri_mat_22
+    second: {fileID: 2100000, guid: 015b39fb9c885ea49958b20aff531a53, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LED_Tri_mat_23
+    second: {fileID: 2100000, guid: eafa051d839a40642971659129a29765, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: 5ce0590d2f44c354cbcce1f9eb466aa6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ports_001
+    second: {fileID: 2100000, guid: 72126400cb19ae94db69de06d1f8dcac, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RJ45_Cavity_Dark
+    second: {fileID: 2100000, guid: fac57ebb81e299b4aaba79a1414b7ebc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RackEar_Metal
+    second: {fileID: 2100000, guid: 9027fbd9058c51340b19c7aeb3d1a150, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SL
+    second: {fileID: 2100000, guid: 14cb41393a7a8aa499c273236f92455d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SR
+    second: {fileID: 2100000, guid: c277478f3a56821498670c35942b7dca, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SwitchG_001
+    second: {fileID: 2100000, guid: c8f1342b587f9bf4489029ed58484dbe, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SwitchR_001
+    second: {fileID: 2100000, guid: f68ac2f43414c8045b14b829cc31f0f1, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -30,7 +195,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1

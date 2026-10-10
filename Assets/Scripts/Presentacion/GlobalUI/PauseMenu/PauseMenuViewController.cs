@@ -78,6 +78,7 @@ public sealed class PauseMenuViewController : MonoBehaviour
         Button resume = FindButton("ButtonResume");
         Button settings = FindButton("ButtonSettings");
         Button home = FindButton("ButtonHome");
+        Button respawn = FindButton("ButtonReturnToSpawn");
 
         if (resume != null)
             resume.onClick.AddListener(Resume);
@@ -85,6 +86,14 @@ public sealed class PauseMenuViewController : MonoBehaviour
             settings.onClick.AddListener(ShowSettings);
         if (home != null)
             home.onClick.AddListener(ShowConfirmation);
+        if (respawn != null)
+            respawn.onClick.AddListener(ReturnToSpawn);
+    }
+
+    public void ReturnToSpawn()
+    {
+        pauseManager ??= FindFirstObjectByType<PauseManager>();
+        pauseManager?.ReturnToSpawn();
     }
 
     private Button FindButton(string objectName) =>

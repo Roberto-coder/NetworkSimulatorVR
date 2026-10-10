@@ -19,6 +19,7 @@ namespace Modules.Module02_RackInstallation.Exploration
         private readonly List<Outline> hoverOutlines = new();
         private readonly List<Outline> ownedOutlines = new();
         private bool outlinesInitialized;
+        private bool reminderHighlight;
 
         public RackInfoTarget ResolvedTarget
         {
@@ -54,6 +55,7 @@ namespace Modules.Module02_RackInstallation.Exploration
 
         private void OnDisable()
         {
+            reminderHighlight = false;
             if (interactable != null)
             {
                 interactable.hoverEntered.RemoveListener(HandleHoverEntered);
@@ -77,6 +79,7 @@ namespace Modules.Module02_RackInstallation.Exploration
 
         private void SetHighlight(bool visible)
         {
+            visible = isActiveAndEnabled && (visible || reminderHighlight);
             if (visible && !outlinesInitialized)
                 InitializeOutlines();
 
@@ -88,6 +91,13 @@ namespace Modules.Module02_RackInstallation.Exploration
                 outline.OutlineWidth = outlineWidth;
                 outline.enabled = visible;
             }
+        }
+
+        public void SetReminderHighlight(bool visible)
+        {
+            if (reminderHighlight == visible) return;
+            reminderHighlight = visible;
+            SetHighlight(interactable != null && interactable.isHovered);
         }
 
         private void InitializeOutlines()
