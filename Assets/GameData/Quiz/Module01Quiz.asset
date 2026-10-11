@@ -16,38 +16,69 @@ MonoBehaviour:
   title: Quiz del 1er Modulo "Fabricacion de cable Ethernet"
   passingPercentage: 70
   questions:
-  - statement: "\xBFQu\xE9 herramienta se utiliza para fijar el conector RJ45 al
-      cable Ethernet?"
+  - statement: "\xBFCu\xE1les son los principales tipos de cableado utilizados en
+      redes?"
     options:
-    - Pelacables
-    - Crimpadora
-    - "Mult\xEDmetro"
-    correctOptionIndex: 1
-  - statement: "En el est\xE1ndar T568B, \xBFqu\xE9 conductor ocupa el primer pin
-      del conector RJ45?"
-    options:
-    - Blanco/Naranja
-    - Blanco/Verde
-    - Naranja
+    - "Cable Ethernet de par trenzado, fibra \xF3ptica y cable coaxial"
+    - "Cable Ethernet de par trenzado, fibra \xF3ptica y cable de consola serial"
+    - Cable Ethernet de par trenzado, cable USB y cable coaxial
     correctOptionIndex: 0
-  - statement: "\xBFPor qu\xE9 se deben ordenar correctamente los conductores antes
-      de insertarlos en el RJ45?"
+  - statement: "\xBFCu\xE1l es la principal diferencia entre el cable Cat6 y el Cat6A?"
     options:
-    - Para reducir la longitud del cable
-    - Para facilitar el pelado
-    - Para asegurar la correspondencia correcta de los pines
+    - "Cat6 y Cat6A garantizan 10 Gbps a 100 metros; la diferencia principal es \xFAnicamente
+      el grosor de la cubierta"
+    - Cat6A alcanza 10 Gbps hasta 55 metros, mientras que Cat6 mantiene esa velocidad
+      durante 100 metros
+    - "El Cat6A garantiza 10 Gbps en los 100 metros completos, mientras el Cat6 solo
+      soporta 1 Gbps a 100 metros, alcanza 10 Gbps \xFAnicamente en distancias cortas
+      de hasta 55 m"
     correctOptionIndex: 2
-  - statement: "\xBFQu\xE9 debe comprobarse antes de crimpar definitivamente el conector?"
+  - statement: "\xBFQu\xE9 es la norma T568B?"
     options:
-    - "Que el cable est\xE9 completamente desenrollado"
-    - Que los conductores hayan llegado correctamente hasta sus posiciones en el
-      conector
-    - Que los pares permanezcan totalmente trenzados dentro del conector
+    - "Un est\xE1ndar que determina el ancho de banda, la categor\xEDa y la distancia
+      m\xE1xima de un cable Ethernet"
+    - "Un est\xE1ndar que define el orden de los colores de los ocho conductores
+      en un conector RJ45"
+    - "Un procedimiento para certificar la continuidad, atenuaci\xF3n y diafon\xEDa
+      despu\xE9s del ponchado"
     correctOptionIndex: 1
-  - statement: "\xBFQu\xE9 herramienta permite comprobar si un cable Ethernet fue
-      fabricado correctamente?"
+  - statement: "\xBFPara qu\xE9 sirve la peladora al preparar un cable de red?"
     options:
-    - "Mult\xEDmetro de gancho"
-    - Destornillador
-    - Probador de cables de red
+    - "Para presionar los contactos met\xE1licos del conector RJ45 contra cada conductor"
+    - "Para separar y ordenar autom\xE1ticamente los pares seg\xFAn el esquema T568B"
+    - "Para retirar la cubierta exterior sin da\xF1ar los conductores internos"
     correctOptionIndex: 2
+  - statement: "\xBFQu\xE9 es el ponchado (crimpado) de un conector RJ45?"
+    options:
+    - El proceso de alinear y cortar los ocho conductores antes de introducirlos
+      en el conector
+    - "La acci\xF3n de retirar la cubierta exterior y separar los pares trenzados
+      del cable"
+    - "La acci\xF3n de fijar los conductores dentro del conector, creando el contacto
+      el\xE9ctrico con sus terminales"
+    correctOptionIndex: 2
+  - statement: "\xBFDe qu\xE9 color es el primer conductor de la norma T568B?"
+    options:
+    - Blanco/Verde
+    - Blanco/Naranja
+    - Naranja
+    correctOptionIndex: 1
+  - statement: "\xBFPor qu\xE9 ambos extremos de un cable directo deben seguir el
+      mismo orden (por ejemplo, T568B)?"
+    options:
+    - "Para que cada se\xF1al llegue al pin correcto del otro extremo y el enlace
+      funcione"
+    - "Para que los pares de transmisi\xF3n y recepci\xF3n queden cruzados entre
+      ambos conectores y eviten colisiones"
+    - "Para conservar la impedancia nominal del cable, aunque cada conductor llegue
+      a un n\xFAmero de pin distinto"
+    correctOptionIndex: 0
+  - statement: "\xBFQu\xE9 es la prueba de continuidad con un tester de cables?"
+    options:
+    - "Una verificaci\xF3n de que cada conductor llega de un extremo al otro y en
+      el orden correcto"
+    - "Una medici\xF3n de la atenuaci\xF3n y la diafon\xEDa utilizada para certificar
+      la categor\xEDa del cable"
+    - "Una comprobaci\xF3n de que las tarjetas de red negocian correctamente la velocidad
+      y el modo d\xFAplex"
+    correctOptionIndex: 0

@@ -13,62 +13,97 @@ MonoBehaviour:
   m_Name: Module03Quiz
   m_EditorClassIdentifier: Assembly-CSharp::GameData.Quiz.QuizData
   quizId: module_03_quiz
-  title: "Evaluación: diagnóstico de conectividad"
+  title: "Evaluaci\xF3n: diagn\xF3stico de conectividad"
   passingPercentage: 70
   questions:
-  - statement: "¿Qué comprueba principalmente un ping exitoso?"
+  - statement: "\xBFQu\xE9 es un ping?"
     options:
-    - "Que todos los servicios funcionan."
-    - "Que hubo respuesta ICMP del destino consultado."
-    - "Que el cable está certificado."
-    - "Que no existen otras fallas."
-    correctOptionIndex: 1
-  - statement: "¿Qué asociación permite obtener ARP en esta LAN IPv4?"
-    options:
-    - "IP y dirección MAC."
-    - "Nombre y contraseña."
-    - "Puerto y categoría de cable."
-    - "IP y ubicación del escritorio."
-    correctOptionIndex: 0
-  - statement: "Un cable está conectado, pero el puerto del switch está deshabilitado. ¿Qué corresponde revisar?"
-    options:
-    - "El color del cable."
-    - "La caché del navegador."
-    - "El estado administrativo del puerto correcto."
-    - "La velocidad de la animación."
+    - Una prueba que utiliza solicitudes ARP para medir el ancho de banda disponible
+      hasta un destino remoto
+    - "Un comando que establece una sesi\xF3n TCP para comprobar que todos los servicios
+      del destino est\xE1n disponibles"
+    - "Una prueba que env\xEDa un mensaje ICMP a un destino y espera su respuesta
+      para comprobar la conectividad "
+    - "Una consulta al servidor DNS que confirma si un nombre puede convertirse correctamente
+      en una direcci\xF3n IP"
     correctOptionIndex: 2
-  - statement: "PC-02 y PC-03 usan la misma IPv4 en esta subred. ¿Cómo corriges el incidente?"
+  - statement: "\xBFQu\xE9 indica un ping exitoso?"
     options:
-    - "Cambiar únicamente las etiquetas."
-    - "Desactivar permanentemente una PC."
-    - "Repetir ping sin cambiar nada."
-    - "Asignar la dirección documentada a la PC correspondiente y verificar."
-    correctOptionIndex: 3
-  - statement: "¿Qué demuestra el tester utilizado en esta práctica?"
-    options:
-    - "La velocidad máxima certificada."
-    - "La continuidad simulada del cable."
-    - "La configuración IP de la PC."
-    - "La ausencia de conflictos de direcciones."
+    - Que todos los dispositivos intermedios, servicios y protocolos de la red funcionan
+      sin ninguna falla
+    - "Que el destino respondi\xF3 al mensaje ICMP, demostrando conectividad de extremo
+      a extremo "
+    - "Que los servicios TCP y UDP del destino est\xE1n disponibles y no existe ning\xFAn
+      bloqueo de firewall"
+    - "Que el medio f\xEDsico cumple con la categor\xEDa, longitud, atenuaci\xF3n
+      y velocidad configuradas"
     correctOptionIndex: 1
-  - statement: "Después de sustituir y etiquetar el cable de PC-01, ¿qué prueba verifica su enlace?"
+  - statement: "\xBFQu\xE9 es ARP y para qu\xE9 sirve?"
     options:
-    - "Ping desde la laptop hacia PC-01."
-    - "Ping de PC-01 a sí misma."
-    - "Abrir el mapa."
-    - "Escuchar la instrucción completa."
-    correctOptionIndex: 0
-  - statement: "¿Por qué repetir las pruebas después de modificar la red?"
-    options:
-    - "Porque cambia la ubicación del mapa."
-    - "Porque el NPC lo exige siempre."
-    - "Porque la evidencia anterior puede no representar el estado actual."
-    - "Porque ARP nunca conserva información."
-    correctOptionIndex: 2
-  - statement: "¿Qué representa la animación de Rayos X?"
-    options:
-    - "Una medición de latencia."
-    - "Una certificación del cable."
-    - "Tráfico real capturado en Internet."
-    - "El intercambio simulado de mensajes a velocidad didáctica."
+    - "Un protocolo que asigna autom\xE1ticamente una direcci\xF3n IP, m\xE1scara
+      de subred y puerta de enlace"
+    - Un protocolo de enrutamiento que selecciona el mejor camino para comunicar
+      redes diferentes
+    - Un servicio que relaciona nombres de dominio con sus correspondientes direcciones
+      IP
+    - "Un protocolo que asocia una direcci\xF3n IP con su direcci\xF3n MAC dentro
+      de la LAN "
     correctOptionIndex: 3
+  - statement: "\xBFQu\xE9 significa que un puerto del switch est\xE1 \u201Cdeshabilitado
+      administrativamente\u201D?"
+    options:
+    - "Que alguien lo desactiv\xF3 por configuraci\xF3n, aunque el cable est\xE9
+      bien conectado "
+    - "Que el switch lo bloque\xF3 temporalmente despu\xE9s de detectar un posible
+      bucle en la red"
+    - "Que el puerto no pudo negociar la velocidad o el modo d\xFAplex debido a un
+      problema del cable"
+    - "Que el transceptor o los contactos f\xEDsicos del puerto sufrieron una falla
+      permanente"
+    correctOptionIndex: 0
+  - statement: "\xBFQu\xE9 es un conflicto de direcciones IP (IP duplicada)?"
+    options:
+    - "Dos equipos que utilizan la misma direcci\xF3n MAC, aunque tengan direcciones
+      IP diferentes"
+    - "Un equipo configurado con una direcci\xF3n IP que pertenece a una subred diferente
+      de la puerta de enlace"
+    - "Dos equipos usando la misma IPv4 en la misma subred, lo que interrumpe su
+      comunicaci\xF3n "
+    - "Dos servidores DHCP que entregan direcciones distintas a un mismo dispositivo
+      durante la conexi\xF3n"
+    correctOptionIndex: 2
+  - statement: "\xBFPor qu\xE9 se deben repetir las pruebas despu\xE9s de modificar
+      la red?"
+    options:
+    - 'Porque la evidencia anterior puede no representar el estado actual de la red '
+    - "Porque la primera prueba despu\xE9s de cada cambio solamente actualiza ARP
+      y nunca comprueba conectividad"
+    - "Porque el switch no aplica una modificaci\xF3n hasta que recibe una nueva
+      solicitud ICMP"
+    - "Porque repetir la prueba corrige autom\xE1ticamente los errores temporales
+      de cableado y configuraci\xF3n"
+    correctOptionIndex: 0
+  - statement: "\xBFPor qu\xE9 se le llama topolog\xEDa estrella al cableado estructurado?"
+    options:
+    - "Porque cada dispositivo mantiene una conexi\xF3n directa con todos los dem\xE1s,
+      creando m\xFAltiples rutas redundantes"
+    - "Porque todos los equipos comparten un \xFAnico cable principal que termina
+      en ambos extremos de la red"
+    - Porque todos los dispositivos se conectan a un punto central (el switch/rack),
+      como los rayos de una estrella; si un enlace falla, solo afecta a ese dispositivo
+    - Porque los equipos forman un circuito cerrado y las tramas pasan secuencialmente
+      de un dispositivo al siguiente
+    correctOptionIndex: 2
+  - statement: "\xBFQu\xE9 indica la norma ANSI/TIA-568 (ISO/IEC 11801, EN 50173)
+      sobre el recorrido de una conexi\xF3n?"
+    options:
+    - "Que el enlace permanente puede medir 100 metros, m\xE1s 10 metros adicionales
+      de latiguillos, para un total de 110 metros"
+    - "Que la distancia m\xE1xima del cableado horizontal, desde el panel hasta el
+      equipo, es de 90 metros, m\xE1s 10 metros de latiguillos, total 100 metros
+      por conexi\xF3n"
+    - "Que los 90 metros m\xE1ximos incluyen tanto el cableado horizontal como todos
+      los latiguillos de la conexi\xF3n"
+    - Que un cable Cat6A puede extender el canal de cobre hasta 150 metros sin utilizar
+      equipos intermedios
+    correctOptionIndex: 1

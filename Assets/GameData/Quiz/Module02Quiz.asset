@@ -13,76 +13,94 @@ MonoBehaviour:
   m_Name: Module02Quiz
   m_EditorClassIdentifier: Assembly-CSharp::GameData.Quiz.QuizData
   quizId: module_02_quiz
-  title: "Evaluación de conocimientos: infraestructura de red"
+  title: "Evaluaci\xF3n de conocimientos: infraestructura de red"
   passingPercentage: 70
   questions:
-  - statement: "¿Cuál es la función principal de un rack de comunicaciones?"
+  - statement: "\xBFQu\xE9 es un rack de comunicaciones?"
     options:
-    - "Asignar direcciones IP a los equipos."
-    - "Alojar y organizar físicamente los equipos de infraestructura."
-    - "Seleccionar la ruta de los paquetes entre redes."
-    - "Filtrar las conexiones no autorizadas."
-    correctOptionIndex: 1
-  - statement: "¿Cuál es la función principal de un switch en una red local?"
-    options:
-    - "Distribuir alimentación eléctrica a los equipos."
-    - "Traducir nombres de dominio a direcciones IP."
-    - "Conectar dispositivos y reenviar tramas hacia el puerto correspondiente."
-    - "Asignar obligatoriamente una dirección IP a cada dispositivo."
-    correctOptionIndex: 2
-  - statement: "¿Para qué se utiliza un patch panel?"
-    options:
-    - "Para terminar y organizar el cableado y facilitar su conexión a los equipos de red."
-    - "Para decidir a qué dispositivo se envía cada trama Ethernet."
-    - "Para asignar direcciones IP automáticamente."
-    - "Para proporcionar energía de respaldo durante un apagón."
-    correctOptionIndex: 0
-  - statement: "¿Cuál es la función principal de una PDU dentro de un rack?"
-    options:
-    - "Organizar las terminaciones de los cables de datos."
-    - "Controlar el tráfico permitido entre redes."
-    - "Mantener por sí sola los equipos encendidos durante un apagón."
-    - "Distribuir alimentación eléctrica entre los equipos."
+    - "Un equipo centralizado que administra VLAN, direcciones IP y tr\xE1fico entre
+      dispositivos"
+    - "Un gabinete destinado exclusivamente a alojar bater\xEDas, reguladores y sistemas
+      de respaldo el\xE9ctrico"
+    - Un panel estandarizado donde termina el cableado estructurado antes de conectarse
+      al switch
+    - "Una estructura estandarizada que aloja y organiza equipos de red, servidores
+      y alimentaci\xF3n; su capacidad se mide en unidades U "
     correctOptionIndex: 3
-  - statement: "¿Por qué es importante mantener libres las entradas y salidas de aire de los equipos?"
+  - statement: "\xBFQu\xE9 es y qu\xE9 hace un patch panel?"
     options:
-    - "Para aumentar el número de puertos disponibles."
-    - "Para favorecer la refrigeración y reducir el riesgo de sobrecalentamiento."
-    - "Para evitar la necesidad de configurar la red."
-    - "Para incrementar automáticamente la velocidad de los enlaces."
-    correctOptionIndex: 1
-  - statement: "¿Cuál es la principal ventaja de identificar los cables en ambos extremos?"
-    options:
-    - "Aumentar la velocidad de transmisión del enlace."
-    - "Evitar que sea necesario comprobar las conexiones."
-    - "Reconocer su origen y destino durante el mantenimiento."
-    - "Corregir automáticamente una conexión equivocada."
-    correctOptionIndex: 2
-  - statement: "¿Para qué sirve el puerto de consola de un switch administrable?"
-    options:
-    - "Para acceder a su administración y configuración local."
-    - "Para ampliar la cantidad de puertos Ethernet de usuario."
-    - "Para distribuir alimentación a otros equipos del rack."
-    - "Para sustituir el enlace que transporta el tráfico de los usuarios."
-    correctOptionIndex: 0
-  - statement: "¿Para qué se configura una dirección IP de gestión en un switch administrable?"
-    options:
-    - "Para fijar la velocidad de todos sus puertos."
-    - "Para reemplazar las direcciones MAC de los dispositivos conectados."
-    - "Para asignar automáticamente direcciones IP a todos los usuarios."
-    - "Para permitir su administración mediante la red, cuando existe conectividad."
+    - "Un panel activo que aprende direcciones MAC y reenv\xEDa las tramas al puerto
+      correspondiente"
+    - "Un m\xF3dulo que distribuye alimentaci\xF3n el\xE9ctrica y supervisa el consumo
+      de los equipos del rack"
+    - "Un dispositivo que combina varios enlaces f\xEDsicos para convertirlos en
+      una sola conexi\xF3n de red"
+    - "Un panel que concentra y organiza las terminaciones del cableado, facilitando
+      su conexi\xF3n a los equipos de red"
     correctOptionIndex: 3
-  - statement: "¿Qué función cumple la puerta de enlace predeterminada de un dispositivo IP?"
+  - statement: "\xBFQu\xE9 es un switch en una red local?"
     options:
-    - "Indicar a qué equipo enviar el tráfico destinado a otras redes cuando no hay una ruta más específica."
-    - "Identificar físicamente cada cable del rack."
-    - "Determinar cuánta energía necesita el dispositivo."
-    - "Traducir todos los nombres de dominio de la red."
+    - Un servidor que asigna direcciones IP y mantiene las reservas de cada dispositivo
+      conectado
+    - Un equipo que conecta diferentes redes IP y selecciona la mejor ruta para enviar
+      los paquetes
+    - "Un dispositivo que conecta equipos y reenv\xEDa cada trama Ethernet hacia
+      el puerto correspondiente "
+    - "Un panel pasivo que concentra las terminaciones del cableado sin procesar
+      el tr\xE1fico de la red"
+    correctOptionIndex: 2
+  - statement: "\xBFQu\xE9 es una PDU dentro de un rack?"
+    options:
+    - "Un sistema con bater\xEDas que mantiene los equipos encendidos y estabiliza
+      el voltaje durante un apag\xF3n"
+    - "Una regleta que distribuye alimentaci\xF3n el\xE9ctrica entre los equipos
+      montados "
+    - "Un m\xF3dulo que supervisa la temperatura y regula autom\xE1ticamente la ventilaci\xF3n
+      interna del rack"
+    - Un panel que organiza las terminaciones de cobre y las enlaza con los puertos
+      del switch
+    correctOptionIndex: 1
+  - statement: "\xBFPor qu\xE9 deben mantenerse libres las entradas y salidas de
+      aire de los equipos?"
+    options:
+    - Para garantizar que todos los puertos mantengan su velocidad nominal independientemente
+      de la temperatura
+    - "Para favorecer la refrigeraci\xF3n y reducir el riesgo de sobrecalentamiento "
+    - "Para impedir que el calor produzca interferencias electromagn\xE9ticas en
+      los cables de red"
+    - "Para reducir el consumo de la PDU al disminuir el esfuerzo el\xE9ctrico de
+      los equipos"
+    correctOptionIndex: 1
+  - statement: "\xBFPor qu\xE9 se etiquetan los cables en ambos extremos?"
+    options:
+    - 'Para reconocer su origen y destino durante el mantenimiento sin seguir el
+      cable visualmente '
+    - "Para que el switch identifique autom\xE1ticamente el dispositivo y le asigne
+      una VLAN"
+    - "Para conservar la categor\xEDa y velocidad del cable cuando se conecta a un
+      puerto diferente"
+    - "Para reemplazar la documentaci\xF3n de red almacenando toda la configuraci\xF3n
+      en la etiqueta"
     correctOptionIndex: 0
-  - statement: "Si se cambia el destino de un cable, ¿qué debe hacerse con su identificación y documentación?"
+  - statement: "\xBFPara qu\xE9 sirve el puerto Console de un switch administrable?"
     options:
-    - "Conservarlas siempre sin cambios para mantener el historial."
-    - "Actualizarlas para que correspondan a la nueva conexión."
-    - "Eliminar la identificación de todos los cables cercanos."
-    - "Cambiar únicamente el nombre del rack."
+    - "Para transportar temporalmente el tr\xE1fico de los usuarios cuando el enlace
+      principal est\xE1 desconectado"
+    - "Para suministrar alimentaci\xF3n PoE al equipo utilizado durante la configuraci\xF3n
+      inicial"
+    - "Para acceder localmente a su administraci\xF3n y configuraci\xF3n, sin depender
+      de la red "
+    - "Para realizar una administraci\xF3n remota mediante IP sin establecer previamente
+      una conexi\xF3n f\xEDsica"
+    correctOptionIndex: 2
+  - statement: "\xBFQu\xE9 representa una unidad \u201CU\u201D en un rack?"
+    options:
+    - La anchura disponible entre los rieles de montaje, normalmente equivalente
+      a 19 pulgadas
+    - 'Una medida de altura vertical equivalente a 1.75 pulgadas o 44.45 mm, utilizada
+      para dimensionar equipos y espacios dentro del rack '
+    - "La capacidad m\xE1xima de alimentaci\xF3n el\xE9ctrica que puede proporcionar
+      la PDU a cada equipo"
+    - "La profundidad m\xEDnima que necesita un servidor para instalarse correctamente
+      en el gabinete"
     correctOptionIndex: 1
