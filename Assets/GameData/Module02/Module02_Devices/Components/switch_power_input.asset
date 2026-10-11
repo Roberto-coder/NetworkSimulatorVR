@@ -22,3 +22,13 @@ MonoBehaviour:
   rackUnits: 0
   image: {fileID: 0}
   standardReference: 
+  sections:
+  - title: "Conexi\xF3n el\xE9ctrica segura"
+    body: "La entrada de alimentaci\xF3n recibe energ\xEDa desde una PDU, UPS o toma
+      el\xE9ctrica compatible. Antes de conectarla, verificar el voltaje, la frecuencia,
+      la corriente nominal y el tipo de conector indicados en la etiqueta del equipo.
+      Utilizar cables en buen estado y con conexi\xF3n a tierra cuando corresponda;
+      no sobrecargar el circuito ni manipular el conector con el equipo energizado."
+    image: {fileID: 0}
+    reference: "IEC 60320 \u2014 Conectores de aparatos para uso dom\xE9stico y prop\xF3sitos
+      generales; IEC 62368-1."

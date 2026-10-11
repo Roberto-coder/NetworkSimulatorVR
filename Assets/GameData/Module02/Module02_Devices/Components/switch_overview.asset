@@ -23,3 +23,12 @@ MonoBehaviour:
   rackUnits: 1
   image: {fileID: 0}
   standardReference: 
+  sections:
+  - title: "Conmutaci\xF3n y tabla MAC"
+    body: "El switch aprende las direcciones MAC de los equipos conectados y las
+      registra en una tabla asociada a sus puertos. Cuando recibe una trama, la reenv\xEDa
+      \xFAnicamente al puerto donde se encuentra el destino conocido; si no conoce
+      el destino, la distribuye por los dem\xE1s puertos de la misma red. Puede separar
+      la red en VLAN para mejorar la organizaci\xF3n y el aislamiento del tr\xE1fico."
+    image: {fileID: 0}
+    reference: "IEEE 802.3 \u2014 Ethernet; IEEE 802.1Q \u2014 VLAN."

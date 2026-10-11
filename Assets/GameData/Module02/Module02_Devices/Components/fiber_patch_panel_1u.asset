@@ -16,9 +16,19 @@ MonoBehaviour:
   displayName: Fiber Patch Panel de 1U
   category: 13
   educationalApproximation: 1
-  shortDescription: "Panel de fibra óptica montado en una unidad de rack."
-  function: "Organiza y protege las terminaciones de fibra óptica y facilita su conexión con los equipos de red mediante latiguillos."
+  shortDescription: "Panel de fibra \xF3ptica montado en una unidad de rack."
+  function: "Organiza y protege las terminaciones de fibra \xF3ptica y facilita su
+    conexi\xF3n con los equipos de red mediante latiguillos."
   rackUnits: 1
   image: {fileID: 0}
-  standardReference: "1U equivale a 44.45 mm de altura nominal. Verifica el tipo de fibra, los conectores, la limpieza y el radio de curvatura antes de conectar."
-  sections: []
+  standardReference: 1U equivale a 44.45 mm de altura nominal. Verifica el tipo de
+    fibra, los conectores, la limpieza y el radio de curvatura antes de conectar.
+  sections:
+  - title: "Instalaci\xF3n y organizaci\xF3n"
+    body: "El panel ocupa 1U, equivalente a 1.75 pulgadas de altura nominal en un
+      rack de 19 pulgadas. Organiza y protege las terminaciones de fibra \xF3ptica
+      mediante latiguillos. Etiquetar cada puerto, conservar la holgura necesaria
+      y respetar el radio m\xEDnimo de curvatura para evitar p\xE9rdidas de se\xF1al
+      o da\xF1os en la fibra."
+    image: {fileID: 0}
+    reference: ANSI/EIA-310-E; ANSI/TIA-568.3-D.

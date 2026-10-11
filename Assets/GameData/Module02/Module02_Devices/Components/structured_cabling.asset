@@ -23,4 +23,13 @@ MonoBehaviour:
   image: {fileID: 0}
   standardReference: "La instalaci\xF3n real debe respetar categor\xEDa, radio de
     curvatura, longitud y etiquetado del sistema."
-  sections: []
+  sections:
+  - title: Orden, etiquetado y curvatura
+    body: "El cableado estructurado conecta el patch panel con switches y otros equipos
+      mediante latiguillos de cobre. Cada enlace debe etiquetarse en ambos extremos
+      para facilitar la identificaci\xF3n y el mantenimiento. Usar organizadores,
+      evitar tensi\xF3n excesiva y respetar el radio de curvatura recomendado para
+      no afectar el desempe\xF1o del enlace."
+    image: {fileID: 0}
+    reference: "ANSI/TIA-568.2-D \u2014 Cableado balanceado de par trenzado; ANSI/TIA-606-C
+      \u2014 Administraci\xF3n e identificaci\xF3n de infraestructura."

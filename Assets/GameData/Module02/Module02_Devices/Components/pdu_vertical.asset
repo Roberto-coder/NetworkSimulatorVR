@@ -24,4 +24,14 @@ MonoBehaviour:
   image: {fileID: 0}
   standardReference: "La capacidad, protecciones y conexi\xF3n deben seguir la documentaci\xF3n
     el\xE9ctrica del equipo."
-  sections: []
+  sections:
+  - title: "Montaje 0U y distribuci\xF3n de carga"
+    body: "La PDU vertical se instala en los rieles laterales o posteriores del rack,
+      sin ocupar espacio de montaje frontal. Distribuye la alimentaci\xF3n a los
+      equipos mediante m\xFAltiples tomas. Verificar el voltaje, la corriente m\xE1xima
+      y la capacidad del circuito antes de conectar dispositivos. Repartir la carga
+      entre las salidas, no exceder la capacidad nominal y etiquetar los cables de
+      alimentaci\xF3n para facilitar el mantenimiento."
+    image: {fileID: 0}
+    reference: "IEC 62368-1 \u2014 Seguridad de equipos de tecnolog\xEDa de la informaci\xF3n
+      y comunicaci\xF3n."

@@ -23,4 +23,12 @@ MonoBehaviour:
   rackUnits: 2
   image: {fileID: 0}
   standardReference: 2U equivalen a 88.9 mm de altura nominal.
-  sections: []
+  sections:
+  - title: "Operaci\xF3n y disponibilidad"
+    body: "El servidor ocupa 2U, equivalentes a 3.5 pulgadas de altura nominal en
+      un rack de 19 pulgadas. Puede utilizar fuentes de alimentaci\xF3n redundantes,
+      discos en RAID y conexiones de red duplicadas para mantener la disponibilidad
+      ante fallas. Se recomienda supervisar la temperatura, actualizar el sistema
+      y conservar copias de seguridad verificadas de los datos y la configuraci\xF3n."
+    image: {fileID: 0}
+    reference: ANSI/EIA-310-E; ISO/IEC 27001:2022.

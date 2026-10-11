@@ -23,11 +23,18 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: fcb3af1d41e4f4543a132c49997176dd, type: 3}
   standardReference: "IEC 60297 (dimensiones mec\xE1nicas de estructuras de 19 pulgadas)"
   sections:
-  - title: 'Espaciado '
-    body: "El rack debe estar separado de la pared X metros\t"
+  - title: Espaciado y acceso
+    body: "Instalar el rack dejando, como criterio educativo, al menos 1 m de espacio
+      libre al frente y en la parte posterior para permitir mantenimiento, ventilaci\xF3n
+      y acceso al cableado. La separaci\xF3n exacta debe ajustarse a las instrucciones
+      del fabricante, el dise\xF1o del sitio y la normativa el\xE9ctrica local."
     image: {fileID: 0}
-    reference: "ANSI/TIA-568; TIA-569\t"
-  - title: 
-    body: 
+    reference: ANSI/TIA-569; ANSI/TIA-942; ASHRAE TC 9.9.
+  - title: Capacidad y montaje
+    body: "El rack ofrece 22U de espacio \xFAtil. Cada unidad U equivale a 1.75 pulgadas
+      de altura, por lo que la capacidad nominal de montaje es de 38.5 pulgadas.
+      Distribuir los equipos m\xE1s pesados en la zona inferior, asegurar cada dispositivo
+      con la torniller\xEDa adecuada y equilibrar la carga para mantener la estabilidad
+      del rack."
     image: {fileID: 0}
-    reference: 
+    reference: IEC 60297; ANSI/EIA-310-E.

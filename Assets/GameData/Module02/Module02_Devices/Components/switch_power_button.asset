@@ -23,3 +23,14 @@ MonoBehaviour:
   rackUnits: 0
   image: {fileID: 0}
   standardReference: 
+  sections:
+  - title: Encendido y apagado seguro
+    body: "El interruptor permite iniciar o interrumpir la alimentaci\xF3n del modelo
+      educativo. En un equipo real, mantener presionado el bot\xF3n puede forzar
+      el apagado, con riesgo de p\xE9rdida o corrupci\xF3n de datos; por ello se
+      recomienda realizar primero un apagado controlado desde el sistema operativo
+      o la interfaz de administraci\xF3n. Antes de intervenir f\xEDsicamente el equipo,
+      desconectar la alimentaci\xF3n cuando corresponda."
+    image: {fileID: 0}
+    reference: "IEC 62368-1 \u2014 Seguridad de equipos de tecnolog\xEDa de la informaci\xF3n
+      y comunicaci\xF3n."

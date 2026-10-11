@@ -24,4 +24,13 @@ MonoBehaviour:
   image: {fileID: 0}
   standardReference: "Modelo educativo: no representa un producto ni una pol\xEDtica
     de seguridad espec\xEDficos."
-  sections: []
+  sections:
+  - title: "Reglas y buenas pr\xE1cticas"
+    body: "El firewall aplica reglas para permitir o bloquear el tr\xE1fico entre
+      redes. Se recomienda usar el principio de m\xEDnimo privilegio: permitir \xFAnicamente
+      los servicios, puertos y direcciones necesarios. Mantener el firmware actualizado,
+      registrar eventos de seguridad y revisar peri\xF3dicamente las reglas para
+      eliminar accesos obsoletos."
+    image: {fileID: 0}
+    reference: "NIST SP 800-41 Rev. 1 \u2014 Guidelines on Firewalls and Firewall
+      Policy."

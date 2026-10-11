@@ -23,3 +23,13 @@ MonoBehaviour:
   rackUnits: 0
   image: {fileID: 0}
   standardReference: 
+  sections:
+  - title: "Interpretaci\xF3n de indicadores"
+    body: "Los LED permiten identificar r\xE1pidamente el estado del switch y de
+      cada puerto. Normalmente, un LED de energ\xEDa fijo indica funcionamiento;
+      un LED de enlace fijo indica conexi\xF3n activa; y un LED parpadeante suele
+      indicar transmisi\xF3n o recepci\xF3n de datos. Los colores, patrones y significados
+      exactos pueden variar seg\xFAn el fabricante, por lo que deben verificarse
+      en el manual del equipo."
+    image: {fileID: 0}
+    reference: "IEEE 802.3 \u2014 Ethernet; gu\xEDa de indicadores LED del fabricante."

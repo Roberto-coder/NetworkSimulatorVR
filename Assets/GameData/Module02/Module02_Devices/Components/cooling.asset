@@ -24,4 +24,12 @@ MonoBehaviour:
   image: {fileID: 0}
   standardReference: "La direcci\xF3n del flujo y la capacidad t\xE9rmica dependen
     del dise\xF1o del rack y del fabricante."
-  sections: []
+  sections:
+  - title: Flujo de aire y mantenimiento
+    body: "Instalar respetando la direcci\xF3n del flujo de aire del rack, normalmente
+      de frente a atr\xE1s. Mantener libres las entradas y salidas de aire, limpiar
+      peri\xF3dicamente los ventiladores y verificar que no presenten vibraci\xF3n
+      o ruido anormal. El control de temperatura debe mantenerse dentro del rango
+      recomendado para los equipos instalados."
+    image: {fileID: 0}
+    reference: "ASHRAE TC 9.9 \u2014 Thermal Guidelines for Data Processing Environments."

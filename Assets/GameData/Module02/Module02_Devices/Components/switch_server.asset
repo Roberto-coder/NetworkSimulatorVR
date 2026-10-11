@@ -24,4 +24,12 @@ MonoBehaviour:
   image: {fileID: 0}
   standardReference: "La instalaci\xF3n real debe respetar categor\xEDa, radio de
     curvatura, longitud y etiquetado del sistema."
-  sections: []
+  sections:
+  - title: Puertos y enlaces de red
+    body: "El switch conecta servidores y otros equipos mediante 24 puertos Ethernet.
+      Las dos ranuras SFP permiten instalar m\xF3dulos para enlaces de fibra \xF3ptica,
+      normalmente usados como enlaces ascendentes hacia el switch principal. La velocidad
+      y el tipo de cable deben ser compatibles con cada puerto; las VLAN permiten
+      separar el tr\xE1fico de servidores, administraci\xF3n y usuarios."
+    image: {fileID: 0}
+    reference: "IEEE 802.3 \u2014 Ethernet; IEEE 802.1Q \u2014 VLAN."

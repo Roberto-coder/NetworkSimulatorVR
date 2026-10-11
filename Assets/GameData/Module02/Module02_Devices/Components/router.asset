@@ -24,4 +24,13 @@ MonoBehaviour:
   image: {fileID: 0}
   standardReference: Modelo educativo provisional; las dimensiones y conexiones dependen
     del fabricante.
-  sections: []
+  sections:
+  - title: 
+    body: "El router dirige paquetes entre redes utilizando una tabla de enrutamiento.
+      Sus puertos Ethernet permiten conexiones de cobre y los puertos SFP+ permiten
+      enlaces de fibra \xF3ptica de mayor capacidad. Para una configuraci\xF3n segura,
+      asignar direcciones IP, definir rutas y aplicar listas de control de acceso
+      para limitar el tr\xE1fico autorizado entre las redes."
+    image: {fileID: 0}
+    reference: "RFC 1812 \u2014 Requirements for IPv4 Routers; IEEE 802.3 \u2014
+      Ethernet."

@@ -16,9 +16,19 @@ MonoBehaviour:
   displayName: Cableado de fibra
   category: 13
   educationalApproximation: 1
-  shortDescription: "Latiguillos de fibra óptica representados por el modelo FibraOpCE."
-  function: "Conectan las terminaciones del panel de fibra con los equipos de red y permiten organizar el recorrido del enlace óptico dentro del rack."
+  shortDescription: "Latiguillos de fibra \xF3ptica representados por el modelo FibraOpCE."
+  function: "Conectan las terminaciones del panel de fibra con los equipos de red
+    y permiten organizar el recorrido del enlace \xF3ptico dentro del rack."
   rackUnits: 0
   image: {fileID: 0}
-  standardReference: "Evita dobleces cerrados y tirones. Mantén limpios los conectores y respeta el radio de curvatura indicado por el fabricante."
-  sections: []
+  standardReference: "Evita dobleces cerrados y tirones. Mant\xE9n limpios los conectores
+    y respeta el radio de curvatura indicado por el fabricante. "
+  sections:
+  - title: "Manipulaci\xF3n y buenas pr\xE1cticas"
+    body: "La fibra \xF3ptica debe instalarse sin dobleces pronunciados, torsi\xF3n
+      ni tensi\xF3n excesiva. Respetar el radio m\xEDnimo de curvatura indicado por
+      el fabricante y utilizar organizadores para proteger los latiguillos. Mantener
+      limpios los conectores y usar tapas antipolvo cuando los puertos no est\xE9n
+      conectados."
+    image: {fileID: 0}
+    reference: "ANSI/TIA-568.3-D \u2014 Optical Fiber Cabling and Components Standard."

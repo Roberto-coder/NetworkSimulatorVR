@@ -24,4 +24,11 @@ MonoBehaviour:
   image: {fileID: 0}
   standardReference: El tipo de fibra, conector, limpieza y radio de curvatura deben
     verificarse antes de conectar.
-  sections: []
+  sections:
+  - title: Conectores y mantenimiento
+    body: "Este panel distribuye hasta 24 enlaces de fibra \xF3ptica mediante conectores
+      SC. Antes de conectar, verificar el tipo de fibra monomodo o multimodo y mantener
+      limpios los adaptadores y conectores. Respetar el radio m\xEDnimo de curvatura,
+      etiquetar cada enlace y proteger los puertos no utilizados con tapas antipolvo."
+    image: {fileID: 0}
+    reference: "ANSI/TIA-568.3-D \u2014 Optical Fiber Cabling and Components Standard."

@@ -24,4 +24,13 @@ MonoBehaviour:
   image: {fileID: 0}
   standardReference: "La capacidad, protecciones y conexi\xF3n deben seguir la documentaci\xF3n
     el\xE9ctrica del equipo."
-  sections: []
+  sections:
+  - title: "Carga y seguridad el\xE9ctrica"
+    body: "La PDU distribuye energ\xEDa a los equipos del rack y permite supervisar
+      el consumo. Antes de conectar dispositivos, verificar el voltaje, tipo de enchufe
+      y capacidad m\xE1xima de corriente de la PDU y del circuito el\xE9ctrico. Distribuir
+      la carga entre las tomas y no superar la capacidad nominal. Para equipos cr\xEDticos,
+      conectar la PDU a una UPS y etiquetar cada salida."
+    image: {fileID: 0}
+    reference: "IEC 62368-1 \u2014 Seguridad de equipos de tecnolog\xEDa de la informaci\xF3n
+      y comunicaci\xF3n."

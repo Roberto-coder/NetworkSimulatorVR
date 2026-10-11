@@ -24,4 +24,13 @@ MonoBehaviour:
   image: {fileID: 0}
   standardReference: "La categor\xEDa y el desempe\xF1o del enlace dependen del sistema
     de cableado instalado."
-  sections: []
+  sections:
+  - title: "Categor\xEDa y terminaci\xF3n"
+    body: "El panel ocupa 1U, equivalente a 1.75 pulgadas de altura nominal en un
+      rack de 19 pulgadas. Sus puertos RJ45 terminan cables de par trenzado mediante
+      conectores tipo IDC. La categor\xEDa del panel, los cables y los latiguillos
+      debe ser compatible \u2014por ejemplo, Cat 5e, Cat 6 o Cat 6A\u2014 para conservar
+      el rendimiento del enlace. Etiquetar cada puerto y mantener el radio de curvatura
+      recomendado facilita el mantenimiento."
+    image: {fileID: 0}
+    reference: ANSI/EIA-310-E; ANSI/TIA-568.2-D.

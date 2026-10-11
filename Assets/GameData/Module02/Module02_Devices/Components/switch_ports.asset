@@ -23,3 +23,13 @@ MonoBehaviour:
   rackUnits: 0
   image: {fileID: 0}
   standardReference: 
+  sections:
+  - title: "Velocidad y configuraci\xF3n"
+    body: "Los puertos Ethernet utilizan conectores 8P8C, conocidos com\xFAnmente
+      como RJ45, para transmitir datos por cable de par trenzado. Seg\xFAn el equipo
+      y el cableado, pueden operar a 10 Mbps, 100 Mbps, 1 Gbps o m\xE1s. Cada puerto
+      puede configurarse como puerto de acceso para una VLAN o como enlace troncal
+      para transportar varias VLAN."
+    image: {fileID: 0}
+    reference: "IEEE 802.3 \u2014 Ethernet; ANSI/TIA-568.2-D \u2014 Cableado de cobre
+      balanceado."

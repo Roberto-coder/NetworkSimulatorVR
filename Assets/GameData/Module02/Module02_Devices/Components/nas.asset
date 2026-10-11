@@ -23,4 +23,13 @@ MonoBehaviour:
   rackUnits: 2
   image: {fileID: 0}
   standardReference: 2U equivalen a 88.9 mm de altura nominal.
-  sections: []
+  sections:
+  - title: Almacenamiento y respaldo
+    body: 'El NAS ocupa 2U, equivalentes a 3.5 pulgadas de altura nominal en un rack
+      de 19 pulgadas. Sus discos pueden configurarse con RAID para mantener la disponibilidad
+      ante la falla de una unidad; sin embargo, RAID no sustituye una copia de seguridad.
+      Se recomienda aplicar la regla 3-2-1: conservar tres copias de los datos, en
+      dos medios distintos y una copia fuera del sitio o desconectada.'
+    image: {fileID: 0}
+    reference: "ANSI/EIA-310-E; NIST SP 800-34 Rev. 1 \u2014 Contingency Planning
+      Guide."

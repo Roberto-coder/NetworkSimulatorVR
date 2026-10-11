@@ -16,8 +16,20 @@ MonoBehaviour:
   displayName: Switch secundario SW2 (1U)
   category: 1
   educationalApproximation: 1
-  shortDescription: "Switch fijo que amplía los puertos disponibles de la red local."
-  function: "Se enlaza con SW1 mediante SW1/Gi04 y SW2/Gi04. Los puertos restantes representan capacidad adicional; Gi04 es el puerto interactivo de esta práctica."
+  shortDescription: "Switch fijo que ampl\xEDa los puertos disponibles de la red
+    local."
+  function: "Se enlaza con SW1 mediante SW1/Gi04 y SW2/Gi04. Los puertos restantes
+    representan capacidad adicional; Gi04 es el puerto interactivo de esta pr\xE1ctica."
   rackUnits: 1
   image: {fileID: 0}
   standardReference: 
+  sections:
+  - title: Enlace ascendente y VLAN
+    body: "SW2 ampl\xEDa la cantidad de puertos disponibles y se conecta al switch
+      principal SW1 mediante un enlace ascendente entre los puertos Gi0/4. Este enlace
+      puede transportar varias VLAN mediante etiquetado IEEE 802.1Q. Los dem\xE1s
+      puertos se utilizan para conectar equipos finales, por lo que deben asignarse
+      a la VLAN correspondiente y etiquetarse para facilitar su administraci\xF3n."
+    image: {fileID: 0}
+    reference: "IEEE 802.3 \u2014 Ethernet; IEEE 802.1Q \u2014 VLAN y etiquetado
+      de tr\xE1fico."
