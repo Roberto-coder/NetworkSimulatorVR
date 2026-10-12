@@ -16,21 +16,14 @@ MonoBehaviour:
   displayName: UPS 2U
   category: 11
   educationalApproximation: 1
-  shortDescription: "Sistema de alimentaci\xF3n ininterrumpida (UPS) de doble conversi\xF3n
-    para equipos instalados en rack."
-  function: "Suministra energ\xEDa mediante bater\xEDa durante cortes el\xE9ctricos
-    y regula el voltaje para evitar apagados o da\xF1os en los equipos."
-  rackUnits: 0
-  image: {fileID: 0}
+  shortDescription: "Sistema de alimentaci\u00f3n ininterrumpida que ofrece respaldo temporal mediante bater\u00edas."
+  function: "Mantiene los equipos durante interrupciones breves y permite un apagado controlado si se agota la autonom\u00eda."
+  rackUnits: 2
+  image: {fileID: 21300000, guid: b567f6d230da8f54ca87bcec39d70a26, type: 3}
   standardReference: "La capacidad, protecciones y conexi\xF3n deben seguir la documentaci\xF3n
     el\xE9ctrica del equipo."
   sections:
-  - title: "Conexi\xF3n el\xE9ctrica segura"
-    body: "La entrada de alimentaci\xF3n recibe energ\xEDa desde una PDU, UPS o toma
-      el\xE9ctrica compatible. Antes de conectarla, verificar el voltaje, la frecuencia,
-      la corriente nominal y el tipo de conector indicados en la etiqueta del equipo.
-      Utilizar cables en buen estado y con conexi\xF3n a tierra cuando corresponda;
-      no sobrecargar el circuito ni manipular el conector con el equipo energizado."
+  - title: "Autonom\u00eda y mantenimiento"
+    body: "La autonom\u00eda depende de la carga y del estado de las bater\u00edas. Verifica las capacidades en W y VA, no solo la cantidad de tomas. Una UPS no mantiene el servicio indefinidamente. Prueba las bater\u00edas seg\u00fan el fabricante y prepara el apagado controlado de los equipos; la PDU distribuye energ\u00eda, pero no aporta respaldo."
     image: {fileID: 0}
-    reference: "IEC 60320 \u2014 Conectores de aparatos para uso dom\xE9stico y prop\xF3sitos
-      generales; IEC 62368-1."
+    reference: "Ficha t\u00e9cnica y plan de mantenimiento de la UPS."

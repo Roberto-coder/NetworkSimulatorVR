@@ -16,21 +16,14 @@ MonoBehaviour:
   displayName: Router 1U
   category: 7
   educationalApproximation: 1
-  shortDescription: "Router de alto rendimiento con 12 puertos Ethernet y 4 puertos
-    SFP+ para conexiones de fibra \xF3ptica."
+  shortDescription: "Equipo que conecta redes IP y puede ofrecer interfaces de cobre y ranuras para transceptores."
   function: "Conecta diferentes redes y dirige los datos hacia su destino, permitiendo
     la comunicaci\xF3n entre los equipos del rack y la red externa."
   rackUnits: 1
-  image: {fileID: 0}
-  standardReference: Modelo educativo provisional; las dimensiones y conexiones dependen
-    del fabricante.
+  image: {fileID: 21300000, guid: 71cadb02c86941f4fb4c88ca55f905eb, type: 3}
+  standardReference: "Las interfaces, velocidades y dimensiones dependen del modelo."
   sections:
-  - title: 
-    body: "El router dirige paquetes entre redes utilizando una tabla de enrutamiento.
-      Sus puertos Ethernet permiten conexiones de cobre y los puertos SFP+ permiten
-      enlaces de fibra \xF3ptica de mayor capacidad. Para una configuraci\xF3n segura,
-      asignar direcciones IP, definir rutas y aplicar listas de control de acceso
-      para limitar el tr\xE1fico autorizado entre las redes."
+  - title: "Enrutamiento entre redes"
+    body: "El router consulta su tabla de rutas para dirigir paquetes entre redes. Configura direcciones IP, rutas y controles de acceso seg\u00fan el dise\u00f1o. Una ranura SFP o SFP+ requiere un transceptor compatible; el m\u00f3dulo determina si el enlace usa cobre o fibra. No todos los routers admiten los mismos m\u00f3dulos."
     image: {fileID: 0}
-    reference: "RFC 1812 \u2014 Requirements for IPv4 Routers; IEEE 802.3 \u2014
-      Ethernet."
+    reference: "RFC 1812; documentaci\u00f3n del fabricante."

@@ -16,12 +16,10 @@ MonoBehaviour:
   displayName: Firewall 1U
   category: 9
   educationalApproximation: 1
-  shortDescription: Firewall de seguridad para rack que protege la red contra amenazas
-    y accesos no autorizados.
-  function: "Inspecciona y controla el tr\xE1fico que entra y sale de la red, permitiendo
-    conexiones seguras y bloqueando tr\xE1fico malicioso."
+  shortDescription: "Equipo que controla conexiones entre redes seg\u00fan una pol\u00edtica de seguridad."
+  function: "Permite o bloquea tr\u00e1fico mediante reglas; sus capacidades de inspecci\u00f3n dependen del modelo y la configuraci\u00f3n."
   rackUnits: 1
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 5c97dddf3df74e741a3c889cb4561cee, type: 3}
   standardReference: "Modelo educativo: no representa un producto ni una pol\xEDtica
     de seguridad espec\xEDficos."
   sections:

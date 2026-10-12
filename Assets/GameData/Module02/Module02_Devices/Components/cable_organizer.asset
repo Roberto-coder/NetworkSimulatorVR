@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5563bbff71e9e2e418ccdb0a2ede6316, type: 3}
+  m_Name: cable_organizer
+  m_EditorClassIdentifier: Assembly-CSharp::Modules.Module02_RackInstallation.Data.RackComponentInfo
+  id: cable_organizer
+  displayName: Organizador de cables
+  category: 5
+  educationalApproximation: 1
+  shortDescription: "Accesorio pasivo que gu\xEDa y sostiene los latiguillos dentro
+    del rack."
+  function: "Mantiene recorridos ordenados, facilita identificar conexiones y reduce
+    la tensi\xF3n sobre los puertos."
+  rackUnits: 1
+  image: {fileID: 21300000, guid: 6906f130ef26bd34a8ccdcd4b9165650, type: 3}
+  standardReference: Modelo educativo; verificar las instrucciones del fabricante.
+  sections:
+  - title: "Recorrido y sujeci\xF3n"
+    body: "Distribuye los cables por las gu\xEDas sin comprimirlos ni bloquear el
+      acceso a los puertos. Usa velcro sin apretarlo excesivamente y conserva holgura
+      para mantenimiento. Evita dobleces cerrados y respeta el radio m\xEDnimo del
+      fabricante, especialmente en fibra \xF3ptica."
+    image: {fileID: 0}
+    reference: "Gu\xEDa de instalaci\xF3n del organizador y de los cables."
+  - title: "Datos, energ\xEDa y ventilaci\xF3n"
+    body: "Planifica rutas separadas para datos y alimentaci\xF3n. El organizador
+      no elimina la interferencia electromagn\xE9tica ni sustituye la separaci\xF3n
+      requerida. No tapes entradas de aire ni sobrecargues las gu\xEDas. Etiqueta
+      ambos extremos y conserva el mapa de conexiones."
+    image: {fileID: 0}
+    reference: "Dise\xF1o de cableado y canalizaciones del sitio."

@@ -20,7 +20,7 @@ MonoBehaviour:
   function: "Recibe la alimentaci\xF3n requerida por el dispositivo. Debe conectarse
     siguiendo las indicaciones del fabricante."
   rackUnits: 0
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: f002402bfc4e47a4da43632addd24066, type: 3}
   standardReference: 
   sections:
   - title: "Conexi\xF3n el\xE9ctrica segura"

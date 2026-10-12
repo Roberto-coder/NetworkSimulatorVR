@@ -21,7 +21,7 @@ MonoBehaviour:
   function: Procesa, almacena y administra datos y aplicaciones para brindar servicios
     a los equipos conectados a la red.
   rackUnits: 2
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: a320bbfc2a6142444b243bf4b36c1df6, type: 3}
   standardReference: 2U equivalen a 88.9 mm de altura nominal.
   sections:
   - title: "Operaci\xF3n y disponibilidad"

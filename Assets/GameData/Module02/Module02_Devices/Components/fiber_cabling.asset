@@ -16,19 +16,27 @@ MonoBehaviour:
   displayName: Cableado de fibra
   category: 13
   educationalApproximation: 1
-  shortDescription: "Latiguillos de fibra \xF3ptica representados por el modelo FibraOpCE."
+  shortDescription: "Latiguillos \xF3pticos que llevan luz entre el panel de fibra
+    y los equipos de red."
   function: "Conectan las terminaciones del panel de fibra con los equipos de red
     y permiten organizar el recorrido del enlace \xF3ptico dentro del rack."
   rackUnits: 0
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: c403fb153ebb07b4e8f50ba9ae918585, type: 3}
   standardReference: "Evita dobleces cerrados y tirones. Mant\xE9n limpios los conectores
     y respeta el radio de curvatura indicado por el fabricante. "
   sections:
-  - title: "Manipulaci\xF3n y buenas pr\xE1cticas"
-    body: "La fibra \xF3ptica debe instalarse sin dobleces pronunciados, torsi\xF3n
-      ni tensi\xF3n excesiva. Respetar el radio m\xEDnimo de curvatura indicado por
-      el fabricante y utilizar organizadores para proteger los latiguillos. Mantener
-      limpios los conectores y usar tapas antipolvo cuando los puertos no est\xE9n
-      conectados."
+  - title: Curvatura y limpieza
+    body: "Evita dobleces cerrados, torsi\xF3n y tensi\xF3n. Respeta el radio m\xEDnimo
+      del fabricante y conserva holgura protegida. Inspecciona y limpia los conectores
+      antes de conectarlos; coloca tapas cuando est\xE9n libres. No mires dentro
+      de una fibra o un transceptor que pueda estar activo."
     image: {fileID: 0}
-    reference: "ANSI/TIA-568.3-D \u2014 Optical Fiber Cabling and Components Standard."
+    reference: "Gu\xEDa de instalaci\xF3n y limpieza del fabricante."
+  - title: Fibra e interferencia
+    body: "La se\xF1al \xF3ptica es inmune a la interferencia electromagn\xE9tica
+      de l\xE1mparas y motores. Aun as\xED, protege el cable del calor y de da\xF1os
+      mec\xE1nicos. La separaci\xF3n de instalaciones el\xE9ctricas y la puesta a
+      tierra de elementos met\xE1licos se determinan por el dise\xF1o y las reglas
+      locales."
+    image: {fileID: 0}
+    reference: "La inmunidad de la se\xF1al no elimina los requisitos de instalaci\xF3n."

@@ -83,12 +83,17 @@ namespace Modules.MainMenu
                 if (!SaveManager.Instance.IsSlotEmpty(slotId))
                     continue;
 
-                SaveManager.Instance.SaveGame(slotId, "Lobby", 0f);
+                try { SaveManager.Instance.SaveGame(slotId, "Lobby", 0f); }
+                catch (System.Exception error) when (error is System.IO.IOException || error is System.UnauthorizedAccessException)
+                {
+                    ShowNewGameStatus("No se pudo guardar la nueva partida. Reintenta antes de continuar.");
+                    return;
+                }
                 SceneTransitionManager.LoadScene("Lobby");
                 return;
             }
 
-            ShowNewGameStatus("Los 4 espacios están ocupados. Elimina una partida para liberar espacio.");
+            ShowNewGameStatus("Todos los slots están ocupados. Elimina una partida para liberar espacio.");
         }
 
         private void ShowNewGameStatus(string message)

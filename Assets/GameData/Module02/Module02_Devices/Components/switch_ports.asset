@@ -13,23 +13,24 @@ MonoBehaviour:
   m_Name: switch_ports
   m_EditorClassIdentifier: Assembly-CSharp::Modules.Module02_RackInstallation.Data.RackComponentInfo
   id: switch_ports
-  displayName: Puertos Ethernet
+  displayName: "Puertos de red: RJ45 y SFP"
   category: 2
   educationalApproximation: 1
-  shortDescription: Conectores utilizados para enlazar equipos mediante cableado
-    Ethernet.
-  function: "Cada puerto proporciona un punto de acceso a la red y puede configurarse
-    seg\xFAn su funci\xF3n."
+  shortDescription: "Los switches pueden ofrecer puertos RJ45 y ranuras para transceptores SFP o SFP+."
+  function: "Enlazan equipos y otros switches mediante cobre o fibra, seg\u00fan el puerto y el transceptor compatibles."
   rackUnits: 0
-  image: {fileID: 0}
-  standardReference: 
+  image: {fileID: 21300000, guid: f95c7d33feb09a84dada83a08997d36d, type: 3}
+  standardReference: "IEEE 802.3; matriz de compatibilidad del fabricante."
   sections:
-  - title: "Velocidad y configuraci\xF3n"
-    body: "Los puertos Ethernet utilizan conectores 8P8C, conocidos com\xFAnmente
-      como RJ45, para transmitir datos por cable de par trenzado. Seg\xFAn el equipo
-      y el cableado, pueden operar a 10 Mbps, 100 Mbps, 1 Gbps o m\xE1s. Cada puerto
-      puede configurarse como puerto de acceso para una VLAN o como enlace troncal
-      para transportar varias VLAN."
+  - title: "Puertos RJ45 y velocidad"
+    body: "Los conectores 8P8C, llamados RJ45, conectan cable de par trenzado. Hay puertos de 10/100/1000 Mbps y de mayor velocidad, seg\u00fan el equipo. La velocidad efectiva depende de ambos extremos y del cableado. Un puerto de acceso sirve a una VLAN; un troncal puede transportar varias."
+    image: {fileID: 21300000, guid: f95c7d33feb09a84dada83a08997d36d, type: 3}
+    reference: "IEEE 802.3; IEEE 802.1Q."
+  - title: "M\u00f3dulos SFP de cobre"
+    body: "Un SFP se inserta en una ranura SFP, no en un puerto RJ45 convencional. Algunos transceptores tienen conector RJ45 para cobre, como el de la imagen. Otros son \u00f3pticos. Cada m\u00f3dulo utiliza su medio espec\u00edfico: un mismo transceptor no acepta indistintamente cobre y fibra."
+    image: {fileID: 21300000, guid: cf5d7b1d40012ab42bc838d9e423d9fa, type: 3}
+    reference: "Cisco: SFP Modules for Gigabit Ethernet Applications."
+  - title: "SFP \u00f3ptico y compatibilidad"
+    body: "Los SFP \u00f3pticos suelen usar conectores LC y pueden ser para fibra monomodo o multimodo. Comprueba velocidad, tipo de fibra, longitud de onda, alcance y compatibilidad con el switch y el extremo remoto. SFP suele usarse para 1 Gb/s y SFP+ para 10 Gb/s; verifica siempre el modelo."
     image: {fileID: 0}
-    reference: "IEEE 802.3 \u2014 Ethernet; ANSI/TIA-568.2-D \u2014 Cableado de cobre
-      balanceado."
+    reference: "Cisco: fichas y matriz de compatibilidad de transceptores."

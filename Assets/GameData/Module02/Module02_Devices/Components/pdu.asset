@@ -16,12 +16,10 @@ MonoBehaviour:
   displayName: PDU 1U
   category: 11
   educationalApproximation: 1
-  shortDescription: "Unidad de distribuci\xF3n de energ\xEDa para rack, con 24 tomas
-    de corriente y medidor integrado."
-  function: "Centraliza la alimentaci\xF3n de los dispositivos conectados y permite
-    visualizar el voltaje y la corriente consumida."
+  shortDescription: "Unidad horizontal de distribuci\u00f3n de energ\u00eda para equipos del rack."
+  function: "Distribuye energ\u00eda entre sus tomas; algunas versiones tambi\u00e9n miden consumo."
   rackUnits: 1
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 175a1f51c48bf23409ef08568ce93577, type: 3}
   standardReference: "La capacidad, protecciones y conexi\xF3n deben seguir la documentaci\xF3n
     el\xE9ctrica del equipo."
   sections:

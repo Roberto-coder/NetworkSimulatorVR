@@ -59,6 +59,15 @@ public static class LobbyProfilePanelSetup
         if (profile.GetComponent<ProfilePanelPresenter>() == null)
             profile.AddComponent<ProfilePanelPresenter>();
 
+        var presenter = profile.GetComponent<ProfilePanelPresenter>();
+        var presenterData = new SerializedObject(presenter);
+        var definitions = presenterData.FindProperty("badgeDefinitions");
+        definitions.arraySize = 3;
+        for (int i = 0; i < 3; i++)
+            definitions.GetArrayElementAtIndex(i).objectReferenceValue = AssetDatabase.LoadAssetAtPath<AchievementDefinition>(
+                $"Assets/GameData/Achievements/Module0{i + 1}Completion.asset");
+        presenterData.ApplyModifiedPropertiesWithoutUndo();
+
         PanelController controller = Object.FindFirstObjectByType<PanelController>(FindObjectsInactive.Include);
         if (controller != null)
         {
@@ -244,8 +253,8 @@ public static class LobbyProfilePanelSetup
 
         Sprite moduleOneIcon = AssetDatabase.LoadAssetAtPath<AchievementDefinition>(
             "Assets/GameData/Achievements/Module01Completion.asset")?.Icon;
-        Sprite moduleTwoIcon = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Recursos/LobbyUI/M2sprite_v1.png");
-        Sprite moduleThreeIcon = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Recursos/LobbyUI/M3sprite_v1.png");
+        Sprite moduleTwoIcon = AssetDatabase.LoadAssetAtPath<AchievementDefinition>("Assets/GameData/Achievements/Module02Completion.asset")?.Icon;
+        Sprite moduleThreeIcon = AssetDatabase.LoadAssetAtPath<AchievementDefinition>("Assets/GameData/Achievements/Module03Completion.asset")?.Icon;
         EnsureBadge(badges, 1, moduleOneIcon);
         EnsureBadge(badges, 2, moduleTwoIcon);
         EnsureBadge(badges, 3, moduleThreeIcon);

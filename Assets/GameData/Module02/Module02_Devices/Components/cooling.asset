@@ -13,15 +13,13 @@ MonoBehaviour:
   m_Name: cooling
   m_EditorClassIdentifier: Assembly-CSharp::Modules.Module02_RackInstallation.Data.RackComponentInfo
   id: cooling
-  displayName: Cooling 1U
+  displayName: "Ventilaci\u00f3n del rack"
   category: 12
   educationalApproximation: 1
-  shortDescription: Panel de enfriamiento para rack con 4 ventiladores y control
-    de temperatura.
-  function: Extrae el aire caliente del rack para mantener una temperatura adecuada
-    y evitar el sobrecalentamiento de los equipos.
+  shortDescription: "Panel de ventiladores que ayuda a mantener el flujo de aire del rack."
+  function: "Mueve aire para retirar calor; su ubicaci\u00f3n y orientaci\u00f3n deben seguir el dise\u00f1o t\u00e9rmico."
   rackUnits: 2
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 16cb417ac38ed1840ad40c2ebaf89c46, type: 3}
   standardReference: "La direcci\xF3n del flujo y la capacidad t\xE9rmica dependen
     del dise\xF1o del rack y del fabricante."
   sections:

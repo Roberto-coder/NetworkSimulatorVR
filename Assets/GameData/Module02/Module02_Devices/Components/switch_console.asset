@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5563bbff71e9e2e418ccdb0a2ede6316, type: 3}
+  m_Name: switch_console
+  m_EditorClassIdentifier: Assembly-CSharp::Modules.Module02_RackInstallation.Data.RackComponentInfo
+  id: switch_console
+  displayName: "Puerto de consola"
+  category: 2
+  educationalApproximation: 1
+  shortDescription: "Interfaz de administraci\u00f3n local para configurar el equipo y diagnosticar problemas, incluso sin acceso por la red."
+  function: "Permite abrir una sesi\u00f3n de terminal con el cable, adaptador y par\u00e1metros seriales adecuados."
+  rackUnits: 0
+  image: {fileID: 21300000, guid: cfa351c2a2baef84ebcc80d6e6ab00ef, type: 3}
+  standardReference: "Conector y configuraci\u00f3n serial: consultar el manual del equipo."
+  sections:
+  - title: "RJ45, DB-25 y USB"
+    body: "La consola puede ser serial RJ45, DB-25 o USB, seg\u00fan el modelo. Algunos equipos antiguos usan DB-25 con interfaz DCE; DCE/DTE describe el papel el\u00e9ctrico, no la forma del conector. Aunque tenga forma RJ45, una consola serial no es Ethernet: necesita el cable de consola indicado."
+    image: {fileID: 21300000, guid: cfa351c2a2baef84ebcc80d6e6ab00ef, type: 3}
+    reference: "Cisco: Terminal Connection to a Console Port."
+  - title: "Velocidad y formato serial"
+    body: "Un ajuste com\u00fan es 9600 bps, 8 bits de datos, sin paridad, 1 bit de parada y sin control de flujo (8N1). Debe coincidir con el equipo. Hay plataformas que admiten valores entre 1200 y 115200 bps; no todas soportan el mismo conjunto. Baud mide s\u00edmbolos/s y bps mide bits/s."
+    image: {fileID: 0}
+    reference: "Cisco: Correct Terminal Emulator Settings for Console Connections."
+  - title: "Conexi\u00f3n con PuTTY"
+    body: "Conecta el cable de consola; instala el controlador del adaptador USB si lo requiere. Identifica el puerto COM en Windows. En PuTTY elige Serial, ese COM y la velocidad del equipo; configura los bits, paridad, parada y control de flujo. Abre la sesi\u00f3n y pulsa Enter. Texto ilegible suele indicar par\u00e1metros incorrectos."
+    image: {fileID: 0}
+    reference: "PuTTY: sesi\u00f3n serial; par\u00e1metros del fabricante."
+  - title: "Puerto auxiliar AUX"
+    body: "Algunos routers tambi\u00e9n incluyen AUX para administraci\u00f3n serial, tradicionalmente mediante un m\u00f3dem. Es independiente de la consola y puede usar control de flujo y se\u00f1ales de m\u00f3dem. Su disponibilidad, cableado y velocidad dependen del equipo. En la imagen, AUX est\u00e1 encima de CONSOLE."
+    image: {fileID: 21300000, guid: cfa351c2a2baef84ebcc80d6e6ab00ef, type: 3}
+    reference: "Cisco: documentaci\u00f3n de puertos de consola y auxiliares."

@@ -21,14 +21,13 @@ MonoBehaviour:
   function: "Interconecta dispositivos de una red local y reenv\xEDa tramas hacia
     el puerto correspondiente."
   rackUnits: 1
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: c3d9cb7f4a0682745994a92ed86edc76, type: 3}
   standardReference: 
   sections:
-  - title: "Conmutaci\xF3n y tabla MAC"
-    body: "El switch aprende las direcciones MAC de los equipos conectados y las
-      registra en una tabla asociada a sus puertos. Cuando recibe una trama, la reenv\xEDa
-      \xFAnicamente al puerto donde se encuentra el destino conocido; si no conoce
-      el destino, la distribuye por los dem\xE1s puertos de la misma red. Puede separar
-      la red en VLAN para mejorar la organizaci\xF3n y el aislamiento del tr\xE1fico."
+  - title: "C\xF3mo aprende y reenv\xEDa"
+    body: "El switch aprende la MAC de origen de las tramas y la asocia a un puerto
+      dentro de una VLAN. Reenv\xEDa destinos conocidos al puerto correspondiente.
+      Difunde broadcast y unicast desconocido a otros puertos de esa VLAN, sujeto
+      a la configuraci\xF3n. Las VLAN separan dominios de difusi\xF3n."
     image: {fileID: 0}
-    reference: "IEEE 802.3 \u2014 Ethernet; IEEE 802.1Q \u2014 VLAN."
+    reference: "IEEE 802.1Q; documentaci\xF3n de conmutaci\xF3n del fabricante."

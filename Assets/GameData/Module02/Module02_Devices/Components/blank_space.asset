@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: blank_space
   m_EditorClassIdentifier: Assembly-CSharp::Modules.Module02_RackInstallation.Data.RackComponentInfo
   id: blank_space
-  displayName: Blank Space
+  displayName: "Panel ciego (1U)"
   category: 6
   educationalApproximation: 1
   shortDescription: "Panel met\xE1lico ciego de 1U que cubre un espacio del rack
@@ -21,14 +21,11 @@ MonoBehaviour:
   function: "Cierra las U desocupadas, ayuda a mantener el flujo de aire previsto
     y permite conservar una distribuci\xF3n ordenada del rack."
   rackUnits: 1
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 6250b979d64b41c4b9ac88980a3fe3d8, type: 3}
   standardReference: "Tambi\xE9n se conoce como panel ciego o blanking panel. 1U
     equivale a 44.45 mm de altura nominal."
   sections:
-  - title: "Uso y buenas pr\xE1cticas"
-    body: "Este panel ocupa 1U y se utiliza para cubrir espacios vac\xEDos. Ayuda
-      a dirigir el flujo de aire hacia los equipos activos, evita acumulaci\xF3n
-      de polvo y mejora la presentaci\xF3n del rack. Se recomienda instalarlo en
-      todas las U libres que no se vayan a utilizar de inmediato."
+  - title: "Control del flujo de aire"
+    body: "Cubre las U libres para limitar la recirculaci\u00f3n del aire caliente y mantener el recorrido de aire previsto. El panel no sustituye filtros ni ventiladores. Inst\u00e1lalo seg\u00fan el dise\u00f1o t\u00e9rmico y conserva los accesos necesarios para mantenimiento."
     image: {fileID: 0}
-    reference: "ANSI/EIA-310-E buenas pr\xE1cticas ASHRAE TC 9.9."
+    reference: "Dise\u00f1o t\u00e9rmico del rack; gu\u00eda del fabricante."

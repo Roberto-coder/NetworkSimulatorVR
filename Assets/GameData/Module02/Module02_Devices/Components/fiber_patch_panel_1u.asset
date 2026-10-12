@@ -20,7 +20,7 @@ MonoBehaviour:
   function: "Organiza y protege las terminaciones de fibra \xF3ptica y facilita su
     conexi\xF3n con los equipos de red mediante latiguillos."
   rackUnits: 1
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: a65b374179d9b0242a929994e7d2e037, type: 3}
   standardReference: 1U equivale a 44.45 mm de altura nominal. Verifica el tipo de
     fibra, los conectores, la limpieza y el radio de curvatura antes de conectar.
   sections:

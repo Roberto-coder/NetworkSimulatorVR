@@ -13,23 +13,18 @@ MonoBehaviour:
   m_Name: switch_server
   m_EditorClassIdentifier: Assembly-CSharp::Modules.Module02_RackInstallation.Data.RackComponentInfo
   id: switch_server
-  displayName: Switch Servidor 1U
-  category: 5
+  displayName: "Switch de 24 puertos (1U)"
+  category: 1
   educationalApproximation: 1
   shortDescription: "Switch de red con 24 puertos Ethernet y 2 ranuras SFP para conexiones
     de fibra \xF3ptica."
   function: "Distribuye el tr\xE1fico de datos entre los equipos conectados y permite
     enlazar la red mediante Ethernet o fibra \xF3ptica."
   rackUnits: 1
-  image: {fileID: 0}
-  standardReference: "La instalaci\xF3n real debe respetar categor\xEDa, radio de
-    curvatura, longitud y etiquetado del sistema."
+  image: {fileID: 21300000, guid: c3d9cb7f4a0682745994a92ed86edc76, type: 3}
+  standardReference: "El n\u00famero de puertos y las velocidades dependen del equipo representado."
   sections:
-  - title: Puertos y enlaces de red
-    body: "El switch conecta servidores y otros equipos mediante 24 puertos Ethernet.
-      Las dos ranuras SFP permiten instalar m\xF3dulos para enlaces de fibra \xF3ptica,
-      normalmente usados como enlaces ascendentes hacia el switch principal. La velocidad
-      y el tipo de cable deben ser compatibles con cada puerto; las VLAN permiten
-      separar el tr\xE1fico de servidores, administraci\xF3n y usuarios."
-    image: {fileID: 0}
-    reference: "IEEE 802.3 \u2014 Ethernet; IEEE 802.1Q \u2014 VLAN."
+  - title: "Conexiones y enlaces ascendentes"
+    body: "Los puertos RJ45 conectan equipos mediante cobre. Las ranuras SFP reciben transceptores \u00f3pticos o de cobre compatibles y pueden utilizarse para enlaces ascendentes. Comprueba el medio y la velocidad en ambos extremos. Asigna las VLAN de acceso y los troncales seg\u00fan el dise\u00f1o de la red."
+    image: {fileID: 21300000, guid: c3d9cb7f4a0682745994a92ed86edc76, type: 3}
+    reference: "IEEE 802.3; IEEE 802.1Q."

@@ -21,16 +21,10 @@ MonoBehaviour:
   function: "Permite iniciar o interrumpir la alimentaci\xF3n del modelo durante
     la pr\xE1ctica."
   rackUnits: 0
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 430c46ff975ffe04c9c271f7a5e669c6, type: 3}
   standardReference: 
   sections:
-  - title: Encendido y apagado seguro
-    body: "El interruptor permite iniciar o interrumpir la alimentaci\xF3n del modelo
-      educativo. En un equipo real, mantener presionado el bot\xF3n puede forzar
-      el apagado, con riesgo de p\xE9rdida o corrupci\xF3n de datos; por ello se
-      recomienda realizar primero un apagado controlado desde el sistema operativo
-      o la interfaz de administraci\xF3n. Antes de intervenir f\xEDsicamente el equipo,
-      desconectar la alimentaci\xF3n cuando corresponda."
+  - title: "Encendido y configuraci\u00f3n"
+    body: "El interruptor del modelo controla la alimentaci\u00f3n durante la pr\u00e1ctica. En un switch real puede no existir interruptor: consulta el manual. Guarda los cambios de configuraci\u00f3n antes de un apagado planificado, pues la configuraci\u00f3n no guardada puede perderse. Comprueba el arranque y los indicadores al encender."
     image: {fileID: 0}
-    reference: "IEC 62368-1 \u2014 Seguridad de equipos de tecnolog\xEDa de la informaci\xF3n
-      y comunicaci\xF3n."
+    reference: "Procedimiento de operaci\u00f3n del fabricante."

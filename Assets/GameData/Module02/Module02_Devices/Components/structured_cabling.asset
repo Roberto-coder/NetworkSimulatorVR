@@ -16,20 +16,21 @@ MonoBehaviour:
   displayName: Cableado estructurado
   category: 5
   educationalApproximation: 1
-  shortDescription: Grupo simplificado de latiguillos de cobre dentro del rack.
-  function: "Conecta puertos del patch panel con switches y otros dispositivos manteniendo
-    identificaci\xF3n y orden."
+  shortDescription: "Cableado de cobre que organiza los enlaces de red y sus terminaciones en el rack."
+  function: "Conecta el cableado permanente del edificio con los equipos mediante paneles y latiguillos identificados."
   rackUnits: 1
-  image: {fileID: 0}
-  standardReference: "La instalaci\xF3n real debe respetar categor\xEDa, radio de
-    curvatura, longitud y etiquetado del sistema."
+  image: {fileID: 21300000, guid: f896ef768860ac64aa889f80bf9600ac, type: 3}
+  standardReference: "Separaci\u00f3n, curvatura y categor\u00eda: verificar el dise\u00f1o del sitio y las instrucciones del fabricante."
   sections:
-  - title: Orden, etiquetado y curvatura
-    body: "El cableado estructurado conecta el patch panel con switches y otros equipos
-      mediante latiguillos de cobre. Cada enlace debe etiquetarse en ambos extremos
-      para facilitar la identificaci\xF3n y el mantenimiento. Usar organizadores,
-      evitar tensi\xF3n excesiva y respetar el radio de curvatura recomendado para
-      no afectar el desempe\xF1o del enlace."
+  - title: "Orden y cuidado del enlace"
+    body: "Etiqueta ambos extremos y usa organizadores y cintas de velcro sin comprimir el cable. Evita tirones y dobleces; respeta el radio de curvatura del fabricante. El panel, el cable y los latiguillos deben tener categor\u00edas compatibles. Conserva la documentaci\u00f3n de cada puerto."
     image: {fileID: 0}
-    reference: "ANSI/TIA-568.2-D \u2014 Cableado balanceado de par trenzado; ANSI/TIA-606-C
-      \u2014 Administraci\xF3n e identificaci\xF3n de infraestructura."
+    reference: "Gu\u00edas de instalaci\u00f3n del sistema de cableado."
+  - title: "Fuentes de interferencia"
+    body: "El cobre puede captar interferencia de luminarias con balastros, motores de ventiladores, transformadores y cables de potencia. Separa las rutas de datos y energ\u00eda; evita recorridos paralelos pr\u00f3ximos y realiza los cruces a 90\u00b0 cuando sean necesarios. La separaci\u00f3n depende de la potencia, el blindaje y las canalizaciones."
+    image: {fileID: 0}
+    reference: "Dise\u00f1o de canalizaciones y compatibilidad electromagn\u00e9tica."
+  - title: "Distancias: no existe un valor \u00fanico"
+    body: "No se aplica 1.5 m a todos los dispositivos. Como ejemplos de especificaciones: unos 30 cm respecto a luminarias y 1.2 m respecto a grandes motores o transformadores. Son referencias de contextos distintos; verifica la separaci\u00f3n exigida por el proyecto, el fabricante y las reglas el\u00e9ctricas locales."
+    image: {fileID: 0}
+    reference: "Fluke Networks: Residential Cabling Specification; UNCP: Communications Cabling Specification 2017."

@@ -16,12 +16,11 @@ MonoBehaviour:
   displayName: NAS 2U
   category: 8
   educationalApproximation: 1
-  shortDescription: "Sistema de almacenamiento en red para rack con 12 bah\xEDas
-    para discos."
+  shortDescription: "Almacenamiento conectado a la red para compartir archivos y centralizar respaldos."
   function: Centraliza y almacena archivos, copias de seguridad y datos para que
     puedan ser compartidos y administrados desde la red.
   rackUnits: 2
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 787512b1a3422cd4e8420cc428232a98, type: 3}
   standardReference: 2U equivalen a 88.9 mm de altura nominal.
   sections:
   - title: Almacenamiento y respaldo

@@ -26,6 +26,8 @@ namespace Modules.Lobby.UI
         [SerializeField] private TMP_Text moduleObjectivesText;
         [SerializeField] private TMP_Text moduleTimeText;
         [SerializeField] private TMP_Text moduleDateText;
+        [Tooltip("M1, M2 y M3: editar Icon en estos assets para cambiar las insignias.")]
+        [SerializeField] private GameData.Achievements.AchievementDefinition[] badgeDefinitions;
         [SerializeField] private Image[] badgeIcons;
         [SerializeField] private TMP_Text[] badgeStateTexts;
 
@@ -51,8 +53,17 @@ namespace Modules.Lobby.UI
         {
             ResolveReferences();
             ConfigureModuleButtons();
+            if (SaveManager.Instance != null) SaveManager.Instance.StatusChanged += Refresh;
             Refresh();
         }
+
+        private void OnDisable()
+        {
+            if (SaveManager.Instance != null) SaveManager.Instance.StatusChanged -= Refresh;
+        }
+
+        [ContextMenu("Resolver referencias del perfil")]
+        private void ResolveProfileReferences() => ResolveReferences();
 
         public void Refresh()
         {
@@ -82,7 +93,10 @@ namespace Modules.Lobby.UI
             bool hasPendingChanges = saveFile?.slots?.Any(slot => slot.needsCloudSync) == true;
             SetText(syncStatusText, SessionContext.IsDebugSession
                 ? "DATOS LOCALES"
-                : hasPendingChanges ? "SINCRONIZACIÓN PENDIENTE" : "SINCRONIZADO");
+                : SaveManager.Instance != null && SaveManager.Instance.IsSyncInProgress ? "SINCRONIZANDO"
+                : hasPendingChanges ? "PENDIENTE DE SUBIR"
+                : SaveManager.Instance != null && SaveManager.Instance.State == SaveManager.SyncState.Synced ? "SINCRONIZADO"
+                : "DATOS LOCALES");
 
             RefreshModuleDetail(selectedModuleIndex);
             RefreshBadges();
@@ -91,32 +105,32 @@ namespace Modules.Lobby.UI
 
         private void ResolveReferences()
         {
-            usernameText ??= FindText("ProfileBody/IdentityCard/UsernameText");
-            emailText ??= FindText("ProfileBody/IdentityCard/EmailText");
-            activeSlotText ??= FindText("ProfileBody/IdentityCard/ActiveSlotText");
-            completedModulesText ??= FindText("ProfileBody/ProgressCard/ModulesRow/Value");
-            achievementsText ??= FindText("ProfileBody/ProgressCard/AchievementsRow/Value");
-            totalPlayTimeText ??= FindText("ProfileBody/ProgressCard/PlayTimeRow/Value");
-            lastSaveText ??= FindText("ProfileBody/ProgressCard/LastSaveRow/Value");
-            syncStatusText ??= FindText("Header/SyncStatus/Text (TMP)") ?? FindText("Header/SyncStatus");
+            if (usernameText == null) usernameText = FindText("ProfileBody/IdentityCard/UsernameText");
+            if (emailText == null) emailText = FindText("ProfileBody/IdentityCard/EmailText");
+            if (activeSlotText == null) activeSlotText = FindText("ProfileBody/IdentityCard/ActiveSlotText");
+            if (completedModulesText == null) completedModulesText = FindText("ProfileBody/ProgressCard/ModulesRow/Value");
+            if (achievementsText == null) achievementsText = FindText("ProfileBody/ProgressCard/AchievementsRow/Value");
+            if (totalPlayTimeText == null) totalPlayTimeText = FindText("ProfileBody/ProgressCard/PlayTimeRow/Value");
+            if (lastSaveText == null) lastSaveText = FindText("ProfileBody/ProgressCard/LastSaveRow/Value");
+            if (syncStatusText == null) syncStatusText = FindText("Header/SyncStatus/Text (TMP)") ?? FindText("Header/SyncStatus");
 
             if (moduleButtons == null || moduleButtons.Length != 3) moduleButtons = new Button[3];
             if (badgeIcons == null || badgeIcons.Length != 3) badgeIcons = new Image[3];
             if (badgeStateTexts == null || badgeStateTexts.Length != 3) badgeStateTexts = new TMP_Text[3];
             for (int index = 0; index < 3; index++)
             {
-                moduleButtons[index] ??= transform.Find($"ProfileBody/ProgressCard/ModuleTabs/ButtonM{index + 1}")?.GetComponent<Button>();
-                badgeIcons[index] ??= transform.Find($"ProfileBody/ProgressCard/BadgesContainer/BadgeM{index + 1}/Icon")?.GetComponent<Image>();
-                badgeStateTexts[index] ??= FindText($"ProfileBody/ProgressCard/BadgesContainer/BadgeM{index + 1}/State");
+                if (moduleButtons[index] == null) moduleButtons[index] = transform.Find($"ProfileBody/ProgressCard/ModuleTabs/ButtonM{index + 1}")?.GetComponent<Button>();
+                if (badgeIcons[index] == null) badgeIcons[index] = transform.Find($"ProfileBody/ProgressCard/BadgesContainer/BadgeM{index + 1}/Icon")?.GetComponent<Image>();
+                if (badgeStateTexts[index] == null) badgeStateTexts[index] = FindText($"ProfileBody/ProgressCard/BadgesContainer/BadgeM{index + 1}/State");
             }
 
-            moduleNameText ??= FindText("ProfileBody/ProgressCard/ModuleDetail/ModuleName");
-            moduleStatusText ??= FindText("ProfileBody/ProgressCard/ModuleDetail/Status");
-            moduleObjectivesText ??= FindText("ProfileBody/ProgressCard/ModuleDetail/Objectives");
-            moduleTimeText ??= FindText("ProfileBody/ProgressCard/ModuleDetail/PlayTime");
-            moduleDateText ??= FindText("ProfileBody/ProgressCard/ModuleDetail/CompletionDate");
-            moduleDetailRect ??= transform.Find("ProfileBody/ProgressCard/ModuleDetail") as RectTransform;
-            progressCardRect ??= transform.Find("ProfileBody/ProgressCard") as RectTransform;
+            if (moduleNameText == null) moduleNameText = FindText("ProfileBody/ProgressCard/ModuleDetail/ModuleName");
+            if (moduleStatusText == null) moduleStatusText = FindText("ProfileBody/ProgressCard/ModuleDetail/Status");
+            if (moduleObjectivesText == null) moduleObjectivesText = FindText("ProfileBody/ProgressCard/ModuleDetail/Objectives");
+            if (moduleTimeText == null) moduleTimeText = FindText("ProfileBody/ProgressCard/ModuleDetail/PlayTime");
+            if (moduleDateText == null) moduleDateText = FindText("ProfileBody/ProgressCard/ModuleDetail/CompletionDate");
+            if (moduleDetailRect == null) moduleDetailRect = transform.Find("ProfileBody/ProgressCard/ModuleDetail") as RectTransform;
+            if (progressCardRect == null) progressCardRect = transform.Find("ProfileBody/ProgressCard") as RectTransform;
             if (moduleDetailRect != null && moduleDetailRect.TryGetComponent(out LayoutElement detailLayout))
                 detailLayout.preferredHeight = 120f;
         }
@@ -205,7 +219,11 @@ namespace Modules.Lobby.UI
             {
                 bool unlocked = HasAchievement(index) || HasCompletedModule(index);
                 if (badgeIcons != null && index < badgeIcons.Length && badgeIcons[index] != null)
+                {
+                    if (badgeDefinitions != null && index < badgeDefinitions.Length && badgeDefinitions[index] != null)
+                        badgeIcons[index].sprite = badgeDefinitions[index].Icon;
                     badgeIcons[index].color = unlocked ? Color.white : new Color32(82, 98, 115, 140);
+                }
                 if (badgeStateTexts != null && index < badgeStateTexts.Length)
                     SetText(badgeStateTexts[index], unlocked ? "OBTENIDA" : "BLOQUEADA");
             }

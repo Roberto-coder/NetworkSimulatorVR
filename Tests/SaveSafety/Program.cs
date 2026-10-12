@@ -9,7 +9,12 @@ class Program {
  static SaveManager New(){SaveManager.Instance=null;var m=new SaveManager();typeof(SaveManager).GetMethod("Awake",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(m,null);return m;}
  static void Main(){
  Application.persistentDataPath=Path.Combine(Directory.GetCurrentDirectory(),"Temp","SaveSafety",Guid.NewGuid().ToString("N"));Directory.CreateDirectory(Application.persistentDataPath);
- var m=New();m.SaveGame(0,"Lobby",0);Check(m.HasPendingChanges,"Nueva partida pendiente");
+ var m=New();
+ Check(m.IsSlotEmpty(0),"Slot normalizado vacio");
+ m.saveFile.slots[1].data=new PlayerProgress();
+ Check(m.IsSlotEmpty(1),"data vacio heredado no representa partida");
+ m.SaveGame(0,"Lobby",0);Check(m.HasPendingChanges,"Nueva partida pendiente");
+ Check(m.saveFile.activeSlotId==0&&SessionContext.ActiveSlotId==0&&!m.IsSlotEmpty(0),"Crear selecciona y ocupa slot");
  m.SyncLocalToFirebase();Check(m.HasPendingChanges,"No limpia pendientes antes del ACK");
  Check(!FirebaseSaveManager.Instance.Sent.slots[0].needsCloudSync,"Snapshot remoto limpio");
  var disk=JsonUtility.FromJson<SaveFile>(File.ReadAllText(Path.Combine(Application.persistentDataPath,"save_account-a.json")));

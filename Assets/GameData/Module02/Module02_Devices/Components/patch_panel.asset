@@ -16,12 +16,10 @@ MonoBehaviour:
   displayName: Patch Panel Ethernet 1U
   category: 10
   educationalApproximation: 1
-  shortDescription: Panel de parcheo de 24 puertos para conexiones Ethernet mediante
-    cable de par trenzado blindado.
-  function: Organiza y centraliza el cableado Ethernet para conectarlo de forma ordenada
-    al switch mediante puertos RJ45
+  shortDescription: "Panel pasivo para terminar, identificar y organizar enlaces de cobre."
+  function: "Conecta el cableado permanente con latiguillos hacia el switch; no conmuta tr\u00e1fico ni necesita configuraci\u00f3n IP."
   rackUnits: 1
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 0d53b80213e36e248b7f730890ac90d6, type: 3}
   standardReference: "La categor\xEDa y el desempe\xF1o del enlace dependen del sistema
     de cableado instalado."
   sections:

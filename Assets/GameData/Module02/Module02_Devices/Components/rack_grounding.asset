@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5563bbff71e9e2e418ccdb0a2ede6316, type: 3}
+  m_Name: rack_grounding
+  m_EditorClassIdentifier: Assembly-CSharp::Modules.Module02_RackInstallation.Data.RackComponentInfo
+  id: rack_grounding
+  displayName: Puesta a tierra del rack
+  category: 3
+  educationalApproximation: 1
+  shortDescription: "Punto de uni\xF3n del rack met\xE1lico con el sistema de puesta
+    a tierra y equipotencialidad del edificio."
+  function: "Ayuda a limitar diferencias de potencial entre partes met\xE1licas.
+    El cubo representa un punto de conexi\xF3n, no un electrodo real."
+  rackUnits: 0
+  image: {fileID: 21300000, guid: 65c9819a21d5d544f999e3004b5e17e3, type: 3}
+  standardReference: Modelo educativo; verificar las instrucciones del fabricante.
+  sections:
+  - title: "Uni\xF3n equipotencial"
+    body: "El rack y las partes met\xE1licas que lo requieren se unen al sistema
+      de tierra mediante conductores y terminales adecuados. Una barra permite reunir
+      conexiones de varios equipos. Esta uni\xF3n complementa la protecci\xF3n el\xE9ctrica
+      de la instalaci\xF3n; no sustituye los conductores de protecci\xF3n ni los
+      dispositivos de desconexi\xF3n."
+    image: {fileID: 0}
+    reference: "Panduit: Grounding Busbars; dise\xF1o el\xE9ctrico del sitio."
+  - title: "Inspecci\xF3n del punto de conexi\xF3n"
+    body: "Identifica el terminal y comprueba que est\xE9 accesible, firme y sin
+      corrosi\xF3n. La continuidad, el calibre, los terminales y el apriete deben
+      verificarse seg\xFAn el proyecto y el fabricante por personal competente. No
+      se debe asumir que los tornillos de montaje garantizan continuidad el\xE9ctrica."
+    image: {fileID: 0}
+    reference: "Gu\xEDa de puesta a tierra y equipotencialidad del fabricante."
+  - title: "Representaci\xF3n en la pr\xE1ctica"
+    body: "El modelo est\xE1 en la parte inferior del rack para identificar este
+      componente. Una instalaci\xF3n real puede usar una barra o terminal en otra
+      ubicaci\xF3n. El simulador muestra informaci\xF3n: no realiza mediciones el\xE9ctricas
+      ni valida la puesta a tierra."
+    image: {fileID: 0}
+    reference: "La ubicaci\xF3n y el tama\xF1o del cubo son educativos."

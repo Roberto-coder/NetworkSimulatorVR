@@ -16,12 +16,10 @@ MonoBehaviour:
   displayName: PDU vertical (0U)
   category: 11
   educationalApproximation: 1
-  shortDescription: "Unidad de distribuci\xF3n de energ\xEDa para rack, con 24 tomas
-    de corriente y medidor integrado."
-  function: "Centraliza la alimentaci\xF3n de los dispositivos conectados y permite
-    visualizar el voltaje y la corriente consumida."
+  shortDescription: "Unidad vertical de distribuci\u00f3n de energ\u00eda que no ocupa U de montaje frontal."
+  function: "Alimenta los equipos desde varias tomas; la medici\u00f3n y el control dependen del modelo."
   rackUnits: 0
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 19ffc1cafad1ea24d83cf6513e1f0195, type: 3}
   standardReference: "La capacidad, protecciones y conexi\xF3n deben seguir la documentaci\xF3n
     el\xE9ctrica del equipo."
   sections:

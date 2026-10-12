@@ -21,7 +21,7 @@ MonoBehaviour:
   function: "Ayudan a identificar energ\xEDa, actividad de enlace y posibles estados
     del dispositivo."
   rackUnits: 0
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 624a9ceacef26ab4ba541e3588edda3d, type: 3}
   standardReference: 
   sections:
   - title: "Interpretaci\xF3n de indicadores"

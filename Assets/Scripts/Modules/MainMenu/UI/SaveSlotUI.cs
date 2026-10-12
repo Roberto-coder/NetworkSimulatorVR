@@ -43,19 +43,31 @@ namespace Modules.MainMenu.UI
             var slot = manager.saveFile?.slots?.Find(item => item.slotID == slotID);
             if (title != null)
             {
-                title.text = title.text.Replace("! ", string.Empty);
-                if (slot != null && slot.needsCloudSync) title.text = "! " + title.text;
+                isEmpty = manager.IsSlotEmpty(slotID);
+                bool active = !isEmpty && manager.saveFile.activeSlotId == slotID;
+                title.text = isEmpty ? "Vacía" : $"Partida {slotID + 1}" + (active ? " · Activa" : "");
             }
             if (date != null)
             {
-                date.text = manager.StatusMessage;
+                bool busyOrError = manager.State == SaveManager.SyncState.Syncing ||
+                    manager.State == SaveManager.SyncState.WaitingForServer ||
+                    manager.State == SaveManager.SyncState.Error || manager.State == SaveManager.SyncState.Offline;
+                date.text = busyOrError ? manager.StatusMessage :
+                    isEmpty ? (slot?.needsCloudSync == true ? "Eliminación pendiente de sincronizar" : "Disponible para crear una partida") :
+                    slot?.needsCloudSync == true ? "Guardada localmente · Pendiente de subir" : "Guardada en este dispositivo";
+                date.enableAutoSizing = true;
+                date.fontSizeMin = 8f;
+                date.fontSizeMax = 14f;
+                date.overflowMode = TextOverflowModes.Ellipsis;
                 date.color = manager.State == SaveManager.SyncState.Synced ? Color.green : Color.white;
             }
+            if (deleteButton != null) deleteButton.interactable = !isEmpty;
             if (saveButton != null)
             {
                 saveButton.interactable = !manager.IsSyncInProgress && (!isEmpty || manager.HasPendingChanges);
                 var label = saveButton.GetComponentInChildren<TMP_Text>(true);
-                if (label != null) label.text = "Sincronizar todo";
+                // The narrow button already has a disk icon. A full caption overlaps adjacent cards.
+                if (label != null) label.text = string.Empty;
             }
         }
 
@@ -64,20 +76,14 @@ namespace Modules.MainMenu.UI
             BindStatus();
             RemoveListeners();
             slotID = slot.slotID;
-            isEmpty = slot.data == null;
+            isEmpty = SaveManager.Instance != null ? SaveManager.Instance.IsSlotEmpty(slotID) : slot.data == null;
             if (isEmpty)
             {
                 SetupEmpty(slotID);
                 return;
             }
 
-            string slotTitle = string.IsNullOrWhiteSpace(slot.moduleTitle)
-                ? $"Partida {slotID + 1}"
-                : slot.moduleTitle;
-            bool isActive = SaveManager.Instance?.saveFile?.activeSlotId == slotID;
-            string activeIndicator = isActive ? "● " : string.Empty;
-            string pendingIndicator = slot.needsCloudSync ? "! " : string.Empty;
-            title.text = $"{activeIndicator}{pendingIndicator}{slotTitle}";
+            title.text = $"Partida {slotID + 1}";
             date.text = string.IsNullOrWhiteSpace(slot.lastSave) ? "---" : slot.lastSave;
             TimeSpan elapsed = TimeSpan.FromSeconds(slot.playTime);
             int achievementCount = slot.data?.achievements?.Count ?? 0;
@@ -94,7 +100,7 @@ namespace Modules.MainMenu.UI
             RemoveListeners();
             slotID = id;
             isEmpty = true;
-            title.text = $"Nueva partida {id + 1}";
+            title.text = "Vacía";
             date.text = "---";
             date.color = Color.white;
             playtime.text = "0h 0m 0s";

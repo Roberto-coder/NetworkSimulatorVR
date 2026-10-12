@@ -21,15 +21,10 @@ MonoBehaviour:
   function: "Se enlaza con SW1 mediante SW1/Gi04 y SW2/Gi04. Los puertos restantes
     representan capacidad adicional; Gi04 es el puerto interactivo de esta pr\xE1ctica."
   rackUnits: 1
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 0204dd3d06cd4864a805a57d48df5731, type: 3}
   standardReference: 
   sections:
-  - title: Enlace ascendente y VLAN
-    body: "SW2 ampl\xEDa la cantidad de puertos disponibles y se conecta al switch
-      principal SW1 mediante un enlace ascendente entre los puertos Gi0/4. Este enlace
-      puede transportar varias VLAN mediante etiquetado IEEE 802.1Q. Los dem\xE1s
-      puertos se utilizan para conectar equipos finales, por lo que deben asignarse
-      a la VLAN correspondiente y etiquetarse para facilitar su administraci\xF3n."
+  - title: "Enlace ascendente y VLAN"
+    body: "En esta pr\u00e1ctica, SW1/Gi04 se conecta con SW2/Gi04. En una instalaci\u00f3n real, un enlace entre switches puede ser de acceso o troncal, seg\u00fan las VLAN necesarias. Un troncal transporta las VLAN permitidas con IEEE 802.1Q. Verifica que ambos extremos tengan una configuraci\u00f3n compatible."
     image: {fileID: 0}
-    reference: "IEEE 802.3 \u2014 Ethernet; IEEE 802.1Q \u2014 VLAN y etiquetado
-      de tr\xE1fico."
+    reference: "IEEE 802.1Q. No se presupone que el simulador implemente un troncal."

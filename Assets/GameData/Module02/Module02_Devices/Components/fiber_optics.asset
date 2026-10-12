@@ -16,19 +16,14 @@ MonoBehaviour:
   displayName: "Patch Panel Fibra \xF3ptica 1U"
   category: 13
   educationalApproximation: 1
-  shortDescription: "Panel distribuidor de 24 conexiones para organizar cableado
-    de fibra \xF3ptica en el rack."
-  function: "Centraliza y protege las conexiones de fibra \xF3ptica, facilitando
-    su conexi\xF3n hacia los equipos de red mediante conectores SC."
+  shortDescription: "Panel pasivo que organiza y protege terminaciones de fibra \u00f3ptica."
+  function: "Facilita la conexi\u00f3n entre el cableado \u00f3ptico y los transceptores mediante adaptadores y latiguillos."
   rackUnits: 1
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: a65b374179d9b0242a929994e7d2e037, type: 3}
   standardReference: El tipo de fibra, conector, limpieza y radio de curvatura deben
     verificarse antes de conectar.
   sections:
-  - title: Conectores y mantenimiento
-    body: "Este panel distribuye hasta 24 enlaces de fibra \xF3ptica mediante conectores
-      SC. Antes de conectar, verificar el tipo de fibra monomodo o multimodo y mantener
-      limpios los adaptadores y conectores. Respetar el radio m\xEDnimo de curvatura,
-      etiquetar cada enlace y proteger los puertos no utilizados con tapas antipolvo."
+  - title: "Conectores y limpieza"
+    body: "Identifica si el sistema usa fibra monomodo o multimodo y conectores SC o LC. No fuerces conectores distintos ni mezcles pulidos incompatibles. Inspecciona y limpia antes de conectar; protege puertos libres. Etiqueta los enlaces y respeta el radio de curvatura del fabricante."
     image: {fileID: 0}
-    reference: "ANSI/TIA-568.3-D \u2014 Optical Fiber Cabling and Components Standard."
+    reference: "Gu\u00eda del sistema \u00f3ptico instalado."
