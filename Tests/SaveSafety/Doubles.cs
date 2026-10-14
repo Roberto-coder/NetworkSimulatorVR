@@ -22,6 +22,7 @@ namespace UnityEngine {
  public static class Mathf { public static int Max(int a,int b)=>Math.Max(a,b); public static float Max(float a,float b)=>Math.Max(a,b); }
 }
 namespace Systems.Auth { public static class SessionContext {
+ public static bool IsDebugSession;
  public static string UserId="account-a"; public static int ActiveSlotId=-1;
  public static string LocalStorageKey=>UserId??"debug-local";
  public static bool CanSyncToFirebase=>UserId!=null;

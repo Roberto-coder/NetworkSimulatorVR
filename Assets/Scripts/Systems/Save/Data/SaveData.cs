@@ -47,6 +47,7 @@ public class AchievementProgress
 [System.Serializable]
 public class SaveFile
 {
+    public System.Collections.Generic.List<string> startedTutorialIds = new System.Collections.Generic.List<string>();
     public int activeSlotId = -1;
     public System.Collections.Generic.List<SaveSlot> slots = new System.Collections.Generic.List<SaveSlot>();
 }

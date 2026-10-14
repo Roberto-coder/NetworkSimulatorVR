@@ -23,8 +23,16 @@ namespace Modules.MainMenu.UI
         private bool isEmpty;
         private bool deleteConfirmationPending;
         private SaveManager boundManager;
+        private static SaveSlotUI syncFeedbackOwner;
 
-        private void OnEnable() => BindStatus();
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetSyncFeedback() => syncFeedbackOwner = null;
+
+        private void OnEnable()
+        {
+            BindStatus();
+            RefreshSyncStatus();
+        }
         private void OnDisable()
         {
             if (boundManager != null) boundManager.StatusChanged -= RefreshSyncStatus;
@@ -49,17 +57,21 @@ namespace Modules.MainMenu.UI
             }
             if (date != null)
             {
+                bool ownsFeedback = syncFeedbackOwner == this;
                 bool busyOrError = manager.State == SaveManager.SyncState.Syncing ||
                     manager.State == SaveManager.SyncState.WaitingForServer ||
                     manager.State == SaveManager.SyncState.Error || manager.State == SaveManager.SyncState.Offline;
-                date.text = busyOrError ? manager.StatusMessage :
+                bool cloudConfirmed = ownsFeedback && manager.State == SaveManager.SyncState.Synced &&
+                    slot?.needsCloudSync != true;
+                date.text = cloudConfirmed ? "Datos guardados en la nube" :
+                    ownsFeedback && busyOrError ? manager.StatusMessage :
                     isEmpty ? (slot?.needsCloudSync == true ? "Eliminación pendiente de sincronizar" : "Disponible para crear una partida") :
                     slot?.needsCloudSync == true ? "Guardada localmente · Pendiente de subir" : "Guardada en este dispositivo";
                 date.enableAutoSizing = true;
                 date.fontSizeMin = 8f;
                 date.fontSizeMax = 14f;
                 date.overflowMode = TextOverflowModes.Ellipsis;
-                date.color = manager.State == SaveManager.SyncState.Synced ? Color.green : Color.white;
+                date.color = cloudConfirmed ? Color.green : Color.white;
             }
             if (deleteButton != null) deleteButton.interactable = !isEmpty;
             if (saveButton != null)
@@ -151,14 +163,22 @@ namespace Modules.MainMenu.UI
 
         private void SyncSlot()
         {
-            if (SaveManager.Instance == null)
+            if (SaveManager.Instance == null || SaveManager.Instance.IsSyncInProgress)
                 return;
 
             deleteConfirmationPending = false;
+            SaveSlotUI previousOwner = syncFeedbackOwner;
+            syncFeedbackOwner = this;
+            if (previousOwner != null && previousOwner != this) previousOwner.RefreshSyncStatus();
 
             date.text = "Sincronizando...";
             date.color = Color.white;
             SaveManager.Instance.SyncLocalToFirebase();
+        }
+
+        private void OnDestroy()
+        {
+            if (syncFeedbackOwner == this) syncFeedbackOwner = null;
         }
 
         private void DeleteSlot()

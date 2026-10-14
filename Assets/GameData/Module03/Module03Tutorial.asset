@@ -40,8 +40,8 @@ MonoBehaviour:
       resourcesPath: 
     legacyVoiceId: 
   - id: M3D04
-    text: "Ac\xE9rcate a la laptop, apunta al dispositivo y pulsa {control:interactuar} para abrir su
-      terminal."
+    text: "Ac\xE9rcate a la laptop, apunta al dispositivo y pulsa {control:interactuar}
+      para abrir su terminal."
     speaker: Instructor
     audio:
       clip: {fileID: 8300000, guid: 2b607add27753f74199485a3ce7349ee, type: 3}
@@ -144,29 +144,29 @@ MonoBehaviour:
     legacyVoiceId: 
   - id: M3D15
     text: "Retira ambos extremos del cable sospechoso. Enc\xE1jalos en Master y Remote
-      del tester, pulsa el gatillo {control:usar} y espera a que termine la secuencia de LEDs. Esta
-      prueba comprueba continuidad; no certifica por s\xED sola el rendimiento del
-      cable."
+      del tester, pulsa el gatillo {control:usar} y espera a que termine la secuencia
+      de LEDs. Esta prueba comprueba continuidad; no certifica por s\xED sola el
+      rendimiento del cable."
     speaker: Instructor
     audio:
       clip: {fileID: 8300000, guid: c99564e2bd1d2e644a7b1ec889a5b64d, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3D16
-    text: "Tendr\xE1s un repuesto disponible. Pru\xE9balo tambi\xE9n antes de instalarlo.
-      Para esta pr\xE1ctica usamos patch cords de hasta cinco metros en el \xE1rea
-      de trabajo; la longitud admisible real depende del dise\xF1o completo del canal
-      y del cable utilizado."
+    text: "Tendr\xE1s un repuesto disponible detras. Pru\xE9balo tambi\xE9n antes
+      de instalarlo. Para esta pr\xE1ctica usamos patch cords de hasta cinco metros
+      en el \xE1rea de trabajo; la longitud admisible real depende del dise\xF1o
+      completo del canal y del cable utilizado."
     speaker: Instructor
     audio:
       clip: {fileID: 8300000, guid: 8b3d025c7903b1d4b8ee98cec1ad9fee, type: 3}
       resourcesPath: 
     legacyVoiceId: 
   - id: M3D17
-    text: "Instala el reemplazo entre la roseta y PC-01. Acerca la etiquetadora a
-      cada extremo y pulsa el gatillo {control:usar} para activar su etiqueta. Al recuperar el enlace
-      f\xEDsico puede encenderse el LED del puerto, pero a\xFAn falta verificar la
-      comunicaci\xF3n IP."
+    text: "Testea e Instala el reemplazo entre la roseta y PC-01. Acerca la etiquetadora
+      a cada extremo y pulsa el gatillo {control:usar} para activar su etiqueta.
+      Al recuperar el enlace f\xEDsico puede encenderse el LED del puerto, pero a\xFAn
+      falta verificar la comunicaci\xF3n IP."
     speaker: Instructor
     audio:
       clip: {fileID: 8300000, guid: 34b977c4eebccd843b0a575a9e36fbf3, type: 3}
@@ -256,8 +256,8 @@ MonoBehaviour:
       resourcesPath: 
     legacyVoiceId: 
   - id: M3R01
-    text: "Ac\xE9rcate a la laptop, apunta al dispositivo y pulsa {control:interactuar}. Abrir la pantalla
-      de otra PC no completa este objetivo."
+    text: "Ac\xE9rcate a la laptop, apunta al dispositivo y pulsa {control:interactuar}.
+      Abrir la pantalla de otra PC no completa este objetivo."
     speaker: Instructor
     audio:
       clip: {fileID: 8300000, guid: 3693685406329b843a813717df834352, type: 3}

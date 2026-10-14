@@ -22,7 +22,10 @@ namespace Modules.Module03_Diagnostics.Domain
         public string LocalSourcePortId => inventory.ports.FirstOrDefault(p =>
             p.deviceId == LocalDeviceId && !string.IsNullOrEmpty(p.ipv4))?.id ?? SourcePortId;
         public bool CanEditLocalAddress => inventory.devices.Any(d => d.id == LocalDeviceId && d.kind == DeviceKind.Computer);
-        public bool CanManageSwitch => inventory.devices.Any(d => d.id == LocalDeviceId && d.kind == DeviceKind.DiagnosticStation) &&
+        // Restricción didáctica: solo la laptop propietaria de la interfaz de diagnóstico administra la red.
+        private bool IsManagementStation => inventory.devices.Any(d => d.id == LocalDeviceId && d.kind == DeviceKind.DiagnosticStation) &&
+            inventory.ports.Any(p => p.id == SourcePortId && p.deviceId == LocalDeviceId);
+        public bool CanManageSwitch => IsManagementStation &&
             inventory.devices.Any(d => d.id == SelectedDeviceId && d.kind == DeviceKind.Switch);
         public ProbeResult LastProbe { get; private set; }
         public DiagnosticWorkspace(NetworkSession session, NetworkSimulationService diagnostics, NetworkDefinition inventory, string sourcePort)
@@ -65,8 +68,7 @@ namespace Modules.Module03_Diagnostics.Domain
             var n = session.Snapshot();
             var local = n.devices.Find(d => d.id == LocalDeviceId);
             string device = local?.kind == DeviceKind.Computer ? LocalDeviceId :
-                local?.kind == DeviceKind.DiagnosticStation &&
-                n.devices.Any(d => d.id == SelectedDeviceId && d.kind == DeviceKind.Switch) ? SelectedDeviceId : null;
+                CanManageSwitch ? SelectedDeviceId : null;
             return n.ports.Where(p => device != null && p.deviceId == device).ToArray();
         }
 
@@ -87,7 +89,7 @@ namespace Modules.Module03_Diagnostics.Domain
         public bool ConfigureSwitchPort(string portId, bool enabled)
         {
             var n = session.Snapshot();
-            if (!n.devices.Any(d => d.id == LocalDeviceId && d.kind == DeviceKind.DiagnosticStation) ||
+            if (!CanManageSwitch ||
                 !n.ports.Any(p => p.id == SourcePortId && p.deviceId == LocalDeviceId) ||
                 !n.devices.Any(d => d.id == SelectedDeviceId && d.kind == DeviceKind.Switch) ||
                 !n.ports.Any(p => p.id == portId && p.deviceId == SelectedDeviceId))
@@ -165,6 +167,8 @@ namespace Modules.Module03_Diagnostics.Domain
         };
         public string SwitchPorts(string switchId)
         {
+            if (!CanManageSwitch || switchId != SelectedDeviceId)
+                return "Administración reservada a la laptop del técnico. Abre la laptop y selecciona el switch.";
             var n = session.Snapshot();
             if (!n.devices.Any(d => d.id == switchId && d.kind == DeviceKind.Switch)) return "Selecciona un switch.";
             string ip = ExpectedAddress(switchId);

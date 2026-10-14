@@ -28,10 +28,20 @@ namespace Modules.MainMenu
         public void ActivateInputField(TMP_InputField field)
         {
             activeInputField = field;
+            isTextSubmitted = false;
 
             keyboard.InputField.text = field.text;
 
             keyboard.PresentKeyboard();
+        }
+
+        public void ClearInput()
+        {
+            activeInputField = null;
+            isTextSubmitted = false;
+            if (keyboard == null) return;
+            keyboard.InputField.SetTextWithoutNotify(string.Empty);
+            keyboard.Close();
         }
 
         void HandleTextSubmitted(object sender, EventArgs e)
@@ -43,7 +53,6 @@ namespace Modules.MainMenu
                 string capturedText = keyboard.InputField.text;
                 activeInputField.text = capturedText;
 
-                Debug.Log("Captured Text: " + capturedText);
             }
         }
 

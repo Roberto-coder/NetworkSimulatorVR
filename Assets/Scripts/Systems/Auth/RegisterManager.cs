@@ -5,6 +5,7 @@ using Firebase.Database;
 using Modules.MainMenu;
 using TMPro;
 using UnityEngine;
+using Systems.Save;
 
 namespace Systems.Auth
 {
@@ -18,9 +19,22 @@ namespace Systems.Auth
         public TextMeshProUGUI messageText;
 
         public CanvasController canvasController;
+        private bool submitting;
+
+        public void ClearForm()
+        {
+            foreach (var field in new[] { usernameField, emailField, passwordField, confirmPasswordField })
+            {
+                if (field == null) continue;
+                field.DeactivateInputField();
+                field.SetTextWithoutNotify(string.Empty);
+            }
+            if (messageText != null) messageText.text = string.Empty;
+        }
 
         public void Register()
         {
+            if (submitting) return;
             string username = usernameField.text;
             string email = emailField.text;
             string password = passwordField.text;
@@ -50,8 +64,16 @@ namespace Systems.Auth
                 return;
             }
 
+            SyncStatusDialog.DismissNotice();
+            if (Systems.Save.NetworkAvailability.IsOffline)
+            {
+                SyncStatusDialog.ShowNotice("Conexión necesaria", "Necesitas conexión a Internet para registrar una cuenta en Firebase. Conéctate y pulsa Reintentar.", Register);
+                return;
+            }
+            submitting = true;
             FirebaseAuthManager.Instance.Register(username,email,password,(success,msg)=>
             {
+                submitting = false;
                 if(success)
                 {
                     ShowMessage("Operación exitosa",Color.green);
@@ -65,6 +87,7 @@ namespace Systems.Auth
                 else
                 {
                     ShowMessage(msg,Color.red);
+                    SyncStatusDialog.ShowNotice("No se pudo registrar la cuenta", msg, Register);
                 }
             });
         }
@@ -121,6 +144,7 @@ namespace Systems.Auth
 
         void ShowMessage(string msg,Color color)
         {
+            if (messageText == null || !usernameField.gameObject.activeInHierarchy) return;
             messageText.text = msg;
             messageText.color = color;
         }

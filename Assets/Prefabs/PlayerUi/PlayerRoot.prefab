@@ -603,6 +603,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2342684961618594294}
+  - component: {fileID: 4510776007906863403}
   m_Layer: 0
   m_Name: WristAnchor
   m_TagString: Untagged
@@ -2134,6 +2135,18 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3165825708425647071, guid: aac1ff48034b1614887c66d5a590daec, type: 3}
+      propertyPath: useCanvasOrientation
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3165825708425647071, guid: aac1ff48034b1614887c66d5a590daec, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 101916730887956389, guid: aac1ff48034b1614887c66d5a590daec, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3165825708425647071, guid: aac1ff48034b1614887c66d5a590daec, type: 3}
       propertyPath: headTransform
       value: 
       objectReference: {fileID: 2899728032252474911}
@@ -2866,3 +2879,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3552839455873039639, guid: 7107531e98b094142b39d2a1640cc6ee, type: 3}
   m_PrefabInstance: {fileID: 6822125538073311781}
   m_PrefabAsset: {fileID: 0}
+
+--- !u!114 &4510776007906863403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3876945368204496662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9f2843f56fa4661a29b9426a112ffd9, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::Presentacion.GlobalUI.ObjectivesWristMenu.WristMenuController
+  headTransform: {fileID: 2899728032252474911}
+  wristTransform: {fileID: 2342684961618594294}
+  wristMenuCanvas: {fileID: 3604408455382132291}
+  useCanvasOrientation: 0
+  localDisplayNormal: {x: 0, y: -1, z: 0}
+  openFacingAngle: 60
+  closeFacingAngle: 75
+  openLookAngle: 45
+  closeLookAngle: 60
+  activationDelay: 0.08
+  debugLogs: 0

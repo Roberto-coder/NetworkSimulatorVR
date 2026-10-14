@@ -137,7 +137,7 @@ MonoBehaviour:
       y las etiquetas. Si falta algo, deber\xE1s corregirlo. Una vez encendido correctamente,
       los cables de instalaci\xF3n quedar\xE1n bloqueados para proteger las conexiones,
       mientras que el cable de consola seguir\xE1 siendo desmontable."
-    instruction: "Pulsa el bot\xF3n usando {boton:L2}/{boton:R2} de encendido del
+    instruction: "Pulsa el bot\xF3n usando {boton:L1}/{boton:R1} de encendido del
       switch. Si aparece un aviso de cableado o etiquetado, corrige las conexiones
       o etiquetas pendientes y vuelve a intentarlo. El indicador de alimentaci\xF3n
       confirmar\xE1 que el switch est\xE1 encendido."

@@ -18,15 +18,18 @@ public class PauseManager : MonoBehaviour
 
     private bool isPaused = false;
     private XROrigin xrOrigin;
+    private Transform playerOrigin;
     private Vector3 spawnFloorPosition;
     private Vector3 spawnForward;
-    public bool CanReturnToSpawn => xrOrigin != null && cameraTransform != null;
+    public bool CanReturnToSpawn => playerOrigin != null && cameraTransform != null;
 
     private void Start()
     {
         xrOrigin = cameraTransform != null ? cameraTransform.GetComponentInParent<XROrigin>() : null;
-        if (xrOrigin == null) return;
-        Transform origin = xrOrigin.Origin.transform;
+        var metaRig = cameraTransform != null ? cameraTransform.GetComponentInParent<OVRCameraRig>() : null;
+        playerOrigin = xrOrigin != null ? xrOrigin.Origin.transform : metaRig != null ? metaRig.transform : null;
+        if (playerOrigin == null) return;
+        Transform origin = playerOrigin;
         spawnFloorPosition = new Vector3(cameraTransform.position.x, origin.position.y, cameraTransform.position.z);
         spawnForward = Vector3.ProjectOnPlane(origin.forward, Vector3.up).normalized;
         if (spawnForward.sqrMagnitude < 0.001f) spawnForward = Vector3.forward;
@@ -112,21 +115,46 @@ public class PauseManager : MonoBehaviour
 
     private void RestoreSpawnPose()
     {
-        if (xrOrigin == null || cameraTransform == null) return;
-        foreach (var interactor in xrOrigin.GetComponentsInChildren<XRBaseInteractor>(true))
+        if (!CanReturnToSpawn) return;
+        foreach (var interactor in playerOrigin.GetComponentsInChildren<XRBaseInteractor>(true))
             if (interactor is not XRSocketInteractor && interactor.interactionManager != null)
                 interactor.interactionManager.CancelInteractorSelection((IXRSelectInteractor)interactor);
-        foreach (var gravity in xrOrigin.GetComponentsInChildren<GravityProvider>(true))
+        foreach (var gravity in playerOrigin.GetComponentsInChildren<GravityProvider>(true))
             gravity.ResetFallForce();
-        var controller = xrOrigin.GetComponent<CharacterController>();
+        foreach (var metaLocomotor in playerOrigin.GetComponentsInChildren<Oculus.Interaction.Locomotion.FirstPersonLocomotor>(true))
+            metaLocomotor.Velocity = Vector3.zero;
+        var metaControllers = playerOrigin.GetComponentsInChildren<Oculus.Interaction.Locomotion.CharacterController>(true);
+        var metaPoses = new Pose[metaControllers.Length];
+        for (int i = 0; i < metaControllers.Length; i++) metaPoses[i] = metaControllers[i].Pose;
+        Vector3 previousPosition = playerOrigin.position;
+        Quaternion previousRotation = playerOrigin.rotation;
+        var controller = playerOrigin.GetComponent<CharacterController>();
         bool controllerEnabled = controller != null && controller.enabled;
         if (controllerEnabled) controller.enabled = false;
         try
         {
             // Preserve tracked head height, including seated/crouched posture.
-            float headHeight = cameraTransform.position.y - xrOrigin.Origin.transform.position.y;
-            xrOrigin.MatchOriginUpCameraForward(Vector3.up, spawnForward);
-            xrOrigin.MoveCameraToWorldLocation(spawnFloorPosition + Vector3.up * headHeight);
+            float headHeight = cameraTransform.position.y - playerOrigin.position.y;
+            Vector3 destination = spawnFloorPosition + Vector3.up * headHeight;
+            if (xrOrigin != null)
+            {
+                xrOrigin.MatchOriginUpCameraForward(Vector3.up, spawnForward);
+                xrOrigin.MoveCameraToWorldLocation(destination);
+            }
+            else
+            {
+                Vector3 headForward = Vector3.ProjectOnPlane(cameraTransform.forward, Vector3.up);
+                if (headForward.sqrMagnitude > 0.001f)
+                    playerOrigin.RotateAround(cameraTransform.position, Vector3.up,
+                        Vector3.SignedAngle(headForward, spawnForward, Vector3.up));
+                playerOrigin.position += destination - cameraTransform.position;
+            }
+            // Meta keeps a separate capsule pose; move it with the rig so it cannot pull the player back.
+            Quaternion rotationDelta = playerOrigin.rotation * Quaternion.Inverse(previousRotation);
+            for (int i = 0; i < metaControllers.Length; i++)
+                metaControllers[i].SetPose(new Pose(
+                    playerOrigin.position + rotationDelta * (metaPoses[i].position - previousPosition),
+                    rotationDelta * metaPoses[i].rotation));
         }
         finally
         {

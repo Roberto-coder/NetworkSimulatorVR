@@ -56,8 +56,8 @@ MonoBehaviour:
     legacyVoiceId: 
   - id: strip_left_end_instruction
     text: "Selecciona las pinzas ponchadoras en la rueda de herramientas. Despu\xE9s,
-      apunta al extremo izquierdo del cable. Presiona el trigger primario {control:usar} para retirar
-      la cubierta exterior."
+      apunta al extremo izquierdo del cable. Presiona el trigger primario {control:usar}
+      para retirar la cubierta exterior."
     speaker: Instructor
     audio:
       clip: {fileID: 8300000, guid: 2670570a34922b0419de20e7798fecbb, type: 3}
@@ -75,9 +75,9 @@ MonoBehaviour:
       resourcesPath: 
     legacyVoiceId: 
   - id: order_left_t568b_instruction
-    text: "oma el extremo izquierdo del cable y abre el puzzle. Coloca cada conductor
-      siguiendo la norma T568B. Usa el apoyo visual para guiarte y acomodar cada
-      color en la posici\xF3n correcta."
+    text: "Toma el extremo izquierdo del cable y abre el puzzle {boton:R1}/{boton:R2}.
+      Coloca cada conductor siguiendo la norma T568B. Usa el apoyo visual para guiarte
+      y acomodar cada color en la posici\xF3n correcta."
     speaker: Instructor
     audio:
       clip: {fileID: 8300000, guid: 50130f7c23db6b84fa42fd262b38e399, type: 3}
@@ -93,9 +93,9 @@ MonoBehaviour:
       resourcesPath: 
     legacyVoiceId: 
   - id: crimp_left_end_instruction
-    text: "Ahora, selecciona las pinzas ponchadoras y \xFAsalas sobre el conector
-      del extremo izquierdo. Al terminar, escuchar\xE1s un peque\xF1o clic que indica
-      que el ponchado se realiz\xF3 correctamente."
+    text: "Ahora, selecciona las pinzas ponchadoras y \xFAsalas  {control:usar} sobre
+      el conector del extremo izquierdo. Al terminar, escuchar\xE1s un peque\xF1o
+      clic que indica que el ponchado se realiz\xF3 correctamente."
     speaker: Instructor
     audio:
       clip: {fileID: 8300000, guid: b923645c104417c4988a7069ea0a3925, type: 3}

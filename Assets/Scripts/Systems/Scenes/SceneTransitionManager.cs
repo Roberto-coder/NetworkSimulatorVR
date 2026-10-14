@@ -138,6 +138,12 @@ namespace Systems.Scenes
                 Debug.LogError($"La escena '{sceneName}' no existe o no está habilitada en Build Settings.", this);
                 return;
             }
+            if (!ModuleAccessPolicy.CanEnterScene(SaveManager.Instance?.ActiveProgress, sceneName,
+                Systems.Auth.SessionContext.IsDebugSession))
+            {
+                Debug.LogWarning("Completa el módulo anterior para acceder a " + sceneName, this);
+                return;
+            }
             StartCoroutine(LoadRoutine(() => SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single)));
         }
 
@@ -149,6 +155,9 @@ namespace Systems.Scenes
                 Debug.LogError($"Índice de escena no válido: {buildIndex}.", this);
                 return;
             }
+            string name = System.IO.Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(buildIndex));
+            if (!ModuleAccessPolicy.CanEnterScene(SaveManager.Instance?.ActiveProgress, name,
+                Systems.Auth.SessionContext.IsDebugSession)) return;
             StartCoroutine(LoadRoutine(() => SceneManager.LoadSceneAsync(buildIndex, LoadSceneMode.Single)));
         }
 

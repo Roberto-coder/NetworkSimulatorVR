@@ -42,6 +42,15 @@ MonoBehaviour:
       clip: {fileID: 8300000, guid: a8546e77997deee43b0f707d77bd6758, type: 3}
       resourcesPath: 
     legacyVoiceId: lobby_tools
+  - id: lobby_farewell
+    text: Usando {control:pausa}  en cualquier punto puedes poner pausa y acceder
+      a ajustes, regresar al Lobby o respawnear en caso de que superes los limites
+      del escenario.
+    speaker: Instructor
+    audio:
+      clip: {fileID: 8300000, guid: dc06a44ceaf31c443ba1506c4d297892, type: 3}
+      resourcesPath: 
+    legacyVoiceId: lobby_farewell
   - id: lobby_objectives
     text: "Tambi\xE9n tienes un men\xFA de objetivos que te muestra las tareas realizadas
       y las que est\xE1n por realizar. Este men\xFA se despliega al girar la mu\xF1eca

@@ -62,7 +62,7 @@ namespace Systems.Auth
                 return;
             }
 
-            if (Application.internetReachability == NetworkReachability.NotReachable)
+            if (Systems.Save.NetworkAvailability.IsOffline)
             {
                 callback(false,"Sin conexión a internet");
                 return;
@@ -75,6 +75,11 @@ namespace Systems.Auth
                 .GetValueAsync()
                 .ContinueWithOnMainThread(task =>
                 {
+                    if (task.IsFaulted || task.IsCanceled)
+                    {
+                        callback(false, "No se pudo consultar Firebase. Comprueba la conexión y vuelve a intentar.");
+                        return;
+                    }
                     if (!task.IsCompleted || task.Result.ChildrenCount == 0)
                     {
                         callback(false,"Usuario no encontrado");

@@ -1,6 +1,7 @@
 using System.Collections;
 using Modules.MainMenu;
 using UnityEngine;
+using Systems.Save;
 
 namespace Systems.Auth
 {
@@ -12,6 +13,7 @@ namespace Systems.Auth
     {
         private CanvasController canvasController;
         private bool started;
+        private bool retryInProgress;
 
         public void Begin(CanvasController controller)
         {
@@ -46,6 +48,8 @@ namespace Systems.Auth
 
             if (!authFinished && SessionContext.RestorePersistedFirebaseSession())
                 sessionRestored = true;
+            if (!sessionRestored && Systems.Save.NetworkAvailability.IsOffline)
+                sessionRestored = SessionContext.RestorePersistedFirebaseSession();
             if (!sessionRestored)
             {
                 SaveManager.Instance.ClearInMemorySession();
@@ -62,9 +66,13 @@ namespace Systems.Auth
 
             bool downloadFinished = false;
             string remoteJson = null;
-            FirebaseSaveManager.Instance.DownloadSave(json =>
+            bool downloadSucceeded = false;
+            string downloadError = null;
+            FirebaseSaveManager.Instance.DownloadSaveWithStatus((success, json, detail) =>
             {
                 remoteJson = json;
+                downloadSucceeded = success;
+                downloadError = detail;
                 downloadFinished = true;
             });
 
@@ -73,8 +81,22 @@ namespace Systems.Auth
                 yield return null;
             SaveManager.Instance.RestoreSessionData(remoteJson);
             canvasController.ShowCanvas("MainMenu");
+            if (!downloadSucceeded)
+                SyncStatusDialog.ShowNotice("Copia local disponible", (downloadError ?? "Firebase tarda en responder.") + " Puedes cargar tus partidas locales sin Internet.", RetryDownload);
 
 
+        }
+
+        private void RetryDownload()
+        {
+            if (retryInProgress || !SessionContext.CanSyncToFirebase) return;
+            retryInProgress = true;
+            FirebaseSaveManager.Instance.DownloadSaveWithStatus((success, json, detail) =>
+            {
+                retryInProgress = false;
+                if (success) SaveManager.Instance.RestoreSessionData(json);
+                else SyncStatusDialog.ShowNotice("No se pudo consultar Firebase", detail + " Tu copia local se conserva.", RetryDownload);
+            });
         }
     }
 }

@@ -76,11 +76,22 @@ public class FirebaseSaveManager : MonoBehaviour
     // DESCARGAR SAVE (login)
     public void DownloadSave(System.Action<string> callback)
     {
+        DownloadSaveWithStatus((success, json, _) => callback?.Invoke(success ? json : null));
+    }
+
+    public void DownloadSaveWithStatus(Action<bool, string, string> callback)
+    {
         string uid = GetUserID();
-        if (string.IsNullOrEmpty(uid)) { callback?.Invoke(null); return; }
+        if (string.IsNullOrEmpty(uid)) { callback?.Invoke(false, null, "No hay una sesión de Firebase activa."); return; }
+        if (Systems.Save.NetworkAvailability.IsOffline)
+        {
+            callback?.Invoke(false, null, "Necesitas conexión a Internet para consultar el progreso de Firebase.");
+            return;
+        }
 
         Debug.Log("Intentando descargar save para UID: " + uid);
-
+        try
+        {
         db.Child("simulador_redes_vr")
             .Child("usuarios")
             .Child(uid)
@@ -101,21 +112,27 @@ public class FirebaseSaveManager : MonoBehaviour
 
                         string json = snapshot.GetRawJsonValue();
 
-                        callback?.Invoke(json);
+                        callback?.Invoke(true, json, null);
                     }
                     else
                     {
                         Debug.Log("No existe save aún");
 
-                        callback?.Invoke(null);
+                        callback?.Invoke(true, null, null);
                     }
                 }
                 else
                 {
                     Debug.LogError("Error descargando save");
 
-                    callback?.Invoke(null);
+                    callback?.Invoke(false, null, "No se pudo consultar Firebase. Comprueba la conexión y vuelve a intentar.");
                 }
             });
+        }
+        catch (Exception exception)
+        {
+            Debug.LogError("No se pudo iniciar la descarga: " + exception.Message);
+            callback?.Invoke(false, null, "No se pudo iniciar la consulta de Firebase.");
+        }
     }
 }

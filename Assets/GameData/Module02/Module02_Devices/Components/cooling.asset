@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: cooling
   m_EditorClassIdentifier: Assembly-CSharp::Modules.Module02_RackInstallation.Data.RackComponentInfo
   id: cooling
-  displayName: "Ventilaci\u00f3n del rack"
+  displayName: "Ventilaci\xF3n del rack"
   category: 12
   educationalApproximation: 1
-  shortDescription: "Panel de ventiladores que ayuda a mantener el flujo de aire del rack."
-  function: "Mueve aire para retirar calor; su ubicaci\u00f3n y orientaci\u00f3n deben seguir el dise\u00f1o t\u00e9rmico."
+  shortDescription: Panel de ventiladores que ayuda a mantener el flujo de aire del
+    rack.
+  function: "Mueve aire para retirar calor; su ubicaci\xF3n y orientaci\xF3n deben
+    seguir el dise\xF1o t\xE9rmico."
   rackUnits: 2
   image: {fileID: 21300000, guid: 16cb417ac38ed1840ad40c2ebaf89c46, type: 3}
   standardReference: "La direcci\xF3n del flujo y la capacidad t\xE9rmica dependen
@@ -31,3 +33,15 @@ MonoBehaviour:
       recomendado para los equipos instalados."
     image: {fileID: 0}
     reference: "ASHRAE TC 9.9 \u2014 Thermal Guidelines for Data Processing Environments."
+  - title: Suministro de aire por suelo o techo
+    body: "El aire fr\xEDo puede suministrarse por el suelo o desde el techo. Por
+      el suelo, circula bajo un piso elevado y sale por losetas perforadas o rejillas
+      hacia el pasillo fr\xEDo, frente a los racks. Desde el techo, llega mediante
+      conductos o difusores superiores dirigidos hacia las entradas de aire de los
+      equipos. En ambos casos, los servidores toman aire por el frente y expulsan
+      aire caliente por detr\xE1s; separar ambos flujos ayuda a evitar la recirculaci\xF3n.
+      Las flechas animadas de la escena representan la direcci\xF3n del suministro
+      y la circulaci\xF3n del aire."
+    image: {fileID: 0}
+    reference: "Esquema educativo: la distribuci\xF3n y el retorno del aire dependen
+      del dise\xF1o de climatizaci\xF3n del centro de datos."

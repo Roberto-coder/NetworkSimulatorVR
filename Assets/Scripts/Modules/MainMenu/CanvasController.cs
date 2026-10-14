@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using Systems.Auth;
 using Systems.Scenes;
+using Systems.Save;
 
 namespace Modules.MainMenu
 {
@@ -27,6 +28,14 @@ namespace Modules.MainMenu
 
         public void ShowCanvas(string canvas)
         {
+            // Managers live outside the form panels in Menu, so panel OnDisable cannot reset them.
+            foreach (var keyboard in FindObjectsByType<VirtualKeyboardManager>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+                if (keyboard.gameObject.scene == gameObject.scene) keyboard.ClearInput();
+            foreach (var login in FindObjectsByType<LoginManager>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+                if (login.canvasController == this) login.ClearForm();
+            foreach (var register in FindObjectsByType<RegisterManager>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+                if (register.canvasController == this) register.ClearForm();
+            SyncStatusDialog.DismissNotice();
             MainMenu.SetActive(false);
             Settings.SetActive(false);
             Login.SetActive(false);

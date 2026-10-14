@@ -3,6 +3,9 @@ using Modules.Lobby.Flow;
 using Modules.Lobby.Objectives;
 using Modules.Lobby.Presentation.Tutorial;
 using UnityEngine;
+using System.Collections;
+using Systems.Auth;
+using Systems.Scenes;
 
 namespace Modules.Lobby.Presentation
 {
@@ -10,12 +13,17 @@ namespace Modules.Lobby.Presentation
     {
         [SerializeField] private LobbyTutorialController tutorialController;
         [SerializeField] private ToolManager toolManager;
-        [SerializeField] private bool forceTutorial;
+        private static string replayUser;
+        private static bool replayRequested;
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetReplay() { replayUser = null; replayRequested = false; }
 
         private LobbyFlowController flow;
 
-        private void Start()
+        private IEnumerator Start()
         {
+            yield return null;
             if (toolManager == null)
                 toolManager = FindFirstObjectByType<ToolManager>(FindObjectsInactive.Include);
 
@@ -23,20 +31,26 @@ namespace Modules.Lobby.Presentation
             if (flow == null || tutorialController == null)
             {
                 Debug.LogError("LobbyPresentationController necesita LobbyManager y tutorial.", this);
-                return;
+                yield break;
             }
 
             flow.Begin();
             toolManager?.SetAvailableTools(flow.AvailableTools);
             tutorialController.TutorialCompleted += HandleTutorialCompleted;
 
-            bool completed = SaveManager.Instance != null &&
-                             SaveManager.Instance.HasCompletedTutorial(
-                                 CompleteLobbyTutorialObjective.ObjectiveId);
-            if (completed && !forceTutorial)
+            bool replay = replayRequested && replayUser == SessionContext.LocalStorageKey;
+            ResetReplay();
+            bool firstVisit = !SessionContext.IsDebugSession && SaveManager.Instance != null &&
+                !SaveManager.Instance.HasSeenTutorial(CompleteLobbyTutorialObjective.ObjectiveId);
+            if (!replay && !firstVisit)
+            {
                 flow.CompleteTutorial();
-            else
-                tutorialController.StartTutorial();
+                yield break;
+            }
+            SaveManager.Instance?.MarkTutorialStarted(CompleteLobbyTutorialObjective.ObjectiveId);
+            // La secuencia comienza después de retirar el panel de carga.
+            while (SceneTransitionManager.IsLoading) yield return null;
+            tutorialController.StartTutorial();
         }
 
         private void OnDestroy()
@@ -45,7 +59,13 @@ namespace Modules.Lobby.Presentation
                 tutorialController.TutorialCompleted -= HandleTutorialCompleted;
         }
 
-        public void RepeatTutorial() => tutorialController?.StartTutorial();
+        public void RepeatTutorial()
+        {
+            if (SceneTransitionManager.IsLoading || !Application.CanStreamedLevelBeLoaded("Lobby")) return;
+            replayUser = SessionContext.LocalStorageKey;
+            replayRequested = true;
+            SceneTransitionManager.LoadScene("Lobby");
+        }
 
         private void HandleTutorialCompleted()
         {

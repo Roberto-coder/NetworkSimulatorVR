@@ -69,6 +69,7 @@ namespace Modules.Lobby.UI
         {
             SaveFile saveFile = SaveManager.Instance != null ? SaveManager.Instance.saveFile : null;
             activeSlot = saveFile?.slots?.Find(slot => slot.slotID == saveFile.activeSlotId);
+            RefreshModuleAvailability();
 
             SetText(usernameText, string.IsNullOrWhiteSpace(SessionContext.Username)
                 ? "USUARIO"
@@ -162,11 +163,25 @@ namespace Modules.Lobby.UI
             RefreshModuleDetail(selectedModuleIndex);
         }
 
+        private void RefreshModuleAvailability()
+        {
+            for (int index = 0; moduleButtons != null && index < moduleButtons.Length; index++)
+            {
+                TMP_Text label = moduleButtons[index]?.transform.Find("Label")?.GetComponent<TMP_Text>();
+                bool unlocked = ModuleAccessPolicy.IsUnlocked(activeSlot?.data, index + 1, SessionContext.IsDebugSession);
+                if (label != null)
+                {
+                    label.text = unlocked ? $"M{index + 1}" : $"M{index + 1} · BLOQ.";
+                    label.fontSize = unlocked ? 17 : 13;
+                }
+            }
+        }
+
         private void RefreshModuleDetail(int index)
         {
             SetText(moduleNameText, ModuleNames[index]);
             ModuleProgress progress = FindModuleProgress(index);
-            bool available = SessionContext.IsDebugSession || index == 0 || progress != null || HasCompletedModule(index) || HasAchievement(index);
+            bool available = ModuleAccessPolicy.IsUnlocked(activeSlot?.data, index + 1, SessionContext.IsDebugSession);
 
             EnsureDetailTextVisible(moduleNameText);
             EnsureDetailTextVisible(moduleStatusText);

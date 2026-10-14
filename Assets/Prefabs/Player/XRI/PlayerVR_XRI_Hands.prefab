@@ -1971,6 +1971,7 @@ MonoBehaviour:
   headTransform: {fileID: 657184242118504721}
   wristTransform: {fileID: 2603137464385847078}
   wristMenuCanvas: {fileID: 8464088191037425426}
+  useCanvasOrientation: 0
   localDisplayNormal: {x: 0, y: -1, z: 0}
   openFacingAngle: 60
   closeFacingAngle: 75

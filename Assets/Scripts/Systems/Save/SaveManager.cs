@@ -289,6 +289,33 @@ public class SaveManager : MonoBehaviour
         return slot?.data?.completedTutorialIds?.Contains(tutorialId) == true;
     }
 
+    public PlayerProgress ActiveProgress => saveFile?.slots?.Find(item => item.slotID == saveFile.activeSlotId)?.data;
+
+    public bool IsModuleUnlocked(int number) =>
+        ModuleAccessPolicy.IsUnlocked(ActiveProgress, number, SessionContext.IsDebugSession);
+
+    public bool HasSeenTutorial(string tutorialId)
+    {
+        EnsureSaveFile();
+        return saveFile.startedTutorialIds?.Contains(tutorialId) == true ||
+            saveFile.slots.Exists(slot => slot?.data?.completedTutorialIds?.Contains(tutorialId) == true ||
+                slot?.data?.completedModuleIds?.Count > 0 || slot?.data?.modules?.Exists(module => module != null && module.completed) == true);
+    }
+
+    public void MarkTutorialStarted(string tutorialId)
+    {
+        EnsureSaveFile();
+        saveFile.startedTutorialIds ??= new System.Collections.Generic.List<string>();
+        if (saveFile.startedTutorialIds.Contains(tutorialId)) return;
+        SaveSlot slot = GetOrCreateActiveSlot("Lobby");
+        slot.data ??= new PlayerProgress();
+        if (string.IsNullOrWhiteSpace(slot.moduleTitle)) slot.moduleTitle = "Lobby";
+        slot.lastSave = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        saveFile.startedTutorialIds.Add(tutorialId);
+        slot.needsCloudSync = true;
+        SaveLocal();
+    }
+
     public void CompleteTutorialLocally(string tutorialId, string locationTitle)
     {
         EnsureSaveFile();
@@ -319,7 +346,7 @@ public class SaveManager : MonoBehaviour
             callback?.Invoke(false, StatusMessage);
             return;
         }
-        if (Application.internetReachability == NetworkReachability.NotReachable)
+        if (Systems.Save.NetworkAvailability.IsOffline)
         {
             SetStatus(SyncState.Offline, "Sin conexion. Tu progreso local se conserva; conectate y pulsa Sincronizar.");
             callback?.Invoke(false, StatusMessage);

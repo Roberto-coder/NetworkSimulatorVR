@@ -13,6 +13,8 @@ namespace Presentacion.GlobalUI.ObjectivesWristMenu
         [Header("Display orientation")]
         [Tooltip("Local wrist axis perpendicular to the visible face of the menu. Use the gizmo to verify it points toward the user's eyes.")]
         [SerializeField] private Vector3 localDisplayNormal = Vector3.down;
+        [Tooltip("Detectar el giro usando la cara visible del canvas, incluida su rotación local.")]
+        [SerializeField] private bool useCanvasOrientation = true;
 
         [Header("Comfort angles")]
         [Tooltip("Maximum angle between the display normal and the eyes to open the menu.")]
@@ -41,6 +43,7 @@ namespace Presentacion.GlobalUI.ObjectivesWristMenu
         private void Awake()
         {
             ResolveRuntimeCanvas();
+            ResolveTrackingReferences();
             SetVisible(false);
         }
 
@@ -72,7 +75,7 @@ namespace Presentacion.GlobalUI.ObjectivesWristMenu
                 localDisplayNormal = Vector3.down;
         }
 
-        private void Update()
+        private void LateUpdate()
         {
             if (headTransform == null || wristTransform == null || wristMenuCanvas == null)
                 return;
@@ -82,6 +85,7 @@ namespace Presentacion.GlobalUI.ObjectivesWristMenu
             {
                 pendingVisibility = desired;
                 pendingSince = Time.unscaledTime;
+                ApplyVisibility(desired);
                 return;
             }
 
@@ -98,12 +102,14 @@ namespace Presentacion.GlobalUI.ObjectivesWristMenu
 
         private bool ShouldBeVisible()
         {
-            Vector3 wristToEyes = headTransform.position - wristTransform.position;
+            Vector3 displayPosition = useCanvasOrientation && wristMenuCanvas != null
+                ? wristMenuCanvas.transform.position : wristTransform.position;
+            Vector3 wristToEyes = headTransform.position - displayPosition;
             if (wristToEyes.sqrMagnitude < 0.0001f)
                 return false;
 
             wristToEyes.Normalize();
-            Vector3 displayNormal = wristTransform.TransformDirection(localDisplayNormal.normalized);
+            Vector3 displayNormal = DisplayNormal();
             float facingAngle = Vector3.Angle(displayNormal, wristToEyes);
 
             Vector3 headToWrist = -wristToEyes;
@@ -114,19 +120,46 @@ namespace Presentacion.GlobalUI.ObjectivesWristMenu
             return facingAngle <= facingLimit && lookAngle <= lookLimit;
         }
 
+        private Vector3 DisplayNormal() => useCanvasOrientation && wristMenuCanvas != null
+            ? -wristMenuCanvas.transform.forward
+            : wristTransform.TransformDirection(localDisplayNormal.normalized);
+
+        private void ResolveTrackingReferences()
+        {
+            if (headTransform == null)
+            {
+                Camera camera = transform.root.GetComponentInChildren<Camera>();
+                if (camera == null) camera = Camera.main;
+                if (camera != null) headTransform = camera.transform;
+            }
+            if (wristTransform == null && wristMenuCanvas != null)
+                wristTransform = wristMenuCanvas.transform;
+        }
+
         private void SetVisible(bool visible)
         {
             isMenuVisible = visible;
             pendingVisibility = visible;
             pendingSince = Time.unscaledTime;
+            ApplyVisibility(visible);
+        }
+
+        private void ApplyVisibility(bool visible)
+        {
             if (wristMenuCanvas == null) return;
             if (transform == wristMenuCanvas.transform || transform.IsChildOf(wristMenuCanvas.transform))
             {
                 // No desactivar nuestro propio Update: solo ocultar la presentación.
+                if (!wristMenuCanvas.activeSelf) wristMenuCanvas.SetActive(true);
                 if (visibilityGroup == null)
                     visibilityGroup = wristMenuCanvas.GetComponent<CanvasGroup>() ?? wristMenuCanvas.AddComponent<CanvasGroup>();
                 visibilityGroup.alpha = visible ? 1 : 0;
                 visibilityGroup.interactable = visibilityGroup.blocksRaycasts = visible;
+                // Mantener el controlador activo, pero apagar el contenido real del panel.
+                // Así no dependemos únicamente de alpha para ocultar la UI de Meta.
+                Transform panel = wristMenuCanvas.transform.Find("ObjectivesPanel");
+                if (panel != null && panel.gameObject.activeSelf != visible)
+                    panel.gameObject.SetActive(visible);
             }
             else wristMenuCanvas.SetActive(visible);
         }
@@ -158,9 +191,7 @@ namespace Presentacion.GlobalUI.ObjectivesWristMenu
             if (wristTransform == null)
                 return;
 
-            Vector3 normal = localDisplayNormal.sqrMagnitude > 0.001f
-                ? wristTransform.TransformDirection(localDisplayNormal.normalized)
-                : -wristTransform.up;
+            Vector3 normal = DisplayNormal();
             Gizmos.color = Color.cyan;
             Gizmos.DrawRay(wristTransform.position, normal * 0.15f);
 

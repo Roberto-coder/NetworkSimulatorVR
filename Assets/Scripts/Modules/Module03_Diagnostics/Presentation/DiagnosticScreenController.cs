@@ -388,7 +388,7 @@ namespace Modules.Module03_Diagnostics.Presentation
             // Administration already includes the port list and controls.
             View.commands[3].gameObject.SetActive(false);
             var configLabel = View.commands[2].GetComponentInChildren<TMPro.TMP_Text>();
-            if (configLabel != null) configLabel.text = remote ? "Datos de gestión" : "IP / máscara / MAC";
+            if (configLabel != null) configLabel.text = remote ? "Datos de gestión" : "Datos de Red de este equipo";
             if (admin == null) return;
             admin.open.gameObject.SetActive(!admin.panel.activeSelf && (workspace.CanEditLocalAddress || workspace.CanManageSwitch));
             var label = admin.open.GetComponentInChildren<TMPro.TMP_Text>();

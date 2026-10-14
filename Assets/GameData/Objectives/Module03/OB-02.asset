@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: OB-02
   m_EditorClassIdentifier:
   id: OB-02
-  title: "Habilitar puerto de PC-02"
-  description: "Consultar los puertos del switch y habilitar el enlace de PC-02."
+  title: "Habilitar enlace del switch"
+  description: "Consultar los puertos de SW-01 y habilitar el puerto P02, que conecta con PC-02."
   introductionDialogue:
   reminderDialogue:
   reminderInterval: 30

@@ -66,7 +66,7 @@ namespace Modules.Module03_Diagnostics.Editor
             // Compatible con los Canvas generados y con la jerarquía organizada a mano.
             var mapTitle = view.GetComponentsInChildren<TMP_Text>(true).FirstOrDefault(t => t.name == "DescriptionText");
             if (mapTitle != null) { Place(mapTitle, -275, 326, 840, 38); mapTitle.text = "TOPOLOGÍA · Selecciona un destino"; }
-            string[] names = { "Ping", "Consultar ARP", "IP / máscara / MAC", "Puertos del switch", "Bitácora" };
+            string[] names = { "Ping", "Consultar ARP", "Datos de Red de este equipo", "Puertos del switch", "Bitácora" };
             float[] positions = { -600, -400, -190, 30, 250 };
             for (int i = 0; i < 5; i++) Style(view.commands[i], names[i], positions[i], -380);
             Style(view.commands[5], "Cerrar", 650, 385, 100);
