@@ -60,7 +60,7 @@ namespace Modules.Module01_CableMaking.Presentation
 
         public void ShowPrevious()
         {
-            if (hasSpawned || options == null || options.Length == 0)
+            if (options == null || options.Length == 0)
                 return;
 
             selectedIndex = (selectedIndex - 1 + options.Length) % options.Length;
@@ -69,7 +69,7 @@ namespace Modules.Module01_CableMaking.Presentation
 
         public void ShowNext()
         {
-            if (hasSpawned || options == null || options.Length == 0)
+            if (options == null || options.Length == 0)
                 return;
 
             selectedIndex = (selectedIndex + 1) % options.Length;
@@ -92,9 +92,7 @@ namespace Modules.Module01_CableMaking.Presentation
             flow.RegisterCableSelection();
             Debug.Log($"[CableSelection] Cable seleccionado: {SelectedCableName}.", this);
 
-            // El panel completo se oculta y no puede volver a generar otro cable.
-            if (panelRoot != null)
-                panelRoot.SetActive(false);
+            // El panel sigue disponible para consultar las categorias.
         }
 
         private void Refresh()

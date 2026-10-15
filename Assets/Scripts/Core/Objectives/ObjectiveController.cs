@@ -160,8 +160,8 @@ namespace Core.Objectives
             objective.Completed += HandleCurrentObjectiveCompleted;
             objective.Initialize();
 
-            CurrentObjectiveChanged?.Invoke(objective);
             objective.Begin();
+            CurrentObjectiveChanged?.Invoke(objective);
         }
 
         private void HandleCurrentObjectiveCompleted(ObjectiveBase objective)
