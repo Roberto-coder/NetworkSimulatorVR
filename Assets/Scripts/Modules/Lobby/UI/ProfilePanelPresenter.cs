@@ -133,7 +133,10 @@ namespace Modules.Lobby.UI
             if (moduleDetailRect == null) moduleDetailRect = transform.Find("ProfileBody/ProgressCard/ModuleDetail") as RectTransform;
             if (progressCardRect == null) progressCardRect = transform.Find("ProfileBody/ProgressCard") as RectTransform;
             if (moduleDetailRect != null && moduleDetailRect.TryGetComponent(out LayoutElement detailLayout))
-                detailLayout.preferredHeight = 120f;
+            {
+                detailLayout.preferredHeight = 240f;
+                detailLayout.flexibleHeight = 1f;
+            }
         }
 
         private void ConfigureModuleButtons()
@@ -299,7 +302,7 @@ namespace Modules.Lobby.UI
             target.alpha = 1f;
             target.raycastTarget = false;
             if (target.TryGetComponent(out LayoutElement layout))
-                layout.preferredHeight = target.name == "ModuleName" ? 24f : 20f;
+                layout.preferredHeight = target.name == "ModuleName" ? 34f : 32f;
         }
 
         private void RebuildProfileLayout()

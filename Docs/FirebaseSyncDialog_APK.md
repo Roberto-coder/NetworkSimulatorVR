@@ -24,6 +24,11 @@ de 120 px para adaptarse al contenido.
   Mientras hay una subida pendiente, Reintentar está deshabilitado.
 - Login normal, Google y registro comprueban conexión y muestran el aviso en el
   canvas activo. Reintentar ejecuta la operación correspondiente, no una subida.
+- Los errores de autenticación/registro (usuario inexistente, contraseña incorrecta,
+  registro rechazado o Google cancelado) se muestran como texto en `WarningLabel`,
+  mediante `messageText`. No abren el modal ni ocultan el formulario. Las validaciones
+  de campos mantienen ese mismo comportamiento. El aviso de conexión y el de fallo
+  de descarga/sincronización siguen usando `SyncStatusDialog`.
 - La cuenta debug conserva su acceso local, sin Firebase.
 - La consulta de progreso tras login/restauración distingue un error de una
   respuesta correcta sin save remoto. Ante fallo usa la copia local y ofrece

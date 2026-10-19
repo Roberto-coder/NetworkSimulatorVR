@@ -8,6 +8,7 @@ static class GuidedFlowChecks
     public static void Run(Func<int, NetworkDefinition> office, Action<bool, string> check)
     {
         var n = office(3);
+        n.devices.Find(d => d.id == "PC1").kind = DeviceKind.DiagnosticStation;
         n.ports.Add(new PortDefinition { id = "SW/mgmt", deviceId = "SW", ipv4 = "192.168.10.2", mac = "02:00:00:00:01:02" });
         var session = new NetworkSession(n);
         var sim = new NetworkSimulationService(session);
@@ -24,7 +25,7 @@ static class GuidedFlowChecks
         check(!evidence.Verified(new[] { "PC2", "PC3" }), "Cambio posterior invalida ambas evidencias");
         var ui = new DiagnosticWorkspace(session, sim, n, "PC1/eth");
         check(!evidence.ConsultedSwitch("SW"), "Gestión no se presume consultada");
-        ui.OpenLocal("PC1"); ui.SwitchPorts("SW");
+        ui.OpenLocal("PC1"); ui.SelectDestination("SW"); ui.SwitchPorts("SW");
         check(evidence.ConsultedSwitch("SW"), "Consulta alcanzable de switch queda registrada");
         session.Reset();
         check(!evidence.ConsultedSwitch("SW") && !evidence.Verified(new[] { "PC3" }), "Reset elimina validez de consultas y pings");

@@ -69,6 +69,7 @@ public static class Module02QuizPrefabBuilder
             var status = statusObject.GetComponent<TextMeshProUGUI>();
             status.font = viewData.FindProperty("resultScoreText").objectReferenceValue is TMP_Text score ? score.font : null;
             status.fontSize = 20; status.alignment = TextAlignmentOptions.Center; status.raycastTarget = false;
+            status.color = new Color32(255, 198, 109, 255);
             statusObject.GetComponent<LayoutElement>().preferredHeight = 65;
             var actions = root.AddComponent<Module02QuizActionsView>();
             Set(actions, "restartModuleButton", restart); Set(actions, "retrySaveButton", saveRetry);

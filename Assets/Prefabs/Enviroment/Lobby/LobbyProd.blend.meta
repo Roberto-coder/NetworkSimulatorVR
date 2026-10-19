@@ -3,7 +3,47 @@ guid: de66f6b90727c85499a139e513d0efc8
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Case
+    second: {fileID: 2100000, guid: 69d4cbed20eb8514eae18df63dd696e7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Floor
+    second: {fileID: 2100000, guid: 6ea3434b97d60d640894e12659d4796d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Frame
+    second: {fileID: 2100000, guid: 50b8a50d3dbd72948a355692676f0588, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: HoloScren
+    second: {fileID: 2100000, guid: 8025cb1c14c5c984090d52b0829a2083, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light
+    second: {fileID: 2100000, guid: 41ccda93efa9e864caa41e0c2432ab1c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ServerFace
+    second: {fileID: 2100000, guid: 8a41a25dbafd38a46b89d1e4fd115230, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Table
+    second: {fileID: 2100000, guid: 2c62b90fc657b99408bb574c5d575d67, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Walls
+    second: {fileID: 2100000, guid: a7e6790582961954fa989d24a0dc9b48, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

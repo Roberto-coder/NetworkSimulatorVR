@@ -53,6 +53,12 @@ class Program {
  m.SelectSlot(0);Check(!m.IsModuleUnlocked(2),"No filtra completitud de otra partida");
  SessionContext.IsDebugSession=true;Check(m.IsModuleUnlocked(3),"Manager respeta sesión debug");SessionContext.IsDebugSession=false;
  m.saveFile.startedTutorialIds=null;m.saveFile.slots[0].data.completedTutorialIds.Add("legacy");Check(m.HasSeenTutorial("legacy"),"Compatibilidad con tutorial completado en save antiguo");
+ SessionContext.UserId="evidence-account";SessionContext.ActiveSlotId=-1;m.ClearInMemorySession();m.LoadFromLocal();
+ m.SaveGame(0,"PRUEBA LOCAL",0);
+ Check(m.RestoreSessionData(JsonUtility.ToJson(remote)),"Restaurar devuelve que hay cambios locales pendientes");
+ Check(m.saveFile.slots[0].moduleTitle=="PRUEBA LOCAL" && m.saveFile.slots[0].data.level==1 && m.HasPendingChanges,"La copia remota diferente no reemplaza la partida local pendiente");
+ m.saveFile.slots[0].needsCloudSync=false;m.SaveLocal();
+ Check(!m.RestoreSessionData(JsonUtility.ToJson(remote)) && m.saveFile.slots[0].data.level==99,"Sin pendientes locales se importa la copia remota conforme a la politica");
  Console.WriteLine($"PASS: {checks} save safety assertions. Test files: {Application.persistentDataPath}");
  }
 }

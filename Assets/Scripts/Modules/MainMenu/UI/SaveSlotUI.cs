@@ -54,6 +54,12 @@ namespace Modules.MainMenu.UI
                 isEmpty = manager.IsSlotEmpty(slotID);
                 bool active = !isEmpty && manager.saveFile.activeSlotId == slotID;
                 title.text = isEmpty ? "Vacía" : $"Partida {slotID + 1}" + (active ? " · Activa" : "");
+                if (!isEmpty && !string.IsNullOrWhiteSpace(slot?.moduleTitle))
+                    title.text += "\n" + slot.moduleTitle;
+                title.enableAutoSizing = true;
+                title.fontSizeMin = 10f;
+                title.fontSizeMax = 16f;
+                title.overflowMode = TextOverflowModes.Ellipsis;
             }
             if (date != null)
             {
@@ -69,7 +75,7 @@ namespace Modules.MainMenu.UI
                     slot?.needsCloudSync == true ? "Guardada localmente · Pendiente de subir" : "Guardada en este dispositivo";
                 date.enableAutoSizing = true;
                 date.fontSizeMin = 8f;
-                date.fontSizeMax = 14f;
+                date.fontSizeMax = 12f;
                 date.overflowMode = TextOverflowModes.Ellipsis;
                 date.color = cloudConfirmed ? Color.green : Color.white;
             }

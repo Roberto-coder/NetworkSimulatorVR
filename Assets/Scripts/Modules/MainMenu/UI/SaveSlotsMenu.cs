@@ -42,7 +42,11 @@ namespace Modules.MainMenu.UI
         {
             for (int i = slotParent.childCount - 1; i >= 0; i--)
             {
-                Destroy(slotParent.GetChild(i).gameObject);
+                GameObject previousSlot = slotParent.GetChild(i).gameObject;
+                // Destroy se procesa al final del frame. Retirar antes la tarjeta
+                // del layout y del raycast al volver a abrir el panel.
+                previousSlot.SetActive(false);
+                Destroy(previousSlot);
             }
         }
     }

@@ -22,6 +22,10 @@ namespace Framework.Interaction.Tools
             {
                 target = hit.GetComponentInChildren(typeof(T)) as T;
 
+                // Los colliders del conector pueden estar en hijos del objeto
+                // que implementa la accion (por ejemplo, CableOrdered).
+                target ??= hit.GetComponentInParent(typeof(T)) as T;
+
                 if (target != null)
                     return true;
             }

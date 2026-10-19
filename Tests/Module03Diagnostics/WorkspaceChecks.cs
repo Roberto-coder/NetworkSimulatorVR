@@ -5,6 +5,8 @@ static class WorkspaceChecks
     public static void Run(Func<int, NetworkDefinition> office, Action<bool, string> check)
     {
         var n = office(3);
+        // La administración está reservada a la laptop de diagnóstico, no a una PC común.
+        n.devices.Find(d => d.id == "PC1").kind = DeviceKind.DiagnosticStation;
         n.ports.Add(new PortDefinition { id = "SW/mgmt", deviceId = "SW", ipv4 = "192.168.10.2", mac = "02:00:00:00:01:02" });
         var session = new NetworkSession(n); var service = new NetworkSimulationService(session);
         var ui = new DiagnosticWorkspace(session, service, n, "PC1/eth");
@@ -17,10 +19,11 @@ static class WorkspaceChecks
         session.SetPortEnabled("SW/P2", false);
         check(ui.Observation("PC2") == "Obsoleto" && !ui.LastIsCurrent, "Mapa invalida observación por revisión");
         ui.PingSelected(); check(ui.Observation("PC2") == "AddressUnresolved", "Síntoma visible sin diagnosticar causa automáticamente");
+        ui.SelectDestination("SW");
         check(ui.SwitchPorts("SW").Contains("SW/P2: admin=OFF"), "Gestión alcanzable permite consulta de puertos");
         session.SetPortEnabled("SW/P1", false);
         check(ui.SwitchPorts("SW").Contains("inaccesible"), "Gestión inaccesible no revela estado remoto");
-        ui.OpenLocal("SW"); check(ui.SwitchPorts("SW").Contains("inaccesible"), "A en switch no evita comprobación de gestión");
+        ui.OpenLocal("SW"); check(ui.SwitchPorts("SW").Contains("reservada a la laptop"), "Abrir el switch no concede administración fuera de la laptop");
         ui.OpenLocal("PC2"); check(ui.LocalConfiguration().Contains("192.168.10.12"), "Acceso físico conserva consulta de PC aislada");
         check(ui.LocalConfiguration().Contains("caído"), "Puerto remoto deshabilitado baja enlace local");
         session.SetPortEnabled("SW/P1", true); session.SetPortEnabled("SW/P2", true);

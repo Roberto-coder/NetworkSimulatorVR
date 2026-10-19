@@ -71,7 +71,6 @@ namespace Systems.Auth
                 else
                 {
                     ShowMessage(msg,Color.red);
-                    SyncStatusDialog.ShowNotice("No se pudo iniciar sesión", msg, Login);
                 }
             });
         }
@@ -100,7 +99,6 @@ namespace Systems.Auth
                 else
                 {
                     ShowMessage(msg, Color.red);
-                    SyncStatusDialog.ShowNotice("No se pudo iniciar sesión", msg, OnGoogleLoginClick);
                 }
             });
         }

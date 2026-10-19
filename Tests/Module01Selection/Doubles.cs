@@ -5,6 +5,18 @@ namespace UnityEngine {
  public class TextAreaAttribute(int a,int b) : Attribute {}
  public class CreateAssetMenuAttribute : Attribute { public string fileName; public string menuName; }
  public class ScriptableObject {} public class MonoBehaviour {}
+ public class Transform { public Vector3 position; }
+ public struct Vector3 {}
+ public struct LayerMask {}
+ public class Collider {
+  public object ChildTarget; public object ParentTarget;
+  public object GetComponentInChildren(Type t) => t.IsInstanceOfType(ChildTarget) ? ChildTarget : null;
+  public object GetComponentInParent(Type t) => t.IsInstanceOfType(ParentTarget) ? ParentTarget : null;
+ }
+ public static class Physics {
+  public static Collider[] Hits = Array.Empty<Collider>();
+  public static Collider[] OverlapSphere(Vector3 p,float r,LayerMask m) => Hits;
+ }
  public class GameObject { public bool activeSelf = true; public void SetActive(bool v) => activeSelf=v; }
  public class Sprite {} public struct Color { public static Color white => default; }
  public static class Debug { public static void Log(object o, object ctx=null) {} }

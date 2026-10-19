@@ -55,7 +55,7 @@ MonoBehaviour:
       resourcesPath: 
     legacyVoiceId: 
   - id: strip_left_end_instruction
-    text: "Selecciona las pinzas ponchadoras en la rueda de herramientas. Despu\xE9s,
+    text: "Selecciona las pinzas peladoras en la rueda de herramientas. Despu\xE9s,
       apunta al extremo izquierdo del cable. Presiona el trigger primario {control:usar}
       para retirar la cubierta exterior."
     speaker: Instructor
@@ -75,7 +75,7 @@ MonoBehaviour:
       resourcesPath: 
     legacyVoiceId: 
   - id: order_left_t568b_instruction
-    text: "Toma el extremo izquierdo del cable y abre el puzzle {boton:R1}/{boton:R2}.
+    text: "Toma el extremo izquierdo del cable y abre el puzzle {boton:R1}/{boton:L1}.
       Coloca cada conductor siguiendo la norma T568B. Usa el apoyo visual para guiarte
       y acomodar cada color en la posici\xF3n correcta."
     speaker: Instructor

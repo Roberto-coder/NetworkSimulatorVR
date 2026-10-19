@@ -14,7 +14,7 @@ static class Program
     }
     static void Main()
     {
-        var origins = new[] { "PDU-A/AC01", "PP-A/01", "PP-A/02", "PP-A/03", "FW1/eth01" };
+        var origins = new[] { "PDU-A/AC01", "PP-A/01", "PP-A/02", "PP-A/03", "SW2/Gi04" };
         var destinations = new[] { "SW1/Power", "SW1/Gi01", "SW1/Gi02", "SW1/Gi03", "SW1/Gi04" };
         Equal(5, Module02ConnectionPlan.Links.Count, "Exactly five requirements");
         for (int i = 0; i < 5; i++)
@@ -72,7 +72,9 @@ static class Program
                 foreach (bool locked in new[] { false, true })
                 {
                     int mask = stage >= 0 && stage < masks.Length ? masks[stage] : 0;
-                    if (locked) mask &= ~(4 | 8);
+                    // Al bloquear los enlaces sólo se impide recablear; las etiquetas
+                    // se colocan después del bloqueo sin alterar la conexión.
+                    if (locked) mask &= ~4;
                     Equal((mask & (1 << (int)action)) != 0 ? 1 : 0,
                         Module02SequenceRules.Allows(stage, action, locked) ? 1 : 0, "Sequential action permission");
                 }

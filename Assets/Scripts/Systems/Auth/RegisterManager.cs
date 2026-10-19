@@ -87,7 +87,6 @@ namespace Systems.Auth
                 else
                 {
                     ShowMessage(msg,Color.red);
-                    SyncStatusDialog.ShowNotice("No se pudo registrar la cuenta", msg, Register);
                 }
             });
         }

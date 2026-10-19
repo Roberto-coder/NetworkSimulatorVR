@@ -140,7 +140,7 @@ public static class LobbyProfilePanelSetup
         SetLayout(card.gameObject, 235, 300, 0, 1);
         VerticalLayoutGroup layout = GetOrAdd<VerticalLayoutGroup>(card.gameObject);
         layout.padding = new RectOffset(20, 20, 18, 14);
-        layout.spacing = 8;
+        layout.spacing = 22;
         layout.childAlignment = TextAnchor.UpperCenter;
         layout.childControlWidth = true;
         layout.childControlHeight = true;
@@ -148,7 +148,7 @@ public static class LobbyProfilePanelSetup
         layout.childForceExpandHeight = false;
 
         Transform avatar = card.Find("AvatarFrame");
-        SetLayout(avatar?.gameObject, 112, 112, 0, 0);
+        SetLayout(avatar?.gameObject, 180, 180, 0, 0);
         SetLayout(card.Find("UsernameText")?.gameObject, -1, 34, 1, 0);
         SetLayout(card.Find("EmailText")?.gameObject, -1, 28, 1, 0);
         SetLayout(card.Find("ActiveSlotText")?.gameObject, -1, 30, 1, 0);
@@ -167,20 +167,20 @@ public static class LobbyProfilePanelSetup
         SetLayout(card.gameObject, 380, 300, 1, 1);
         VerticalLayoutGroup layout = GetOrAdd<VerticalLayoutGroup>(card.gameObject);
         layout.padding = new RectOffset(18, 18, 12, 12);
-        layout.spacing = 5;
+        layout.spacing = 12;
         layout.childAlignment = TextAnchor.UpperLeft;
         layout.childControlWidth = true;
         layout.childControlHeight = true;
         layout.childForceExpandWidth = true;
         layout.childForceExpandHeight = false;
-        SetLayout(card.Find("ProgressTitle")?.gameObject, -1, 34, 1, 0);
+        SetLayout((card.Find("ProgressTitle") ?? card.Find("ProgressTittle"))?.gameObject, -1, 34, 1, 0);
         SetLayout(card.Find("Divider")?.gameObject, -1, 2, 1, 0);
 
         foreach (string rowName in new[] { "ModulesRow", "AchievementsRow", "PlayTimeRow", "LastSaveRow" })
         {
             Transform row = card.Find(rowName);
             if (row == null) continue;
-            SetLayout(row.gameObject, -1, 42, 1, 0);
+            SetLayout(row.gameObject, -1, 30, 1, 0);
             HorizontalLayoutGroup rowLayout = GetOrAdd<HorizontalLayoutGroup>(row.gameObject);
             rowLayout.spacing = 12;
             rowLayout.childAlignment = TextAnchor.MiddleLeft;
@@ -188,8 +188,15 @@ public static class LobbyProfilePanelSetup
             rowLayout.childControlHeight = true;
             rowLayout.childForceExpandWidth = false;
             rowLayout.childForceExpandHeight = true;
-            SetLayout(row.Find("Label")?.gameObject, -1, 42, 1, 0);
-            SetLayout(row.Find("Value")?.gameObject, 150, 42, 0, 0);
+            SetLayout(row.Find("Label")?.gameObject, -1, 30, 1, 0);
+            SetLayout(row.Find("Value")?.gameObject, 150, 30, 0, 0);
+            foreach (TMP_Text text in row.GetComponentsInChildren<TMP_Text>(true))
+            {
+                text.fontSize = 16;
+                text.enableAutoSizing = true;
+                text.fontSizeMin = 12;
+                text.fontSizeMax = 16;
+            }
         }
     }
 
@@ -205,7 +212,7 @@ public static class LobbyProfilePanelSetup
 
         Transform tabs = EnsureChild(card, "ModuleTabs");
         SetSiblingAfter(tabs, card.Find("Divider"));
-        SetLayout(tabs.gameObject, -1, 34, 1, 0);
+        SetLayout(tabs.gameObject, -1, 44, 1, 0);
         HorizontalLayoutGroup tabsLayout = GetOrAdd<HorizontalLayoutGroup>(tabs.gameObject);
         tabsLayout.spacing = 8;
         tabsLayout.childAlignment = TextAnchor.MiddleCenter;
@@ -218,31 +225,31 @@ public static class LobbyProfilePanelSetup
 
         Transform detail = EnsureChild(card, "ModuleDetail");
         detail.SetSiblingIndex(tabs.GetSiblingIndex() + 1);
-        SetLayout(detail.gameObject, -1, 120, 1, 0);
+        SetLayout(detail.gameObject, -1, 240, 1, 1);
         Image detailBackground = GetOrAdd<Image>(detail.gameObject);
         detailBackground.color = new Color32(14, 48, 81, 255);
         detailBackground.raycastTarget = false;
         VerticalLayoutGroup detailLayout = GetOrAdd<VerticalLayoutGroup>(detail.gameObject);
-        detailLayout.padding = new RectOffset(12, 12, 6, 6);
-        detailLayout.spacing = 1;
+        detailLayout.padding = new RectOffset(12, 12, 12, 12);
+        detailLayout.spacing = 8;
         detailLayout.childControlWidth = true;
         detailLayout.childControlHeight = true;
         detailLayout.childForceExpandWidth = true;
-        detailLayout.childForceExpandHeight = false;
-        EnsureText(detail, "ModuleName", "Módulo 1 · Fabricación de cable", 17, FontStyles.Bold, 24);
-        EnsureText(detail, "Status", "Estado: Pendiente", 15, FontStyles.Normal, 20);
-        EnsureText(detail, "Objectives", "Objetivos: 0/8", 15, FontStyles.Normal, 20);
-        EnsureText(detail, "PlayTime", "Tiempo: 00:00:00", 15, FontStyles.Normal, 20);
-        EnsureText(detail, "CompletionDate", "Finalización: —", 15, FontStyles.Normal, 20);
+        detailLayout.childForceExpandHeight = true;
+        EnsureText(detail, "ModuleName", "Módulo 1 · Fabricación de cable", 22, FontStyles.Bold, 34);
+        EnsureText(detail, "Status", "Estado: Pendiente", 20, FontStyles.Normal, 32);
+        EnsureText(detail, "Objectives", "Objetivos: 0/8", 20, FontStyles.Normal, 32);
+        EnsureText(detail, "PlayTime", "Tiempo: 00:00:00", 20, FontStyles.Normal, 32);
+        EnsureText(detail, "CompletionDate", "Finalización: —", 20, FontStyles.Normal, 32);
 
         Transform badgesTitle = EnsureChild(card, "BadgesTitle");
         badgesTitle.SetSiblingIndex(detail.GetSiblingIndex() + 1);
         EnsureTextComponent(badgesTitle, "INSIGNIAS", 16, FontStyles.Bold);
-        SetLayout(badgesTitle.gameObject, -1, 18, 1, 0);
+        SetLayout(badgesTitle.gameObject, -1, 26, 1, 0);
 
         Transform badges = EnsureChild(card, "BadgesContainer");
         badges.SetSiblingIndex(badgesTitle.GetSiblingIndex() + 1);
-        SetLayout(badges.gameObject, -1, 70, 1, 0);
+        SetLayout(badges.gameObject, -1, 140, 1, 0);
         HorizontalLayoutGroup badgesLayout = GetOrAdd<HorizontalLayoutGroup>(badges.gameObject);
         badgesLayout.spacing = 14;
         badgesLayout.childAlignment = TextAnchor.MiddleCenter;
@@ -282,9 +289,9 @@ public static class LobbyProfilePanelSetup
     private static void EnsureBadge(Transform parent, int index, Sprite sprite)
     {
         Transform badge = EnsureChild(parent, $"BadgeM{index}");
-        SetLayout(badge.gameObject, 92, 70, 1, 0);
+        SetLayout(badge.gameObject, 92, 140, 1, 0);
         VerticalLayoutGroup layout = GetOrAdd<VerticalLayoutGroup>(badge.gameObject);
-        layout.spacing = 2;
+        layout.spacing = 4;
         layout.childAlignment = TextAnchor.MiddleCenter;
         layout.childControlWidth = true;
         layout.childControlHeight = true;
@@ -297,9 +304,9 @@ public static class LobbyProfilePanelSetup
         icon.preserveAspect = true;
         icon.raycastTarget = false;
         icon.color = new Color32(82, 98, 115, 140);
-        SetLayout(iconTransform.gameObject, 48, 48, 0, 0);
+        SetLayout(iconTransform.gameObject, 100, 100, 0, 0);
 
-        TMP_Text state = EnsureText(badge, "State", "BLOQUEADA", 11, FontStyles.Bold, 16);
+        TMP_Text state = EnsureText(badge, "State", "BLOQUEADA", 15, FontStyles.Bold, 24);
         state.alignment = TextAlignmentOptions.Center;
         state.color = new Color32(183, 201, 216, 255);
     }
@@ -350,10 +357,10 @@ public static class LobbyProfilePanelSetup
         SetText(root, "ProfileBody/IdentityCard/EmailText", "Correo no disponible");
         SetText(root, "ProfileBody/IdentityCard/ActiveSlotText", "SIN SLOT ACTIVO");
         SetText(root, "ProfileBody/ProgressCard/ProgressTitle", "RESUMEN DE PROGRESO");
-        SetText(root, "ProfileBody/ProgressCard/ModulesRow/Label", "Módulos completados");
-        SetText(root, "ProfileBody/ProgressCard/AchievementsRow/Label", "Insignias obtenidas");
-        SetText(root, "ProfileBody/ProgressCard/PlayTimeRow/Label", "Tiempo total");
-        SetText(root, "ProfileBody/ProgressCard/LastSaveRow/Label", "Último guardado");
+        SetText(root, "ProfileBody/ProgressCard/ModulesRow/Label", "Módulos de esta partida");
+        SetText(root, "ProfileBody/ProgressCard/AchievementsRow/Label", "Insignias de esta partida");
+        SetText(root, "ProfileBody/ProgressCard/PlayTimeRow/Label", "Tiempo total (cuenta)");
+        SetText(root, "ProfileBody/ProgressCard/LastSaveRow/Label", "Último guardado (cuenta)");
         foreach (string row in new[] { "ModulesRow", "AchievementsRow", "PlayTimeRow", "LastSaveRow" })
             SetText(root, $"ProfileBody/ProgressCard/{row}/Value", "—");
     }
