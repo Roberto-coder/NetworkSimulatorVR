@@ -14,7 +14,8 @@ Captura horizontal del Lobby desde la vista del jugador: entorno, instructor y p
 Cuando exista el archivo, reemplazar el aviso siguiente por:
 ![Lobby de NetXR Lab con el instructor virtual y el acceso a los módulos](Docs/Imagenes/README/01-portada-lobby.png)
 -->
-> 📷 **Portada:** vista del Lobby desde el jugador, con el instructor y el acceso a los módulos.
+> <img width="241" height="119" alt="Lobby" src="https://github.com/user-attachments/assets/de521af8-e4cb-485b-9bfa-5c70d8837659" />
+
 
 ## 🧭 Del concepto a la práctica
 
@@ -36,21 +37,21 @@ Guardar en Docs/Imagenes/README/02-fabricacion-cable.png.
 Primer plano de las manos, el cable y la herramienta durante una acción; evitar una mesa vacía.
 ![Preparación de un cable de red con herramientas interactivas](Docs/Imagenes/README/02-fabricacion-cable.png)
 -->
-> 📷 **Módulo 1:** primer plano de la preparación o el ponchado del cable.
+> <img width="264" height="131" alt="M1" src="https://github.com/user-attachments/assets/f7e027c2-95c9-4d27-b068-f958cd6efb72" />
 
 <!-- IMAGEN 03 — MÓDULO 2
 Guardar en Docs/Imagenes/README/03-instalacion-rack.png.
 Mostrar el switch instalado, varios cables conectados y al menos una etiqueta legible.
 ![Switch instalado en rack con conexiones y etiquetas](Docs/Imagenes/README/03-instalacion-rack.png)
 -->
-> 📷 **Módulo 2:** rack con el switch instalado, cables conectados y etiquetas visibles.
+> <img width="201" height="147" alt="M2" src="https://github.com/user-attachments/assets/e23b0b22-dc4a-4e77-b78f-3aa5aea3a8fc" />
 
 <!-- IMAGEN 04 — MÓDULO 3
 Guardar en Docs/Imagenes/README/04-diagnostico-red.png.
 Mostrar la laptop con una prueba de conectividad y parte de la red o su visualización de paquetes.
 ![Diagnóstico de conectividad desde la laptop del laboratorio](Docs/Imagenes/README/04-diagnostico-red.png)
 -->
-> 📷 **Módulo 3:** una prueba de conectividad en la laptop y su relación con la red del escenario.
+> <img width="208" height="155" alt="M3" src="https://github.com/user-attachments/assets/e8489caa-873c-4f2c-b7cb-2839de92c33e" />
 
 ## 🤖 Acompañamiento durante la práctica
 
@@ -65,7 +66,7 @@ Guardar en Docs/Imagenes/README/05-instructor-controles.png.
 Encuadrar al robot y un diálogo corto con un icono de botón claramente visible.
 ![Instructor virtual con indicaciones e iconos de controles](Docs/Imagenes/README/05-instructor-controles.png)
 -->
-> 📷 **Instructor:** robot y diálogo con un icono de control legible.
+> <img width="187" height="166" alt="NPC" src="https://github.com/user-attachments/assets/afc805c8-893e-4e05-a19f-d53bae39291b" />
 
 ## ⚙️ Cómo está construido
 
@@ -93,9 +94,9 @@ El repositorio contiene el Lobby y los tres módulos, junto con pruebas automati
 
 Los siguientes puntos permanecen abiertos:
 
-- Resolver conflictos de guardado entre dispositivos antes de reemplazar una copia remota.
-- Completar pruebas integradas de autenticación y sincronización con Firebase.
-- Ajustar legibilidad, interacción y rendimiento a partir de pruebas en VR.
+- Estabilizar el prototipo según los problemas detectados.
+- Evaluar la distribución nativa en Meta ó WebXR y sus requisitos.
+- Ampliar o Mejorar módulos y servicios según necesidades educativas comprobadas.
 
 En esta versión, el progreso registra la finalización de módulos; **no incluye reanudar una práctica a mitad de su ejecución**.
 
