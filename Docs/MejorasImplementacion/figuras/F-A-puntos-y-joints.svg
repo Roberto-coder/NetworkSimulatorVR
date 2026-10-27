@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="830" viewBox="0 0 1500 830">
+<rect width="100%" height="100%" fill="white"/>
+<text x="40" y="67" text-anchor="start" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#172d44">F-A · Estructura física y visual del cable</text>
+<text x="40" y="105" text-anchor="start" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#58687a">El Point es un objeto físico; el SpringJoint es un componente que enlaza dos Rigidbody.</text>
+<polyline points="180,260 470,380" fill="none" stroke="#a4d4ca" stroke-width="22"/>
+<polyline points="180.0,260.0 192.28759318384812,275.9068349908856 216.04574014948523,264.0931650091144 224.50981540607032,289.2401683242189 248.26796237170745,277.42649834244776 256.7320376282926,302.57350165755224 280.4901845939296,290.7598316757811 288.9542598505148,315.9068349908856 312.7124068161519,304.0931650091144 321.17648207273703,329.2401683242189 344.93462903837406,317.42649834244776 353.39870429495926,342.5735016575523 377.1568512605963,330.7598316757811 385.6209265171815,355.9068349908856 409.3790734828185,344.0931650091144 417.8431487394037,369.2401683242189 441.60129570504074,357.4264983424477 450.0653709616259,382.57350165755224 470.0,380.0" fill="none" stroke="#23658c" stroke-width="3"/>
+<polyline points="470,380 780,420" fill="none" stroke="#a4d4ca" stroke-width="22"/>
+<polyline points="470.0,380.0 485.94250884592026,392.1400008885625 505.7241578207464,374.5266657781042 520.3869532903647,396.58444533300695 540.1686022651909,378.97111022254865 554.8313977348091,401.02888977745135 574.6130467096353,383.41555466699305 589.2758421792536,405.4733342218958 609.0574911540798,387.8599991114375 623.720286623698,409.91777866634027 643.5019355985241,392.30444355588196 658.1647310681425,414.3622231107847 677.9463800429686,396.7488880003264 692.609175512587,418.8066675552292 712.390824487413,401.1933324447708 727.0536199570314,423.2511119996736 746.8352689318575,405.6377768892153 761.4980644014759,427.69555644411804 780.0,420.0" fill="none" stroke="#23658c" stroke-width="3"/>
+<polyline points="780,420 1080,320" fill="none" stroke="#a4d4ca" stroke-width="22"/>
+<polyline points="780.0,420.0 799.828944326835,423.9312774249496 810.171055673165,399.4020559083838 833.1622776601683,412.82016631383846 843.5043890064983,388.29094479727263 866.4956109935017,401.70905520272737 876.8377223398317,377.17983368616154 899.828944326835,390.5979440916162 910.1710556731649,366.0687225750504 933.1622776601683,379.48683298050514 943.5043890064984,354.9576114639393 966.4956109935017,368.37572186939406 976.8377223398317,343.84650035282823 999.828944326835,357.2646107582829 1010.171055673165,332.7353892417171 1033.1622776601685,346.15349964717177 1043.504389006498,321.62427813060594 1066.4956109935017,335.0423885360607 1080.0,320.0" fill="none" stroke="#23658c" stroke-width="3"/>
+<circle cx="180" cy="260" r="19" fill="white" stroke="#23658c" stroke-width="2.5"/>
+<text x="180" y="318" text-anchor="middle" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#172d44">Extremo A</text>
+<text x="180" y="348" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172d44">Rigidbody</text>
+<circle cx="470" cy="380" r="19" fill="white" stroke="#23658c" stroke-width="2.5"/>
+<text x="470" y="438" text-anchor="middle" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#172d44">Point 0</text>
+<text x="470" y="468" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172d44">Rigidbody</text>
+<circle cx="780" cy="420" r="19" fill="white" stroke="#23658c" stroke-width="2.5"/>
+<text x="780" y="478" text-anchor="middle" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#172d44">Point 1</text>
+<text x="780" y="508" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172d44">Rigidbody</text>
+<circle cx="1080" cy="320" r="19" fill="white" stroke="#23658c" stroke-width="2.5"/>
+<text x="1080" y="378" text-anchor="middle" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#172d44">Extremo B</text>
+<text x="1080" y="408" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172d44">Rigidbody</text>
+<rect x="1200" y="245" width="235" height="130" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="1317.5" y="302.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="23" font-weight="400" fill="#172d44">Puerto</text>
+<text x="1317.5" y="333.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="23" font-weight="400" fill="#172d44">Rigidbody fijo</text>
+<polyline points="1100,320 1200,310" fill="none" stroke="#b13d32" stroke-width="4"/>
+<text x="1135" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#b13d32">FixedJoint</text>
+<polyline points="1135,229 1150,310" fill="none" stroke="#b13d32" stroke-width="2"/>
+<polygon points="1150,310 1142.9001336498313,300.3257094415279 1153.1647844293518,298.4248481860611" fill="#b13d32"/>
+<text x="435" y="194" text-anchor="start" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#23658c">SpringJoint</text>
+<text x="435" y="225" text-anchor="start" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">connectedBody → cuerpo vecino</text>
+<polyline points="575,237 600,397" fill="none" stroke="#23658c" stroke-width="2"/>
+<polygon points="600,397 593.1748872422221,387.12995259162255 603.488915609475,385.5183856592393" fill="#23658c"/>
+<text x="880" y="563" text-anchor="start" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#127a72">Tramo visual (connector)</text>
+<text x="880" y="595" text-anchor="start" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">Posición media, orientación y escala</text>
+<polyline points="1070,530 950,371" fill="none" stroke="#127a72" stroke-width="2"/>
+<polygon points="950,371 960.6754438755448,376.48041039157584 952.3430093932293,382.76904018954986" fill="#127a72"/>
+<rect x="50" y="650" width="660" height="70" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="380.0" y="691.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#172d44">Anclajes locales = (0,0,0) · distancia base = space</text>
+<rect x="745" y="650" width="700" height="70" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="1095.0" y="691.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#172d44">Base: spring = 200 · damper = 0.2 (pueden ajustarse)</text>
+<polyline points="40,760 1460,760" fill="none" stroke="#c6d1dc" stroke-width="1"/>
+<text x="40" y="799" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#58687a">Elaboración propia · Esquema basado en el proyecto; no es una captura de Unity.</text>
+</svg>

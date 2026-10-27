@@ -1,0 +1,386 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1900" viewBox="0 0 1600 1900">
+<rect width="100%" height="100%" fill="white"/>
+<text x="40" y="67" text-anchor="start" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#172d44">Rack de comunicaciones · Módulo 2</text>
+<text x="40" y="105" text-anchor="start" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#58687a">Vista frontal esquemática del montaje previsto al completar la instalación de SW1.</text>
+<rect x="294" y="145" width="542" height="1480" rx="7" fill="#fafbfd" stroke="#172d44" stroke-width="2"/>
+<rect x="310" y="160" width="15" height="1450" rx="7" fill="#e0e6ec" stroke="#58687a" stroke-width="2"/>
+<rect x="805" y="160" width="15" height="1450" rx="7" fill="#e0e6ec" stroke="#58687a" stroke-width="2"/>
+<circle cx="318" cy="175" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="175" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="197" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="197" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="219" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="219" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="241" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="241" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="263" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="263" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="285" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="285" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="307" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="307" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="329" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="329" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="351" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="351" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="373" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="373" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="395" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="395" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="417" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="417" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="439" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="439" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="461" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="461" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="483" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="483" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="505" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="505" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="527" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="527" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="549" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="549" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="571" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="571" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="593" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="593" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="615" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="615" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="637" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="637" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="659" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="659" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="681" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="681" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="703" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="703" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="725" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="725" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="747" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="747" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="769" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="769" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="791" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="791" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="813" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="813" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="835" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="835" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="857" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="857" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="879" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="879" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="901" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="901" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="923" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="923" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="945" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="945" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="967" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="967" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="989" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="989" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="1011" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="1011" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="1033" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="1033" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="1055" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="1055" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="1077" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="1077" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="1099" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="1099" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="1121" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="1121" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="1143" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="1143" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="1165" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="1165" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="1187" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="1187" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="1209" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="1209" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="1231" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="1231" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="1253" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="1253" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="1275" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="1275" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="1297" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="1297" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="1319" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="1319" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="1341" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="1341" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="1363" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="1363" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="1385" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="1385" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="1407" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="1407" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="1429" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="1429" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="1451" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="1451" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="1473" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="1473" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="1495" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="1495" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="1517" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="1517" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="1539" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="1539" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="1561" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="1561" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="318" cy="1583" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="812" cy="1583" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<rect x="220" y="370" width="46" height="780" rx="7" fill="#e5e9ee" stroke="#58687a" stroke-width="2"/>
+<rect x="230" y="400" width="26" height="35" rx="7" fill="#435364" stroke="#58687a" stroke-width="2"/>
+<rect x="230" y="460" width="26" height="35" rx="7" fill="#435364" stroke="#58687a" stroke-width="2"/>
+<rect x="230" y="520" width="26" height="35" rx="7" fill="#435364" stroke="#58687a" stroke-width="2"/>
+<rect x="230" y="580" width="26" height="35" rx="7" fill="#435364" stroke="#58687a" stroke-width="2"/>
+<rect x="230" y="640" width="26" height="35" rx="7" fill="#435364" stroke="#58687a" stroke-width="2"/>
+<rect x="230" y="700" width="26" height="35" rx="7" fill="#435364" stroke="#58687a" stroke-width="2"/>
+<rect x="230" y="760" width="26" height="35" rx="7" fill="#435364" stroke="#58687a" stroke-width="2"/>
+<rect x="230" y="820" width="26" height="35" rx="7" fill="#435364" stroke="#58687a" stroke-width="2"/>
+<rect x="230" y="880" width="26" height="35" rx="7" fill="#435364" stroke="#58687a" stroke-width="2"/>
+<rect x="230" y="940" width="26" height="35" rx="7" fill="#435364" stroke="#58687a" stroke-width="2"/>
+<rect x="230" y="1000" width="26" height="35" rx="7" fill="#435364" stroke="#58687a" stroke-width="2"/>
+<rect x="230" y="1060" width="26" height="35" rx="7" fill="#435364" stroke="#58687a" stroke-width="2"/>
+<rect x="230" y="1120" width="26" height="35" rx="7" fill="#435364" stroke="#58687a" stroke-width="2"/>
+<text x="40" y="543" text-anchor="start" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#172d44">PDU vertical</text>
+<text x="40" y="574" text-anchor="start" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#58687a">0U · lateral posterior</text>
+<text x="40" y="603" text-anchor="start" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#58687a">Representada fuera</text>
+<text x="40" y="630" text-anchor="start" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#58687a">del frente para</text>
+<text x="40" y="657" text-anchor="start" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#58687a">facilitar su lectura.</text>
+<polyline points="95,680 185,680 220,720" fill="none" stroke="#58687a" stroke-width="2"/>
+<rect x="330" y="197.89579999999995" width="470" height="33.782000000000004" rx="7" fill="#e5e9ee" stroke="#58687a" stroke-width="2"/>
+<circle cx="340" cy="214.78679999999994" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="790" cy="214.78679999999994" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<rect x="375" y="206.78679999999994" width="23" height="16" rx="7" fill="#4e6072" stroke="#58687a" stroke-width="2"/>
+<rect x="421" y="206.78679999999994" width="23" height="16" rx="7" fill="#4e6072" stroke="#58687a" stroke-width="2"/>
+<rect x="467" y="206.78679999999994" width="23" height="16" rx="7" fill="#4e6072" stroke="#58687a" stroke-width="2"/>
+<rect x="513" y="206.78679999999994" width="23" height="16" rx="7" fill="#4e6072" stroke="#58687a" stroke-width="2"/>
+<rect x="559" y="206.78679999999994" width="23" height="16" rx="7" fill="#4e6072" stroke="#58687a" stroke-width="2"/>
+<rect x="605" y="206.78679999999994" width="23" height="16" rx="7" fill="#4e6072" stroke="#58687a" stroke-width="2"/>
+<rect x="651" y="206.78679999999994" width="23" height="16" rx="7" fill="#4e6072" stroke="#58687a" stroke-width="2"/>
+<rect x="697" y="206.78679999999994" width="23" height="16" rx="7" fill="#4e6072" stroke="#58687a" stroke-width="2"/>
+<polyline points="822,214.78679999999994 845,214.78679999999994 865,214.78679999999994" fill="none" stroke="#9aa8b6" stroke-width="2"/>
+<text x="885" y="214.78679999999994" text-anchor="start" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#172d44">PDU horizontal · PDU-A  ·  1U</text>
+<text x="885" y="239.78679999999994" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#58687a">Alimentación del switch principal</text>
+<rect x="330" y="264.8403999999999" width="470" height="67.56400000000001" rx="7" fill="#e5e9ee" stroke="#58687a" stroke-width="2"/>
+<circle cx="340" cy="298.62239999999986" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="790" cy="298.62239999999986" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<rect x="368" y="278.62239999999986" width="32" height="40" rx="7" fill="#697888" stroke="#58687a" stroke-width="2"/>
+<rect x="411" y="278.62239999999986" width="32" height="40" rx="7" fill="#697888" stroke="#58687a" stroke-width="2"/>
+<rect x="454" y="278.62239999999986" width="32" height="40" rx="7" fill="#697888" stroke="#58687a" stroke-width="2"/>
+<rect x="497" y="278.62239999999986" width="32" height="40" rx="7" fill="#697888" stroke="#58687a" stroke-width="2"/>
+<rect x="540" y="278.62239999999986" width="32" height="40" rx="7" fill="#697888" stroke="#58687a" stroke-width="2"/>
+<rect x="583" y="278.62239999999986" width="32" height="40" rx="7" fill="#697888" stroke="#58687a" stroke-width="2"/>
+<rect x="626" y="278.62239999999986" width="32" height="40" rx="7" fill="#697888" stroke="#58687a" stroke-width="2"/>
+<circle cx="755" cy="298.62239999999986" r="7" fill="#127a72" stroke="#127a72" stroke-width="2.5"/>
+<polyline points="822,298.62239999999986 845,298.62239999999986 865,298.62239999999986" fill="none" stroke="#9aa8b6" stroke-width="2"/>
+<text x="885" y="298.62239999999986" text-anchor="start" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#172d44">Almacenamiento de red · NAS  ·  2U</text>
+<text x="885" y="323.62239999999986" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#58687a">Equipo de reconocimiento</text>
+<rect x="330" y="588.6118" width="470" height="33.782000000000004" rx="7" fill="#e5e9ee" stroke="#58687a" stroke-width="2"/>
+<circle cx="340" cy="605.5028" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="790" cy="605.5028" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<rect x="366" y="600.5028" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="390" y="600.5028" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="414" y="600.5028" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="438" y="600.5028" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="462" y="600.5028" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="486" y="600.5028" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="510" y="600.5028" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="534" y="600.5028" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="558" y="600.5028" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="582" y="600.5028" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="606" y="600.5028" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="630" y="600.5028" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<circle cx="760" cy="605.5028" r="4" fill="#127a72" stroke="#127a72" stroke-width="2.5"/>
+<polyline points="822,605.5028 845,605.5028 865,595.5028" fill="none" stroke="#9aa8b6" stroke-width="2"/>
+<text x="885" y="595.5028" text-anchor="start" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#172d44">Panel de distribución de fibra  ·  1U</text>
+<text x="885" y="620.5028" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#58687a">Terminación y organización de fibra</text>
+<rect x="330" y="632.6918" width="470" height="33.782000000000004" rx="7" fill="#e5e9ee" stroke="#58687a" stroke-width="2"/>
+<circle cx="340" cy="649.5827999999999" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="790" cy="649.5827999999999" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<polyline points="368,639.5827999999999 368,659.5827999999999" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="400,639.5827999999999 400,659.5827999999999" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="432,639.5827999999999 432,659.5827999999999" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="464,639.5827999999999 464,659.5827999999999" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="496,639.5827999999999 496,659.5827999999999" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="528,639.5827999999999 528,659.5827999999999" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="560,639.5827999999999 560,659.5827999999999" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="592,639.5827999999999 592,659.5827999999999" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="624,639.5827999999999 624,659.5827999999999" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="656,639.5827999999999 656,659.5827999999999" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="688,639.5827999999999 688,659.5827999999999" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="720,639.5827999999999 720,659.5827999999999" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="365,649.5827999999999 765,649.5827999999999" fill="none" stroke="#58687a" stroke-width="4"/>
+<polyline points="822,649.5827999999999 845,649.5827999999999 865,659.5827999999999" fill="none" stroke="#9aa8b6" stroke-width="2"/>
+<text x="885" y="659.5827999999999" text-anchor="start" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#172d44">Organizador horizontal superior  ·  1U</text>
+<text x="885" y="684.5827999999999" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#58687a">Organización del cableado</text>
+<rect x="330" y="774.751" width="470" height="33.782000000000004" rx="7" fill="#e5e9ee" stroke="#58687a" stroke-width="2"/>
+<circle cx="340" cy="791.6419999999999" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="790" cy="791.6419999999999" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<rect x="366" y="786.6419999999999" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="390" y="786.6419999999999" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="414" y="786.6419999999999" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="438" y="786.6419999999999" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="462" y="786.6419999999999" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="486" y="786.6419999999999" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="510" y="786.6419999999999" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="534" y="786.6419999999999" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="558" y="786.6419999999999" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="582" y="786.6419999999999" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="606" y="786.6419999999999" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="630" y="786.6419999999999" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="654" y="786.6419999999999" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="678" y="786.6419999999999" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="702" y="786.6419999999999" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="726" y="786.6419999999999" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<circle cx="760" cy="791.6419999999999" r="4" fill="#127a72" stroke="#127a72" stroke-width="2.5"/>
+<polyline points="822,791.6419999999999 845,791.6419999999999 865,791.6419999999999" fill="none" stroke="#9aa8b6" stroke-width="2"/>
+<text x="885" y="791.6419999999999" text-anchor="start" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#172d44">Patch panel UTP · PP-A  ·  1U</text>
+<text x="885" y="816.6419999999999" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#58687a">Puertos /01, /02 y /03 del plan de conexión</text>
+<rect x="330" y="850.9258" width="470" height="33.782000000000004" rx="7" fill="#e5e9ee" stroke="#58687a" stroke-width="2"/>
+<circle cx="340" cy="867.8168" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="790" cy="867.8168" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<rect x="366" y="862.8168" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="390" y="862.8168" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="414" y="862.8168" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="438" y="862.8168" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="462" y="862.8168" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="486" y="862.8168" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="510" y="862.8168" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="534" y="862.8168" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="558" y="862.8168" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="582" y="862.8168" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="606" y="862.8168" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<rect x="630" y="862.8168" width="15" height="10" rx="7" fill="#374b5c" stroke="#58687a" stroke-width="2"/>
+<circle cx="760" cy="867.8168" r="4" fill="#127a72" stroke="#127a72" stroke-width="2.5"/>
+<polyline points="822,867.8168 845,867.8168 865,867.8168" fill="none" stroke="#9aa8b6" stroke-width="2"/>
+<text x="885" y="867.8168" text-anchor="start" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#172d44">Switch secundario · SW2  ·  1U</text>
+<text x="885" y="892.8168" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#58687a">Equipo fijo · enlace SW2/Gi04 ↔ SW1/Gi04</text>
+<rect x="330" y="940.4158000000001" width="470" height="33.782000000000004" rx="7" fill="#e5e9ee" stroke="#58687a" stroke-width="2"/>
+<circle cx="340" cy="957.3068000000001" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="790" cy="957.3068000000001" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<rect x="370" y="952.3068000000001" width="19" height="10" rx="7" fill="#4e6072" stroke="#58687a" stroke-width="2"/>
+<rect x="400" y="952.3068000000001" width="19" height="10" rx="7" fill="#4e6072" stroke="#58687a" stroke-width="2"/>
+<rect x="430" y="952.3068000000001" width="19" height="10" rx="7" fill="#4e6072" stroke="#58687a" stroke-width="2"/>
+<rect x="460" y="952.3068000000001" width="19" height="10" rx="7" fill="#4e6072" stroke="#58687a" stroke-width="2"/>
+<rect x="490" y="952.3068000000001" width="19" height="10" rx="7" fill="#4e6072" stroke="#58687a" stroke-width="2"/>
+<rect x="520" y="952.3068000000001" width="19" height="10" rx="7" fill="#4e6072" stroke="#58687a" stroke-width="2"/>
+<circle cx="700" cy="957.3068000000001" r="3" fill="#127a72" stroke="#127a72" stroke-width="2.5"/>
+<circle cx="718" cy="957.3068000000001" r="3" fill="#127a72" stroke="#127a72" stroke-width="2.5"/>
+<circle cx="736" cy="957.3068000000001" r="3" fill="#127a72" stroke="#127a72" stroke-width="2.5"/>
+<polyline points="822,957.3068000000001 845,957.3068000000001 865,957.3068000000001" fill="none" stroke="#9aa8b6" stroke-width="2"/>
+<text x="885" y="957.3068000000001" text-anchor="start" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#172d44">Router  ·  1U</text>
+<text x="885" y="982.3068000000001" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#58687a">Equipo de reconocimiento</text>
+<rect x="330" y="989.8918" width="470" height="33.782000000000004" rx="7" fill="#e5e9ee" stroke="#58687a" stroke-width="2"/>
+<circle cx="340" cy="1006.7828" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="790" cy="1006.7828" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<polyline points="368,996.7828 368,1016.7828" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="400,996.7828 400,1016.7828" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="432,996.7828 432,1016.7828" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="464,996.7828 464,1016.7828" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="496,996.7828 496,1016.7828" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="528,996.7828 528,1016.7828" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="560,996.7828 560,1016.7828" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="592,996.7828 592,1016.7828" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="624,996.7828 624,1016.7828" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="656,996.7828 656,1016.7828" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="688,996.7828 688,1016.7828" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="720,996.7828 720,1016.7828" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="365,1006.7828 765,1006.7828" fill="none" stroke="#58687a" stroke-width="4"/>
+<polyline points="822,1006.7828 845,1006.7828 865,1006.7828" fill="none" stroke="#9aa8b6" stroke-width="2"/>
+<text x="885" y="1006.7828" text-anchor="start" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#172d44">Organizador horizontal inferior  ·  1U</text>
+<text x="885" y="1031.7828" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#58687a">Elemento provisional de organización</text>
+<rect x="330" y="1065.0596" width="470" height="67.56400000000001" rx="7" fill="#e5e9ee" stroke="#58687a" stroke-width="2"/>
+<circle cx="340" cy="1098.8416" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="790" cy="1098.8416" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="445" cy="1098.8416" r="22" fill="#f5f7fa" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="445" cy="1098.8416" r="7" fill="#58687a" stroke="#58687a" stroke-width="2.5"/>
+<polyline points="445,1098.8416 462,1098.8416" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="445,1098.8416 445,1115.8416" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="445,1098.8416 428,1098.8416" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="445,1098.8416 445,1081.8416" fill="none" stroke="#58687a" stroke-width="3"/>
+<circle cx="565" cy="1098.8416" r="22" fill="#f5f7fa" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="565" cy="1098.8416" r="7" fill="#58687a" stroke="#58687a" stroke-width="2.5"/>
+<polyline points="565,1098.8416 582,1098.8416" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="565,1098.8416 565,1115.8416" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="565,1098.8416 548,1098.8416" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="565,1098.8416 565,1081.8416" fill="none" stroke="#58687a" stroke-width="3"/>
+<circle cx="685" cy="1098.8416" r="22" fill="#f5f7fa" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="685" cy="1098.8416" r="7" fill="#58687a" stroke="#58687a" stroke-width="2.5"/>
+<polyline points="685,1098.8416 702,1098.8416" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="685,1098.8416 685,1115.8416" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="685,1098.8416 668,1098.8416" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="685,1098.8416 685,1081.8416" fill="none" stroke="#58687a" stroke-width="3"/>
+<polyline points="822,1098.8416 845,1098.8416 865,1098.8416" fill="none" stroke="#9aa8b6" stroke-width="2"/>
+<text x="885" y="1098.8416" text-anchor="start" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#172d44">Unidad de ventilación  ·  2U</text>
+<text x="885" y="1123.8416" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#58687a">Infraestructura de ventilación</text>
+<rect x="330" y="1149.4994" width="470" height="33.782000000000004" rx="7" fill="#e1f1ed" stroke="#127a72" stroke-width="2"/>
+<circle cx="340" cy="1166.3904" r="3" fill="white" stroke="#127a72" stroke-width="2.5"/>
+<circle cx="790" cy="1166.3904" r="3" fill="white" stroke="#127a72" stroke-width="2.5"/>
+<rect x="366" y="1161.3904" width="15" height="10" rx="7" fill="#374b5c" stroke="#127a72" stroke-width="2"/>
+<rect x="390" y="1161.3904" width="15" height="10" rx="7" fill="#374b5c" stroke="#127a72" stroke-width="2"/>
+<rect x="414" y="1161.3904" width="15" height="10" rx="7" fill="#374b5c" stroke="#127a72" stroke-width="2"/>
+<rect x="438" y="1161.3904" width="15" height="10" rx="7" fill="#374b5c" stroke="#127a72" stroke-width="2"/>
+<rect x="462" y="1161.3904" width="15" height="10" rx="7" fill="#374b5c" stroke="#127a72" stroke-width="2"/>
+<rect x="486" y="1161.3904" width="15" height="10" rx="7" fill="#374b5c" stroke="#127a72" stroke-width="2"/>
+<rect x="510" y="1161.3904" width="15" height="10" rx="7" fill="#374b5c" stroke="#127a72" stroke-width="2"/>
+<rect x="534" y="1161.3904" width="15" height="10" rx="7" fill="#374b5c" stroke="#127a72" stroke-width="2"/>
+<rect x="558" y="1161.3904" width="15" height="10" rx="7" fill="#374b5c" stroke="#127a72" stroke-width="2"/>
+<rect x="582" y="1161.3904" width="15" height="10" rx="7" fill="#374b5c" stroke="#127a72" stroke-width="2"/>
+<rect x="606" y="1161.3904" width="15" height="10" rx="7" fill="#374b5c" stroke="#127a72" stroke-width="2"/>
+<rect x="630" y="1161.3904" width="15" height="10" rx="7" fill="#374b5c" stroke="#127a72" stroke-width="2"/>
+<circle cx="760" cy="1166.3904" r="4" fill="#127a72" stroke="#127a72" stroke-width="2.5"/>
+<polyline points="822,1166.3904 845,1166.3904 865,1166.3904" fill="none" stroke="#127a72" stroke-width="2"/>
+<text x="885" y="1166.3904" text-anchor="start" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#127a72">Switch principal · SW1  ·  1U</text>
+<text x="885" y="1191.3904" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#58687a">Posición final de instalación del equipo manipulable</text>
+<rect x="330" y="1286.7516" width="470" height="67.56400000000001" rx="7" fill="#e5e9ee" stroke="#58687a" stroke-width="2"/>
+<circle cx="340" cy="1320.5336" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="790" cy="1320.5336" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<rect x="368" y="1300.5336" width="32" height="40" rx="7" fill="#697888" stroke="#58687a" stroke-width="2"/>
+<rect x="411" y="1300.5336" width="32" height="40" rx="7" fill="#697888" stroke="#58687a" stroke-width="2"/>
+<rect x="454" y="1300.5336" width="32" height="40" rx="7" fill="#697888" stroke="#58687a" stroke-width="2"/>
+<rect x="497" y="1300.5336" width="32" height="40" rx="7" fill="#697888" stroke="#58687a" stroke-width="2"/>
+<rect x="540" y="1300.5336" width="32" height="40" rx="7" fill="#697888" stroke="#58687a" stroke-width="2"/>
+<rect x="583" y="1300.5336" width="32" height="40" rx="7" fill="#697888" stroke="#58687a" stroke-width="2"/>
+<rect x="626" y="1300.5336" width="32" height="40" rx="7" fill="#697888" stroke="#58687a" stroke-width="2"/>
+<circle cx="755" cy="1320.5336" r="7" fill="#127a72" stroke="#127a72" stroke-width="2.5"/>
+<polyline points="822,1320.5336 845,1320.5336 865,1320.5336" fill="none" stroke="#9aa8b6" stroke-width="2"/>
+<text x="885" y="1320.5336" text-anchor="start" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#172d44">Servidor  ·  2U</text>
+<text x="885" y="1345.5336" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#58687a">Equipo de reconocimiento</text>
+<rect x="330" y="1461.6124" width="470" height="67.56400000000001" rx="7" fill="#e5e9ee" stroke="#58687a" stroke-width="2"/>
+<circle cx="340" cy="1495.3944" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<circle cx="790" cy="1495.3944" r="3" fill="white" stroke="#58687a" stroke-width="2.5"/>
+<rect x="370" y="1476.3944" width="100" height="38" rx="7" fill="#5d6e7e" stroke="#58687a" stroke-width="2"/>
+<polyline points="520,1477.3944 520,1513.3944" fill="none" stroke="#58687a" stroke-width="2"/>
+<polyline points="535,1477.3944 535,1513.3944" fill="none" stroke="#58687a" stroke-width="2"/>
+<polyline points="550,1477.3944 550,1513.3944" fill="none" stroke="#58687a" stroke-width="2"/>
+<polyline points="565,1477.3944 565,1513.3944" fill="none" stroke="#58687a" stroke-width="2"/>
+<polyline points="580,1477.3944 580,1513.3944" fill="none" stroke="#58687a" stroke-width="2"/>
+<polyline points="595,1477.3944 595,1513.3944" fill="none" stroke="#58687a" stroke-width="2"/>
+<polyline points="610,1477.3944 610,1513.3944" fill="none" stroke="#58687a" stroke-width="2"/>
+<polyline points="625,1477.3944 625,1513.3944" fill="none" stroke="#58687a" stroke-width="2"/>
+<polyline points="640,1477.3944 640,1513.3944" fill="none" stroke="#58687a" stroke-width="2"/>
+<polyline points="655,1477.3944 655,1513.3944" fill="none" stroke="#58687a" stroke-width="2"/>
+<polyline points="670,1477.3944 670,1513.3944" fill="none" stroke="#58687a" stroke-width="2"/>
+<polyline points="685,1477.3944 685,1513.3944" fill="none" stroke="#58687a" stroke-width="2"/>
+<polyline points="700,1477.3944 700,1513.3944" fill="none" stroke="#58687a" stroke-width="2"/>
+<polyline points="715,1477.3944 715,1513.3944" fill="none" stroke="#58687a" stroke-width="2"/>
+<polyline points="822,1495.3944 845,1495.3944 865,1495.3944" fill="none" stroke="#9aa8b6" stroke-width="2"/>
+<text x="885" y="1495.3944" text-anchor="start" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#172d44">Sistema de alimentación ininterrumpida · UPS  ·  2U</text>
+<text x="885" y="1520.3944" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#58687a">Respaldo eléctrico · zona inferior</text>
+<text x="565" y="448" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#58687a">Separaciones entre equipos</text>
+<text x="565" y="478" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#58687a">según la distribución del modelo</text>
+<rect x="45" y="1675" width="1510" height="90" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="800.0" y="1712.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#172d44">Verde: SW1 en su posición final de montaje. El equipo inicia fuera del rack.</text>
+<text x="800.0" y="1741.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#172d44">Las U corresponden a las fichas del proyecto; no se asignan números de posición U.</text>
+<text x="45" y="1808" text-anchor="start" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#58687a">Fuente: montaje integrado de Modulo2 y fichas de componentes. Vista sin cableado para facilitar la identificación.</text>
+<polyline points="40,1830 1560,1830" fill="none" stroke="#c6d1dc" stroke-width="1"/>
+<text x="40" y="1869" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#58687a">Elaboración propia · Esquema basado en el proyecto; no es una captura de Unity.</text>
+</svg>

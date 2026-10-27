@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1110" viewBox="0 0 1600 1110">
+<rect width="100%" height="100%" fill="white"/>
+<text x="40" y="67" text-anchor="start" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#172d44">F-C · Red de oficina: topología y fallas iniciales</text>
+<text x="40" y="105" text-anchor="start" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#58687a">Segmento office · LAN 192.168.10.0/24 · Sin gateway en el modelo de diagnóstico.</text>
+<rect x="45" y="145" width="240" height="90" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="165.0" y="182.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#172d44">Laptop/eth0</text>
+<text x="165.0" y="211.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#172d44">192.168.10.100/24</text>
+<polyline points="165,235 165,290" fill="none" stroke="#23658c" stroke-width="4"/>
+<text x="300" y="263" text-anchor="start" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172d44">LaptopLink</text>
+<rect x="45" y="290" width="240" height="560" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="165.0" y="460.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#172d44">SW-01</text>
+<text x="165.0" y="489.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#172d44">Puertos modelados:</text>
+<text x="165.0" y="518.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#172d44">P01, P02, P03, P08</text>
+<text x="165.0" y="547.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#172d44"></text>
+<text x="165.0" y="576.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#172d44">Conmutación interna</text>
+<text x="165.0" y="605.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#172d44">entre habilitados</text>
+<text x="165.0" y="634.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#172d44"></text>
+<text x="165.0" y="663.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#172d44">mgmt:</text>
+<text x="165.0" y="692.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#172d44">192.168.10.2/24</text>
+<text x="55" y="319" text-anchor="start" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#127a72">P08</text>
+<text x="455" y="168" text-anchor="start" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#172d44">Patch panel PP-01</text>
+<text x="885" y="168" text-anchor="start" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#172d44">Rosetas</text>
+<text x="1335" y="168" text-anchor="start" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#172d44">Equipos</text>
+<text x="295" y="311" text-anchor="start" font-family="Arial, sans-serif" font-size="21" font-weight="700" fill="#172d44">P01</text>
+<rect x="415" y="323" width="135" height="84" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="482.5" y="371.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">front01</text>
+<rect x="640" y="323" width="135" height="84" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="707.5" y="371.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">back01</text>
+<rect x="885" y="323" width="135" height="84" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="952.5" y="357.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">R01</text>
+<text x="952.5" y="385.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">back</text>
+<rect x="1095" y="323" width="135" height="84" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="1162.5" y="357.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">R01</text>
+<text x="1162.5" y="385.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">front</text>
+<rect x="1340" y="315" width="215" height="100" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="1447.5" y="357.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">PC-01/eth0</text>
+<text x="1447.5" y="385.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">192.168.10.11/24</text>
+<polyline points="285,365 415,365" fill="none" stroke="#23658c" stroke-width="4"/>
+<text x="350" y="347" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172d44">Rack-01</text>
+<polyline points="550,365 640,365" fill="none" stroke="#127a72" stroke-width="3" stroke-dasharray="10 8"/>
+<polyline points="775,365 885,365" fill="none" stroke="#23658c" stroke-width="4"/>
+<text x="830" y="306" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172d44">Horizontal</text>
+<text x="830" y="331" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172d44">-01</text>
+<polyline points="1020,365 1095,365" fill="none" stroke="#127a72" stroke-width="3" stroke-dasharray="10 8"/>
+<polyline points="1230,365 1340,365" fill="none" stroke="#b13d32" stroke-width="4"/>
+<text x="1285" y="347" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172d44">Patch-01</text>
+<text x="1285" y="449" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#b13d32">Averiado</text>
+<polyline points="1270,353 1290,377" fill="none" stroke="#b13d32" stroke-width="4"/>
+<polyline points="1270,377 1290,353" fill="none" stroke="#b13d32" stroke-width="4"/>
+<text x="295" y="521" text-anchor="start" font-family="Arial, sans-serif" font-size="21" font-weight="700" fill="#b13d32">P02</text>
+<rect x="415" y="533" width="135" height="84" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="482.5" y="581.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">front02</text>
+<rect x="640" y="533" width="135" height="84" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="707.5" y="581.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">back02</text>
+<rect x="885" y="533" width="135" height="84" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="952.5" y="567.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">R02</text>
+<text x="952.5" y="595.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">back</text>
+<rect x="1095" y="533" width="135" height="84" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="1162.5" y="567.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">R02</text>
+<text x="1162.5" y="595.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">front</text>
+<rect x="1340" y="525" width="215" height="100" rx="7" fill="#fff0ec" stroke="#23658c" stroke-width="2"/>
+<text x="1447.5" y="567.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">PC-02/eth0</text>
+<text x="1447.5" y="595.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">192.168.10.12/24</text>
+<polyline points="285,575 415,575" fill="none" stroke="#b13d32" stroke-width="4"/>
+<text x="350" y="557" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172d44">Rack-02</text>
+<polyline points="550,575 640,575" fill="none" stroke="#127a72" stroke-width="3" stroke-dasharray="10 8"/>
+<polyline points="775,575 885,575" fill="none" stroke="#23658c" stroke-width="4"/>
+<text x="830" y="516" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172d44">Horizontal</text>
+<text x="830" y="541" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172d44">-02</text>
+<polyline points="1020,575 1095,575" fill="none" stroke="#127a72" stroke-width="3" stroke-dasharray="10 8"/>
+<polyline points="1230,575 1340,575" fill="none" stroke="#23658c" stroke-width="4"/>
+<text x="1285" y="557" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172d44">Patch-02</text>
+<text x="350" y="658" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#b13d32">P02 deshabilitado</text>
+<text x="1440" y="659" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#b13d32">IP duplicada</text>
+<text x="295" y="731" text-anchor="start" font-family="Arial, sans-serif" font-size="21" font-weight="700" fill="#172d44">P03</text>
+<rect x="415" y="743" width="135" height="84" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="482.5" y="791.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">front03</text>
+<rect x="640" y="743" width="135" height="84" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="707.5" y="791.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">back03</text>
+<rect x="885" y="743" width="135" height="84" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="952.5" y="777.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">R03</text>
+<text x="952.5" y="805.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">back</text>
+<rect x="1095" y="743" width="135" height="84" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="1162.5" y="777.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">R03</text>
+<text x="1162.5" y="805.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">front</text>
+<rect x="1340" y="735" width="215" height="100" rx="7" fill="#fff0ec" stroke="#23658c" stroke-width="2"/>
+<text x="1447.5" y="777.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">PC-03/eth0</text>
+<text x="1447.5" y="805.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">192.168.10.12/24</text>
+<polyline points="285,785 415,785" fill="none" stroke="#23658c" stroke-width="4"/>
+<text x="350" y="767" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172d44">Rack-03</text>
+<polyline points="550,785 640,785" fill="none" stroke="#127a72" stroke-width="3" stroke-dasharray="10 8"/>
+<polyline points="775,785 885,785" fill="none" stroke="#23658c" stroke-width="4"/>
+<text x="830" y="726" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172d44">Horizontal</text>
+<text x="830" y="751" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172d44">-03</text>
+<polyline points="1020,785 1095,785" fill="none" stroke="#127a72" stroke-width="3" stroke-dasharray="10 8"/>
+<polyline points="1230,785 1340,785" fill="none" stroke="#23658c" stroke-width="4"/>
+<text x="1285" y="767" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172d44">Patch-03</text>
+<text x="1440" y="869" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#b13d32">IP duplicada</text>
+<rect x="45" y="900" width="650" height="75" rx="7" fill="#e9f5f1" stroke="#127a72" stroke-width="2"/>
+<text x="370.0" y="944.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#172d44">Replacement-01: íntegro, desconectado al inicio.</text>
+<polyline points="760,914 820,914" fill="none" stroke="#23658c" stroke-width="4"/>
+<text x="840" y="919" text-anchor="start" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">Cable</text>
+<polyline points="1020,914 1080,914" fill="none" stroke="#127a72" stroke-width="3" stroke-dasharray="10 8"/>
+<text x="1100" y="919" text-anchor="start" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">Continuidad pasiva</text>
+<text x="760" y="978" text-anchor="start" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#b13d32">Rojo + texto: condición de falla inicial.</text>
+<text x="45" y="1021" text-anchor="start" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#58687a">El switch se resume como bloque: el algoritmo utiliza sus puertos como vértices.</text>
+<polyline points="40,1040 1560,1040" fill="none" stroke="#c6d1dc" stroke-width="1"/>
+<text x="40" y="1079" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#58687a">Elaboración propia · Esquema basado en el proyecto; no es una captura de Unity.</text>
+</svg>

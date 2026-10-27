@@ -1,0 +1,12 @@
+﻿id,portA,portB,intact,interactable,labelA,labelB
+LaptopLink,SW-01/P08,Laptop/eth0,1,0,,
+Rack-01,SW-01/P01,PP-01/front01,1,0,,
+Horizontal-01,PP-01/back01,R01/back,1,0,,
+Patch-01,R01/front,PC-01/eth0,0,1,R01,PC-01
+Rack-02,SW-01/P02,PP-01/front02,1,0,,
+Horizontal-02,PP-01/back02,R02/back,1,0,,
+Patch-02,R02/front,PC-02/eth0,1,1,R02,PC-02
+Rack-03,SW-01/P03,PP-01/front03,1,0,,
+Horizontal-03,PP-01/back03,R03/back,1,0,,
+Patch-03,R03/front,PC-03/eth0,1,1,R03,PC-03
+Replacement-01,,,1,1,,

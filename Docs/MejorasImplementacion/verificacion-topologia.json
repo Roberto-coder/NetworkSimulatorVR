@@ -1,0 +1,43 @@
+{
+  "initial_reachable_count": 14,
+  "repaired_reachable_count": 21,
+  "repaired_bfs_levels": {
+    "0": [
+      "Laptop/eth0"
+    ],
+    "1": [
+      "SW-01/P08"
+    ],
+    "2": [
+      "SW-01/P01",
+      "SW-01/P02",
+      "SW-01/P03",
+      "SW-01/mgmt"
+    ],
+    "3": [
+      "PP-01/front01",
+      "PP-01/front02",
+      "PP-01/front03"
+    ],
+    "4": [
+      "PP-01/back01",
+      "PP-01/back02",
+      "PP-01/back03"
+    ],
+    "5": [
+      "R01/back",
+      "R02/back",
+      "R03/back"
+    ],
+    "6": [
+      "R01/front",
+      "R02/front",
+      "R03/front"
+    ],
+    "7": [
+      "PC-01/eth0",
+      "PC-02/eth0",
+      "PC-03/eth0"
+    ]
+  }
+}

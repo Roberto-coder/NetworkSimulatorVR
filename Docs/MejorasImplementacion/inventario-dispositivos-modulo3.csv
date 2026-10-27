@@ -1,0 +1,10 @@
+﻿id,tipo,prefabKey,puertos,IPv4_inicial,observacion
+SW-01,Switch,switch,SW-01/mgmt; SW-01/P08; SW-01/P01; SW-01/P02; SW-01/P03,192.168.10.2/24,P02 deshabilitado
+PP-01,Elemento pasivo,patch-panel,PP-01/front01; PP-01/back01; PP-01/front02; PP-01/back02; PP-01/front03; PP-01/back03,,
+Laptop,Laptop,laptop,Laptop/eth0,192.168.10.100/24,
+PC-01,Computadora,computer,PC-01/eth0,192.168.10.11/24,
+R01,Elemento pasivo,rosette,R01/back; R01/front,,
+PC-02,Computadora,computer,PC-02/eth0,192.168.10.12/24,IP duplicada
+R02,Elemento pasivo,rosette,R02/back; R02/front,,
+PC-03,Computadora,computer,PC-03/eth0,192.168.10.12/24,IP duplicada
+R03,Elemento pasivo,rosette,R03/back; R03/front,,

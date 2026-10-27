@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1550" height="1100" viewBox="0 0 1550 1100">
+<rect width="100%" height="100%" fill="white"/>
+<text x="40" y="67" text-anchor="start" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#172d44">F-D · BFS desde Laptop/eth0</text>
+<text x="40" y="105" text-anchor="start" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#58687a">Caso reparado: Replacement-01 conectado, P02 habilitado y PC-03 con 192.168.10.13/24.</text>
+<rect x="45" y="145" width="140" height="57" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="115.0" y="179.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">Nivel 0</text>
+<rect x="225" y="145" width="298" height="57" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="374.0" y="179.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172d44">Laptop/eth0</text>
+<polyline points="110,202 110,224" fill="none" stroke="#23658c" stroke-width="2"/>
+<polygon points="110,224 104.78041359066523,213.19463477176788 115.21958640933477,213.19463477176788" fill="#23658c"/>
+<rect x="45" y="224" width="140" height="57" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="115.0" y="258.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">Nivel 1</text>
+<rect x="225" y="224" width="298" height="57" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="374.0" y="258.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172d44">SW-01/P08</text>
+<polyline points="110,281 110,303" fill="none" stroke="#23658c" stroke-width="2"/>
+<polygon points="110,303 104.78041359066523,292.1946347717679 115.21958640933477,292.1946347717679" fill="#23658c"/>
+<rect x="45" y="303" width="140" height="57" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="115.0" y="337.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">Nivel 2</text>
+<rect x="225" y="303" width="298" height="57" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="374.0" y="337.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172d44">SW-01/P01</text>
+<rect x="545" y="303" width="298" height="57" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="694.0" y="337.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172d44">SW-01/P02</text>
+<rect x="865" y="303" width="298" height="57" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="1014.0" y="337.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172d44">SW-01/P03</text>
+<rect x="1185" y="303" width="298" height="57" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="1334.0" y="337.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172d44">SW-01/mgmt</text>
+<polyline points="110,360 110,382" fill="none" stroke="#23658c" stroke-width="2"/>
+<polygon points="110,382 104.78041359066523,371.1946347717679 115.21958640933477,371.1946347717679" fill="#23658c"/>
+<rect x="45" y="382" width="140" height="57" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="115.0" y="416.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">Nivel 3</text>
+<rect x="225" y="382" width="298" height="57" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="374.0" y="416.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172d44">PP-01/front01</text>
+<rect x="545" y="382" width="298" height="57" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="694.0" y="416.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172d44">PP-01/front02</text>
+<rect x="865" y="382" width="298" height="57" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="1014.0" y="416.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172d44">PP-01/front03</text>
+<polyline points="110,439 110,461" fill="none" stroke="#23658c" stroke-width="2"/>
+<polygon points="110,461 104.78041359066523,450.1946347717679 115.21958640933477,450.1946347717679" fill="#23658c"/>
+<rect x="45" y="461" width="140" height="57" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="115.0" y="495.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">Nivel 4</text>
+<rect x="225" y="461" width="298" height="57" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="374.0" y="495.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172d44">PP-01/back01</text>
+<rect x="545" y="461" width="298" height="57" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="694.0" y="495.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172d44">PP-01/back02</text>
+<rect x="865" y="461" width="298" height="57" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="1014.0" y="495.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172d44">PP-01/back03</text>
+<polyline points="110,518 110,540" fill="none" stroke="#23658c" stroke-width="2"/>
+<polygon points="110,540 104.78041359066523,529.1946347717678 115.21958640933477,529.1946347717678" fill="#23658c"/>
+<rect x="45" y="540" width="140" height="57" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="115.0" y="574.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">Nivel 5</text>
+<rect x="225" y="540" width="298" height="57" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="374.0" y="574.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172d44">R01/back</text>
+<rect x="545" y="540" width="298" height="57" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="694.0" y="574.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172d44">R02/back</text>
+<rect x="865" y="540" width="298" height="57" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="1014.0" y="574.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172d44">R03/back</text>
+<polyline points="110,597 110,619" fill="none" stroke="#23658c" stroke-width="2"/>
+<polygon points="110,619 104.78041359066523,608.1946347717678 115.21958640933477,608.1946347717678" fill="#23658c"/>
+<rect x="45" y="619" width="140" height="57" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="115.0" y="653.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">Nivel 6</text>
+<rect x="225" y="619" width="298" height="57" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="374.0" y="653.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172d44">R01/front</text>
+<rect x="545" y="619" width="298" height="57" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="694.0" y="653.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172d44">R02/front</text>
+<rect x="865" y="619" width="298" height="57" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="1014.0" y="653.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172d44">R03/front</text>
+<polyline points="110,676 110,698" fill="none" stroke="#23658c" stroke-width="2"/>
+<polygon points="110,698 104.78041359066523,687.1946347717678 115.21958640933477,687.1946347717678" fill="#23658c"/>
+<rect x="45" y="698" width="140" height="57" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="115.0" y="732.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172d44">Nivel 7</text>
+<rect x="225" y="698" width="298" height="57" rx="7" fill="#e9f5f1" stroke="#127a72" stroke-width="2"/>
+<text x="374.0" y="732.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172d44">PC-01/eth0</text>
+<rect x="545" y="698" width="298" height="57" rx="7" fill="#e9f5f1" stroke="#127a72" stroke-width="2"/>
+<text x="694.0" y="732.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172d44">PC-02/eth0</text>
+<rect x="865" y="698" width="298" height="57" rx="7" fill="#e9f5f1" stroke="#127a72" stroke-width="2"/>
+<text x="1014.0" y="732.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172d44">PC-03/eth0</text>
+<text x="45" y="829" text-anchor="start" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#172d44">Parents permite reconstruir el camino hacia PC-01</text>
+<text x="45" y="872" text-anchor="start" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#172d44">Laptop/eth0 → SW-01/P08 → SW-01/P01 → PP-01/front01 → PP-01/back01</text>
+<text x="45" y="912" text-anchor="start" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#172d44">→ R01/back → R01/front → PC-01/eth0   (último cable: Replacement-01)</text>
+<text x="45" y="966" text-anchor="start" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#58687a">La cola sigue explorando: se necesitan todos los alcanzables para detectar IP duplicadas.</text>
+<text x="45" y="1006" text-anchor="start" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#58687a">Los niveles cuentan aristas del modelo; no representan TTL ni saltos de router.</text>
+<polyline points="40,1030 1510,1030" fill="none" stroke="#c6d1dc" stroke-width="1"/>
+<text x="40" y="1069" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#58687a">Elaboración propia · Esquema basado en el proyecto; no es una captura de Unity.</text>
+</svg>

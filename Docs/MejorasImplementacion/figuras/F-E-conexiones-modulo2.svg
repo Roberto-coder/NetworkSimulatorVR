@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="1030" viewBox="0 0 1500 1030">
+<rect width="100%" height="100%" fill="white"/>
+<text x="40" y="67" text-anchor="start" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#172d44">F-E · Detección y validación de conexiones</text>
+<text x="40" y="105" text-anchor="start" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#58687a">Compatibilidad local del conector y cumplimiento global del plan son condiciones distintas.</text>
+<rect x="50" y="155" width="650" height="115" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="375.0" y="204.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="23" font-weight="400" fill="#172d44">Puerto con Module02NetworkSocket (XRI)</text>
+<text x="375.0" y="235.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="23" font-weight="400" fill="#172d44">Hover / selección y pose de la punta</text>
+<rect x="800" y="155" width="650" height="115" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="1125.0" y="204.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="23" font-weight="400" fill="#172d44">Puerto sin XRSocketInteractor</text>
+<text x="1125.0" y="235.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="23" font-weight="400" fill="#172d44">Trigger + CableEndSocketDetector al soltar</text>
+<polyline points="375,270 375,315 750,315 750,350" fill="none" stroke="#23658c" stroke-width="3"/>
+<polygon points="750,350 744.7804135906653,339.1946347717679 755.2195864093347,339.1946347717679" fill="#23658c"/>
+<polyline points="1125,270 1125,315 750,315" fill="none" stroke="#23658c" stroke-width="3"/>
+<rect x="270" y="350" width="960" height="105" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="750.0" y="394.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#172d44">Compatibilidad local</text>
+<text x="750.0" y="424.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#172d44">Tipo de cable/puerto · ocupación · Male/Female · color si se exige · etapa</text>
+<polyline points="750,455 750,500" fill="none" stroke="#23658c" stroke-width="3"/>
+<polygon points="750,500 744.7804135906653,489.1946347717679 755.2195864093347,489.1946347717679" fill="#23658c"/>
+<rect x="270" y="500" width="960" height="100" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="750.0" y="542.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="23" font-weight="400" fill="#172d44">Unión física: Connector.Connect</text>
+<text x="750.0" y="573.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="23" font-weight="400" fill="#172d44">Alinear connectionPoint · FixedJoint · estabilizar Rigidbody</text>
+<polyline points="750,600 750,645" fill="none" stroke="#23658c" stroke-width="3"/>
+<polygon points="750,645 744.7804135906653,634.1946347717678 755.2195864093347,634.1946347717678" fill="#23658c"/>
+<rect x="270" y="645" width="960" height="100" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="750.0" y="687.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="23" font-weight="400" fill="#172d44">Registro lógico: PatchCableLink → Module02CablingState</text>
+<text x="750.0" y="718.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="23" font-weight="400" fill="#172d44">Comparar puertos y tipos contra Module02ConnectionPlan</text>
+<polyline points="750,745 750,790" fill="none" stroke="#23658c" stroke-width="3"/>
+<polygon points="750,790 744.7804135906653,779.1946347717678 755.2195864093347,779.1946347717678" fill="#23658c"/>
+<rect x="270" y="790" width="960" height="105" rx="7" fill="#e9f5f1" stroke="#127a72" stroke-width="2"/>
+<text x="750.0" y="834.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="23" font-weight="400" fill="#172d44">Cinco enlaces correctos → bloquear conexiones y cuerpos</text>
+<text x="750.0" y="865.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="23" font-weight="400" fill="#172d44">Después: diez etiquetas → consola → encendido → configuración</text>
+<text x="50" y="946" text-anchor="start" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#58687a">Un trigger detecta un candidato; las condiciones anteriores determinan si la operación es válida.</text>
+<polyline points="40,960 1460,960" fill="none" stroke="#c6d1dc" stroke-width="1"/>
+<text x="40" y="999" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#58687a">Elaboración propia · Esquema basado en el proyecto; no es una captura de Unity.</text>
+</svg>

@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="960" viewBox="0 0 1500 960">
+<rect width="100%" height="100%" fill="white"/>
+<text x="40" y="67" text-anchor="start" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#172d44">F-B · Fabricación del cable en el módulo 1</text>
+<text x="40" y="105" text-anchor="start" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#58687a">La misma máquina se aplica de forma independiente a Left y Right.</text>
+<rect x="45" y="220" width="225" height="100" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="157.5" y="262.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#172d44">Whole</text>
+<text x="157.5" y="292.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#172d44">Entero</text>
+<rect x="340" y="220" width="225" height="100" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="452.5" y="262.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#172d44">Peeled</text>
+<text x="452.5" y="292.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#172d44">Pelado</text>
+<rect x="635" y="220" width="225" height="100" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="747.5" y="262.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#172d44">Rj45Disordered</text>
+<text x="747.5" y="292.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#172d44">Hilos sin ordenar</text>
+<rect x="930" y="220" width="225" height="100" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="1042.5" y="262.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#172d44">Rj45Ordered</text>
+<text x="1042.5" y="292.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#172d44">Orden correcto</text>
+<rect x="1225" y="220" width="225" height="100" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="1337.5" y="262.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#172d44">Rj45Crimped</text>
+<text x="1337.5" y="292.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#172d44">Ponchado</text>
+<circle cx="55" cy="165" r="9" fill="#172d44" stroke="#172d44" stroke-width="2.5"/>
+<polyline points="55,175 100,220" fill="none" stroke="#23658c" stroke-width="3"/>
+<polygon points="100,220 88.66864802888999,216.05025791894948 96.05025791894948,208.66864802888998" fill="#23658c"/>
+<polyline points="270,270 340,270" fill="none" stroke="#23658c" stroke-width="3"/>
+<polygon points="340,270 329.1946347717679,275.21958640933474 329.1946347717679,264.78041359066526" fill="#23658c"/>
+<text x="300" y="188" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172d44">Pelar</text>
+<polyline points="565,270 635,270" fill="none" stroke="#23658c" stroke-width="3"/>
+<polygon points="635,270 624.1946347717678,275.21958640933474 624.1946347717678,264.78041359066526" fill="#23658c"/>
+<text x="595" y="188" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172d44">Tomar y soltar</text>
+<polyline points="860,270 930,270" fill="none" stroke="#23658c" stroke-width="3"/>
+<polygon points="930,270 919.1946347717678,275.21958640933474 919.1946347717678,264.78041359066526" fill="#23658c"/>
+<text x="890" y="188" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172d44">Validar T568B</text>
+<polyline points="1155,270 1225,270" fill="none" stroke="#23658c" stroke-width="3"/>
+<polygon points="1225,270 1214.1946347717678,275.21958640933474 1214.1946347717678,264.78041359066526" fill="#23658c"/>
+<text x="1185" y="188" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172d44">Crimpar</text>
+<polyline points="747,320 747,390 820,390 820,320" fill="none" stroke="#b13d32" stroke-width="3"/>
+<polygon points="820,320 825.2195864093347,330.8053652282321 814.7804135906653,330.8053652282321" fill="#b13d32"/>
+<text x="795" y="436" text-anchor="middle" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#b13d32">Orden incorrecto: conservar estado y corregir</text>
+<rect x="45" y="485" width="1405" height="82" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="747.5" y="533.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#172d44">Guardas: objetivo activo + extremo correcto + estado actual + condición de la acción.</text>
+<text x="50" y="630" text-anchor="start" font-family="Arial, sans-serif" font-size="25" font-weight="700" fill="#172d44">Validación del cable completo (flujo del módulo)</text>
+<rect x="50" y="665" width="420" height="100" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="260.0" y="707.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#172d44">Left y Right en Rj45Crimped</text>
+<text x="260.0" y="737.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#172d44">CanTest = true</text>
+<rect x="550" y="665" width="380" height="100" rx="7" fill="#eef5fa" stroke="#23658c" stroke-width="2"/>
+<text x="740.0" y="707.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#172d44">Ambos extremos</text>
+<text x="740.0" y="737.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#172d44">conectados al tester</text>
+<rect x="1010" y="665" width="440" height="100" rx="7" fill="#e9f5f1" stroke="#127a72" stroke-width="2"/>
+<text x="1230.0" y="707.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#172d44">Ejecutar prueba autorizada</text>
+<text x="1230.0" y="737.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#172d44">CableEvents.CableValidated</text>
+<polyline points="470,715 550,715" fill="none" stroke="#23658c" stroke-width="3"/>
+<polygon points="550,715 539.1946347717678,720.2195864093347 539.1946347717678,709.7804135906653" fill="#23658c"/>
+<polyline points="930,715 1010,715" fill="none" stroke="#23658c" stroke-width="3"/>
+<polygon points="1010,715 999.1946347717678,720.2195864093347 999.1946347717678,709.7804135906653" fill="#23658c"/>
+<text x="50" y="831" text-anchor="start" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#58687a">La prueba no agrega otro valor a CableState; confirma condiciones y completa el objetivo.</text>
+<polyline points="40,890 1460,890" fill="none" stroke="#c6d1dc" stroke-width="1"/>
+<text x="40" y="929" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#58687a">Elaboración propia · Esquema basado en el proyecto; no es una captura de Unity.</text>
+</svg>
