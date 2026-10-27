@@ -34,6 +34,7 @@ namespace Presentacion.Tutorial
 
             try
             {
+                director.LookController?.FollowMovementDirection();
                 movement.MoveTo(_targetWaypoint);
 
                 while (!completed)
@@ -42,6 +43,7 @@ namespace Presentacion.Tutorial
             finally
             {
                 movement.DestinationReached -= OnDestinationReached;
+                director.LookController?.LookAtPlayer();
             }
         }
     }

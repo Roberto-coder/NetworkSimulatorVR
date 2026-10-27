@@ -32,12 +32,14 @@ static class Program
         {
             var go=new GameObject();go.Attach(Voice);go.Attach(Dialogue);go.Attach(Director);go.Attach(Reactions);
             var movement=go.AddComponent<NPCMovementController>();
+            go.AddComponent<NPCPlayerLookController>();
             Set(Voice,"audioSource",Source);Call(Voice,"Awake");
             Set(Dialogue,"dialoguePanel",new GameObject());Set(Dialogue,"speakerName",new TMPro.TMP_Text());
             Set(Dialogue,"textAnimator",new DialogueTextAnimator());
             Set(Director,"dialogueController",Dialogue);Set(Director,"movementController",movement);Call(Director,"Awake");
             Set(Reactions,"dialogueController",Dialogue);Set(Reactions,"animator",Animator);
             Set(Reactions,"useProceduralReactions",false);
+            Set(Reactions,"messageDuration",0.1f);
             Reactions.Configure(Flow,Director);Director.SetFlowController(Flow);
         }
         public void Start(bool withNext,Action next=null)
@@ -52,6 +54,24 @@ static class Program
     static void Main()
     {
         var f=New();
+        var input = new Systems.Input.VRInputManager();
+        Systems.Input.VRInputManager.Instance = input;
+        f.Start(false); Clock.Tick(3); f.Flow.Complete(); Clock.Tick(3);
+        Check(input.Pulses.Count == 2 && input.Pulses[0] == input.leftController && input.Pulses[1] == input.rightController,
+            "Completar un objetivo envía un pulso a cada mando");
+        var text = (DialogueTextAnimator)f.Dialogue.GetType().GetField("textAnimator", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(f.Dialogue);
+        Check(text.LastMessage.Contains("Bien hecho") && f.Animator.State == "Feliz",
+            "La felicitación aparece junto con la reacción feliz");
+        Systems.Input.VRInputManager.Instance = null;
+        f = New();
+        var move = Clock.Start(f.Director, new MoveNpcStep(new Waypoints.Waypoint()).Execute(f.Director));
+        Check(f.Director.LookController.Moving && !move.Done, "El recorrido mira hacia el movimiento");
+        f.Director.MovementController.Arrive(); Clock.Tick();
+        Check(!f.Director.LookController.Moving && move.Done, "Al llegar vuelve a mirar al jugador");
+        move = Clock.Start(f.Director, new MoveNpcStep(new Waypoints.Waypoint()).Execute(f.Director));
+        Clock.Stop(move);
+        Check(!f.Director.LookController.Moving, "Cancelar el recorrido restaura la mirada al jugador");
+        f = New();
         var settings = new Systems.Settings.GlobalSettingsManager();
         Systems.Settings.GlobalSettingsManager.Instance = settings;
         f.Voice.PlayClip(new AudioClip());

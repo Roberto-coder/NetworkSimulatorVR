@@ -177,7 +177,14 @@ namespace UnityEngine
 namespace TMPro { public class TMP_Text { public string text; } }
 namespace Systems.Input
 {
-    public class VRInputManager { public static VRInputManager Instance; public event Action ConfirmPressedEvent; }
+    public class VRInputManager
+    {
+        public static VRInputManager Instance;
+        public event Action ConfirmPressedEvent;
+        public int leftController = 1, rightController = 2;
+        public readonly List<int> Pulses = new();
+        public void PlayHaptic(int controller, float amplitude, float duration) => Pulses.Add(controller);
+    }
 }
 namespace Presentation.Tutorial
 {
@@ -186,7 +193,8 @@ namespace Presentation.Tutorial
         public bool IsPlaying {get;private set;}
         public void Clear()=>IsPlaying=false;
         public void Skip()=>IsPlaying=false;
-        public IEnumerator Play(string text){IsPlaying=true;yield return null;yield return null;IsPlaying=false;}
+        public string LastMessage;
+        public IEnumerator Play(string text){LastMessage=text;IsPlaying=true;yield return null;yield return null;IsPlaying=false;}
     }
 }
 namespace GameData.Objectives
@@ -225,9 +233,21 @@ namespace Modules.Module01_CableMaking.Flow
 }
 namespace Presentacion.NPC
 {
-    public class NPCMovementController:MonoBehaviour { public void Stop(){} }
-    public class NPCPlayerLookController:MonoBehaviour{}
+    public class NPCMovementController:MonoBehaviour
+    {
+        public event Action DestinationReached;
+        public void Stop(){}
+        public void MoveTo(Waypoints.Waypoint point){}
+        public void Arrive()=>DestinationReached?.Invoke();
+    }
+    public class NPCPlayerLookController:MonoBehaviour
+    {
+        public bool Moving;
+        public void FollowMovementDirection()=>Moving=true;
+        public void LookAtPlayer()=>Moving=false;
+    }
 }
+namespace Waypoints { public class Waypoint:UnityEngine.Object {} }
 
 namespace Systems.Settings
 {

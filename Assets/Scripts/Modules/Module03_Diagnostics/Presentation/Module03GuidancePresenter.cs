@@ -3,6 +3,7 @@ using Modules.Module03_Diagnostics.Domain;
 using Modules.Module03_Diagnostics.Flow;
 using Modules.Module03_Diagnostics.Presentation.Tutorial;
 using Presentacion.Tutorial;
+using Presentacion.NPC;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,6 +30,7 @@ namespace Modules.Module03_Diagnostics.Presentation
         internal void SetTutorialStatus(string value) => tutorialStatus = value;
         private bool ready, wasEnabled, sequenceComplete, paused;
         private AudioSource[] voices;
+        private NPCReactionController reactions;
         private IEnumerator Start()
         {
             while (flow != null && flow.isActiveAndEnabled && flow.FlowController == null) yield return null;
@@ -53,6 +55,10 @@ namespace Modules.Module03_Diagnostics.Presentation
                 tutorialEnabled = wasEnabled = false; return;
             }
             director.SetFlowController(flow.FlowController);
+            reactions = director.MovementController.GetComponentInChildren<NPCReactionController>(true);
+            if (reactions == null)
+                reactions = director.MovementController.gameObject.AddComponent<NPCReactionController>();
+            reactions.Configure(flow.FlowController, director, flow.settings.Find, enableReminders: false);
             director.SetSequence(new Module03TutorialBuilder().Build(this));
             director.StartTutorial();
         }
@@ -64,6 +70,7 @@ namespace Modules.Module03_Diagnostics.Presentation
         internal void Unlock(DiagnosticStage stage) => UnlockedStage = Mathf.Max(UnlockedStage, (int)stage);
         internal IEnumerator Say(string id, System.Func<bool> completed = null)
         {
+            yield return director.WaitForReactions();
             var line = flow.settings.Find(id);
             if (line == null) { Debug.LogError("Falta diálogo " + id + " en Module03Tutorial.asset", this); yield break; }
             yield return director.DialogueController.ShowDialogueUntilConfirmed(line.text, line.speaker,
@@ -77,7 +84,8 @@ namespace Modules.Module03_Diagnostics.Presentation
                 if (Time.timeScale > 0 && Time.time >= next)
                 {
                     var line = flow.settings.Find(reminder);
-                    if (line != null) yield return director.DialogueController.ShowTransientDialogue(line.text,
+                    yield return director.WaitForReactions();
+                    if (!condition() && line != null) yield return director.DialogueController.ShowTransientDialogue(line.text,
                         Mathf.Max(5, line.text.Length / 15f), line.speaker, line.audio?.Resolve(), line.legacyVoiceId);
                     next = Time.time + reminderInterval;
                 }
@@ -94,7 +102,12 @@ namespace Modules.Module03_Diagnostics.Presentation
             foreach (var voice in voices) { if (pause) voice.Pause(); else voice.UnPause(); }
         }
         private void OnEnable() { if (ready) RestartSequence(); }
-        private void OnDisable() { StopAllCoroutines(); if (director != null) director.StopTutorial(); }
+        private void OnDisable()
+        {
+            StopAllCoroutines();
+            if (director != null) director.StopTutorial();
+            if (reactions != null) reactions.Configure(null, null);
+        }
         private void OnDestroy()
         {
             if (flow != null) flow.Restarted -= RestartSequence;

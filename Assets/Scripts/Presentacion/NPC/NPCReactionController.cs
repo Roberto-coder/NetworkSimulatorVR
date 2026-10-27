@@ -6,6 +6,7 @@ using Modules.Module01_CableMaking.Flow;
 using Modules.Module01_CableMaking.Flow.Validation;
 using Presentacion.Tutorial;
 using UnityEngine;
+using Systems.Input;
 
 namespace Presentacion.NPC
 {
@@ -31,6 +32,9 @@ namespace Presentacion.NPC
         [SerializeField] private string completedAnimationTrigger = "Feliz";
         [SerializeField] private AudioClip completedClip;
         [SerializeField] private string completedAnimationState = "Feliz";
+        [SerializeField] private string completedMessage = "¡Bien hecho! Has completado el objetivo.";
+        [SerializeField, Range(0f, 1f)] private float completedHapticAmplitude = 0.7f;
+        [SerializeField, Min(0f)] private float completedHapticDuration = 0.15f;
 
         [Header("Alert")]
         [SerializeField] private string alertAnimationTrigger = "Triste";
@@ -58,11 +62,12 @@ namespace Presentacion.NPC
         private bool ownsDialogue;
         private bool animationFinished = true;
         private int voiceVersion = -1;
+        private bool remindersEnabled = true;
 
         public bool IsBusy => running || pendingCompletions > 0 || !string.IsNullOrWhiteSpace(pendingAlert);
 
         public void Configure(IObjectiveFlow moduleFlow, TutorialDirector director,
-            System.Func<string, NPCDialogueLine> findDialogue = null)
+            System.Func<string, NPCDialogueLine> findDialogue = null, bool enableReminders = true)
         {
             if (proceduralMotion == null) proceduralMotion = GetComponentInChildren<NPCProceduralIdle>(true);
             CancelReactions();
@@ -70,6 +75,7 @@ namespace Presentacion.NPC
             if (tutorialDirector != null) tutorialDirector.ConfigureReactions(null);
             tutorialDirector = director;
             this.findDialogue = findDialogue;
+            remindersEnabled = enableReminders;
             flow = moduleFlow;
             currentObjective = flow?.CurrentObjectiveData;
             inactiveTime = 0f;
@@ -92,7 +98,7 @@ namespace Presentacion.NPC
         {
             if (tutorialDirector == null || !tutorialDirector.IsRunning || dialogueController == null) return;
             TryStartPending();
-            if (IsBusy || currentObjective == null || dialogueController.IsDialogueActive) return;
+            if (!remindersEnabled || IsBusy || currentObjective == null || dialogueController.IsDialogueActive) return;
             inactiveTime += Time.deltaTime;
             if (currentObjective.ReminderInterval <= 0f || inactiveTime < currentObjective.ReminderInterval) return;
             inactiveTime = 0f;
@@ -130,7 +136,10 @@ namespace Presentacion.NPC
             {
                 pendingCompletions--;
                 running = true;
-                StartCoroutine(PlayReaction(completedAnimationTrigger, completedAnimationState, completedClip));
+                var line = findDialogue?.Invoke("objective_completed");
+                StartCoroutine(PlayReaction(completedAnimationTrigger, completedAnimationState,
+                    line?.audio?.Resolve() ?? completedClip, line?.text ?? completedMessage,
+                    line?.speaker, line?.legacyVoiceId));
             }
             else if (!string.IsNullOrWhiteSpace(pendingAlert))
             {
@@ -159,6 +168,12 @@ namespace Presentacion.NPC
         private void HandleObjectiveCompleted(ObjectiveData objective)
         {
             if (!isActiveAndEnabled || tutorialDirector == null || !tutorialDirector.IsRunning) return;
+            var input = VRInputManager.Instance;
+            if (input != null)
+            {
+                input.PlayHaptic(input.leftController, completedHapticAmplitude, completedHapticDuration);
+                input.PlayHaptic(input.rightController, completedHapticAmplitude, completedHapticDuration);
+            }
             if (reminderPlaying) CancelReactions();
             pendingCompletions++;
             pendingAlert = null;
